@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- High Intent SEO Title updated for Summerville -->
+    <title>Star Cleaning Charleston & Summerville | #1 Rated House Cleaning Service</title>
+    <!-- High Intent Meta Description updated -->
+    <meta name="description" content="Top-rated house cleaning in Charleston, Summerville, and surrounding areas. Voted #1 for Maid Service & Deep Cleaning. Licensed & Insured. Get your Free Quote!">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                        handwriting: ['Dancing Script', 'cursive'],
+                    },
+                    colors: {
+                        'star-blue': '#004aad',
+                        'star-dark': '#002855',
+                        'nextdoor': '#8ED500',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse-slow 3s infinite ease-in-out',
+                        'scroll': 'scroll 40s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'pulse-slow': {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.05)' },
+                        },
+                        scroll: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* CRITICAL FIX: Prevent double scrollbars */
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        #root {
+            width: 100%;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Award Seal Style */
+        .award-seal {
+            background: linear-gradient(135deg, #FFD700 0%, #FDB931 100%);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .btn-cta::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.5s;
+        }
+        .btn-cta:hover::after { left: 100%; }
+        
+        /* BA Slider styles */
+        .ba-image-container { background-size: cover; background-position: center; }
+        .ba-before { filter: sepia(0.3) brightness(0.9); }
+        .ba-after { filter: brightness(1.15) saturate(1.2); border-right: 4px solid #fff; }
+        
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+    </style>
+    
+    <!-- Schema Markup updated for broader area -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HomeAndConstructionBusiness",
+      "name": "Star Cleaning",
+      "image": "https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png",
+      "telephone": "8432979935",
+      "url": "https://starcleaningsc.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Serving Charleston & Summerville Areas",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29401",
+        "addressCountry": "US"
+      },
+      "areaServed": ["Charleston", "Summerville", "Mount Pleasant", "West Ashley", "James Island", "North Charleston", "Goose Creek"],
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 32.7765,
+        "longitude": -79.9311
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "08:00",
+        "closes": "18:00"
+      },
+      "priceRange": "$$",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "reviewCount": "524"
+      }
+    }
+    </script>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4"
+  }
+}
+</script>
+</head>
+<body class="selection:bg-yellow-200 selection:text-blue-900">
+    <div id="root"></div>
+</body>
+</html>
