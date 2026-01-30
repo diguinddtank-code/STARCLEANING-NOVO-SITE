@@ -13,6 +13,7 @@ import ScrollReveal from './components/ScrollReveal';
 import FloatingAssistant from './components/FloatingAssistant';
 import ExitIntentPopup from './components/ExitIntentPopup';
 import ServiceAreas from './components/ServiceAreas';
+import MobileAppNav from './components/MobileAppNav';
 
 function App() {
   return (
@@ -32,7 +33,7 @@ function App() {
 
       <Navbar />
       
-      <main className="w-full">
+      <main className="w-full pb-20 lg:pb-0">
         <Hero />
         
         {/* Removed ScrollReveal wrapper so badges load immediately */}
@@ -65,6 +66,7 @@ function App() {
         </ScrollReveal>
       </main>
       
+      <MobileAppNav />
       <FloatingAssistant />
       <ExitIntentPopup />
       <Footer />

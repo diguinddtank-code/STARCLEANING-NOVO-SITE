@@ -128,23 +128,21 @@ const Hero: React.FC = () => {
                 </span>
               </div>
 
-              {/* Mobile Buttons Wrapper - INTEGRATED DISCOUNT */}
+              {/* Mobile Buttons Wrapper - INTEGRATED DISCOUNT - UPDATED CENTERED */}
               <div className="flex flex-col w-full sm:hidden gap-2">
-                  <div className="flex w-full gap-3 h-14">
+                  <div className="flex w-full gap-3">
                       {/* Integrated Discount Button */}
-                      <a href="#quote" className="flex-1 bg-star-blue hover:bg-star-dark text-white rounded-xl shadow-md text-center flex flex-col items-center justify-center border-b-4 border-blue-900 active:border-b-0 active:translate-y-1 transition-all relative overflow-hidden group">
-                        <div className="flex items-center gap-1.5 z-10">
-                            <span className="font-bold text-sm leading-none">Free Estimate</span>
-                        </div>
-                        <div className="z-10 mt-0.5">
-                            <span className="text-[10px] font-black text-yellow-300 animate-pulse leading-none">
-                                Save 20%
+                      <a href="#quote" className="flex-1 bg-star-blue hover:bg-star-dark text-white rounded-xl shadow-md text-center flex flex-col items-center justify-center border-b-4 border-blue-900 active:border-b-0 active:translate-y-1 transition-all py-3 relative overflow-hidden group">
+                        <span className="font-bold text-sm leading-tight uppercase tracking-wide">Free Estimate</span>
+                        <div className="mt-1 bg-white/10 px-2 py-0.5 rounded-md backdrop-blur-sm border border-white/10">
+                             <span className="text-[10px] font-black text-yellow-300 leading-none block animate-pulse">
+                                SAVE 20%
                             </span>
                         </div>
                       </a>
                       
-                      <a href="tel:8432979935" className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-blue-900 rounded-xl font-bold text-sm shadow-md text-center flex items-center justify-center gap-2 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 transition-all">
-                        <i className="fas fa-phone-alt"></i>
+                      <a href="tel:8432979935" className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-blue-900 rounded-xl font-bold text-sm shadow-md text-center flex items-center justify-center gap-2 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 transition-all py-3">
+                        <i className="fas fa-phone-alt text-lg"></i>
                         <span>Call Now</span>
                       </a>
                   </div>
