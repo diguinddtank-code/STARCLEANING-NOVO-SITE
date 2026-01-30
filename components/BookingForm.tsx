@@ -4,83 +4,113 @@ const BookingForm: React.FC = () => {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [estimatedPrice, setEstimatedPrice] = useState(0);
   
-  // State for city lookup
+  // Pricing State
+  const [basePrice, setBasePrice] = useState(0);
+  const [finalPrice, setFinalPrice] = useState(0);
+  const [savings, setSavings] = useState(0);
+  
+  // Calendar State
+  const [availableDates, setAvailableDates] = useState<Date[]>([]);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+
+  // City Lookup
   const [city, setCity] = useState<string | null>(null);
   
   const [formData, setFormData] = useState({
-    // Step 1
     fullName: '',
     email: '',
     phone: '',
     zipCode: '',
-    // Step 2
-    bedrooms: 1,
-    bathrooms: 1,
+    bedrooms: 2,
+    bathrooms: 2,
     hasDog: false,
     hasCat: false,
-    // Step 3
-    serviceType: 'Standard House Cleaning',
-    frequency: 'Bi-Weekly (Most Popular)'
+    serviceType: 'Standard Clean',
+    frequency: 'Bi-Weekly'
   });
 
-  // --- PRICING ENGINE ---
+  // --- 1. CALENDAR LOGIC (Tuesdays & Thursdays only) ---
   useEffect(() => {
-    let price = 100; // Base Price
-
-    // Room Add-ons
-    price += (formData.bedrooms * 20);
-    price += (formData.bathrooms * 15);
-
-    // Service Multipliers
-    if (formData.serviceType.includes("Deep")) price *= 1.3; // +30%
-    if (formData.serviceType.includes("Move")) price *= 1.5; // +50%
-    if (formData.serviceType.includes("Vacation")) price *= 1.2; // +20%
-
-    // Frequency Discounts
-    if (formData.frequency.includes("Weekly")) price *= 0.80; // -20%
-    if (formData.frequency.includes("Bi-Weekly")) price *= 0.85; // -15%
-    if (formData.frequency.includes("Monthly")) price *= 0.90; // -10%
+    const dates: Date[] = [];
+    const today = new Date();
+    let current = new Date(today);
     
-    // Round to nearest 5 for cleaner look
-    setEstimatedPrice(Math.ceil(price / 5) * 5);
+    // Generate next 6 available slots
+    while (dates.length < 6) {
+        current.setDate(current.getDate() + 1);
+        const day = current.getDay();
+        // 2 = Tuesday, 4 = Thursday
+        if (day === 2 || day === 4) {
+            dates.push(new Date(current));
+        }
+    }
+    setAvailableDates(dates);
+  }, []);
+
+  // --- 2. PRICING ENGINE ---
+  useEffect(() => {
+    let price = 110; // Base Starting Price
+
+    // Room Multipliers
+    price += ((formData.bedrooms - 1) * 25);
+    price += ((formData.bathrooms - 1) * 20);
+
+    // Service Type Multipliers
+    let multiplier = 1;
+    if (formData.serviceType === "Deep Clean") multiplier = 1.4; // +40%
+    if (formData.serviceType === "Move-In/Out") multiplier = 1.6; // +60%
+    
+    // Frequency Discounts
+    let discount = 0;
+    if (formData.frequency === "Weekly") discount = 0.20; // 20% off
+    if (formData.frequency === "Bi-Weekly") discount = 0.15; // 15% off
+    if (formData.frequency === "Monthly") discount = 0.10; // 10% off
+
+    // Calculations
+    const grossPrice = price * multiplier;
+    const discountAmount = grossPrice * discount;
+    const netPrice = grossPrice - discountAmount;
+
+    setBasePrice(Math.ceil(grossPrice));
+    setFinalPrice(Math.ceil(netPrice));
+    setSavings(Math.ceil(discountAmount));
+
   }, [formData.bedrooms, formData.bathrooms, formData.serviceType, formData.frequency]);
 
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     
-    // Custom logic for Zip Code
     if (name === 'zipCode') {
         const cleanZip = value.replace(/\D/g, '').slice(0, 5);
         setFormData(prev => ({ ...prev, [name]: cleanZip }));
-
-        // Check availability when 5 digits reached
         if (cleanZip.length === 5) {
             try {
                 const response = await fetch(`https://api.zippopotam.us/us/${cleanZip}`);
                 if (response.ok) {
                     const data = await response.json();
                     setCity(data.places[0]['place name']);
-                } else {
-                    setCity(null);
-                }
-            } catch (error) {
-                setCity(null);
-            }
-        } else {
-            setCity(null);
-        }
+                } else { setCity(null); }
+            } catch (error) { setCity(null); }
+        } else { setCity(null); }
     } else {
         setFormData(prev => ({ ...prev, [name]: value }));
     }
   };
 
+  const handleServiceSelect = (serviceName: string) => {
+    setFormData(prev => ({ ...prev, serviceType: serviceName }));
+  };
+
+  const handleFrequencySelect = (freqName: string) => {
+    setFormData(prev => ({ ...prev, frequency: freqName }));
+  };
+
   const updateCounter = (field: 'bedrooms' | 'bathrooms', delta: number) => {
     setFormData(prev => ({
         ...prev,
-        [field]: Math.max(1, prev[field] + delta) // Minimum 1
+        [field]: Math.max(1, prev[field] + delta)
     }));
   };
 
@@ -88,322 +118,252 @@ const BookingForm: React.FC = () => {
       setFormData(prev => ({ ...prev, [pet]: !prev[pet] }));
   };
 
-  const nextStep = () => {
-      // Basic Validation Step 1
-      if (step === 1) {
-          if (!formData.fullName || !formData.email || !formData.phone || !formData.zipCode) {
-              alert("Please fill in all fields.");
-              return;
-          }
-      }
-      setStep(prev => prev + 1);
-  };
-
+  const nextStep = () => setStep(prev => prev + 1);
   const prevStep = () => setStep(prev => prev - 1);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    e.stopPropagation();
+    if (!formData.fullName || !formData.phone || !selectedDate) {
+        alert("Please fill in your contact info and select a date.");
+        return;
+    }
 
     setIsSubmitting(true);
 
     const payload = {
         ...formData,
-        estimatedPrice: `$${estimatedPrice}`,
+        selectedDate: selectedDate,
+        estimatedPrice: `$${finalPrice}`,
+        savings: `$${savings}`,
         cityDetected: city || "Not Detected",
-        formSource: "Multi-Step Booking Form",
         submittedAt: new Date().toISOString()
     };
 
     try {
         await fetch("https://webhook.infra-remakingautomacoes.cloud/webhook/scsite", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         });
-        
         setShowPopup(true);
-        // Reset form but keep user on success screen
     } catch (error) {
-        console.error("Submission error:", error);
-        alert("There was an error sending your request. Please call us directly at (843) 297-9935.");
+        alert("Connection error. Please call us at (843) 297-9935.");
     } finally {
         setIsSubmitting(false);
     }
   };
 
   return (
-    <section id="quote" className="py-8 lg:py-20 bg-blue-50 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] bg-yellow-200 rounded-full blur-[100px] opacity-30"></div>
-        <div className="absolute bottom-[0%] left-[0%] w-[30%] h-[30%] bg-blue-200 rounded-full blur-[80px] opacity-30"></div>
-      </div>
+    <section id="quote" className="py-12 lg:py-24 bg-gray-50 relative overflow-hidden">
+      
+      {/* Background Blobs */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-100/50 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-yellow-100/50 rounded-full blur-[100px] pointer-events-none"></div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row border border-gray-100 min-h-[500px]">
-          
-          {/* Left Side: DRASTICALLY COMPACTED */}
-          <div className="lg:w-4/12 bg-gradient-to-br from-star-dark to-star-blue p-5 lg:p-8 text-white relative flex flex-col lg:justify-between shrink-0 transition-all duration-500">
-            {/* Overlay Pattern */}
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+        <div className="max-w-4xl mx-auto">
             
-            <div className="relative z-10 text-center lg:text-left flex flex-col items-center lg:items-start">
-              <div className="inline-block bg-yellow-400 text-blue-900 text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded mb-2 shadow-sm">
-                ONLINE SPECIAL
-              </div>
-              <h2 className="text-xl lg:text-3xl font-black mb-1 lg:mb-3 font-heading leading-tight">
-                Get Price
-              </h2>
-              <p className="text-blue-100 text-xs lg:text-sm leading-tight max-w-xs lg:max-w-none mb-4">
-                3 simple steps to a sparkling home.
-              </p>
-
-              {/* Step Indicators */}
-              <div className="flex lg:flex-col gap-2 mt-2 w-full justify-center lg:justify-start">
-                  <StepIndicator current={step} num={1} label="Contact" />
-                  <StepIndicator current={step} num={2} label="Details" />
-                  <StepIndicator current={step} num={3} label="Pricing" />
-              </div>
-            </div>
-
-             {/* Reviewer */}
-             <div className="mt-8 pt-4 border-t border-white/10 relative z-10 hidden lg:block">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center text-blue-900 font-bold text-xs">
-                    <i className="fas fa-star"></i>
-                </div>
-                <div>
-                  <p className="text-[10px] text-blue-100">"Best quote experience ever."</p>
-                  <p className="text-[9px] font-bold text-white">- Jennifer, Summerville</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Side: The Multi-Step Form */}
-          <div className="lg:w-8/12 p-5 lg:p-8 bg-white flex flex-col relative">
-            
-            {/* Compact Header */}
-            <div className="mb-6 flex items-center justify-between border-b border-gray-100 pb-2">
-                 <h3 className="text-lg font-black text-gray-900 font-heading flex items-center gap-2">
-                    <span className="w-1 h-4 bg-star-blue rounded-full"></span>
-                    {step === 1 && "Contact Info"}
-                    {step === 2 && "Home Details"}
-                    {step === 3 && "Your Estimate"}
-                </h3>
-                <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider flex items-center gap-1">
-                    Step {step} of 3
+            {/* Header */}
+            <div className="text-center mb-10">
+                <span className="bg-yellow-400 text-blue-900 font-black text-[10px] uppercase tracking-widest px-3 py-1 rounded-full shadow-sm mb-3 inline-block animate-pulse-slow">
+                    Fast & Easy Quote
                 </span>
+                <h2 className="text-3xl lg:text-5xl font-black text-gray-900 font-heading leading-tight mb-2">
+                    Customize Your Clean
+                </h2>
+                <p className="text-gray-500 font-medium">Build your perfect plan in 60 seconds.</p>
             </div>
 
-            <form className="flex-grow flex flex-col justify-between h-full">
-              
-              {/* STEP 1: CONTACT */}
-              {step === 1 && (
-                  <div className="grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-right-4 duration-300">
-                    <div className="col-span-2 md:col-span-1">
-                        <InputGroup label="Full Name" name="fullName" placeholder="Jane Doe" value={formData.fullName} onChange={handleChange} />
-                    </div>
-                    <div className="col-span-2 md:col-span-1">
-                        <InputGroup label="Email" name="email" type="email" placeholder="jane@example.com" value={formData.email} onChange={handleChange} />
-                    </div>
-                    <div className="col-span-1">
-                        <InputGroup label="Phone" name="phone" type="tel" placeholder="(843) ..." value={formData.phone} onChange={handleChange} />
-                    </div>
-                    <div className="col-span-1">
-                         <div className="flex flex-col group w-full">
-                            <label className="text-xs font-bold text-gray-500 uppercase mb-1 ml-1">Zip Code</label>
-                            <input 
-                                type="text"
-                                name="zipCode"
-                                value={formData.zipCode}
-                                onChange={handleChange}
-                                maxLength={5}
-                                placeholder="29401"
-                                className="w-full px-3 py-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white font-semibold"
-                            />
-                        </div>
-                    </div>
-                    {city && (
-                        <div className="col-span-2 bg-green-50 border border-green-100 rounded-xl p-2 flex items-center gap-2">
-                            <i className="fas fa-check-circle text-green-500 ml-1"></i>
-                            <p className="text-green-800 text-xs font-bold">Great! We serve <span className="underline">{city}</span>.</p>
-                        </div>
-                    )}
-                  </div>
-              )}
-
-              {/* STEP 2: DETAILS */}
-              {step === 2 && (
-                   <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
-                        {/* Counters */}
-                        <div className="grid grid-cols-2 gap-6">
-                            <Counter 
-                                label="Bedrooms" 
-                                value={formData.bedrooms} 
-                                onMinus={() => updateCounter('bedrooms', -1)} 
-                                onPlus={() => updateCounter('bedrooms', 1)} 
-                            />
-                            <Counter 
-                                label="Bathrooms" 
-                                value={formData.bathrooms} 
-                                onMinus={() => updateCounter('bathrooms', -1)} 
-                                onPlus={() => updateCounter('bathrooms', 1)} 
-                            />
-                        </div>
-
-                        {/* Pets */}
-                        <div>
-                            <label className="text-xs font-bold text-gray-500 uppercase mb-3 block ml-1">Pets in Home?</label>
-                            <div className="flex gap-4">
-                                <PetToggle 
-                                    label="Dog(s)" 
-                                    icon="fa-dog" 
-                                    active={formData.hasDog} 
-                                    onClick={() => togglePet('hasDog')} 
-                                />
-                                <PetToggle 
-                                    label="Cat(s)" 
-                                    icon="fa-cat" 
-                                    active={formData.hasCat} 
-                                    onClick={() => togglePet('hasCat')} 
-                                />
-                            </div>
-                        </div>
-                   </div>
-              )}
-
-              {/* STEP 3: PRICING */}
-              {step === 3 && (
-                  <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
-                       {/* Service Type */}
-                       <div className="flex flex-col group">
-                            <label className="text-xs font-bold text-gray-500 uppercase mb-1 ml-1">Service Type</label>
-                            <div className="relative">
-                                <select 
-                                name="serviceType"
-                                value={formData.serviceType}
-                                onChange={handleChange}
-                                className="w-full px-3 py-3 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white font-semibold appearance-none"
-                                >
-                                <option>Standard House Cleaning</option>
-                                <option>Deep Cleaning (Recommended First Time)</option>
-                                <option>Move In / Move Out</option>
-                                <option>Vacation Rental</option>
-                                </select>
-                                <i className="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs"></i>
-                            </div>
-                        </div>
-
-                        {/* Frequency */}
-                        <div className="flex flex-col group">
-                            <label className="text-xs font-bold text-gray-500 uppercase mb-1 ml-1">Frequency</label>
-                            <div className="relative">
-                                <select 
-                                name="frequency"
-                                value={formData.frequency}
-                                onChange={handleChange}
-                                className="w-full px-3 py-3 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white font-semibold appearance-none"
-                                >
-                                <option>Bi-Weekly (Save 15%)</option>
-                                <option>Weekly (Save 20%)</option>
-                                <option>Monthly (Save 10%)</option>
-                                <option>One-Time Clean</option>
-                                </select>
-                                <i className="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs"></i>
-                            </div>
-                        </div>
-
-                        {/* PRICE DISPLAY */}
-                        <div className="mt-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200 text-center relative overflow-hidden">
-                             <div className="relative z-10">
-                                <p className="text-blue-900 text-xs font-bold uppercase tracking-wider mb-1">Estimated Price</p>
-                                <p className="text-4xl font-black text-star-blue font-heading">${estimatedPrice}</p>
-                                <p className="text-xs text-blue-600 font-medium">per clean</p>
-                             </div>
-                             {/* Decorative Shine */}
-                             <div className="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent animate-shimmer"></div>
-                        </div>
-                  </div>
-              )}
-
-              {/* Navigation Buttons */}
-              <div className="mt-8 flex gap-3 pt-4 border-t border-gray-50">
-                {step > 1 && (
-                    <button 
-                        type="button"
-                        onClick={prevStep}
-                        className="w-1/3 py-3 rounded-xl font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 transition-colors text-sm"
-                    >
-                        Back
-                    </button>
-                )}
+            <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 flex flex-col md:flex-row min-h-[600px]">
                 
-                {step < 3 ? (
-                     <button 
-                        type="button"
-                        onClick={nextStep}
-                        className="w-full py-3 rounded-xl font-black text-white bg-star-blue hover:bg-star-dark shadow-md transition-all flex items-center justify-center gap-2 text-lg active:scale-95"
-                    >
-                        <span>Next Step</span>
-                        <i className="fas fa-arrow-right text-sm"></i>
-                    </button>
-                ) : (
-                    <button 
-                        type="button" 
-                        disabled={isSubmitting}
-                        onClick={handleSubmit}
-                        className="w-full py-3 rounded-xl font-black text-blue-900 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 shadow-lg transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2 text-lg relative overflow-hidden active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
-                    >
-                        {isSubmitting ? (
-                            <i className="fas fa-spinner fa-spin"></i>
+                {/* LEFT SIDE: Steps & Summary */}
+                <div className="md:w-1/3 bg-gray-50 border-r border-gray-100 p-6 lg:p-8 flex flex-col justify-between">
+                    <div>
+                        {/* Progress */}
+                        <div className="space-y-6 mb-8">
+                            <StepItem num={1} label="Home Details" active={step === 1} done={step > 1} />
+                            <StepItem num={2} label="Service & Plan" active={step === 2} done={step > 2} />
+                            <StepItem num={3} label="Schedule" active={step === 3} done={step > 3} />
+                        </div>
+                    </div>
+
+                    {/* Live Pricing Widget */}
+                    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-200 relative overflow-hidden">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-star-blue"></div>
+                        <p className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-1">Estimated Total</p>
+                        
+                        <div className="flex items-end gap-2 mb-1">
+                            <span className="text-3xl font-black text-gray-900 tracking-tight">${finalPrice}</span>
+                            {savings > 0 && (
+                                <span className="text-sm text-gray-400 font-bold line-through mb-1.5">${basePrice}</span>
+                            )}
+                        </div>
+
+                        {savings > 0 ? (
+                            <div className="inline-flex items-center gap-1.5 bg-green-100 text-green-700 px-2.5 py-1 rounded-lg text-xs font-bold">
+                                <i className="fas fa-tag text-[10px]"></i>
+                                You save ${savings}
+                            </div>
                         ) : (
-                            <>
-                                <span>Book Now</span>
-                                <i className="fas fa-check-circle"></i>
-                            </>
+                            <p className="text-xs text-gray-400">Select a frequency to save.</p>
                         )}
-                    </button>
-                )}
-              </div>
-            </form>
-          </div>
+                    </div>
+                </div>
+
+                {/* RIGHT SIDE: Dynamic Form Content */}
+                <div className="md:w-2/3 p-6 lg:p-10 relative">
+                    <form className="h-full flex flex-col">
+                        
+                        {/* STEP 1: HOME DETAILS */}
+                        {step === 1 && (
+                            <div className="flex-grow space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
+                                <div className="text-center md:text-left">
+                                    <h3 className="text-2xl font-black text-gray-900 mb-2">Tell us about your home</h3>
+                                    <p className="text-sm text-gray-500">We optimize our team size based on your home size.</p>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-6">
+                                    <Counter label="Bedrooms" value={formData.bedrooms} onMinus={() => updateCounter('bedrooms', -1)} onPlus={() => updateCounter('bedrooms', 1)} />
+                                    <Counter label="Bathrooms" value={formData.bathrooms} onMinus={() => updateCounter('bathrooms', -1)} onPlus={() => updateCounter('bathrooms', 1)} />
+                                </div>
+
+                                <div>
+                                    <label className="text-xs font-bold text-gray-400 uppercase mb-3 block">Do you have pets?</label>
+                                    <div className="flex gap-4">
+                                        <PetToggle label="Dogs" icon="fa-dog" active={formData.hasDog} onClick={() => togglePet('hasDog')} />
+                                        <PetToggle label="Cats" icon="fa-cat" active={formData.hasCat} onClick={() => togglePet('hasCat')} />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* STEP 2: SERVICE & FREQUENCY (Card Style) */}
+                        {step === 2 && (
+                            <div className="flex-grow space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+                                <div>
+                                    <h3 className="text-xl font-black text-gray-900 mb-4">Select Service</h3>
+                                    <div className="space-y-3">
+                                        <ServiceCard 
+                                            title="Standard Clean" 
+                                            subtitle="Maintenance." 
+                                            icon="fa-sparkles" 
+                                            selected={formData.serviceType === "Standard Clean"}
+                                            onClick={() => handleServiceSelect("Standard Clean")}
+                                        />
+                                        <ServiceCard 
+                                            title="Deep Clean" 
+                                            subtitle="Thorough scrub. Recommended for first time." 
+                                            icon="fa-gem" 
+                                            badge="High Demand"
+                                            selected={formData.serviceType === "Deep Clean"}
+                                            onClick={() => handleServiceSelect("Deep Clean")}
+                                        />
+                                        <ServiceCard 
+                                            title="Move-In/Out" 
+                                            subtitle="Empty home. Inside cabinets & appliances." 
+                                            icon="fa-box-open" 
+                                            selected={formData.serviceType === "Move-In/Out"}
+                                            onClick={() => handleServiceSelect("Move-In/Out")}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-xl font-black text-gray-900 mb-4">Frequency</h3>
+                                    <div className="grid grid-cols-3 gap-2">
+                                        <FrequencyCard label="Weekly" discount="20%" selected={formData.frequency === "Weekly"} onClick={() => handleFrequencySelect("Weekly")} />
+                                        <FrequencyCard label="Bi-Weekly" discount="15%" selected={formData.frequency === "Bi-Weekly"} onClick={() => handleFrequencySelect("Bi-Weekly")} badge="Popular" />
+                                        <FrequencyCard label="Monthly" discount="10%" selected={formData.frequency === "Monthly"} onClick={() => handleFrequencySelect("Monthly")} />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* STEP 3: CALENDAR & CONTACT */}
+                        {step === 3 && (
+                            <div className="flex-grow space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+                                
+                                {/* Calendar Section */}
+                                <div>
+                                    <h3 className="text-xl font-black text-gray-900 mb-1">Select a Date</h3>
+                                    <p className="text-xs text-gray-500 mb-4 font-medium"><i className="fas fa-info-circle text-star-blue mr-1"></i> Available Tuesdays & Thursdays</p>
+                                    
+                                    <div className="grid grid-cols-3 gap-2">
+                                        {availableDates.map((date, idx) => {
+                                            const dateStr = date.toDateString();
+                                            const isSelected = selectedDate === dateStr;
+                                            return (
+                                                <button
+                                                    key={idx}
+                                                    type="button"
+                                                    onClick={() => setSelectedDate(dateStr)}
+                                                    className={`p-3 rounded-xl border text-center transition-all ${
+                                                        isSelected 
+                                                        ? 'bg-star-blue text-white border-star-blue shadow-md scale-[1.02]' 
+                                                        : 'bg-white border-gray-200 text-gray-600 hover:border-star-blue hover:text-star-blue'
+                                                    }`}
+                                                >
+                                                    <span className="block text-[10px] uppercase font-bold opacity-80">{date.toLocaleDateString('en-US', { weekday: 'short' })}</span>
+                                                    <span className="block text-lg font-black">{date.getDate()}</span>
+                                                    <span className="block text-[10px] font-medium">{date.toLocaleDateString('en-US', { month: 'short' })}</span>
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+
+                                {/* Contact Section */}
+                                <div className="space-y-3">
+                                    <h3 className="text-xl font-black text-gray-900">Your Info</h3>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <input type="text" name="fullName" placeholder="Full Name" value={formData.fullName} onChange={handleChange} className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm font-semibold focus:ring-2 focus:ring-star-blue outline-none" />
+                                        <input type="tel" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm font-semibold focus:ring-2 focus:ring-star-blue outline-none" />
+                                        <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm font-semibold focus:ring-2 focus:ring-star-blue outline-none" />
+                                        <input type="text" name="zipCode" placeholder="Zip Code" value={formData.zipCode} onChange={handleChange} maxLength={5} className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm font-semibold focus:ring-2 focus:ring-star-blue outline-none" />
+                                    </div>
+                                    {city && <p className="text-green-600 text-xs font-bold"><i className="fas fa-check-circle mr-1"></i> Serving {city}</p>}
+                                </div>
+
+                            </div>
+                        )}
+
+                        {/* Navigation Buttons */}
+                        <div className="pt-6 mt-4 border-t border-gray-100 flex gap-4">
+                            {step > 1 && (
+                                <button type="button" onClick={prevStep} className="px-6 py-3 rounded-xl font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 transition">
+                                    Back
+                                </button>
+                            )}
+                            
+                            {step < 3 ? (
+                                <button type="button" onClick={nextStep} className="flex-grow bg-star-blue text-white font-bold py-3 rounded-xl shadow-lg hover:bg-star-dark transition-all flex items-center justify-center gap-2">
+                                    Next Step <i className="fas fa-arrow-right text-sm"></i>
+                                </button>
+                            ) : (
+                                <button type="button" onClick={handleSubmit} disabled={isSubmitting} className="flex-grow bg-gradient-to-r from-yellow-400 to-yellow-500 text-blue-900 font-black py-4 rounded-xl shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center justify-center gap-2 disabled:opacity-70">
+                                    {isSubmitting ? <i className="fas fa-spinner fa-spin"></i> : (
+                                        <>Claim Offer & Book <i className="fas fa-check-circle"></i></>
+                                    )}
+                                </button>
+                            )}
+                        </div>
+
+                    </form>
+                </div>
+            </div>
         </div>
       </div>
-      
-      {/* SUCCESS POPUP OVERLAY */}
+
+      {/* Success Popup */}
       {showPopup && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in duration-300">
-            <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full text-center relative transform scale-100 animate-in zoom-in-95 duration-200 border-4 border-white">
-                <button 
-                    onClick={() => setShowPopup(false)} 
-                    className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-400 hover:text-gray-600 transition-colors"
-                >
-                    <i className="fas fa-times"></i>
-                </button>
-                
-                <div className="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-6 shadow-inner">
-                    <i className="fas fa-check-circle"></i>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in">
+            <div className="bg-white rounded-3xl p-8 max-w-sm w-full text-center relative border-4 border-white shadow-2xl animate-in zoom-in-95">
+                <div className="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-4 shadow-inner">
+                    <i className="fas fa-calendar-check"></i>
                 </div>
-                
-                <h3 className="text-2xl font-black text-gray-900 mb-2 font-heading">Booking Request Sent!</h3>
-                <p className="text-gray-600 mb-8 leading-relaxed">
-                    Estimated Price: <span className="font-bold text-star-blue">${estimatedPrice}</span><br/>
-                    We will call you shortly to confirm the appointment.
-                </p>
-                
-                <div className="space-y-3">
-                    <button 
-                        onClick={() => setShowPopup(false)}
-                        className="w-full bg-star-blue text-white font-bold py-3.5 rounded-xl transition-colors"
-                    >
-                        Close
-                    </button>
-                </div>
+                <h3 className="text-2xl font-black text-gray-900 mb-2">You're All Set!</h3>
+                <p className="text-gray-600 mb-6">We've received your request for <strong>{selectedDate ? new Date(selectedDate).toLocaleDateString() : 'Cleaning'}</strong>. We will confirm shortly!</p>
+                <button onClick={() => setShowPopup(false)} className="w-full bg-star-blue text-white font-bold py-3 rounded-xl shadow-md">Awesome</button>
             </div>
         </div>
       )}
@@ -413,56 +373,61 @@ const BookingForm: React.FC = () => {
 
 // --- HELPER COMPONENTS ---
 
-const StepIndicator: React.FC<{ current: number, num: number, label: string }> = ({ current, num, label }) => {
-    const isActive = current === num;
-    const isCompleted = current > num;
-    
-    return (
-        <div className={`flex items-center gap-2 transition-all duration-300 ${isActive ? 'opacity-100' : 'opacity-50 lg:opacity-70'}`}>
-            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold border ${isActive || isCompleted ? 'bg-yellow-400 border-yellow-400 text-blue-900' : 'bg-transparent border-white/30 text-white'}`}>
-                {isCompleted ? <i className="fas fa-check"></i> : num}
-            </div>
-            <span className="hidden lg:block text-xs font-bold tracking-wide text-white">{label}</span>
+const StepItem: React.FC<{ num: number, label: string, active: boolean, done: boolean }> = ({ num, label, active, done }) => (
+    <div className={`flex items-center gap-3 ${active ? 'opacity-100' : 'opacity-50'}`}>
+        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-colors ${
+            active ? 'border-star-blue bg-star-blue text-white' : 
+            done ? 'border-green-500 bg-green-500 text-white' : 'border-gray-300 text-gray-400'
+        }`}>
+            {done ? <i className="fas fa-check"></i> : num}
         </div>
-    );
-};
-
-const InputGroup: React.FC<any> = ({ label, type = "text", ...props }) => (
-  <div className="flex flex-col group w-full">
-    <label className="text-xs font-bold text-gray-500 uppercase mb-1 ml-1 group-focus-within:text-star-blue transition-colors">{label}</label>
-    <input 
-      type={type}
-      className="w-full px-3 py-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white placeholder-gray-400 font-semibold"
-      {...props}
-    />
-  </div>
+        <span className={`font-bold text-sm ${active ? 'text-gray-900' : 'text-gray-400'}`}>{label}</span>
+    </div>
 );
 
 const Counter: React.FC<{ label: string, value: number, onMinus: () => void, onPlus: () => void }> = ({ label, value, onMinus, onPlus }) => (
-    <div className="bg-gray-50 rounded-xl p-3 border border-gray-200 flex flex-col items-center justify-center">
-        <label className="text-xs font-bold text-gray-500 uppercase mb-2">{label}</label>
+    <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm flex flex-col items-center">
+        <label className="text-xs font-bold text-gray-400 uppercase mb-2">{label}</label>
         <div className="flex items-center gap-4">
-            <button type="button" onClick={onMinus} className="w-8 h-8 rounded-full bg-white border border-gray-300 text-gray-600 flex items-center justify-center hover:bg-gray-100 active:scale-90 transition-transform">
-                <i className="fas fa-minus text-xs"></i>
-            </button>
+            <button type="button" onClick={onMinus} className="w-8 h-8 rounded-full bg-gray-50 text-gray-600 hover:bg-gray-200 flex items-center justify-center transition"><i className="fas fa-minus text-xs"></i></button>
             <span className="text-xl font-black text-gray-900 w-6 text-center">{value}</span>
-            <button type="button" onClick={onPlus} className="w-8 h-8 rounded-full bg-white border border-star-blue text-star-blue flex items-center justify-center hover:bg-blue-50 active:scale-90 transition-transform shadow-sm">
-                <i className="fas fa-plus text-xs"></i>
-            </button>
+            <button type="button" onClick={onPlus} className="w-8 h-8 rounded-full bg-star-blue text-white hover:bg-star-dark flex items-center justify-center transition"><i className="fas fa-plus text-xs"></i></button>
         </div>
     </div>
 );
 
 const PetToggle: React.FC<{ label: string, icon: string, active: boolean, onClick: () => void }> = ({ label, icon, active, onClick }) => (
-    <div 
-        onClick={onClick}
-        className={`flex-1 cursor-pointer rounded-xl border-2 p-3 flex flex-col items-center gap-2 transition-all duration-200 ${active ? 'border-star-blue bg-blue-50' : 'border-gray-200 bg-gray-50 hover:bg-gray-100'}`}
-    >
-        <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${active ? 'bg-star-blue text-white' : 'bg-white text-gray-400'}`}>
-            <i className={`fas ${icon} text-lg`}></i>
-        </div>
+    <button type="button" onClick={onClick} className={`flex-1 p-3 rounded-xl border-2 flex flex-col items-center gap-2 transition-all ${active ? 'border-star-blue bg-blue-50/50' : 'border-gray-200 hover:bg-gray-50'}`}>
+        <i className={`fas ${icon} text-xl ${active ? 'text-star-blue' : 'text-gray-400'}`}></i>
         <span className={`text-xs font-bold ${active ? 'text-star-blue' : 'text-gray-500'}`}>{label}</span>
-    </div>
+    </button>
+);
+
+// New Card Style Component for Service
+const ServiceCard: React.FC<{ title: string, subtitle: string, icon: string, selected: boolean, onClick: () => void, badge?: string }> = ({ title, subtitle, icon, selected, onClick, badge }) => (
+    <button type="button" onClick={onClick} className={`w-full text-left p-4 rounded-xl border-2 relative transition-all duration-200 group ${selected ? 'border-star-blue bg-blue-50/30 shadow-md z-10' : 'border-gray-100 bg-white hover:border-blue-100 hover:shadow-sm'}`}>
+        {badge && <div className="absolute top-0 right-0 bg-yellow-400 text-blue-900 text-[9px] font-black uppercase px-2 py-0.5 rounded-bl-lg rounded-tr-lg">{badge}</div>}
+        <div className="flex items-center gap-4">
+            <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 transition-colors ${selected ? 'bg-star-blue text-white' : 'bg-gray-100 text-gray-400 group-hover:bg-blue-100 group-hover:text-star-blue'}`}>
+                <i className={`fas ${icon} text-lg`}></i>
+            </div>
+            <div className="flex-grow">
+                <h4 className={`font-bold text-base ${selected ? 'text-star-blue' : 'text-gray-900'}`}>{title}</h4>
+                <p className="text-xs text-gray-500 leading-tight">{subtitle}</p>
+            </div>
+            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selected ? 'border-star-blue bg-star-blue' : 'border-gray-200'}`}>
+                {selected && <i className="fas fa-check text-white text-[10px]"></i>}
+            </div>
+        </div>
+    </button>
+);
+
+const FrequencyCard: React.FC<{ label: string, discount: string, selected: boolean, onClick: () => void, badge?: string }> = ({ label, discount, selected, onClick, badge }) => (
+    <button type="button" onClick={onClick} className={`flex flex-col items-center justify-center p-3 rounded-xl border-2 transition-all relative ${selected ? 'border-green-500 bg-green-50' : 'border-gray-100 hover:border-green-200'}`}>
+        {badge && <span className="absolute -top-2 bg-gray-800 text-white text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">{badge}</span>}
+        <span className={`text-xs font-bold mb-1 ${selected ? 'text-gray-900' : 'text-gray-600'}`}>{label}</span>
+        <span className={`text-[10px] font-black uppercase px-1.5 py-0.5 rounded ${selected ? 'bg-green-200 text-green-800' : 'bg-gray-100 text-gray-500'}`}>Save {discount}</span>
+    </button>
 );
 
 export default BookingForm;
