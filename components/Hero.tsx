@@ -5,7 +5,10 @@ const Hero: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    // CRITICAL: Prevent default HTML form submission/reload
     e.preventDefault();
+    e.stopPropagation();
+    
     setIsSubmitting(true);
 
     const formData = new FormData(e.currentTarget);
@@ -19,6 +22,7 @@ const Hero: React.FC = () => {
     };
     
     try {
+      // Send ONLY to the specified webhook
       await fetch("https://webhook.infra-remakingautomacoes.cloud/webhook/scsite", {
         method: "POST",
         headers: {
@@ -27,11 +31,13 @@ const Hero: React.FC = () => {
         },
         body: JSON.stringify(payload)
       });
+      
       setShowPopup(true);
       (e.target as HTMLFormElement).reset();
     } catch (error) {
       console.error("Submission error:", error);
-      alert("Something went wrong. Please try again or call us.");
+      // Fallback for user feedback if network fails, but still prevents form submit
+      alert("Something went wrong with the request. Please call us directly.");
     } finally {
       setIsSubmitting(false);
     }
@@ -40,8 +46,8 @@ const Hero: React.FC = () => {
   return (
     <section id="home" className="relative py-8 lg:py-28 overflow-hidden min-h-[75vh] lg:min-h-[90vh] flex items-center bg-white">
       
-      {/* Background Video */}
-      <div className="absolute inset-0 z-0">
+      {/* Background Video - ADDED pointer-events-none to prevent scroll interference */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <video 
           autoPlay 
           loop 
@@ -53,23 +59,23 @@ const Hero: React.FC = () => {
           <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
         </video>
         
-        {/* DESKTOP Gradient: Clean fade from left (white) to transparent */}
+        {/* DESKTOP Gradient */}
         <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
         
-        {/* MOBILE Gradient: Much cleaner, removed the heavy white blur in the middle */}
+        {/* MOBILE Gradient */}
         <div className="block lg:hidden absolute inset-0 bg-gradient-to-b from-white/80 via-transparent to-transparent"></div>
         
-        {/* FLUID TRANSITION: Premium Gradient Fade to White at Bottom */}
-        <div className="absolute bottom-0 left-0 w-full h-32 lg:h-64 bg-gradient-to-t from-white via-white/80 to-transparent z-10 pointer-events-none"></div>
+        {/* Bottom Fade */}
+        <div className="absolute bottom-0 left-0 w-full h-32 lg:h-64 bg-gradient-to-t from-white via-white/80 to-transparent z-10"></div>
       </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full pb-16 lg:pb-0">
         <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-20">
             
-          {/* Left Content - Compact Mobile */}
+          {/* Left Content */}
           <div className="lg:w-1/2 text-center lg:text-left pt-2 lg:pt-0">
             
-            {/* NEW: Google 5-Star Review Badge with INLINE SVG */}
+            {/* Google 5-Star Review Badge */}
             <div className="inline-flex items-center gap-3 bg-white/90 backdrop-blur-sm border border-gray-100 shadow-md px-4 py-2 rounded-full mb-6 transform hover:scale-105 transition-transform duration-300 cursor-default">
               <svg className="w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -92,13 +98,11 @@ const Hero: React.FC = () => {
             </div>
             
             <div className="lg:hidden bg-white/60 backdrop-blur-sm rounded-2xl p-4 mb-6 shadow-sm border border-white/50">
-                {/* H1 with slight shadow for better contrast on mobile */}
                 <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-gray-900 leading-[1.1] mb-2 lg:mb-6 font-heading drop-shadow-sm lg:drop-shadow-none">
                 Take Back<br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-star-blue">Your Weekend.</span>
                 </h1>
                 
-                {/* H2 with added weight/shadow for readability over image */}
                 <h2 className="text-sm sm:text-lg md:text-xl text-gray-700 lg:text-gray-600 lg:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed font-semibold lg:font-medium">
                 Life is too short to scrub floors. Join neighbors in <strong>Charleston & Summerville</strong> who trust Star Cleaning to handle the dirty work.
                 </h2>
@@ -128,10 +132,9 @@ const Hero: React.FC = () => {
                 </span>
               </div>
 
-              {/* Mobile Buttons Wrapper - INTEGRATED DISCOUNT - UPDATED CENTERED */}
+              {/* Mobile Buttons Wrapper */}
               <div className="flex flex-col w-full sm:hidden gap-2">
                   <div className="flex w-full gap-3">
-                      {/* Integrated Discount Button */}
                       <a href="#quote" className="flex-1 bg-star-blue hover:bg-star-dark text-white rounded-xl shadow-md text-center flex flex-col items-center justify-center border-b-4 border-blue-900 active:border-b-0 active:translate-y-1 transition-all py-3 relative overflow-hidden group">
                         <span className="font-bold text-sm leading-tight uppercase tracking-wide">Free Estimate</span>
                         <div className="mt-1 bg-white/10 px-2 py-0.5 rounded-md backdrop-blur-sm border border-white/10">
@@ -155,7 +158,7 @@ const Hero: React.FC = () => {
               </div>
             </div>
             
-            {/* Mobile Only Trust Indicators (Compact) */}
+            {/* Mobile Only Trust Indicators */}
             <div className="sm:hidden flex justify-center gap-4 mt-4 text-[10px] font-bold text-gray-600 uppercase tracking-wide bg-white/80 py-2 rounded-full backdrop-blur-md shadow-sm">
                 <div className="flex items-center gap-1"><i className="fas fa-check-circle text-green-600"></i> Insured</div>
                 <div className="flex items-center gap-1"><i className="fas fa-check-circle text-green-600"></i> Vetted</div>

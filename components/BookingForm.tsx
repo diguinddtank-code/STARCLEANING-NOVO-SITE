@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 const BookingForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -18,7 +20,10 @@ const BookingForm: React.FC = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    // CRITICAL: Prevent default form submission behaviour
     e.preventDefault();
+    e.stopPropagation();
+
     setIsSubmitting(true);
 
     const payload = {
@@ -28,6 +33,7 @@ const BookingForm: React.FC = () => {
     };
 
     try {
+        // Send ONLY to the webhook provided
         await fetch("https://webhook.infra-remakingautomacoes.cloud/webhook/scsite", {
             method: "POST",
             headers: {
@@ -37,7 +43,7 @@ const BookingForm: React.FC = () => {
             body: JSON.stringify(payload)
         });
         
-        alert(`Thanks ${formData.firstName}! We have received your request and will email your quote to ${formData.email} shortly.`);
+        setIsSuccess(true);
         setFormData({
             firstName: '',
             lastName: '',
@@ -54,6 +60,34 @@ const BookingForm: React.FC = () => {
         setIsSubmitting(false);
     }
   };
+
+  if (isSuccess) {
+      return (
+        <section id="quote" className="py-12 lg:py-24 bg-blue-50 relative overflow-hidden flex items-center justify-center">
+             <div className="bg-white rounded-3xl shadow-xl p-8 lg:p-12 max-w-2xl w-full text-center border border-gray-100 mx-4 animate-in zoom-in-95 duration-300">
+                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i className="fas fa-check text-4xl text-green-500"></i>
+                </div>
+                <h2 className="text-3xl font-black text-gray-900 mb-4 font-heading">Thank You!</h2>
+                <p className="text-gray-600 text-lg mb-8">
+                    We have received your details and will email your custom quote to <strong>{formData.email || 'your email'}</strong> shortly.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button 
+                        onClick={() => setIsSuccess(false)}
+                        className="text-gray-500 hover:text-star-blue font-bold px-6 py-3"
+                    >
+                        Submit Another
+                    </button>
+                    <a href="tel:8432979935" className="bg-star-blue hover:bg-star-dark text-white font-bold px-8 py-3 rounded-xl shadow-lg shadow-blue-200 transition-all flex items-center justify-center gap-2">
+                        <i className="fas fa-phone"></i>
+                        <span>Call Now</span>
+                    </a>
+                </div>
+             </div>
+        </section>
+      );
+  }
 
   return (
     <section id="quote" className="py-12 lg:py-24 bg-blue-50 relative overflow-hidden">
