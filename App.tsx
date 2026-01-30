@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import ScrollReveal from './components/ScrollReveal';
 import FloatingAssistant from './components/FloatingAssistant';
 import ExitIntentPopup from './components/ExitIntentPopup';
+import ServiceAreas from './components/ServiceAreas';
 
 function App() {
   return (
@@ -34,9 +35,8 @@ function App() {
       <main className="w-full">
         <Hero />
         
-        <ScrollReveal direction="up" delay={200}>
-          <TrustBar />
-        </ScrollReveal>
+        {/* Removed ScrollReveal wrapper so badges load immediately */}
+        <TrustBar />
         
         <ScrollReveal direction="up">
           <OwnerMessage />
@@ -54,6 +54,10 @@ function App() {
         
         <ScrollReveal direction="up">
           <FAQ />
+        </ScrollReveal>
+
+        <ScrollReveal direction="up">
+          <ServiceAreas />
         </ScrollReveal>
         
         <ScrollReveal direction="up">

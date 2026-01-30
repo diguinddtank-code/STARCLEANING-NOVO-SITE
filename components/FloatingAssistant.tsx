@@ -50,44 +50,47 @@ const FloatingAssistant: React.FC = () => {
   if (stage === 'hidden') return null;
 
   const isBubbleVisible = stage === 'typing' || stage === 'message';
+  const isTyping = stage === 'typing';
 
   return (
     <div className="fixed bottom-4 right-4 md:bottom-5 md:right-5 z-50 flex flex-col items-end gap-2 font-sans">
       
-      {/* Message Bubble - Compact Version */}
+      {/* Message Bubble - Dynamic Size */}
       <div 
-        className={`absolute bottom-full mb-2 right-0 bg-white rounded-xl rounded-tr-none shadow-[0_4px_20px_rgba(0,0,0,0.1)] border border-gray-100 p-3 w-[220px] origin-bottom-right transition-all duration-500 ease-out transform ${
+        className={`absolute bottom-full mb-2 right-0 bg-white rounded-2xl rounded-tr-none shadow-[0_4px_20px_rgba(0,0,0,0.1)] border border-gray-100 origin-bottom-right transition-all duration-500 ease-out transform flex flex-col justify-center ${
           isBubbleVisible 
             ? 'opacity-100 scale-100 translate-y-0' 
             : 'opacity-0 scale-90 translate-y-4 pointer-events-none'
-        }`}
+        } ${isTyping ? 'w-16 p-3 items-center' : 'w-[220px] p-4'}`}
       >
-        {/* Header inside bubble - Minimalist */}
-        <div className="flex justify-between items-start mb-1.5">
-            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Laís • Support</span>
-            <button 
-                onClick={handleClose}
-                className="text-gray-300 hover:text-gray-500 transition-colors w-4 h-4 flex items-center justify-center -mr-1 -mt-1"
-            >
-                <i className="fas fa-times text-[10px]"></i>
-            </button>
-        </div>
+        {/* Header inside bubble - Hidden when typing */}
+        {!isTyping && (
+            <div className="flex justify-between items-start mb-2 w-full">
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Laís • Support</span>
+                <button 
+                    onClick={handleClose}
+                    className="text-gray-300 hover:text-gray-500 transition-colors w-4 h-4 flex items-center justify-center -mr-1 -mt-1"
+                >
+                    <i className="fas fa-times text-[10px]"></i>
+                </button>
+            </div>
+        )}
 
         {/* Content Area */}
-        {stage === 'typing' ? (
-          <div className="flex items-center h-6">
-            <div className="bg-gray-100 rounded-full px-2.5 py-1.5 flex items-center gap-1">
-                <div className="w-1 h-1 bg-gray-400 rounded-full animate-bounce" style={{ animationDuration: '0.6s', animationDelay: '0ms' }}></div>
-                <div className="w-1 h-1 bg-gray-400 rounded-full animate-bounce" style={{ animationDuration: '0.6s', animationDelay: '150ms' }}></div>
-                <div className="w-1 h-1 bg-gray-400 rounded-full animate-bounce" style={{ animationDuration: '0.6s', animationDelay: '300ms' }}></div>
+        {isTyping ? (
+          <div className="flex items-center justify-center h-4">
+            <div className="flex items-center gap-1">
+                <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDuration: '0.6s', animationDelay: '0ms' }}></div>
+                <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDuration: '0.6s', animationDelay: '150ms' }}></div>
+                <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDuration: '0.6s', animationDelay: '300ms' }}></div>
             </div>
           </div>
         ) : (
-          <a href="#quote" className="block group">
-            <p className="text-gray-800 text-xs mb-2 leading-snug">
+          <a href="#quote" className="block group w-full">
+            <p className="text-gray-800 text-xs mb-3 leading-snug">
                Hi! 👋 Don't miss <b>20% OFF</b> your first deep clean!
             </p>
-            <div className="bg-star-blue text-white text-center py-1.5 rounded-md text-xs font-bold shadow-sm group-hover:bg-star-dark transition-colors flex items-center justify-center gap-1.5">
+            <div className="bg-star-blue text-white text-center py-2 rounded-lg text-xs font-bold shadow-sm group-hover:bg-star-dark transition-colors flex items-center justify-center gap-1.5 w-full">
                 <span>Claim Offer</span>
                 <i className="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
             </div>
@@ -95,7 +98,7 @@ const FloatingAssistant: React.FC = () => {
         )}
       </div>
 
-      {/* Avatar Button - Smaller */}
+      {/* Avatar Button */}
       <div 
         className={`relative group cursor-pointer transition-all duration-500 transform translate-y-0 opacity-100`}
         onClick={handleAvatarClick}
@@ -106,7 +109,7 @@ const FloatingAssistant: React.FC = () => {
                 <div className="absolute inset-0 bg-green-400 rounded-full animate-ping opacity-20"></div>
             )}
             
-            {/* Image - Smaller dimensions */}
+            {/* Image */}
             <img 
                 src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop" 
                 alt="Laís" 

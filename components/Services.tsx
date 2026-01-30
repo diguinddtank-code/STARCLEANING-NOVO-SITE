@@ -19,7 +19,7 @@ const Services: React.FC = () => {
     },
     {
       title: "Deep Cleaning",
-      icon: "fa-sparkles",
+      icon: "fa-hand-sparkles",
       description: "Perfect for spring cleaning or first-time service. We touch every surface.",
       image: "https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80",
       details: ["Baseboards & doors", "Inside windows", "Deep scrub tiles", "Cabinet exteriors", "Light fixtures", "Vents & fans"]
