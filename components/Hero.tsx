@@ -56,8 +56,8 @@ const Hero: React.FC = () => {
         {/* DESKTOP Gradient: Clean fade from left (white) to transparent */}
         <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
         
-        {/* MOBILE Gradient: Top white (for nav), Middle transparent (for image visibility) */}
-        <div className="block lg:hidden absolute inset-0 bg-gradient-to-b from-white/95 via-white/60 to-transparent"></div>
+        {/* MOBILE Gradient: Much cleaner, removed the heavy white blur in the middle */}
+        <div className="block lg:hidden absolute inset-0 bg-gradient-to-b from-white/80 via-transparent to-transparent"></div>
         
         {/* FLUID TRANSITION: Premium Gradient Fade to White at Bottom */}
         <div className="absolute bottom-0 left-0 w-full h-32 lg:h-64 bg-gradient-to-t from-white via-white/80 to-transparent z-10 pointer-events-none"></div>
@@ -90,16 +90,29 @@ const Hero: React.FC = () => {
               <span className="text-[10px] lg:text-xs text-gray-500 font-medium uppercase tracking-wide">500+ Happy Neighbors</span>
             </div>
             
-            {/* H1 with slight shadow for better contrast on mobile */}
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-gray-900 leading-[1.1] mb-4 lg:mb-6 font-heading drop-shadow-sm lg:drop-shadow-none">
-              Take Back<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-star-blue">Your Weekend.</span>
-            </h1>
+            <div className="lg:hidden bg-white/60 backdrop-blur-sm rounded-2xl p-4 mb-6 shadow-sm border border-white/50">
+                {/* H1 with slight shadow for better contrast on mobile */}
+                <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-gray-900 leading-[1.1] mb-2 lg:mb-6 font-heading drop-shadow-sm lg:drop-shadow-none">
+                Take Back<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-star-blue">Your Weekend.</span>
+                </h1>
+                
+                {/* H2 with added weight/shadow for readability over image */}
+                <h2 className="text-sm sm:text-lg md:text-xl text-gray-700 lg:text-gray-600 lg:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed font-semibold lg:font-medium">
+                Life is too short to scrub floors. Join neighbors in <strong>Charleston & Summerville</strong> who trust Star Cleaning to handle the dirty work.
+                </h2>
+            </div>
             
-            {/* H2 with added weight/shadow for readability over image */}
-            <h2 className="text-sm sm:text-lg md:text-xl text-gray-700 lg:text-gray-600 mb-6 lg:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed font-semibold lg:font-medium drop-shadow-sm lg:drop-shadow-none bg-white/30 lg:bg-transparent rounded-lg backdrop-blur-[1px] lg:backdrop-blur-none p-2 lg:p-0">
-              Life is too short to scrub floors. Join neighbors in <strong>Charleston & Summerville</strong> who trust Star Cleaning to handle the dirty work.
-            </h2>
+            <div className="hidden lg:block">
+                <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-gray-900 leading-[1.1] mb-4 lg:mb-6 font-heading drop-shadow-sm lg:drop-shadow-none">
+                Take Back<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-star-blue">Your Weekend.</span>
+                </h1>
+                
+                <h2 className="text-sm sm:text-lg md:text-xl text-gray-700 lg:text-gray-600 mb-6 lg:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed font-semibold lg:font-medium bg-white/30 lg:bg-transparent rounded-lg backdrop-blur-[1px] lg:backdrop-blur-none p-2 lg:p-0">
+                Life is too short to scrub floors. Join neighbors in <strong>Charleston & Summerville</strong> who trust Star Cleaning to handle the dirty work.
+                </h2>
+            </div>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start items-center">
               <a href="#quote" className="btn-cta bg-gradient-to-b from-yellow-400 to-yellow-500 text-blue-900 px-8 py-3.5 lg:py-4 rounded-full font-extrabold text-base lg:text-lg shadow-lg shadow-yellow-400/30 w-full sm:w-auto text-center transform hover:scale-105 transition duration-200 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1">
@@ -112,7 +125,7 @@ const Hero: React.FC = () => {
             </div>
             
             {/* Mobile Only Trust Indicators (Compact) */}
-            <div className="sm:hidden flex justify-center gap-4 mt-6 text-[10px] font-bold text-gray-600 uppercase tracking-wide bg-white/50 py-2 rounded-full backdrop-blur-sm">
+            <div className="sm:hidden flex justify-center gap-4 mt-6 text-[10px] font-bold text-gray-600 uppercase tracking-wide bg-white/80 py-2 rounded-full backdrop-blur-md shadow-sm">
                 <div className="flex items-center gap-1"><i className="fas fa-check-circle text-green-600"></i> Insured</div>
                 <div className="flex items-center gap-1"><i className="fas fa-check-circle text-green-600"></i> Vetted</div>
                 <div className="flex items-center gap-1"><i className="fas fa-check-circle text-green-600"></i> 5-Stars</div>

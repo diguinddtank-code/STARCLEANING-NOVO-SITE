@@ -58,17 +58,16 @@ const ExitIntentPopup: React.FC = () => {
       {/* Modal Content */}
       <div className="relative bg-white rounded-2xl md:rounded-3xl shadow-2xl max-w-lg w-full transform scale-100 animate-in zoom-in-95 slide-in-from-bottom-4 duration-300 overflow-hidden flex flex-col md:flex-row max-h-[90vh] overflow-y-auto md:overflow-visible">
         
-        {/* Close Button - Positioned absolute relative to the whole card */}
+        {/* Close Button */}
         <button 
           onClick={handleClose}
-          className="absolute top-3 right-3 md:top-4 md:right-4 w-8 h-8 flex items-center justify-center rounded-full bg-black/20 md:bg-gray-100 text-white md:text-gray-500 hover:bg-white/40 md:hover:bg-gray-200 transition z-50 backdrop-blur-sm"
+          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 transition z-50"
         >
           <i className="fas fa-times text-sm"></i>
         </button>
 
         {/* Left/Top Image Section (Blue) */}
-        {/* Mobile: Added min-h-[180px] and pt-8 to give space for close button and avoid overlap */}
-        <div className="w-full md:w-5/12 bg-gradient-to-br from-star-blue to-star-dark relative flex flex-col items-center justify-center text-center p-6 pt-10 md:pt-6 md:p-6 shrink-0 min-h-[180px] md:min-h-full md:h-auto">
+        <div className="w-full md:w-5/12 bg-gradient-to-br from-star-blue to-star-dark relative flex flex-col items-center justify-center text-center p-6 shrink-0">
             
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
@@ -83,10 +82,10 @@ const ExitIntentPopup: React.FC = () => {
 
             {/* Trust Badge Below */}
             <div className="relative z-10 mt-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-4 py-1.5 flex items-center gap-2 shadow-sm">
-                <div className="flex text-yellow-400 text-[10px] md:text-xs gap-0.5">
+                <div className="flex text-yellow-400 text-xs gap-0.5">
                     <i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i>
                 </div>
-                <span className="text-[10px] md:text-xs text-white font-bold uppercase tracking-wide">Top Rated</span>
+                <span className="text-xs text-white font-bold uppercase tracking-wide">Top Rated</span>
             </div>
         </div>
 
