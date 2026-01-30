@@ -243,6 +243,7 @@ const BookingForm: React.FC = () => {
               <button 
                 type="submit" 
                 disabled={isSubmitting}
+                onMouseDown={(e) => e.preventDefault()}
                 className="w-full btn-cta group bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 text-blue-900 py-4 rounded-xl font-black text-lg shadow-[0_10px_20px_-5px_rgba(250,204,21,0.4)] mt-4 transform hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex items-center justify-center gap-3 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
