@@ -10,7 +10,6 @@ import FAQ from './components/FAQ';
 import BookingForm from './components/BookingForm';
 import Footer from './components/Footer';
 import ScrollReveal from './components/ScrollReveal';
-import FloatingAssistant from './components/FloatingAssistant';
 import ExitIntentPopup from './components/ExitIntentPopup';
 import ServiceAreas from './components/ServiceAreas';
 import MobileAppNav from './components/MobileAppNav';
@@ -67,7 +66,6 @@ function App() {
       </main>
       
       <MobileAppNav />
-      <FloatingAssistant />
       <ExitIntentPopup />
       <Footer />
     </div>
