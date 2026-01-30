@@ -94,7 +94,7 @@ const BeforeAfter: React.FC = () => {
           
           {/* Slider Side */}
           <div className="lg:w-1/2 w-full order-1 lg:order-2">
-            <div className="relative mx-auto max-w-[600px] w-full aspect-[4/3] rounded-3xl shadow-2xl border-4 border-white overflow-hidden group">
+            <div className="relative mx-auto max-w-[600px] w-full aspect-[4/3] rounded-3xl shadow-2xl border-4 border-white overflow-hidden group select-none">
                 
                 <div 
                 ref={sliderRef}
@@ -125,9 +125,24 @@ const BeforeAfter: React.FC = () => {
                     <i className="fas fa-arrows-alt-h"></i>
                 </div>
                 
-                {/* Labels */}
-                <div className="absolute top-4 left-4 bg-black/50 text-white px-3 py-1 rounded-full text-[10px] font-bold backdrop-blur-md z-[2] uppercase tracking-wider">Before</div>
-                <div className="absolute top-4 right-4 bg-star-blue/80 text-white px-3 py-1 rounded-full text-[10px] font-bold backdrop-blur-md z-[2] uppercase tracking-wider">After</div>
+                {/* Labels - Dynamic Opacity */}
+                
+                {/* Before Label: Disappears when slider moves right (showing 'After') */}
+                <div 
+                    className="absolute top-4 left-4 bg-black/50 text-white px-3 py-1 rounded-full text-[10px] font-bold backdrop-blur-md z-[2] uppercase tracking-wider transition-opacity duration-300"
+                    style={{ opacity: sliderPosition > 90 ? 0 : 1 }}
+                >
+                    Before
+                </div>
+
+                {/* After Label: Disappears when slider moves left (showing 'Before') */}
+                <div 
+                    className="absolute top-4 right-4 bg-star-blue/80 text-white px-3 py-1 rounded-full text-[10px] font-bold backdrop-blur-md z-[2] uppercase tracking-wider transition-opacity duration-300"
+                    style={{ opacity: sliderPosition < 10 ? 0 : 1 }}
+                >
+                    After
+                </div>
+
                 </div>
             </div>
             
