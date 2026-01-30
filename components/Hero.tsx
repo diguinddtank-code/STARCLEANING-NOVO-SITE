@@ -294,6 +294,7 @@ const Hero: React.FC = () => {
                       <button 
                         type="submit" 
                         disabled={isSubmitting}
+                        onMouseDown={(e) => e.preventDefault()}
                         className="w-full bg-star-blue hover:bg-star-dark text-white font-black py-4 rounded-xl shadow-lg shadow-blue-200 transform hover:-translate-y-0.5 active:scale-95 transition duration-200 flex justify-center items-center gap-2 mt-2 text-lg disabled:opacity-70 disabled:cursor-not-allowed"
                       >
                         {isSubmitting ? (
