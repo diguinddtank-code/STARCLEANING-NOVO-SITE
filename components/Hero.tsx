@@ -3,6 +3,37 @@ import React, { useState } from 'react';
 const Hero: React.FC = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // States for Zip Code Logic
+  const [zipCode, setZipCode] = useState('');
+  const [city, setCity] = useState<string | null>(null);
+  const [isCheckingZip, setIsCheckingZip] = useState(false);
+
+  const handleZipChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value.replace(/\D/g, '').slice(0, 5);
+    setZipCode(val);
+
+    if (val.length === 5) {
+        setIsCheckingZip(true);
+        try {
+            // Fetch city from Zip Code (US only for this specific API)
+            const response = await fetch(`https://api.zippopotam.us/us/${val}`);
+            if (response.ok) {
+                const data = await response.json();
+                setCity(data.places[0]['place name']);
+            } else {
+                setCity(null);
+            }
+        } catch (error) {
+            console.error("Error fetching city", error);
+            setCity(null);
+        } finally {
+            setIsCheckingZip(false);
+        }
+    } else {
+        setCity(null);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     // CRITICAL: Prevent default HTML form submission/reload
@@ -17,6 +48,7 @@ const Hero: React.FC = () => {
     // Payload preparation
     const payload = {
         ...data,
+        cityDetected: city || "Not Detected", // Send the detected city too
         formSource: "Hero Section Quote",
         submittedAt: new Date().toISOString()
     };
@@ -34,9 +66,11 @@ const Hero: React.FC = () => {
       
       setShowPopup(true);
       (e.target as HTMLFormElement).reset();
+      setZipCode('');
+      setCity(null);
     } catch (error) {
       console.error("Submission error:", error);
-      // Fallback for user feedback if network fails, but still prevents form submit
+      // Fallback for user feedback if network fails
       alert("Something went wrong with the request. Please call us directly.");
     } finally {
       setIsSubmitting(false);
@@ -182,25 +216,15 @@ const Hero: React.FC = () => {
 
                   <form onSubmit={handleSubmit} className="space-y-4 relative">
                       
-                      <div className="grid grid-cols-2 gap-3">
-                          <div className="group">
-                             <input 
-                                type="text" 
-                                name="firstName" 
-                                placeholder="First Name" 
-                                required 
-                                className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block p-3 shadow-sm transition-all focus:bg-white placeholder-gray-400 font-semibold"
-                              />
-                          </div>
-                          <div>
-                            <input 
-                                type="text" 
-                                name="lastName" 
-                                placeholder="Last Name" 
-                                required 
-                                className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block p-3 shadow-sm transition-all focus:bg-white placeholder-gray-400 font-semibold"
-                            />
-                          </div>
+                      {/* Combined Full Name Input */}
+                      <div>
+                          <input 
+                            type="text" 
+                            name="fullName" 
+                            placeholder="Full Name" 
+                            required 
+                            className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block p-3 shadow-sm transition-all focus:bg-white placeholder-gray-400 font-semibold"
+                          />
                       </div>
 
                       <input 
@@ -211,6 +235,7 @@ const Hero: React.FC = () => {
                         className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block p-3 shadow-sm transition-all focus:bg-white placeholder-gray-400 font-semibold"
                       />
 
+                      {/* Phone and Zip Code in one row */}
                       <div className="grid grid-cols-2 gap-3">
                         <input 
                             type="tel" 
@@ -219,14 +244,37 @@ const Hero: React.FC = () => {
                             required 
                             className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block p-3 shadow-sm transition-all focus:bg-white placeholder-gray-400 font-semibold"
                         />
-                        <input 
-                            type="text" 
-                            name="zip" 
-                            placeholder="Zip Code" 
-                            required 
-                            className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block p-3 shadow-sm transition-all focus:bg-white placeholder-gray-400 font-semibold"
-                        />
+                        <div className="relative">
+                            <input 
+                                type="text" 
+                                name="zip" 
+                                placeholder="Zip Code" 
+                                required 
+                                value={zipCode}
+                                onChange={handleZipChange}
+                                maxLength={5}
+                                className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block p-3 shadow-sm transition-all focus:bg-white placeholder-gray-400 font-semibold"
+                            />
+                             {isCheckingZip && (
+                                <div className="absolute right-3 top-3">
+                                    <i className="fas fa-circle-notch fa-spin text-star-blue text-xs"></i>
+                                </div>
+                            )}
+                        </div>
                       </div>
+
+                      {/* City Availability Success Banner */}
+                      {city && (
+                        <div className="bg-green-50 border border-green-100 rounded-xl p-3 flex items-center gap-3 animate-in fade-in slide-in-from-top-2">
+                             <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm text-green-500 shrink-0">
+                                <i className="fas fa-magic"></i>
+                             </div>
+                             <div>
+                                <p className="text-green-800 text-sm font-bold leading-none">Available in <span className="text-green-600">{city}</span>!</p>
+                                <p className="text-green-600 text-[10px] mt-0.5">High demand: <span className="font-bold">10 neighbors</span> booked this week.</p>
+                             </div>
+                        </div>
+                      )}
 
                       <div className="relative">
                         <select 
@@ -271,25 +319,41 @@ const Hero: React.FC = () => {
       
       {/* Confirmation Popup */}
       {showPopup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-300">
-            <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full text-center relative transform scale-100 animate-in zoom-in-95 duration-200">
-                <button onClick={() => setShowPopup(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-                    <i className="fas fa-times text-xl"></i>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in duration-300">
+            <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full text-center relative transform scale-100 animate-in zoom-in-95 duration-200 border-4 border-white">
+                <button 
+                    onClick={() => setShowPopup(false)} 
+                    className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                    <i className="fas fa-times"></i>
                 </button>
                 
-                <div className="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
-                    <i className="fas fa-check"></i>
+                <div className="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-6 shadow-inner">
+                    <i className="fas fa-check-circle"></i>
                 </div>
                 
-                <h3 className="text-2xl font-black text-gray-900 mb-2">Request Received!</h3>
-                <p className="text-gray-600 mb-6">Thank you! We have received your details and will email your quote shortly.</p>
+                <h3 className="text-2xl font-black text-gray-900 mb-2 font-heading">We Received It!</h3>
+                <p className="text-gray-600 mb-8 leading-relaxed">
+                    Thank you! Our team is reviewing your details and will send your personalized quote shortly.
+                </p>
                 
-                <div className="bg-blue-50 rounded-xl p-4 border border-blue-100 mb-2">
-                    <p className="text-xs font-bold text-gray-500 uppercase mb-1">In a hurry?</p>
-                    <a href="tel:8432979935" className="text-2xl font-black text-star-blue block hover:underline">
-                        (843) 297-9935
+                <div className="space-y-3">
+                    <a 
+                        href="https://instagram.com/star.cleaningsc" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-pink-200 flex items-center justify-center gap-2 transition-all hover:-translate-y-1"
+                    >
+                        <i className="fab fa-instagram text-xl"></i>
+                        <span>Follow us on Instagram</span>
                     </a>
-                    <p className="text-xs text-gray-400 mt-1">Call us directly to book now.</p>
+                    
+                    <button 
+                        onClick={() => setShowPopup(false)}
+                        className="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-3.5 rounded-xl transition-colors"
+                    >
+                        Close & Continue
+                    </button>
                 </div>
             </div>
         </div>

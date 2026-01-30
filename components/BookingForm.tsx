@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 
 const BookingForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  
+  // State for city lookup
+  const [city, setCity] = useState<string | null>(null);
   
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    fullName: '',
     email: '',
     phone: '',
     serviceType: 'Standard House Cleaning',
@@ -14,9 +16,33 @@ const BookingForm: React.FC = () => {
     zipCode: ''
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Custom logic for Zip Code
+    if (name === 'zipCode') {
+        const cleanZip = value.replace(/\D/g, '').slice(0, 5);
+        setFormData(prev => ({ ...prev, [name]: cleanZip }));
+
+        // Check availability when 5 digits reached
+        if (cleanZip.length === 5) {
+            try {
+                const response = await fetch(`https://api.zippopotam.us/us/${cleanZip}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setCity(data.places[0]['place name']);
+                } else {
+                    setCity(null);
+                }
+            } catch (error) {
+                setCity(null);
+            }
+        } else {
+            setCity(null);
+        }
+    } else {
+        setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -28,6 +54,7 @@ const BookingForm: React.FC = () => {
 
     const payload = {
         ...formData,
+        cityDetected: city || "Not Detected",
         formSource: "Main Booking Form",
         submittedAt: new Date().toISOString()
     };
@@ -43,16 +70,16 @@ const BookingForm: React.FC = () => {
             body: JSON.stringify(payload)
         });
         
-        setIsSuccess(true);
+        setShowPopup(true);
         setFormData({
-            firstName: '',
-            lastName: '',
+            fullName: '',
             email: '',
             phone: '',
             serviceType: 'Standard House Cleaning',
             frequency: 'Bi-Weekly (Most Popular)',
             zipCode: ''
         });
+        setCity(null);
     } catch (error) {
         console.error("Submission error:", error);
         alert("There was an error sending your request. Please call us directly at (843) 297-9935.");
@@ -60,34 +87,6 @@ const BookingForm: React.FC = () => {
         setIsSubmitting(false);
     }
   };
-
-  if (isSuccess) {
-      return (
-        <section id="quote" className="py-12 lg:py-24 bg-blue-50 relative overflow-hidden flex items-center justify-center">
-             <div className="bg-white rounded-3xl shadow-xl p-8 lg:p-12 max-w-2xl w-full text-center border border-gray-100 mx-4 animate-in zoom-in-95 duration-300">
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <i className="fas fa-check text-4xl text-green-500"></i>
-                </div>
-                <h2 className="text-3xl font-black text-gray-900 mb-4 font-heading">Thank You!</h2>
-                <p className="text-gray-600 text-lg mb-8">
-                    We have received your details and will email your custom quote to <strong>{formData.email || 'your email'}</strong> shortly.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button 
-                        onClick={() => setIsSuccess(false)}
-                        className="text-gray-500 hover:text-star-blue font-bold px-6 py-3"
-                    >
-                        Submit Another
-                    </button>
-                    <a href="tel:8432979935" className="bg-star-blue hover:bg-star-dark text-white font-bold px-8 py-3 rounded-xl shadow-lg shadow-blue-200 transition-all flex items-center justify-center gap-2">
-                        <i className="fas fa-phone"></i>
-                        <span>Call Now</span>
-                    </a>
-                </div>
-             </div>
-        </section>
-      );
-  }
 
   return (
     <section id="quote" className="py-12 lg:py-24 bg-blue-50 relative overflow-hidden">
@@ -162,17 +161,44 @@ const BookingForm: React.FC = () => {
 
             <form onSubmit={handleSubmit} className="space-y-4 lg:space-y-6">
               
-              {/* Row 1: Names */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-                <InputGroup label="First Name" name="firstName" placeholder="Jane" value={formData.firstName} onChange={handleChange} required />
-                <InputGroup label="Last Name" name="lastName" placeholder="Doe" value={formData.lastName} onChange={handleChange} required />
-              </div>
+              {/* Row 1: Full Name */}
+              <InputGroup label="Full Name" name="fullName" placeholder="Jane Doe" value={formData.fullName} onChange={handleChange} required />
 
-              {/* Row 2: Contact */}
+              {/* Row 2: Contact & Zip */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
                 <InputGroup label="Email Address" name="email" type="email" placeholder="jane@example.com" value={formData.email} onChange={handleChange} required />
-                <InputGroup label="Phone Number" name="phone" type="tel" placeholder="(843) 297-9935" value={formData.phone} onChange={handleChange} required />
+                <div className="space-y-4 lg:space-y-6">
+                    <div className="grid grid-cols-2 gap-3">
+                        <InputGroup label="Phone" name="phone" type="tel" placeholder="(843) 297-9935" value={formData.phone} onChange={handleChange} required />
+                        <div className="flex flex-col group">
+                            <label className="text-xs font-bold text-gray-500 uppercase mb-2 ml-1 group-focus-within:text-star-blue transition-colors">Zip Code</label>
+                            <input 
+                                type="text"
+                                name="zipCode"
+                                value={formData.zipCode}
+                                onChange={handleChange}
+                                maxLength={5}
+                                placeholder="e.g. 29401"
+                                className="w-full px-4 py-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white placeholder-gray-400 font-semibold"
+                                required
+                            />
+                        </div>
+                    </div>
+                </div>
               </div>
+
+               {/* City Availability Success Banner - Full Width */}
+               {city && (
+                    <div className="bg-green-50 border border-green-100 rounded-xl p-3 flex items-center gap-3 animate-in fade-in slide-in-from-top-2">
+                        <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm text-green-500 shrink-0">
+                            <i className="fas fa-magic"></i>
+                        </div>
+                        <div>
+                            <p className="text-green-800 text-sm font-bold leading-none">Available in <span className="text-green-600">{city}</span>!</p>
+                            <p className="text-green-600 text-[10px] mt-0.5">High demand: <span className="font-bold">10 neighbors</span> booked this week.</p>
+                        </div>
+                    </div>
+                )}
 
               {/* Row 3: Service Details */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
@@ -214,20 +240,6 @@ const BookingForm: React.FC = () => {
                 </div>
               </div>
 
-              {/* Row 4: Zip */}
-              <div>
-                 <label className="text-xs font-bold text-gray-500 uppercase mb-2 ml-1">Zip Code</label>
-                 <input 
-                    type="text"
-                    name="zipCode"
-                    value={formData.zipCode}
-                    onChange={handleChange}
-                    placeholder="e.g. 29401"
-                    className="w-full md:w-1/3 px-4 py-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white placeholder-gray-400 font-semibold"
-                    required
-                 />
-              </div>
-
               <button 
                 type="submit" 
                 disabled={isSubmitting}
@@ -250,13 +262,55 @@ const BookingForm: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      {/* SUCCESS POPUP OVERLAY */}
+      {showPopup && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in duration-300">
+            <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full text-center relative transform scale-100 animate-in zoom-in-95 duration-200 border-4 border-white">
+                <button 
+                    onClick={() => setShowPopup(false)} 
+                    className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                    <i className="fas fa-times"></i>
+                </button>
+                
+                <div className="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-6 shadow-inner">
+                    <i className="fas fa-check-circle"></i>
+                </div>
+                
+                <h3 className="text-2xl font-black text-gray-900 mb-2 font-heading">We Received It!</h3>
+                <p className="text-gray-600 mb-8 leading-relaxed">
+                    Thank you! Our team is reviewing your details and will send your personalized quote shortly.
+                </p>
+                
+                <div className="space-y-3">
+                    <a 
+                        href="https://instagram.com/star.cleaningsc" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-pink-200 flex items-center justify-center gap-2 transition-all hover:-translate-y-1"
+                    >
+                        <i className="fab fa-instagram text-xl"></i>
+                        <span>Follow us on Instagram</span>
+                    </a>
+                    
+                    <button 
+                        onClick={() => setShowPopup(false)}
+                        className="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-3.5 rounded-xl transition-colors"
+                    >
+                        Close & Continue
+                    </button>
+                </div>
+            </div>
+        </div>
+      )}
     </section>
   );
 };
 
 // Helper Components for cleaner code
 const InputGroup: React.FC<any> = ({ label, type = "text", ...props }) => (
-  <div className="flex flex-col group">
+  <div className="flex flex-col group w-full">
     <label className="text-xs font-bold text-gray-500 uppercase mb-2 ml-1 group-focus-within:text-star-blue transition-colors">{label}</label>
     <input 
       type={type}
