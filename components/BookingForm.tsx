@@ -4,8 +4,17 @@ const BookingForm: React.FC = () => {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [estimatedPrice, setEstimatedPrice] = useState(0);
   
+  // Pricing State
+  const [basePrice, setBasePrice] = useState(0);
+  const [finalPrice, setFinalPrice] = useState(0);
+  const [savings, setSavings] = useState(0);
+  
+  // Calendar State
+  const [availableDates, setAvailableDates] = useState<Date[]>([]);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+
   // State for city lookup
   const [city, setCity] = useState<string | null>(null);
   
@@ -16,71 +25,108 @@ const BookingForm: React.FC = () => {
     phone: '',
     zipCode: '',
     // Step 2
-    bedrooms: 1,
-    bathrooms: 1,
+    bedrooms: 2,
+    bathrooms: 2,
     hasDog: false,
     hasCat: false,
     // Step 3
     serviceType: 'Standard House Cleaning',
-    frequency: 'Bi-Weekly (Most Popular)'
+    frequency: 'Bi-Weekly'
   });
 
-  // --- PRICING ENGINE ---
+  // Simulated Time Slots
+  const timeSlots = [
+    { time: '08:00 AM', label: 'Morning Arrival', spots: 1 }, // High urgency
+    { time: '10:00 AM', label: 'Late Morning', spots: 3 },
+    { time: '01:00 PM', label: 'Afternoon Arrival', spots: 2 },
+    { time: '03:00 PM', label: 'Late Afternoon', spots: 2 },
+  ];
+
+  // --- 1. CALENDAR GENERATOR (Tuesdays & Thursdays) ---
   useEffect(() => {
-    let price = 100; // Base Price
+    const dates: Date[] = [];
+    const today = new Date();
+    let current = new Date(today);
+    
+    // Generate next 6 available slots (Tu/Th)
+    // Start looking from tomorrow
+    current.setDate(current.getDate() + 1);
 
-    // Room Add-ons
-    price += (formData.bedrooms * 20);
-    price += (formData.bathrooms * 15);
+    while (dates.length < 6) {
+        const day = current.getDay();
+        // 2 = Tuesday, 4 = Thursday
+        if (day === 2 || day === 4) {
+            dates.push(new Date(current));
+        }
+        current.setDate(current.getDate() + 1);
+    }
+    setAvailableDates(dates);
+  }, []);
 
-    // Service Multipliers
-    if (formData.serviceType.includes("Deep")) price *= 1.3; // +30%
-    if (formData.serviceType.includes("Move")) price *= 1.5; // +50%
-    if (formData.serviceType.includes("Vacation")) price *= 1.2; // +20%
+  // --- 2. PRICING ENGINE ---
+  useEffect(() => {
+    let price = 110; // Base Starting Price
+
+    // Room Multipliers
+    price += ((formData.bedrooms - 1) * 25);
+    price += ((formData.bathrooms - 1) * 20);
+
+    // Service Type Multipliers
+    let multiplier = 1;
+    if (formData.serviceType.includes("Deep")) multiplier = 1.4; // +40%
+    if (formData.serviceType.includes("Move")) multiplier = 1.6; // +60%
+    if (formData.serviceType.includes("Vacation")) multiplier = 1.2; // +20%
+    
+    // Calculate Gross Price (Before Discount)
+    const grossPrice = price * multiplier;
 
     // Frequency Discounts
-    if (formData.frequency.includes("Weekly")) price *= 0.80; // -20%
-    if (formData.frequency.includes("Bi-Weekly")) price *= 0.85; // -15%
-    if (formData.frequency.includes("Monthly")) price *= 0.90; // -10%
+    let discount = 0;
+    if (formData.frequency.includes("Weekly")) discount = 0.20; // 20% off
+    if (formData.frequency.includes("Bi-Weekly")) discount = 0.15; // 15% off
+    if (formData.frequency.includes("Monthly")) discount = 0.10; // 10% off
     
-    // Round to nearest 5 for cleaner look
-    setEstimatedPrice(Math.ceil(price / 5) * 5);
+    const discountAmount = grossPrice * discount;
+    const netPrice = grossPrice - discountAmount;
+
+    // Rounding for cleaner numbers
+    setBasePrice(Math.ceil(grossPrice));
+    setFinalPrice(Math.ceil(netPrice));
+    setSavings(Math.ceil(discountAmount));
+
   }, [formData.bedrooms, formData.bathrooms, formData.serviceType, formData.frequency]);
 
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     
-    // Custom logic for Zip Code
     if (name === 'zipCode') {
         const cleanZip = value.replace(/\D/g, '').slice(0, 5);
         setFormData(prev => ({ ...prev, [name]: cleanZip }));
 
-        // Check availability when 5 digits reached
         if (cleanZip.length === 5) {
             try {
                 const response = await fetch(`https://api.zippopotam.us/us/${cleanZip}`);
                 if (response.ok) {
                     const data = await response.json();
                     setCity(data.places[0]['place name']);
-                } else {
-                    setCity(null);
-                }
-            } catch (error) {
-                setCity(null);
-            }
-        } else {
-            setCity(null);
-        }
+                } else { setCity(null); }
+            } catch (error) { setCity(null); }
+        } else { setCity(null); }
     } else {
         setFormData(prev => ({ ...prev, [name]: value }));
     }
   };
 
+  const handleDateSelect = (dateStr: string) => {
+      setSelectedDate(dateStr);
+      setSelectedTime(null); // Reset time when date changes
+  };
+
   const updateCounter = (field: 'bedrooms' | 'bathrooms', delta: number) => {
     setFormData(prev => ({
         ...prev,
-        [field]: Math.max(1, prev[field] + delta) // Minimum 1
+        [field]: Math.max(1, prev[field] + delta)
     }));
   };
 
@@ -89,10 +135,9 @@ const BookingForm: React.FC = () => {
   };
 
   const nextStep = () => {
-      // Basic Validation Step 1
       if (step === 1) {
           if (!formData.fullName || !formData.email || !formData.phone || !formData.zipCode) {
-              alert("Please fill in all fields.");
+              alert("Please fill in all fields so we can save your quote.");
               return;
           }
       }
@@ -101,35 +146,73 @@ const BookingForm: React.FC = () => {
 
   const prevStep = () => setStep(prev => prev - 1);
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  // --- ACTION: LOCK PRICE (Step 3 -> 4) ---
+  const handleLockPrice = async () => {
+    setIsSubmitting(true);
+    
+    const payload = {
+        ...formData,
+        estimatedPrice: `$${finalPrice}`,
+        savings: `$${savings}`,
+        cityDetected: city || "Not Detected",
+        stage: "Price Locked (Step 3)", // Mark as lead captured
+        submittedAt: new Date().toISOString()
+    };
+
+    try {
+        // Send Webhook NOW to capture lead
+        await fetch("https://webhook.infra-remakingautomacoes.cloud/webhook/scsite", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+        
+        // Move to calendar
+        setStep(4);
+    } catch (error) {
+        console.error("Error locking price", error);
+        // Move to step 4 anyway so user experience isn't broken
+        setStep(4); 
+    } finally {
+        setIsSubmitting(false);
+    }
+  };
+
+  // --- ACTION: FINALIZE APPOINTMENT (Step 4 -> Success) ---
+  const handleFinalBooking = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    e.stopPropagation();
+    if (!selectedDate) {
+        alert("Please select a date.");
+        return;
+    }
+    if (!selectedTime) {
+        alert("Please select an arrival time.");
+        return;
+    }
 
     setIsSubmitting(true);
 
     const payload = {
         ...formData,
-        estimatedPrice: `$${estimatedPrice}`,
+        estimatedPrice: `$${finalPrice}`,
+        savings: `$${savings}`,
+        selectedDate: selectedDate,
+        selectedTime: selectedTime,
         cityDetected: city || "Not Detected",
-        formSource: "Multi-Step Booking Form",
+        stage: "Appointment Requested (Step 4)", // Final status
         submittedAt: new Date().toISOString()
     };
 
     try {
         await fetch("https://webhook.infra-remakingautomacoes.cloud/webhook/scsite", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         });
         
         setShowPopup(true);
-        // Reset form but keep user on success screen
     } catch (error) {
-        console.error("Submission error:", error);
-        alert("There was an error sending your request. Please call us directly at (843) 297-9935.");
+        alert("Connection error. Please call us at (843) 297-9935.");
     } finally {
         setIsSubmitting(false);
     }
@@ -146,39 +229,43 @@ const BookingForm: React.FC = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row border border-gray-100 min-h-[500px]">
           
-          {/* Left Side: DRASTICALLY COMPACTED */}
+          {/* Left Side: Summary & Testimonial */}
           <div className="lg:w-4/12 bg-gradient-to-br from-star-dark to-star-blue p-5 lg:p-8 text-white relative flex flex-col lg:justify-between shrink-0 transition-all duration-500">
             {/* Overlay Pattern */}
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
             
             <div className="relative z-10 text-center lg:text-left flex flex-col items-center lg:items-start">
-              <div className="inline-block bg-yellow-400 text-blue-900 text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded mb-2 shadow-sm">
-                ONLINE SPECIAL
+              <div className="inline-block bg-yellow-400 text-blue-900 text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded mb-2 shadow-sm animate-pulse-slow">
+                Fast & Easy
               </div>
               <h2 className="text-xl lg:text-3xl font-black mb-1 lg:mb-3 font-heading leading-tight">
-                Get Price
+                Your Quote
               </h2>
               <p className="text-blue-100 text-xs lg:text-sm leading-tight max-w-xs lg:max-w-none mb-4">
-                3 simple steps to a sparkling home.
+                Customize your clean in 4 simple steps.
               </p>
 
               {/* Step Indicators */}
               <div className="flex lg:flex-col gap-2 mt-2 w-full justify-center lg:justify-start">
-                  <StepIndicator current={step} num={1} label="Contact" />
-                  <StepIndicator current={step} num={2} label="Details" />
-                  <StepIndicator current={step} num={3} label="Pricing" />
+                  <StepIndicator current={step} num={1} label="Contact Info" />
+                  <StepIndicator current={step} num={2} label="Home Details" />
+                  <StepIndicator current={step} num={3} label="Your Price" />
+                  <StepIndicator current={step} num={4} label="Schedule" />
               </div>
             </div>
 
              {/* Reviewer */}
              <div className="mt-8 pt-4 border-t border-white/10 relative z-10 hidden lg:block">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center text-blue-900 font-bold text-xs">
-                    <i className="fas fa-star"></i>
+                <div className="w-10 h-10 rounded-full bg-white p-0.5">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" className="w-full h-full rounded-full object-cover" alt="Client" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-blue-100">"Best quote experience ever."</p>
-                  <p className="text-[9px] font-bold text-white">- Jennifer, Summerville</p>
+                  <div className="flex text-yellow-400 text-[9px] mb-0.5">
+                    <i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i>
+                  </div>
+                  <p className="text-[10px] text-blue-100 leading-tight">"They gave me my weekends back! Worth every penny."</p>
+                  <p className="text-[9px] font-bold text-white mt-1">- Sarah, Mount Pleasant</p>
                 </div>
               </div>
             </div>
@@ -190,13 +277,14 @@ const BookingForm: React.FC = () => {
             {/* Compact Header */}
             <div className="mb-6 flex items-center justify-between border-b border-gray-100 pb-2">
                  <h3 className="text-lg font-black text-gray-900 font-heading flex items-center gap-2">
-                    <span className="w-1 h-4 bg-star-blue rounded-full"></span>
-                    {step === 1 && "Contact Info"}
-                    {step === 2 && "Home Details"}
-                    {step === 3 && "Your Estimate"}
+                    <span className="w-1.5 h-1.5 bg-star-blue rounded-full"></span>
+                    {step === 1 && "Let's get in touch"}
+                    {step === 2 && "Tell us about your home"}
+                    {step === 3 && "Customize your plan"}
+                    {step === 4 && "Final Step: Schedule"}
                 </h3>
                 <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider flex items-center gap-1">
-                    Step {step} of 3
+                    Step {step} of 4
                 </span>
             </div>
 
@@ -229,7 +317,7 @@ const BookingForm: React.FC = () => {
                         </div>
                     </div>
                     {city && (
-                        <div className="col-span-2 bg-green-50 border border-green-100 rounded-xl p-2 flex items-center gap-2">
+                        <div className="col-span-2 bg-green-50 border border-green-100 rounded-xl p-2 flex items-center gap-2 animate-in fade-in">
                             <i className="fas fa-check-circle text-green-500 ml-1"></i>
                             <p className="text-green-800 text-xs font-bold">Great! We serve <span className="underline">{city}</span>.</p>
                         </div>
@@ -277,62 +365,191 @@ const BookingForm: React.FC = () => {
                    </div>
               )}
 
-              {/* STEP 3: PRICING */}
+              {/* STEP 3: PRICING (Lead Capture on Click) */}
               {step === 3 && (
-                  <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
-                       {/* Service Type */}
-                       <div className="flex flex-col group">
-                            <label className="text-xs font-bold text-gray-500 uppercase mb-1 ml-1">Service Type</label>
-                            <div className="relative">
-                                <select 
-                                name="serviceType"
-                                value={formData.serviceType}
-                                onChange={handleChange}
-                                className="w-full px-3 py-3 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white font-semibold appearance-none"
-                                >
-                                <option>Standard House Cleaning</option>
-                                <option>Deep Cleaning (Recommended First Time)</option>
-                                <option>Move In / Move Out</option>
-                                <option>Vacation Rental</option>
-                                </select>
-                                <i className="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs"></i>
+                  <div className="space-y-5 animate-in fade-in slide-in-from-right-4 duration-300">
+                       
+                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {/* Service Type Selector */}
+                            <div className="flex flex-col group">
+                                <label className="text-xs font-bold text-gray-500 uppercase mb-1 ml-1">Service Type</label>
+                                <div className="relative">
+                                    <select 
+                                    name="serviceType"
+                                    value={formData.serviceType}
+                                    onChange={handleChange}
+                                    className="w-full px-3 py-3 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white font-semibold appearance-none"
+                                    >
+                                    <option>Standard House Cleaning</option>
+                                    <option>Deep Cleaning</option>
+                                    <option>Move In / Move Out</option>
+                                    <option>Vacation Rental</option>
+                                    </select>
+                                    <i className="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs"></i>
+                                </div>
+                            </div>
+
+                            {/* Frequency Selector */}
+                            <div className="flex flex-col group">
+                                <label className="text-xs font-bold text-gray-500 uppercase mb-1 ml-1">Frequency</label>
+                                <div className="relative">
+                                    <select 
+                                    name="frequency"
+                                    value={formData.frequency}
+                                    onChange={handleChange}
+                                    className="w-full px-3 py-3 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white font-semibold appearance-none"
+                                    >
+                                    <option value="Bi-Weekly">Bi-Weekly (Most Popular)</option>
+                                    <option value="Weekly">Weekly (Best Value)</option>
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="One-Time">One-Time Only</option>
+                                    </select>
+                                    <i className="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs"></i>
+                                </div>
+                            </div>
+                       </div>
+
+                       {/* THE PRICE CARD */}
+                       <div className="relative mt-2 bg-gradient-to-b from-white to-blue-50 border-2 border-blue-100 rounded-2xl p-5 shadow-lg overflow-hidden group hover:border-star-blue transition-colors duration-300">
+                            {savings > 0 && (
+                                <div className="absolute top-0 right-0 bg-yellow-400 text-blue-900 text-[10px] font-black px-3 py-1 rounded-bl-xl shadow-sm z-10">
+                                    SAVE ${savings}
+                                </div>
+                            )}
+
+                            <div className="flex flex-col md:flex-row items-center justify-between gap-4 relative z-10">
+                                <div className="text-center md:text-left">
+                                    <p className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">Your Estimated Total</p>
+                                    
+                                    <div className="flex items-end justify-center md:justify-start gap-2.5">
+                                        {savings > 0 && (
+                                            <span className="text-lg font-bold text-gray-400 line-through mb-1">${basePrice}</span>
+                                        )}
+                                        <span className="text-5xl font-black text-star-blue tracking-tighter leading-none">${finalPrice}</span>
+                                    </div>
+                                    
+                                    {savings > 0 ? (
+                                        <p className="text-xs font-bold text-green-600 mt-1 bg-green-50 inline-block px-2 py-0.5 rounded-md border border-green-100">
+                                            <i className="fas fa-check-circle mr-1"></i>
+                                            Frequency Discount Applied
+                                        </p>
+                                    ) : (
+                                        <p className="text-[10px] text-gray-400 mt-1">Select a recurring plan to save up to 20%</p>
+                                    )}
+                                </div>
+
+                                <div className="w-full md:w-auto bg-white/60 p-3 rounded-xl border border-blue-50/50 backdrop-blur-sm">
+                                    <ul className="space-y-2">
+                                        <li className="flex items-center gap-2 text-xs font-bold text-gray-600">
+                                            <i className="fas fa-check text-green-500"></i> All Supplies Included
+                                        </li>
+                                        <li className="flex items-center gap-2 text-xs font-bold text-gray-600">
+                                            <i className="fas fa-shield-alt text-green-500"></i> Vetted & Insured
+                                        </li>
+                                        <li className="flex items-center gap-2 text-xs font-bold text-gray-600">
+                                            <i className="fas fa-undo text-green-500"></i> Satisfaction Guarantee
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                       </div>
+                  </div>
+              )}
+
+              {/* STEP 4: CALENDAR & TIME */}
+              {step === 4 && (
+                  <div className="space-y-5 animate-in fade-in slide-in-from-right-4 duration-300">
+                        {/* Header Banner */}
+                        <div className="bg-blue-50 border border-blue-100 p-3 rounded-xl flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-green-500 shadow-sm">
+                                    <i className="fas fa-lock text-sm"></i>
+                                </div>
+                                <div>
+                                    <p className="text-[10px] font-bold text-blue-900 uppercase tracking-wide">Price Locked</p>
+                                    <p className="text-lg font-black text-star-blue leading-none">${finalPrice}</p>
+                                </div>
+                            </div>
+                            <div className="text-right">
+                                <p className="text-[10px] text-gray-500">Est. Duration</p>
+                                <p className="text-xs font-bold text-gray-800">2 - 3 Hours</p>
                             </div>
                         </div>
 
-                        {/* Frequency */}
-                        <div className="flex flex-col group">
-                            <label className="text-xs font-bold text-gray-500 uppercase mb-1 ml-1">Frequency</label>
-                            <div className="relative">
-                                <select 
-                                name="frequency"
-                                value={formData.frequency}
-                                onChange={handleChange}
-                                className="w-full px-3 py-3 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white font-semibold appearance-none"
-                                >
-                                <option>Bi-Weekly (Save 15%)</option>
-                                <option>Weekly (Save 20%)</option>
-                                <option>Monthly (Save 10%)</option>
-                                <option>One-Time Clean</option>
-                                </select>
-                                <i className="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs"></i>
+                        {/* Date Selection */}
+                        <div>
+                            <h4 className="text-sm font-black text-gray-900 mb-3 flex items-center gap-2">
+                                <span className="bg-gray-200 text-gray-700 w-5 h-5 rounded-full flex items-center justify-center text-[10px]">1</span>
+                                Choose a Date
+                            </h4>
+                            <div className="grid grid-cols-3 gap-2">
+                                {availableDates.map((date, idx) => {
+                                    const dateStr = date.toDateString();
+                                    const isSelected = selectedDate === dateStr;
+                                    return (
+                                        <button
+                                            key={idx}
+                                            type="button"
+                                            onClick={() => handleDateSelect(dateStr)}
+                                            className={`p-2 rounded-xl border-2 text-center transition-all ${
+                                                isSelected 
+                                                ? 'bg-star-blue text-white border-star-blue shadow-md' 
+                                                : 'bg-white border-gray-100 text-gray-600 hover:border-blue-200'
+                                            }`}
+                                        >
+                                            <span className="block text-[9px] uppercase font-bold opacity-80">{date.toLocaleDateString('en-US', { weekday: 'short' })}</span>
+                                            <span className="block text-xl font-black">{date.getDate()}</span>
+                                            <span className="block text-[9px] font-bold">{date.toLocaleDateString('en-US', { month: 'short' })}</span>
+                                        </button>
+                                    );
+                                })}
                             </div>
                         </div>
 
-                        {/* PRICE DISPLAY */}
-                        <div className="mt-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200 text-center relative overflow-hidden">
-                             <div className="relative z-10">
-                                <p className="text-blue-900 text-xs font-bold uppercase tracking-wider mb-1">Estimated Price</p>
-                                <p className="text-4xl font-black text-star-blue font-heading">${estimatedPrice}</p>
-                                <p className="text-xs text-blue-600 font-medium">per clean</p>
-                             </div>
-                             {/* Decorative Shine */}
-                             <div className="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent animate-shimmer"></div>
-                        </div>
+                        {/* Time Selection (Only shows if Date is selected) */}
+                        {selectedDate && (
+                            <div className="animate-in slide-in-from-bottom-2 fade-in">
+                                <h4 className="text-sm font-black text-gray-900 mb-3 flex items-center gap-2">
+                                    <span className="bg-gray-200 text-gray-700 w-5 h-5 rounded-full flex items-center justify-center text-[10px]">2</span>
+                                    Arrival Window
+                                </h4>
+                                <div className="grid grid-cols-2 gap-3">
+                                    {timeSlots.map((slot, idx) => {
+                                        const isSelected = selectedTime === slot.time;
+                                        return (
+                                            <button
+                                                key={idx}
+                                                type="button"
+                                                onClick={() => setSelectedTime(slot.time)}
+                                                className={`relative p-3 rounded-xl border-2 text-left transition-all group ${
+                                                    isSelected
+                                                    ? 'bg-green-50 border-green-500 shadow-sm'
+                                                    : 'bg-white border-gray-100 hover:border-gray-300'
+                                                }`}
+                                            >
+                                                <div className="flex justify-between items-start mb-1">
+                                                    <span className={`text-sm font-black ${isSelected ? 'text-green-700' : 'text-gray-900'}`}>{slot.time}</span>
+                                                    {isSelected && <i className="fas fa-check-circle text-green-500"></i>}
+                                                </div>
+                                                <span className="text-[10px] text-gray-500 font-medium block">{slot.label}</span>
+                                                
+                                                {/* Scarcity Trigger */}
+                                                {slot.spots <= 2 && (
+                                                    <div className="mt-2 inline-block bg-red-100 text-red-600 text-[9px] font-bold px-1.5 py-0.5 rounded border border-red-200">
+                                                        Only {slot.spots} spot{slot.spots > 1 ? 's' : ''} left!
+                                                    </div>
+                                                )}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
                   </div>
               )}
 
               {/* Navigation Buttons */}
-              <div className="mt-8 flex gap-3 pt-4 border-t border-gray-50">
+              <div className="mt-6 flex gap-3 pt-4 border-t border-gray-50">
                 {step > 1 && (
                     <button 
                         type="button"
@@ -343,32 +560,56 @@ const BookingForm: React.FC = () => {
                     </button>
                 )}
                 
-                {step < 3 ? (
+                {step < 3 && (
                      <button 
                         type="button"
                         onClick={nextStep}
-                        className="w-full py-3 rounded-xl font-black text-white bg-star-blue hover:bg-star-dark shadow-md transition-all flex items-center justify-center gap-2 text-lg active:scale-95"
+                        className="w-full py-3 rounded-xl font-black text-white bg-star-blue hover:bg-star-dark shadow-md transition-all flex items-center justify-center gap-2 text-lg active:scale-95 group"
                     >
                         <span>Next Step</span>
-                        <i className="fas fa-arrow-right text-sm"></i>
+                        <i className="fas fa-arrow-right text-sm group-hover:translate-x-1 transition-transform"></i>
                     </button>
-                ) : (
-                    <button 
-                        type="button" 
+                )}
+                
+                {/* STEP 3 BUTTON: Lock Price & Send Lead */}
+                {step === 3 && (
+                     <button 
+                        type="button"
+                        onClick={handleLockPrice}
                         disabled={isSubmitting}
-                        onClick={handleSubmit}
-                        className="w-full py-3 rounded-xl font-black text-blue-900 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 shadow-lg transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2 text-lg relative overflow-hidden active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
+                        className="w-full py-4 rounded-xl font-black text-blue-900 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 shadow-xl shadow-yellow-200/50 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2 text-lg relative overflow-hidden active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed group"
                     >
                         {isSubmitting ? (
                             <i className="fas fa-spinner fa-spin"></i>
                         ) : (
                             <>
-                                <span>Book Now</span>
-                                <i className="fas fa-check-circle"></i>
+                                <span>Book This Price</span>
+                                <i className="fas fa-calendar-check group-hover:scale-110 transition-transform"></i>
+                            </>
+                        )}
+                        <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:animate-[shimmer_1s_infinite]"></div>
+                    </button>
+                )}
+
+                {/* STEP 4 BUTTON: Final Confirm */}
+                {step === 4 && (
+                     <button 
+                        type="button"
+                        onClick={handleFinalBooking}
+                        disabled={isSubmitting || !selectedDate || !selectedTime} // Disable if time not picked
+                        className="w-full py-4 rounded-xl font-black text-white bg-green-500 hover:bg-green-600 shadow-xl shadow-green-200/50 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2 text-lg relative overflow-hidden active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed group"
+                    >
+                         {isSubmitting ? (
+                            <i className="fas fa-spinner fa-spin"></i>
+                        ) : (
+                            <>
+                                <span>Confirm Booking</span>
+                                <i className="fas fa-check-circle group-hover:scale-110 transition-transform"></i>
                             </>
                         )}
                     </button>
                 )}
+
               </div>
             </form>
           </div>
@@ -386,22 +627,24 @@ const BookingForm: React.FC = () => {
                     <i className="fas fa-times"></i>
                 </button>
                 
-                <div className="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-6 shadow-inner">
+                <div className="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-6 shadow-inner animate-in zoom-in spin-in-12 duration-500">
                     <i className="fas fa-check-circle"></i>
                 </div>
                 
-                <h3 className="text-2xl font-black text-gray-900 mb-2 font-heading">Booking Request Sent!</h3>
-                <p className="text-gray-600 mb-8 leading-relaxed">
-                    Estimated Price: <span className="font-bold text-star-blue">${estimatedPrice}</span><br/>
-                    We will call you shortly to confirm the appointment.
+                <h3 className="text-2xl font-black text-gray-900 mb-2 font-heading">You're All Set!</h3>
+                <p className="text-gray-600 mb-6 leading-relaxed text-sm">
+                    Booking Request for:<br/>
+                    <strong>{selectedDate ? new Date(selectedDate).toLocaleDateString() : 'Date'} @ {selectedTime}</strong>
+                    <br/><br/>
+                    A confirmation text has been sent to <span className="font-bold">{formData.phone}</span>.
                 </p>
                 
                 <div className="space-y-3">
                     <button 
                         onClick={() => setShowPopup(false)}
-                        className="w-full bg-star-blue text-white font-bold py-3.5 rounded-xl transition-colors"
+                        className="w-full bg-star-blue text-white font-bold py-3.5 rounded-xl transition-colors shadow-lg shadow-blue-200"
                     >
-                        Close
+                        Awesome, Thanks!
                     </button>
                 </div>
             </div>
