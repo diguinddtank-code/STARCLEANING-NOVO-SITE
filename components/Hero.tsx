@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 const Hero: React.FC = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
   
   // States for Zip Code Logic
   const [zipCode, setZipCode] = useState('');
@@ -35,14 +36,19 @@ const Hero: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    // CRITICAL: Prevent default HTML form submission/reload
-    e.preventDefault();
-    e.stopPropagation();
+  const handleSubmit = async (e?: React.FormEvent | React.MouseEvent | React.TouchEvent) => {
+    // Prevent default if event exists
+    if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
+    // Safety check
+    if (!formRef.current) return;
     
     setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(formRef.current);
     const data = Object.fromEntries(formData.entries());
     
     // Payload preparation
@@ -65,7 +71,7 @@ const Hero: React.FC = () => {
       });
       
       setShowPopup(true);
-      (e.target as HTMLFormElement).reset();
+      if (formRef.current) formRef.current.reset();
       setZipCode('');
       setCity(null);
     } catch (error) {
@@ -214,7 +220,7 @@ const Hero: React.FC = () => {
                       <p className="text-gray-500 text-sm mt-1 font-medium">Fast response. Lowcountry local.</p>
                   </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-4 relative">
+                  <form ref={formRef} className="space-y-4 relative">
                       
                       {/* Combined Full Name Input */}
                       <div>
@@ -292,10 +298,15 @@ const Hero: React.FC = () => {
                       </div>
 
                       <button 
-                        type="submit" 
+                        type="button" 
                         disabled={isSubmitting}
+                        onClick={(e) => handleSubmit(e)}
                         onMouseDown={(e) => e.preventDefault()}
-                        className="w-full bg-star-blue hover:bg-star-dark text-white font-black py-4 rounded-xl shadow-lg shadow-blue-200 transform hover:-translate-y-0.5 active:scale-95 transition duration-200 flex justify-center items-center gap-2 mt-2 text-lg disabled:opacity-70 disabled:cursor-not-allowed"
+                        onTouchStart={(e) => {
+                            e.preventDefault();
+                            handleSubmit();
+                        }}
+                        className="w-full bg-star-blue hover:bg-star-dark text-white font-black py-4 rounded-xl shadow-lg shadow-blue-200 transform hover:-translate-y-0.5 active:scale-95 transition duration-200 flex justify-center items-center gap-2 mt-2 text-lg disabled:opacity-70 disabled:cursor-not-allowed touch-manipulation"
                       >
                         {isSubmitting ? (
                             <i className="fas fa-spinner fa-spin"></i>
@@ -306,6 +317,9 @@ const Hero: React.FC = () => {
                             </>
                         )}
                       </button>
+                      
+                      {/* Hidden submit for Enter key support */}
+                      <button type="submit" className="hidden" onClick={(e) => handleSubmit(e)}></button>
                       
                       <div className="flex items-center justify-center gap-2 mt-4 opacity-70">
                          <i className="fas fa-lock text-green-600 text-xs"></i>

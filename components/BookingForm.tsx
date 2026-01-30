@@ -45,10 +45,12 @@ const BookingForm: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    // CRITICAL: Prevent default form submission behaviour
-    e.preventDefault();
-    e.stopPropagation();
+  const handleSubmit = async (e?: React.FormEvent | React.MouseEvent | React.TouchEvent) => {
+    // Prevent default form submission behaviour if event exists
+    if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
 
     setIsSubmitting(true);
 
@@ -159,7 +161,7 @@ const BookingForm: React.FC = () => {
               Tell us about your home
             </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-4 lg:space-y-6">
+            <form className="space-y-4 lg:space-y-6">
               
               {/* Row 1: Full Name */}
               <InputGroup label="Full Name" name="fullName" placeholder="Jane Doe" value={formData.fullName} onChange={handleChange} required />
@@ -241,10 +243,15 @@ const BookingForm: React.FC = () => {
               </div>
 
               <button 
-                type="submit" 
+                type="button" 
                 disabled={isSubmitting}
+                onClick={(e) => handleSubmit(e)}
                 onMouseDown={(e) => e.preventDefault()}
-                className="w-full btn-cta group bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 text-blue-900 py-4 rounded-xl font-black text-lg shadow-[0_10px_20px_-5px_rgba(250,204,21,0.4)] mt-4 transform hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex items-center justify-center gap-3 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed"
+                onTouchStart={(e) => {
+                    e.preventDefault();
+                    handleSubmit();
+                }}
+                className="w-full btn-cta group bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 text-blue-900 py-4 rounded-xl font-black text-lg shadow-[0_10px_20px_-5px_rgba(250,204,21,0.4)] mt-4 transform hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex items-center justify-center gap-3 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed touch-manipulation"
               >
                 {isSubmitting ? (
                     <i className="fas fa-spinner fa-spin"></i>
@@ -255,6 +262,9 @@ const BookingForm: React.FC = () => {
                     </>
                 )}
               </button>
+              
+              {/* Hidden submit for Enter key support */}
+              <button type="submit" className="hidden" onClick={(e) => handleSubmit(e)}></button>
               
               <p className="text-center text-[10px] md:text-xs text-gray-400 mt-4">
                 <i className="fas fa-lock mr-1"></i> Your information is safe with us. No spam, ever.
