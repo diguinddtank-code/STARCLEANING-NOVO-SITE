@@ -11,8 +11,6 @@ const BookingForm: React.FC = () => {
     fullName: '',
     email: '',
     phone: '',
-    serviceType: 'Standard House Cleaning',
-    frequency: 'Bi-Weekly (Most Popular)',
     zipCode: ''
   });
 
@@ -50,7 +48,7 @@ const BookingForm: React.FC = () => {
     e.preventDefault();
     e.stopPropagation();
 
-    // 2. Manual Validation (Required since we use type="button")
+    // 2. Manual Validation
     if (!formData.fullName || !formData.email || !formData.phone || !formData.zipCode) {
         alert("Please fill in all required fields (Name, Email, Phone, Zip).");
         return;
@@ -61,7 +59,7 @@ const BookingForm: React.FC = () => {
     const payload = {
         ...formData,
         cityDetected: city || "Not Detected",
-        formSource: "Main Booking Form",
+        formSource: "Main Booking Form (Simplified)",
         submittedAt: new Date().toISOString()
     };
 
@@ -81,8 +79,6 @@ const BookingForm: React.FC = () => {
             fullName: '',
             email: '',
             phone: '',
-            serviceType: 'Standard House Cleaning',
-            frequency: 'Bi-Weekly (Most Popular)',
             zipCode: ''
         });
         setCity(null);
@@ -125,17 +121,17 @@ const BookingForm: React.FC = () => {
                 <Step 
                   number="1" 
                   title="Request Quote" 
-                  desc="Fill out the simple form details." 
+                  desc="Enter your contact info below." 
                 />
                 <Step 
                   number="2" 
                   title="Get Custom Pricing" 
-                  desc="Receive an email with your personalized estimate." 
+                  desc="We'll text or email you an estimate." 
                 />
                 <Step 
                   number="3" 
                   title="Book & Relax" 
-                  desc="Schedule online and enjoy your sparkling home." 
+                  desc="Schedule online and enjoy your home." 
                   isLast
                 />
               </div>
@@ -213,49 +209,6 @@ const BookingForm: React.FC = () => {
                         </div>
                     </div>
                 )}
-
-              {/* Service - Spans 2 cols on mobile, 1 on desktop */}
-              <div className="col-span-2 md:col-span-1">
-                  <div className="flex flex-col group">
-                    <label className="text-xs font-bold text-gray-500 uppercase mb-1.5 ml-1">Service Type</label>
-                    <div className="relative">
-                        <select 
-                        name="serviceType"
-                        value={formData.serviceType}
-                        onChange={handleChange}
-                        className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white font-semibold appearance-none cursor-pointer"
-                        >
-                        <option>Standard House Cleaning</option>
-                        <option>Deep Cleaning (First Time)</option>
-                        <option>Move In / Move Out</option>
-                        <option>Vacation Rental / Airbnb</option>
-                        <option>Post-Construction</option>
-                        </select>
-                        <i className="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs"></i>
-                    </div>
-                  </div>
-              </div>
-
-              {/* Frequency - Spans 2 cols on mobile, 1 on desktop */}
-              <div className="col-span-2 md:col-span-1">
-                  <div className="flex flex-col group">
-                    <label className="text-xs font-bold text-gray-500 uppercase mb-1.5 ml-1">Frequency</label>
-                    <div className="relative">
-                        <select 
-                        name="frequency"
-                        value={formData.frequency}
-                        onChange={handleChange}
-                        className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white font-semibold appearance-none cursor-pointer"
-                        >
-                        <option>Weekly (Save 20%)</option>
-                        <option>Bi-Weekly (Most Popular)</option>
-                        <option>Monthly</option>
-                        <option>One-Time Clean</option>
-                        </select>
-                        <i className="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs"></i>
-                    </div>
-                    </div>
-              </div>
 
               {/* Submit Button - Spans 2 cols */}
               <div className="col-span-2 mt-2">
