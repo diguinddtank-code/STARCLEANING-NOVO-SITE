@@ -102,22 +102,22 @@ const BookingForm: React.FC = () => {
         <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col lg:flex-row border border-gray-100">
           
           {/* Left Side: Value Proposition & Steps */}
-          <div className="lg:w-5/12 bg-gradient-to-br from-star-dark to-star-blue p-6 lg:p-14 text-white relative flex flex-col justify-between shrink-0">
+          <div className="lg:w-5/12 bg-gradient-to-br from-star-dark to-star-blue p-6 lg:p-10 text-white relative flex flex-col justify-between shrink-0">
             {/* Overlay Pattern */}
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
             
             <div className="relative z-10 text-center lg:text-left">
-              <div className="inline-block bg-yellow-400 text-blue-900 text-[10px] lg:text-xs font-black uppercase tracking-widest px-3 py-1 rounded mb-4 lg:mb-6 shadow-md">
+              <div className="inline-block bg-yellow-400 text-blue-900 text-[10px] lg:text-xs font-black uppercase tracking-widest px-3 py-1 rounded mb-4 shadow-md">
                 Limited Time Offer
               </div>
               <h2 className="text-2xl lg:text-4xl font-black mb-2 lg:mb-4 font-heading leading-tight">
                 Get Your Free <br className="hidden lg:block"/>Quote Today
               </h2>
-              <p className="text-blue-100 mb-0 lg:mb-10 text-sm lg:text-lg leading-relaxed">
+              <p className="text-blue-100 mb-0 lg:mb-8 text-sm lg:text-lg leading-relaxed">
                 Save 20% on your first deep clean. No credit card required.
               </p>
 
-              <div className="space-y-8 hidden lg:block">
+              <div className="space-y-6 hidden lg:block">
                 <Step 
                   number="1" 
                   title="Request Quote" 
@@ -137,138 +137,148 @@ const BookingForm: React.FC = () => {
               </div>
             </div>
 
-            <div className="mt-12 pt-8 border-t border-white/10 relative z-10 hidden lg:block">
+            <div className="mt-8 pt-6 border-t border-white/10 relative z-10 hidden lg:block">
               <div className="flex items-center gap-4">
                 <img 
                   src="https://randomuser.me/api/portraits/women/44.jpg" 
                   alt="Reviewer" 
-                  className="w-12 h-12 rounded-full border-2 border-yellow-400"
+                  className="w-10 h-10 rounded-full border-2 border-yellow-400"
                 />
                 <div>
                   <div className="flex text-yellow-400 text-xs mb-1">
                     <i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i>
                   </div>
-                  <p className="text-sm italic text-blue-100">"The quote process was super easy and the cleaning was phenomenal!"</p>
+                  <p className="text-xs italic text-blue-100">"The quote process was super easy!"</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Right Side: The Form */}
-          <div className="lg:w-7/12 p-6 lg:p-14 bg-white">
-            <h3 className="text-lg lg:text-2xl font-bold text-gray-900 mb-6 lg:mb-8 font-heading flex items-center gap-3">
-              <span className="w-1.5 h-6 lg:w-2 lg:h-8 bg-star-blue rounded-full"></span>
-              Tell us about your home
-            </h3>
+          <div className="lg:w-7/12 p-5 lg:p-10 bg-white flex flex-col justify-center">
+            <div className="mb-5 lg:mb-6">
+                 <h3 className="text-xl lg:text-2xl font-bold text-gray-900 font-heading flex items-center gap-2">
+                    <span className="w-1.5 h-5 bg-star-blue rounded-full"></span>
+                    Tell us about your home
+                </h3>
+                <p className="text-gray-500 text-xs lg:text-sm mt-1 ml-3.5">Get a custom quote in seconds.</p>
+            </div>
 
-            <form className="space-y-4 lg:space-y-6">
+            <form className="grid grid-cols-2 gap-3 lg:gap-4">
               
-              {/* Row 1: Full Name */}
-              <InputGroup label="Full Name" name="fullName" placeholder="Jane Doe" value={formData.fullName} onChange={handleChange} required />
+              {/* Full Name - Spans 2 cols on mobile, 1 on desktop */}
+              <div className="col-span-2 md:col-span-1">
+                 <InputGroup label="Full Name" name="fullName" placeholder="Jane Doe" value={formData.fullName} onChange={handleChange} required />
+              </div>
 
-              {/* Row 2: Contact & Zip */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+              {/* Email - Spans 2 cols on mobile, 1 on desktop */}
+              <div className="col-span-2 md:col-span-1">
                 <InputGroup label="Email Address" name="email" type="email" placeholder="jane@example.com" value={formData.email} onChange={handleChange} required />
-                <div className="space-y-4 lg:space-y-6">
-                    <div className="grid grid-cols-2 gap-3">
-                        <InputGroup label="Phone" name="phone" type="tel" placeholder="(843) 297-9935" value={formData.phone} onChange={handleChange} required />
-                        <div className="flex flex-col group">
-                            <label className="text-xs font-bold text-gray-500 uppercase mb-2 ml-1 group-focus-within:text-star-blue transition-colors">Zip Code</label>
-                            <input 
-                                type="text"
-                                name="zipCode"
-                                value={formData.zipCode}
-                                onChange={handleChange}
-                                maxLength={5}
-                                placeholder="e.g. 29401"
-                                className="w-full px-4 py-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white placeholder-gray-400 font-semibold"
-                                required
-                            />
-                        </div>
-                    </div>
+              </div>
+
+              {/* Phone - Col 1 */}
+              <div className="col-span-1">
+                <InputGroup label="Phone" name="phone" type="tel" placeholder="(843) ..." value={formData.phone} onChange={handleChange} required />
+              </div>
+
+              {/* Zip - Col 2 */}
+              <div className="col-span-1">
+                 <div className="flex flex-col group w-full">
+                    <label className="text-xs font-bold text-gray-500 uppercase mb-1.5 ml-1 group-focus-within:text-star-blue transition-colors">Zip Code</label>
+                    <input 
+                        type="text"
+                        name="zipCode"
+                        value={formData.zipCode}
+                        onChange={handleChange}
+                        maxLength={5}
+                        placeholder="29401"
+                        className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white placeholder-gray-400 font-semibold"
+                        required
+                    />
                 </div>
               </div>
 
-               {/* City Availability Success Banner - Full Width */}
+              {/* City Banner - Spans 2 cols */}
                {city && (
-                    <div className="bg-green-50 border border-green-100 rounded-xl p-3 flex items-center gap-3 animate-in fade-in slide-in-from-top-2">
-                        <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm text-green-500 shrink-0">
-                            <i className="fas fa-magic"></i>
+                    <div className="col-span-2 bg-green-50 border border-green-100 rounded-xl p-2.5 flex items-center gap-3 animate-in fade-in slide-in-from-top-2">
+                        <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-sm text-green-500 shrink-0 text-xs">
+                            <i className="fas fa-check"></i>
                         </div>
                         <div>
-                            <p className="text-green-800 text-sm font-bold leading-none">Available in <span className="text-green-600">{city}</span>!</p>
-                            <p className="text-green-600 text-[10px] mt-0.5">High demand: <span className="font-bold">10 neighbors</span> booked this week.</p>
+                            <p className="text-green-800 text-xs font-bold leading-none">Available in <span className="text-green-600">{city}</span>!</p>
                         </div>
                     </div>
                 )}
 
-              {/* Row 3: Service Details */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-                <div className="flex flex-col group">
-                  <label className="text-xs font-bold text-gray-500 uppercase mb-2 ml-1">Service Type</label>
-                  <div className="relative">
-                    <select 
-                      name="serviceType"
-                      value={formData.serviceType}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white font-semibold appearance-none cursor-pointer"
-                    >
-                      <option>Standard House Cleaning</option>
-                      <option>Deep Cleaning (First Time)</option>
-                      <option>Move In / Move Out</option>
-                      <option>Vacation Rental / Airbnb</option>
-                      <option>Post-Construction</option>
-                    </select>
-                    <i className="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs"></i>
+              {/* Service - Spans 2 cols on mobile, 1 on desktop */}
+              <div className="col-span-2 md:col-span-1">
+                  <div className="flex flex-col group">
+                    <label className="text-xs font-bold text-gray-500 uppercase mb-1.5 ml-1">Service Type</label>
+                    <div className="relative">
+                        <select 
+                        name="serviceType"
+                        value={formData.serviceType}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white font-semibold appearance-none cursor-pointer"
+                        >
+                        <option>Standard House Cleaning</option>
+                        <option>Deep Cleaning (First Time)</option>
+                        <option>Move In / Move Out</option>
+                        <option>Vacation Rental / Airbnb</option>
+                        <option>Post-Construction</option>
+                        </select>
+                        <i className="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs"></i>
+                    </div>
                   </div>
-                </div>
-
-                <div className="flex flex-col group">
-                  <label className="text-xs font-bold text-gray-500 uppercase mb-2 ml-1">Frequency</label>
-                  <div className="relative">
-                    <select 
-                      name="frequency"
-                      value={formData.frequency}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white font-semibold appearance-none cursor-pointer"
-                    >
-                      <option>Weekly (Save 20%)</option>
-                      <option>Bi-Weekly (Most Popular)</option>
-                      <option>Monthly</option>
-                      <option>One-Time Clean</option>
-                    </select>
-                    <i className="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs"></i>
-                  </div>
-                </div>
               </div>
 
-              <button 
-                type="button" 
-                disabled={isSubmitting}
-                onClick={(e) => handleSubmit(e)}
-                onMouseDown={(e) => e.preventDefault()}
-                onTouchStart={(e) => {
-                    e.preventDefault();
-                    handleSubmit();
-                }}
-                className="w-full btn-cta group bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 text-blue-900 py-4 rounded-xl font-black text-lg shadow-[0_10px_20px_-5px_rgba(250,204,21,0.4)] mt-4 transform hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex items-center justify-center gap-3 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed touch-manipulation"
-              >
-                {isSubmitting ? (
-                    <i className="fas fa-spinner fa-spin"></i>
-                ) : (
-                    <>
-                        <span>GET MY FREE QUOTE</span>
-                        <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                    </>
-                )}
-              </button>
-              
-              {/* Hidden submit for Enter key support */}
-              <button type="submit" className="hidden" onClick={(e) => handleSubmit(e)}></button>
-              
-              <p className="text-center text-[10px] md:text-xs text-gray-400 mt-4">
-                <i className="fas fa-lock mr-1"></i> Your information is safe with us. No spam, ever.
-              </p>
+              {/* Frequency - Spans 2 cols on mobile, 1 on desktop */}
+              <div className="col-span-2 md:col-span-1">
+                  <div className="flex flex-col group">
+                    <label className="text-xs font-bold text-gray-500 uppercase mb-1.5 ml-1">Frequency</label>
+                    <div className="relative">
+                        <select 
+                        name="frequency"
+                        value={formData.frequency}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white font-semibold appearance-none cursor-pointer"
+                        >
+                        <option>Weekly (Save 20%)</option>
+                        <option>Bi-Weekly (Most Popular)</option>
+                        <option>Monthly</option>
+                        <option>One-Time Clean</option>
+                        </select>
+                        <i className="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs"></i>
+                    </div>
+                    </div>
+              </div>
+
+              {/* Submit Button - Spans 2 cols */}
+              <div className="col-span-2 mt-2">
+                <button 
+                    type="button" 
+                    disabled={isSubmitting}
+                    onClick={(e) => handleSubmit(e)}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onTouchStart={(e) => {
+                        e.preventDefault();
+                        handleSubmit();
+                    }}
+                    className="w-full btn-cta group bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 text-blue-900 py-3.5 rounded-xl font-black text-lg shadow-[0_10px_20px_-5px_rgba(250,204,21,0.4)] transform hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex items-center justify-center gap-3 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed touch-manipulation"
+                >
+                    {isSubmitting ? (
+                        <i className="fas fa-spinner fa-spin"></i>
+                    ) : (
+                        <>
+                            <span>GET MY FREE QUOTE</span>
+                            <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </>
+                    )}
+                </button>
+                <p className="text-center text-[10px] text-gray-400 mt-2">
+                    <i className="fas fa-lock mr-1"></i> No spam. Your data is secure.
+                </p>
+              </div>
             </form>
           </div>
         </div>
@@ -322,10 +332,10 @@ const BookingForm: React.FC = () => {
 // Helper Components for cleaner code
 const InputGroup: React.FC<any> = ({ label, type = "text", ...props }) => (
   <div className="flex flex-col group w-full">
-    <label className="text-xs font-bold text-gray-500 uppercase mb-2 ml-1 group-focus-within:text-star-blue transition-colors">{label}</label>
+    <label className="text-xs font-bold text-gray-500 uppercase mb-1.5 ml-1 group-focus-within:text-star-blue transition-colors">{label}</label>
     <input 
       type={type}
-      className="w-full px-4 py-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white placeholder-gray-400 font-semibold"
+      className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white placeholder-gray-400 font-semibold"
       {...props}
     />
   </div>
