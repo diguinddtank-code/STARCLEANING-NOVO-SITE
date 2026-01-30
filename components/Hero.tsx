@@ -40,13 +40,18 @@ const Hero: React.FC = () => {
   return (
     <section id="home" className="relative py-8 lg:py-28 overflow-hidden min-h-[75vh] lg:min-h-[90vh] flex items-center bg-white">
       
-      {/* Background Image */}
+      {/* Background Video */}
       <div className="absolute inset-0 z-0">
-        <img 
-          src="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg" 
-          alt="Professional Home Cleaning Service in Charleston SC" 
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          poster="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
           className="w-full h-full object-cover object-center"
-        />
+        >
+          <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
+        </video>
         
         {/* DESKTOP Gradient: Clean fade from left (white) to transparent */}
         <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
