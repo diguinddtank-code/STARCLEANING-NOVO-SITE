@@ -13,7 +13,7 @@ const Services: React.FC = () => {
       title: "Residential Cleaning",
       icon: "fa-spray-can",
       description: "Keep your home consistently fresh with our weekly or bi-weekly plans.",
-      image: "https://images.unsplash.com/photo-1581578731117-104f2a863a17?ixlib=rb-4.0.3",
+      image: "https://mistyclean.com/wp-content/uploads/2024/07/Banner-img-Professional-cleaning-Services-in-Maryland-scaled.webp",
       tag: "MOST POPULAR",
       details: ["Dusting all surfaces", "Vacuuming carpets", "Mopping floors", "Sanitizing bathrooms", "Kitchen detailing", "Making beds"]
     },
@@ -21,35 +21,35 @@ const Services: React.FC = () => {
       title: "Deep Cleaning",
       icon: "fa-sparkles",
       description: "Perfect for spring cleaning or first-time service. We touch every surface.",
-      image: "https://images.unsplash.com/photo-1527512860163-4160b73b2203?ixlib=rb-4.0.3",
+      image: "https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80",
       details: ["Baseboards & doors", "Inside windows", "Deep scrub tiles", "Cabinet exteriors", "Light fixtures", "Vents & fans"]
     },
     {
       title: "Move In / Move Out",
       icon: "fa-box-open",
       description: "Secure your deposit or prepare your new home. Empty home specialist.",
-      image: "https://images.unsplash.com/photo-1502005229766-939760a7cb0d?ixlib=rb-4.0.3",
+      image: "https://jjccservices.com/wp-content/uploads/2025/03/Move-In-Move-Out-Cleaning-Checklist-Latest-2021-Update.jpg",
       details: ["Inside cabinets", "Inside appliances", "Deep bathroom clean", "Spot clean walls", "Window tracks", "Garage sweep"]
     },
     {
       title: "Vacation Rental / Airbnb",
       icon: "fa-suitcase-rolling",
       description: "Fast turnovers for 5-star host ratings. Linen service included.",
-      image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3",
+      image: "https://prohousekeepers.com/wp-content/uploads/2020/03/airbnb_pixabay-e1584981299557-1.jpg",
       details: ["Same-day turnover", "Linen changing", "Restocking essentials", "Damage reporting", "Key management", "Welcome setups"]
     },
     {
       title: "Commercial Office",
       icon: "fa-building",
       description: "Office spaces, retail stores, and medical facilities. Flexible hours.",
-      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3",
+      image: "https://nextdaycleaning.com/wp-content/uploads/2020/12/What-are-the-Benefits-of-Commercial-Office-Cleaning-1024x683.jpg",
       details: ["Reception areas", "Cubicles/Offices", "Breakrooms", "Restrooms", "Trash removal", "Floor maintenance"]
     },
     {
       title: "Post-Construction",
       icon: "fa-hard-hat",
       description: "Removing dust and debris after renovation or new builds.",
-      image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3",
+      image: "https://imperialcleaning.com/wp-content/uploads/2019/03/Post-Construction-Cleaning-Services.jpg",
       details: ["Drywall dust removal", "Sticker removal", "Fixture polishing", "Vent vacuuming", "Cabinet interiors", "Final detail"]
     }
   ];
@@ -132,12 +132,13 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, icon, description, ima
         <p className="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-2">{description}</p>
         
         {/* Expandable Content */}
-        <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-96 opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
+        {/* Increased max-h to allow for button visibility without cutting off */}
+        <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[600px] opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
           <div className="bg-gray-50 rounded-xl p-4 lg:p-5 border border-gray-100">
              <h4 className="text-xs font-bold uppercase text-star-blue mb-3 tracking-wider flex items-center gap-2">
                 <i className="fas fa-list-ul"></i> What's Included:
              </h4>
-             <ul className="space-y-2">
+             <ul className="space-y-2 mb-5">
                {details.map((detail, idx) => (
                  <li key={idx} className="flex items-start text-xs lg:text-sm text-gray-700 font-medium">
                    <i className="fas fa-check-circle text-green-500 mt-0.5 mr-2 text-xs flex-shrink-0"></i>
@@ -145,6 +146,16 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, icon, description, ima
                  </li>
                ))}
              </ul>
+             
+             {/* CTA Button */}
+             <a 
+                href="#quote" 
+                onClick={(e) => e.stopPropagation()} 
+                className="w-full bg-star-blue hover:bg-star-dark text-white font-bold py-3 rounded-xl shadow-md flex items-center justify-center gap-2 transition-all transform hover:-translate-y-1 active:scale-95 text-sm"
+             >
+                <span>Book This Service</span>
+                <i className="fas fa-arrow-right text-xs"></i>
+             </a>
           </div>
         </div>
 

@@ -105,7 +105,7 @@ const BeforeAfter: React.FC = () => {
                 {/* Before Image (Background) */}
                 <div 
                     className="ba-image-container ba-before absolute top-0 left-0 w-full h-full z-[1]"
-                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1527512860163-4160b73b2203?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')" }}
+                    style={{ backgroundImage: "url('https://i.imgur.com/XhU71Rxh.jpg')" }}
                 ></div>
 
                 {/* After Image (Foreground, clipped) */}
@@ -113,7 +113,7 @@ const BeforeAfter: React.FC = () => {
                     className="ba-image-container ba-after absolute top-0 left-0 h-full z-[2]"
                     style={{ 
                     width: `${sliderPosition}%`,
-                    backgroundImage: "url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')" 
+                    backgroundImage: "url('https://i.imgur.com/gpqI75Lh.jpg')" 
                     }}
                 ></div>
 

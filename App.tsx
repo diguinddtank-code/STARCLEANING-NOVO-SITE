@@ -10,6 +10,8 @@ import FAQ from './components/FAQ';
 import BookingForm from './components/BookingForm';
 import Footer from './components/Footer';
 import ScrollReveal from './components/ScrollReveal';
+import FloatingAssistant from './components/FloatingAssistant';
+import ExitIntentPopup from './components/ExitIntentPopup';
 
 function App() {
   return (
@@ -59,6 +61,8 @@ function App() {
         </ScrollReveal>
       </main>
       
+      <FloatingAssistant />
+      <ExitIntentPopup />
       <Footer />
     </div>
   );

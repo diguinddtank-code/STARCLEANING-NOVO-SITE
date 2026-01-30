@@ -33,18 +33,18 @@ const OwnerMessage: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-tr from-yellow-300 to-yellow-400 rounded-[2rem] lg:rounded-[3rem] transform rotate-3 scale-[1.03] shadow-lg group-hover:rotate-2 transition-transform duration-500"></div>
               
               <img
-                src="https://uc7e4922b38239711bf0107f5040.previews.dropboxusercontent.com/p/thumb/AC4PPCj-qlvESbkLrs_8-_y_GmYMYf50kGyt05EgebH_6vAz6OIDlyrhEmEL3C6L6Hl3VjdCwN2VgHVKTryhEGc3ChweDXjMvyjaL4iAgO3Tn9NDDFBBySiBlBIEmwDMG-dUcienVy4XX0JAmKvcDsdWHOI9CnhqeUiCgP7GLYH7gPBjrFEsKpV5HeneuArflScs6d5GPyNr84OSHVZyUrUd8NE2HHjKqpIv4_tBwu2q4sUJVwk0u51hhHKqKVgc32z4EqoYbbfqZugronHlZWFXb1UB9Ye-qz3IJtQ6Qw6zTICV1Xrvu8DVqsdwJtgykCkLLsCVii60fyraRjoSto4BunLTk2AF4sUyBfRpGFLgvh1dYA_AlM3lADtkCaKLf_sVT0TWxrrW7Vyb1KDyzlAtWyVVXK_3Hp4iK_vAmDKVxRADXstVFNtzRIbO7Vl1i3l3v84YXlY78KT3cudNuGAj0Slut0XUSB2pBVMe7c54Vg/p.jpeg"
+                src="https://i.imgur.com/Nv15wCN.png"
                 alt="Star Cleaning Team Member"
                 className="w-full h-auto rounded-[2rem] lg:rounded-[3rem] shadow-2xl border-4 lg:border-[6px] border-white relative z-10 object-cover aspect-[4/5]"
               />
               
-              {/* Badge Overlay - Enhanced */}
-              <div className="absolute -bottom-6 -left-6 z-30 hidden sm:block animate-pulse-slow">
-                 <div className="w-24 h-24 lg:w-32 lg:h-32 bg-white rounded-full p-2 shadow-2xl">
+              {/* Badge Overlay - Enhanced & Enabled on Mobile */}
+              <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-left-6 z-30 block animate-pulse-slow">
+                 <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 bg-white rounded-full p-1.5 lg:p-2 shadow-2xl">
                     <div className="w-full h-full rounded-full border-2 border-dashed border-yellow-400 flex flex-col items-center justify-center text-center bg-star-blue text-white overflow-hidden relative group-hover:scale-105 transition-transform">
                        <div className="absolute inset-0 bg-blue-600 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
-                       <span className="relative text-2xl lg:text-3xl font-black leading-none mb-1">100%</span>
-                       <span className="relative text-[8px] lg:text-[9px] uppercase font-bold tracking-wider leading-tight">Satisfaction<br/>Guaranteed</span>
+                       <span className="relative text-xl sm:text-2xl lg:text-3xl font-black leading-none mb-0.5 lg:mb-1">100%</span>
+                       <span className="relative text-[6px] sm:text-[8px] lg:text-[9px] uppercase font-bold tracking-wider leading-tight">Satisfaction<br/>Guaranteed</span>
                     </div>
                  </div>
               </div>
@@ -83,7 +83,7 @@ const OwnerMessage: React.FC = () => {
                     <div className="mt-6 lg:mt-8 flex items-center gap-4">
                         <div className="h-px bg-white/20 flex-grow"></div>
                         <span className="font-handwriting text-2xl md:text-4xl text-yellow-300 transform -rotate-3 block text-center sm:text-right font-bold mt-2">
-                           Maria & The Team
+                           Mariana & The Team
                         </span>
                         <div className="h-px bg-white/20 flex-grow"></div>
                     </div>

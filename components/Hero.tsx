@@ -9,17 +9,28 @@ const Hero: React.FC = () => {
     setIsSubmitting(true);
 
     const formData = new FormData(e.currentTarget);
-    formData.append("_subject", "New Lead from Hero Form");
-    formData.append("_captcha", "false");
+    const data = Object.fromEntries(formData.entries());
+    
+    // Payload preparation
+    const payload = {
+        ...data,
+        formSource: "Hero Section Quote",
+        submittedAt: new Date().toISOString()
+    };
     
     try {
-      await fetch("https://formsubmit.co/ajax/admin@starcleaningsc.com", {
+      await fetch("https://webhook.infra-remakingautomacoes.cloud/webhook/scsite", {
         method: "POST",
-        body: formData
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(payload)
       });
       setShowPopup(true);
       (e.target as HTMLFormElement).reset();
     } catch (error) {
+      console.error("Submission error:", error);
       alert("Something went wrong. Please try again or call us.");
     } finally {
       setIsSubmitting(false);
@@ -27,31 +38,34 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section id="home" className="relative py-8 lg:py-28 overflow-hidden min-h-[65vh] lg:min-h-[90vh] flex items-center">
+    <section id="home" className="relative py-8 lg:py-28 overflow-hidden min-h-[75vh] lg:min-h-[90vh] flex items-center bg-white">
       
-      {/* Background Image with Overlay */}
+      {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
-          alt="Clean bright living room in Charleston SC" 
-          className="w-full h-full object-cover"
+          src="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg" 
+          alt="Professional Home Cleaning Service in Charleston SC" 
+          className="w-full h-full object-cover object-center"
         />
-        {/* Desktop Gradient */}
-        <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/40 lg:to-transparent"></div>
         
-        {/* Mobile Gradient - Stronger white overlay to make text readable without extra image */}
-        <div className="block lg:hidden absolute inset-0 bg-white/90 backdrop-blur-[2px]"></div>
+        {/* DESKTOP Gradient: Clean fade from left (white) to transparent */}
+        <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
+        
+        {/* MOBILE Gradient: Top white (for nav), Middle transparent (for image visibility) */}
+        <div className="block lg:hidden absolute inset-0 bg-gradient-to-b from-white/95 via-white/60 to-transparent"></div>
+        
+        {/* FLUID TRANSITION: Premium Gradient Fade to White at Bottom */}
+        <div className="absolute bottom-0 left-0 w-full h-32 lg:h-64 bg-gradient-to-t from-white via-white/80 to-transparent z-10 pointer-events-none"></div>
       </div>
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full pb-16 lg:pb-0">
         <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-20">
             
           {/* Left Content - Compact Mobile */}
           <div className="lg:w-1/2 text-center lg:text-left pt-2 lg:pt-0">
             
             {/* NEW: Google 5-Star Review Badge */}
-            <div className="inline-flex items-center gap-3 bg-white border border-gray-100 shadow-md px-4 py-2 rounded-full mb-6 transform hover:scale-105 transition-transform duration-300 cursor-default">
-              {/* FIXED: Reliable Google Logo URL (Devicon CDN) */}
+            <div className="inline-flex items-center gap-3 bg-white/90 backdrop-blur-sm border border-gray-100 shadow-md px-4 py-2 rounded-full mb-6 transform hover:scale-105 transition-transform duration-300 cursor-default">
               <img 
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" 
                 alt="Google" 
@@ -71,14 +85,14 @@ const Hero: React.FC = () => {
               <span className="text-[10px] lg:text-xs text-gray-500 font-medium uppercase tracking-wide">500+ Happy Neighbors</span>
             </div>
             
-            {/* Updated H1: Focusing on "Reclaiming Time" */}
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-gray-900 leading-[1.1] mb-4 lg:mb-6 font-heading drop-shadow-sm">
+            {/* H1 with slight shadow for better contrast on mobile */}
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-gray-900 leading-[1.1] mb-4 lg:mb-6 font-heading drop-shadow-sm lg:drop-shadow-none">
               Take Back<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-star-blue">Your Weekend.</span>
             </h1>
             
-            {/* Updated H2: Selling the "Life" benefit over the "Cleaning" feature */}
-            <h2 className="text-sm sm:text-lg md:text-xl text-gray-600 mb-6 lg:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed font-medium">
+            {/* H2 with added weight/shadow for readability over image */}
+            <h2 className="text-sm sm:text-lg md:text-xl text-gray-700 lg:text-gray-600 mb-6 lg:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed font-semibold lg:font-medium drop-shadow-sm lg:drop-shadow-none bg-white/30 lg:bg-transparent rounded-lg backdrop-blur-[1px] lg:backdrop-blur-none p-2 lg:p-0">
               Life is too short to scrub floors. Join neighbors in <strong>Charleston & Summerville</strong> who trust Star Cleaning to handle the dirty work.
             </h2>
 
@@ -93,10 +107,10 @@ const Hero: React.FC = () => {
             </div>
             
             {/* Mobile Only Trust Indicators (Compact) */}
-            <div className="sm:hidden flex justify-center gap-4 mt-6 text-[10px] font-bold text-gray-500 uppercase tracking-wide opacity-80">
-                <div className="flex items-center gap-1"><i className="fas fa-check-circle text-green-500"></i> Insured</div>
-                <div className="flex items-center gap-1"><i className="fas fa-check-circle text-green-500"></i> Vetted</div>
-                <div className="flex items-center gap-1"><i className="fas fa-check-circle text-green-500"></i> 5-Stars</div>
+            <div className="sm:hidden flex justify-center gap-4 mt-6 text-[10px] font-bold text-gray-600 uppercase tracking-wide bg-white/50 py-2 rounded-full backdrop-blur-sm">
+                <div className="flex items-center gap-1"><i className="fas fa-check-circle text-green-600"></i> Insured</div>
+                <div className="flex items-center gap-1"><i className="fas fa-check-circle text-green-600"></i> Vetted</div>
+                <div className="flex items-center gap-1"><i className="fas fa-check-circle text-green-600"></i> 5-Stars</div>
             </div>
           </div>
 
@@ -180,7 +194,7 @@ const Hero: React.FC = () => {
                       <button 
                         type="submit" 
                         disabled={isSubmitting}
-                        className="w-full bg-star-blue hover:bg-star-dark text-white font-black py-4 rounded-xl shadow-lg shadow-blue-200 transform hover:-translate-y-0.5 active:scale-95 transition duration-200 flex justify-center items-center gap-2 mt-2 text-lg"
+                        className="w-full bg-star-blue hover:bg-star-dark text-white font-black py-4 rounded-xl shadow-lg shadow-blue-200 transform hover:-translate-y-0.5 active:scale-95 transition duration-200 flex justify-center items-center gap-2 mt-2 text-lg disabled:opacity-70 disabled:cursor-not-allowed"
                       >
                         {isSubmitting ? (
                             <i className="fas fa-spinner fa-spin"></i>

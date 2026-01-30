@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 const BookingForm: React.FC = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -16,9 +17,42 @@ const BookingForm: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Thanks ${formData.firstName}! We will email your quote to ${formData.email} shortly.`);
+    setIsSubmitting(true);
+
+    const payload = {
+        ...formData,
+        formSource: "Main Booking Form",
+        submittedAt: new Date().toISOString()
+    };
+
+    try {
+        await fetch("https://webhook.infra-remakingautomacoes.cloud/webhook/scsite", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+        
+        alert(`Thanks ${formData.firstName}! We have received your request and will email your quote to ${formData.email} shortly.`);
+        setFormData({
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            serviceType: 'Standard House Cleaning',
+            frequency: 'Bi-Weekly (Most Popular)',
+            zipCode: ''
+        });
+    } catch (error) {
+        console.error("Submission error:", error);
+        alert("There was an error sending your request. Please call us directly at (843) 297-9935.");
+    } finally {
+        setIsSubmitting(false);
+    }
   };
 
   return (
@@ -162,10 +196,17 @@ const BookingForm: React.FC = () => {
 
               <button 
                 type="submit" 
-                className="w-full btn-cta group bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 text-blue-900 py-4 rounded-xl font-black text-lg shadow-[0_10px_20px_-5px_rgba(250,204,21,0.4)] mt-4 transform hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex items-center justify-center gap-3 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1"
+                disabled={isSubmitting}
+                className="w-full btn-cta group bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 text-blue-900 py-4 rounded-xl font-black text-lg shadow-[0_10px_20px_-5px_rgba(250,204,21,0.4)] mt-4 transform hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex items-center justify-center gap-3 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                <span>GET MY FREE QUOTE</span>
-                <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                {isSubmitting ? (
+                    <i className="fas fa-spinner fa-spin"></i>
+                ) : (
+                    <>
+                        <span>GET MY FREE QUOTE</span>
+                        <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </>
+                )}
               </button>
               
               <p className="text-center text-[10px] md:text-xs text-gray-400 mt-4">
