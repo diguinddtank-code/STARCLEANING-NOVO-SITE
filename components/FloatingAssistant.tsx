@@ -57,11 +57,11 @@ const FloatingAssistant: React.FC = () => {
       
       {/* Message Bubble - Dynamic Size */}
       <div 
-        className={`absolute bottom-full mb-2 right-0 bg-white rounded-2xl rounded-tr-none shadow-[0_4px_20px_rgba(0,0,0,0.1)] border border-gray-100 origin-bottom-right transition-all duration-500 ease-out transform flex flex-col justify-center ${
+        className={`absolute bottom-full mb-2 right-0 bg-white rounded-2xl rounded-tr-none shadow-[0_4px_20px_rgba(0,0,0,0.1)] border border-gray-100 origin-bottom-right transition-all duration-500 ease-out transform flex flex-col justify-center max-w-[calc(100vw-40px)] ${
           isBubbleVisible 
             ? 'opacity-100 scale-100 translate-y-0' 
             : 'opacity-0 scale-90 translate-y-4 pointer-events-none'
-        } ${isTyping ? 'w-16 p-3 items-center' : 'w-[220px] p-4'}`}
+        } ${isTyping ? 'w-16 p-3 items-center' : 'w-[240px] p-4'}`}
       >
         {/* Header inside bubble - Hidden when typing */}
         {!isTyping && (

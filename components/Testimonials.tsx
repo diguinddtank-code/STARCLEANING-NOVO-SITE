@@ -90,8 +90,8 @@ const Testimonials: React.FC = () => {
       </div>
       
       <div className="text-center mt-8 lg:mt-12 relative z-20">
-          <a href="https://google.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-md text-gray-600 hover:text-star-blue transition font-bold text-sm border border-gray-100 hover:scale-105 duration-300">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="G" className="w-4 h-4" />
+          <a href="https://google.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-md text-gray-600 hover:text-star-blue transition font-bold text-sm border border-gray-100 hover:scale-105 duration-300">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" className="w-5 h-5" />
               Read all 5-Star reviews on Google
           </a>
       </div>
@@ -100,17 +100,35 @@ const Testimonials: React.FC = () => {
 };
 
 const ReviewCard: React.FC<any> = ({ text, author, location, source, rating, image }) => {
-    const getSourceIcon = (src: string) => {
-        switch(src) {
-            case 'google': return { icon: 'fab fa-google', color: 'text-blue-500' };
-            case 'facebook': return { icon: 'fab fa-facebook-f', color: 'text-blue-700' };
-            case 'nextdoor': return { icon: 'fas fa-home', color: 'text-green-600' };
-            case 'yelp': return { icon: 'fab fa-yelp', color: 'text-red-600' };
-            default: return { icon: 'fas fa-star', color: 'text-yellow-400' };
+    // Helper to render the source icon/image
+    const renderSourceIcon = (src: string) => {
+        if (src === 'google') {
+            return <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" className="w-5 h-5" />;
         }
+        
+        // Font Awesome Fallbacks for others
+        let iconClass = '';
+        let colorClass = '';
+        
+        switch(src) {
+            case 'facebook': 
+                iconClass = 'fab fa-facebook-f'; 
+                colorClass = 'text-blue-700'; 
+                break;
+            case 'nextdoor': 
+                iconClass = 'fas fa-home'; 
+                colorClass = 'text-green-600'; 
+                break;
+            case 'yelp': 
+                iconClass = 'fab fa-yelp'; 
+                colorClass = 'text-red-600'; 
+                break;
+            default: 
+                iconClass = 'fas fa-star'; 
+                colorClass = 'text-yellow-400';
+        }
+        return <i className={`${iconClass} ${colorClass} text-lg opacity-80`}></i>;
     };
-
-    const sourceStyle = getSourceIcon(source);
 
     return (
         <div className="w-[85vw] sm:w-[320px] md:w-[380px] bg-white p-6 lg:p-8 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.08)] border border-gray-100 flex-shrink-0 relative group hover:-translate-y-2 transition-transform duration-300">
@@ -131,7 +149,7 @@ const ReviewCard: React.FC<any> = ({ text, author, location, source, rating, ima
                         <p className="text-xs text-gray-400 font-medium">{location}</p>
                     </div>
                     <div className="ml-auto">
-                        <i className={`${sourceStyle.icon} ${sourceStyle.color} text-lg opacity-80`}></i>
+                        {renderSourceIcon(source)}
                     </div>
                 </div>
             </div>

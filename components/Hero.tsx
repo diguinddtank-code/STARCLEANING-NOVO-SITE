@@ -69,13 +69,9 @@ const Hero: React.FC = () => {
           {/* Left Content - Compact Mobile */}
           <div className="lg:w-1/2 text-center lg:text-left pt-2 lg:pt-0">
             
-            {/* NEW: Google 5-Star Review Badge */}
+            {/* NEW: Google 5-Star Review Badge with COLORFUL G */}
             <div className="inline-flex items-center gap-3 bg-white/90 backdrop-blur-sm border border-gray-100 shadow-md px-4 py-2 rounded-full mb-6 transform hover:scale-105 transition-transform duration-300 cursor-default">
-              <img 
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" 
-                alt="Google" 
-                className="w-5 h-5"
-              />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" className="w-5 h-5" />
               <div className="flex items-center gap-1">
                 <span className="text-gray-900 font-bold text-xs lg:text-sm">5.0</span>
                 <div className="flex text-yellow-400 text-[10px] lg:text-xs">
@@ -114,18 +110,50 @@ const Hero: React.FC = () => {
                 </h2>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start items-center">
-              <a href="#quote" className="btn-cta bg-gradient-to-b from-yellow-400 to-yellow-500 text-blue-900 px-8 py-3.5 lg:py-4 rounded-full font-extrabold text-base lg:text-lg shadow-lg shadow-yellow-400/30 w-full sm:w-auto text-center transform hover:scale-105 transition duration-200 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1">
-                Book Now & Save 20%
-              </a>
-              <div className="hidden sm:flex items-center gap-2 text-sm font-bold text-gray-600 bg-white/60 px-4 py-2 rounded-lg backdrop-blur-sm">
+            {/* BUTTONS SECTION */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start items-center w-full">
+              
+              {/* Desktop Button Container */}
+              <div className="hidden sm:flex flex-col items-center lg:items-start gap-2">
+                <a href="#quote" className="btn-cta bg-star-blue hover:bg-star-dark text-white px-8 py-3.5 lg:py-4 rounded-full font-extrabold text-base lg:text-lg shadow-lg shadow-blue-200/50 w-auto text-center transform hover:scale-105 transition duration-200 border-b-4 border-blue-900 active:border-b-0 active:translate-y-1">
+                    Get Free Estimate
+                </a>
+                <span className="text-[10px] font-bold text-gray-500 bg-white/80 px-2 py-0.5 rounded-full border border-gray-100 shadow-sm animate-pulse-slow">
+                    <i className="fas fa-tag text-yellow-500 mr-1"></i> (20% OFF First Deep Clean)
+                </span>
+              </div>
+
+              {/* Mobile Buttons Wrapper - INTEGRATED DISCOUNT */}
+              <div className="flex flex-col w-full sm:hidden gap-2">
+                  <div className="flex w-full gap-3 h-14">
+                      {/* Integrated Discount Button */}
+                      <a href="#quote" className="flex-1 bg-star-blue hover:bg-star-dark text-white rounded-xl shadow-md text-center flex flex-col items-center justify-center border-b-4 border-blue-900 active:border-b-0 active:translate-y-1 transition-all relative overflow-hidden group">
+                        <div className="flex items-center gap-1.5 z-10">
+                            <span className="font-bold text-sm leading-none">Free Estimate</span>
+                        </div>
+                        <div className="z-10 mt-0.5">
+                            <span className="text-[10px] font-black text-yellow-300 animate-pulse leading-none">
+                                Save 20%
+                            </span>
+                        </div>
+                      </a>
+                      
+                      <a href="tel:8432979935" className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-blue-900 rounded-xl font-bold text-sm shadow-md text-center flex items-center justify-center gap-2 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 transition-all">
+                        <i className="fas fa-phone-alt"></i>
+                        <span>Call Now</span>
+                      </a>
+                  </div>
+              </div>
+
+              {/* Trust Badge (Desktop Only) */}
+              <div className="hidden sm:flex items-center gap-2 text-sm font-bold text-gray-600 bg-white/60 px-4 py-2 rounded-lg backdrop-blur-sm border border-gray-100 h-fit self-center">
                 <i className="fas fa-shield-alt text-green-600 text-xl"></i>
                 <span className="leading-tight text-left">100% Satisfaction<br />Guaranteed</span>
               </div>
             </div>
             
             {/* Mobile Only Trust Indicators (Compact) */}
-            <div className="sm:hidden flex justify-center gap-4 mt-6 text-[10px] font-bold text-gray-600 uppercase tracking-wide bg-white/80 py-2 rounded-full backdrop-blur-md shadow-sm">
+            <div className="sm:hidden flex justify-center gap-4 mt-4 text-[10px] font-bold text-gray-600 uppercase tracking-wide bg-white/80 py-2 rounded-full backdrop-blur-md shadow-sm">
                 <div className="flex items-center gap-1"><i className="fas fa-check-circle text-green-600"></i> Insured</div>
                 <div className="flex items-center gap-1"><i className="fas fa-check-circle text-green-600"></i> Vetted</div>
                 <div className="flex items-center gap-1"><i className="fas fa-check-circle text-green-600"></i> 5-Stars</div>
