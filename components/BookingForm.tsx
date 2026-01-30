@@ -45,11 +45,15 @@ const BookingForm: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (e?: React.FormEvent | React.MouseEvent | React.TouchEvent) => {
-    // Prevent default form submission behaviour if event exists
-    if (e) {
-        e.preventDefault();
-        e.stopPropagation();
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    // 1. Stop all default browser behaviors immediately
+    e.preventDefault();
+    e.stopPropagation();
+
+    // 2. Manual Validation (Required since we use type="button")
+    if (!formData.fullName || !formData.email || !formData.phone || !formData.zipCode) {
+        alert("Please fill in all required fields (Name, Email, Phone, Zip).");
+        return;
     }
 
     setIsSubmitting(true);
@@ -258,12 +262,8 @@ const BookingForm: React.FC = () => {
                 <button 
                     type="button" 
                     disabled={isSubmitting}
-                    onClick={(e) => handleSubmit(e)}
+                    onClick={handleSubmit}
                     onMouseDown={(e) => e.preventDefault()}
-                    onTouchStart={(e) => {
-                        e.preventDefault();
-                        handleSubmit();
-                    }}
                     className="w-full btn-cta group bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 text-blue-900 py-3.5 rounded-xl font-black text-lg shadow-[0_10px_20px_-5px_rgba(250,204,21,0.4)] transform hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex items-center justify-center gap-3 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed touch-manipulation"
                 >
                     {isSubmitting ? (
