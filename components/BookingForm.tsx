@@ -4,6 +4,7 @@ const BookingForm: React.FC = () => {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [hasBookedTime, setHasBookedTime] = useState(false); // To change popup text
   
   // Pricing State
   const [basePrice, setBasePrice] = useState(0);
@@ -14,6 +15,10 @@ const BookingForm: React.FC = () => {
   const [availableDates, setAvailableDates] = useState<Date[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  
+  // Real Calendar Integration State
+  const [availableTimeSlots, setAvailableTimeSlots] = useState<any[]>([]);
+  const [isLoadingSlots, setIsLoadingSlots] = useState(false);
 
   // State for city lookup
   const [city, setCity] = useState<string | null>(null);
@@ -33,14 +38,6 @@ const BookingForm: React.FC = () => {
     serviceType: 'Standard House Cleaning',
     frequency: 'Bi-Weekly'
   });
-
-  // Simulated Time Slots
-  const timeSlots = [
-    { time: '08:00 AM', label: 'Morning Arrival', spots: 1 }, // High urgency
-    { time: '10:00 AM', label: 'Late Morning', spots: 3 },
-    { time: '01:00 PM', label: 'Afternoon Arrival', spots: 2 },
-    { time: '03:00 PM', label: 'Late Afternoon', spots: 2 },
-  ];
 
   // --- 1. CALENDAR GENERATOR (Tuesdays & Thursdays) ---
   useEffect(() => {
@@ -118,9 +115,33 @@ const BookingForm: React.FC = () => {
     }
   };
 
+  // --- REAL CALENDAR INTEGRATION LOGIC ---
+  const fetchTimeSlotsForDate = async (dateStr: string) => {
+      setIsLoadingSlots(true);
+      setAvailableTimeSlots([]); // Clear previous
+      setSelectedTime(null);
+
+      // SIMULATION OF API CALL
+      setTimeout(() => {
+        // Mock Logic: 
+        const isFirstDate = dateStr === availableDates[0]?.toDateString();
+
+        const mockSlotsFromApi = [
+            { time: '08:00 AM', label: 'Morning Arrival', spots: 1, available: !isFirstDate }, 
+            { time: '10:00 AM', label: 'Late Morning', spots: 3, available: true },
+            { time: '01:00 PM', label: 'Afternoon Arrival', spots: 2, available: true },
+            { time: '03:00 PM', label: 'Late Afternoon', spots: 1, available: true },
+        ];
+
+        const available = mockSlotsFromApi.filter(s => s.available);
+        setAvailableTimeSlots(available);
+        setIsLoadingSlots(false);
+      }, 800); 
+  };
+
   const handleDateSelect = (dateStr: string) => {
       setSelectedDate(dateStr);
-      setSelectedTime(null); // Reset time when date changes
+      fetchTimeSlotsForDate(dateStr);
   };
 
   const updateCounter = (field: 'bedrooms' | 'bathrooms', delta: number) => {
@@ -150,43 +171,42 @@ const BookingForm: React.FC = () => {
   const handleLockPrice = async () => {
     setIsSubmitting(true);
     
+    // We capture the lead here. If they drop off later, we still have the info.
     const payload = {
         ...formData,
         estimatedPrice: `$${finalPrice}`,
         savings: `$${savings}`,
         cityDetected: city || "Not Detected",
-        stage: "Price Locked (Step 3)", // Mark as lead captured
+        stage: "Price Locked (Quote Saved)", 
         submittedAt: new Date().toISOString()
     };
 
     try {
-        // Send Webhook NOW to capture lead
         await fetch("https://webhook.infra-remakingautomacoes.cloud/webhook/scsite", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         });
-        
-        // Move to calendar
-        setStep(4);
+        setStep(4); // Move to the "Decision" step
     } catch (error) {
         console.error("Error locking price", error);
-        // Move to step 4 anyway so user experience isn't broken
         setStep(4); 
     } finally {
         setIsSubmitting(false);
     }
   };
 
-  // --- ACTION: FINALIZE APPOINTMENT (Step 4 -> Success) ---
+  // --- ACTION: SKIP SCHEDULING (Step 4 -> Finish) ---
+  const handleSkipScheduling = () => {
+      setHasBookedTime(false);
+      setShowPopup(true);
+  };
+
+  // --- ACTION: FINALIZE APPOINTMENT (Step 5 -> Success) ---
   const handleFinalBooking = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!selectedDate) {
-        alert("Please select a date.");
-        return;
-    }
-    if (!selectedTime) {
-        alert("Please select an arrival time.");
+    if (!selectedDate || !selectedTime) {
+        alert("Please select a date and time.");
         return;
     }
 
@@ -199,7 +219,7 @@ const BookingForm: React.FC = () => {
         selectedDate: selectedDate,
         selectedTime: selectedTime,
         cityDetected: city || "Not Detected",
-        stage: "Appointment Requested (Step 4)", // Final status
+        stage: "Appointment Requested (Full Booking)",
         submittedAt: new Date().toISOString()
     };
 
@@ -210,6 +230,7 @@ const BookingForm: React.FC = () => {
             body: JSON.stringify(payload)
         });
         
+        setHasBookedTime(true);
         setShowPopup(true);
     } catch (error) {
         alert("Connection error. Please call us at (843) 297-9935.");
@@ -250,7 +271,7 @@ const BookingForm: React.FC = () => {
                   <StepIndicator current={step} num={1} label="Contact Info" />
                   <StepIndicator current={step} num={2} label="Home Details" />
                   <StepIndicator current={step} num={3} label="Your Price" />
-                  <StepIndicator current={step} num={4} label="Schedule" />
+                  <StepIndicator current={step >= 4 ? 4 : step} num={4} label="Done" />
               </div>
             </div>
 
@@ -281,10 +302,11 @@ const BookingForm: React.FC = () => {
                     {step === 1 && "Let's get in touch"}
                     {step === 2 && "Tell us about your home"}
                     {step === 3 && "Customize your plan"}
-                    {step === 4 && "Final Step: Schedule"}
+                    {step === 4 && "Price Locked!"}
+                    {step === 5 && "Select Arrival Window"}
                 </h3>
                 <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider flex items-center gap-1">
-                    Step {step} of 4
+                    Step {step > 4 ? 4 : step} of 4
                 </span>
             </div>
 
@@ -456,8 +478,49 @@ const BookingForm: React.FC = () => {
                   </div>
               )}
 
-              {/* STEP 4: CALENDAR & TIME */}
+              {/* STEP 4: DECISION (Quote Locked, Ask to Schedule) */}
               {step === 4 && (
+                  <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300 py-4">
+                      
+                      <div className="bg-green-50 border border-green-100 rounded-2xl p-6 text-center shadow-sm">
+                          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-500 text-3xl mx-auto mb-4 animate-bounce">
+                              <i className="fas fa-lock"></i>
+                          </div>
+                          <h3 className="text-2xl font-black text-gray-900 mb-2">Price Locked!</h3>
+                          <p className="text-gray-600 mb-0 text-sm">
+                              We have saved your quote of <strong className="text-gray-900">${finalPrice}</strong>. 
+                              <br className="hidden md:block"/> A copy has been sent to <strong>{formData.phone}</strong>.
+                          </p>
+                      </div>
+
+                      <div className="text-center">
+                          <h4 className="text-lg font-bold text-gray-800 mb-4">Would you like to book your spot now?</h4>
+                          <p className="text-xs text-gray-500 mb-6">Our schedule fills up fast! Grab a time slot while you're here.</p>
+                          
+                          <div className="flex flex-col gap-3">
+                              <button 
+                                type="button"
+                                onClick={() => setStep(5)} // Go to Calendar
+                                className="w-full bg-star-blue hover:bg-star-dark text-white font-black py-4 rounded-xl shadow-lg shadow-blue-200 transform hover:-translate-y-0.5 transition duration-200 flex justify-center items-center gap-2 text-lg"
+                              >
+                                  <span>Yes, Schedule Now</span>
+                                  <i className="fas fa-calendar-check"></i>
+                              </button>
+
+                              <button 
+                                type="button"
+                                onClick={handleSkipScheduling} // Just finish
+                                className="text-gray-400 hover:text-gray-600 font-bold text-sm py-2"
+                              >
+                                  No thanks, I'll book later
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+              )}
+
+              {/* STEP 5: CALENDAR & TIME (If they chose to schedule) */}
+              {step === 5 && (
                   <div className="space-y-5 animate-in fade-in slide-in-from-right-4 duration-300">
                         {/* Header Banner */}
                         <div className="bg-blue-50 border border-blue-100 p-3 rounded-xl flex items-center justify-between">
@@ -506,43 +569,54 @@ const BookingForm: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Time Selection (Only shows if Date is selected) */}
+                        {/* Time Selection (Async Loaded) */}
                         {selectedDate && (
                             <div className="animate-in slide-in-from-bottom-2 fade-in">
                                 <h4 className="text-sm font-black text-gray-900 mb-3 flex items-center gap-2">
                                     <span className="bg-gray-200 text-gray-700 w-5 h-5 rounded-full flex items-center justify-center text-[10px]">2</span>
                                     Arrival Window
                                 </h4>
-                                <div className="grid grid-cols-2 gap-3">
-                                    {timeSlots.map((slot, idx) => {
-                                        const isSelected = selectedTime === slot.time;
-                                        return (
-                                            <button
-                                                key={idx}
-                                                type="button"
-                                                onClick={() => setSelectedTime(slot.time)}
-                                                className={`relative p-3 rounded-xl border-2 text-left transition-all group ${
-                                                    isSelected
-                                                    ? 'bg-green-50 border-green-500 shadow-sm'
-                                                    : 'bg-white border-gray-100 hover:border-gray-300'
-                                                }`}
-                                            >
-                                                <div className="flex justify-between items-start mb-1">
-                                                    <span className={`text-sm font-black ${isSelected ? 'text-green-700' : 'text-gray-900'}`}>{slot.time}</span>
-                                                    {isSelected && <i className="fas fa-check-circle text-green-500"></i>}
-                                                </div>
-                                                <span className="text-[10px] text-gray-500 font-medium block">{slot.label}</span>
-                                                
-                                                {/* Scarcity Trigger */}
-                                                {slot.spots <= 2 && (
-                                                    <div className="mt-2 inline-block bg-red-100 text-red-600 text-[9px] font-bold px-1.5 py-0.5 rounded border border-red-200">
-                                                        Only {slot.spots} spot{slot.spots > 1 ? 's' : ''} left!
+                                
+                                {isLoadingSlots ? (
+                                    <div className="flex justify-center items-center py-8">
+                                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-star-blue"></div>
+                                        <span className="ml-3 text-xs font-bold text-gray-500">Checking schedule...</span>
+                                    </div>
+                                ) : (
+                                    <div className="grid grid-cols-2 gap-3">
+                                        {availableTimeSlots.length > 0 ? availableTimeSlots.map((slot, idx) => {
+                                            const isSelected = selectedTime === slot.time;
+                                            return (
+                                                <button
+                                                    key={idx}
+                                                    type="button"
+                                                    onClick={() => setSelectedTime(slot.time)}
+                                                    className={`relative p-3 rounded-xl border-2 text-left transition-all group ${
+                                                        isSelected
+                                                        ? 'bg-green-50 border-green-500 shadow-sm'
+                                                        : 'bg-white border-gray-100 hover:border-gray-300'
+                                                    }`}
+                                                >
+                                                    <div className="flex justify-between items-start mb-1">
+                                                        <span className={`text-sm font-black ${isSelected ? 'text-green-700' : 'text-gray-900'}`}>{slot.time}</span>
+                                                        {isSelected && <i className="fas fa-check-circle text-green-500"></i>}
                                                     </div>
-                                                )}
-                                            </button>
-                                        );
-                                    })}
-                                </div>
+                                                    <span className="text-[10px] text-gray-500 font-medium block">{slot.label}</span>
+                                                    
+                                                    {slot.spots <= 2 && (
+                                                        <div className="mt-2 inline-block bg-red-100 text-red-600 text-[9px] font-bold px-1.5 py-0.5 rounded border border-red-200">
+                                                            Only {slot.spots} spot{slot.spots > 1 ? 's' : ''} left!
+                                                        </div>
+                                                    )}
+                                                </button>
+                                            );
+                                        }) : (
+                                            <div className="col-span-2 text-center py-4 text-sm text-gray-500">
+                                                No slots available for this date. Please try another.
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         )}
                   </div>
@@ -550,7 +624,7 @@ const BookingForm: React.FC = () => {
 
               {/* Navigation Buttons */}
               <div className="mt-6 flex gap-3 pt-4 border-t border-gray-50">
-                {step > 1 && (
+                {step > 1 && step < 4 && (
                     <button 
                         type="button"
                         onClick={prevStep}
@@ -571,7 +645,6 @@ const BookingForm: React.FC = () => {
                     </button>
                 )}
                 
-                {/* STEP 3 BUTTON: Lock Price & Send Lead */}
                 {step === 3 && (
                      <button 
                         type="button"
@@ -584,30 +657,40 @@ const BookingForm: React.FC = () => {
                         ) : (
                             <>
                                 <span>Book This Price</span>
-                                <i className="fas fa-calendar-check group-hover:scale-110 transition-transform"></i>
+                                <i className="fas fa-lock group-hover:scale-110 transition-transform"></i>
                             </>
                         )}
                         <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:animate-[shimmer_1s_infinite]"></div>
                     </button>
                 )}
 
-                {/* STEP 4 BUTTON: Final Confirm */}
-                {step === 4 && (
-                     <button 
-                        type="button"
-                        onClick={handleFinalBooking}
-                        disabled={isSubmitting || !selectedDate || !selectedTime} // Disable if time not picked
-                        className="w-full py-4 rounded-xl font-black text-white bg-green-500 hover:bg-green-600 shadow-xl shadow-green-200/50 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2 text-lg relative overflow-hidden active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed group"
-                    >
-                         {isSubmitting ? (
-                            <i className="fas fa-spinner fa-spin"></i>
-                        ) : (
-                            <>
-                                <span>Confirm Booking</span>
-                                <i className="fas fa-check-circle group-hover:scale-110 transition-transform"></i>
-                            </>
-                        )}
-                    </button>
+                {/* Step 4 Buttons are inline in the form body (Decision Step) */}
+
+                {step === 5 && (
+                    <>
+                        <button 
+                            type="button"
+                            onClick={() => setStep(4)} // Back to Decision
+                            className="w-1/3 py-3 rounded-xl font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 transition-colors text-sm"
+                        >
+                            Back
+                        </button>
+                        <button 
+                            type="button"
+                            onClick={handleFinalBooking}
+                            disabled={isSubmitting || !selectedDate || !selectedTime}
+                            className="w-full py-4 rounded-xl font-black text-white bg-green-500 hover:bg-green-600 shadow-xl shadow-green-200/50 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2 text-lg relative overflow-hidden active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed group"
+                        >
+                            {isSubmitting ? (
+                                <i className="fas fa-spinner fa-spin"></i>
+                            ) : (
+                                <>
+                                    <span>Confirm Booking</span>
+                                    <i className="fas fa-check-circle group-hover:scale-110 transition-transform"></i>
+                                </>
+                            )}
+                        </button>
+                    </>
                 )}
 
               </div>
@@ -631,10 +714,22 @@ const BookingForm: React.FC = () => {
                     <i className="fas fa-check-circle"></i>
                 </div>
                 
-                <h3 className="text-2xl font-black text-gray-900 mb-2 font-heading">You're All Set!</h3>
+                <h3 className="text-2xl font-black text-gray-900 mb-2 font-heading">
+                    {hasBookedTime ? "You're All Set!" : "Quote Saved!"}
+                </h3>
+                
                 <p className="text-gray-600 mb-6 leading-relaxed text-sm">
-                    Booking Request for:<br/>
-                    <strong>{selectedDate ? new Date(selectedDate).toLocaleDateString() : 'Date'} @ {selectedTime}</strong>
+                    {hasBookedTime ? (
+                        <>
+                            Booking Request for:<br/>
+                            <strong>{selectedDate ? new Date(selectedDate).toLocaleDateString() : 'Date'} @ {selectedTime}</strong>
+                        </>
+                    ) : (
+                        <>
+                            Thanks! We have saved your price.<br/>
+                            Our team will text you shortly to help finalize a time that works for you.
+                        </>
+                    )}
                     <br/><br/>
                     A confirmation text has been sent to <span className="font-bold">{formData.phone}</span>.
                 </p>
@@ -657,8 +752,9 @@ const BookingForm: React.FC = () => {
 // --- HELPER COMPONENTS ---
 
 const StepIndicator: React.FC<{ current: number, num: number, label: string }> = ({ current, num, label }) => {
-    const isActive = current === num;
-    const isCompleted = current > num;
+    // Logic adjusted for the new 5-step internal flow vs 4-step visual flow
+    const isActive = (current === num) || (current === 5 && num === 4); 
+    const isCompleted = current > num && !(current === 5 && num === 4);
     
     return (
         <div className={`flex items-center gap-2 transition-all duration-300 ${isActive ? 'opacity-100' : 'opacity-50 lg:opacity-70'}`}>
