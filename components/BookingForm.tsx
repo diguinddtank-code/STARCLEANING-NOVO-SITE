@@ -227,6 +227,9 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
   };
 
   const isOneTime = formData.frequency === 'One-Time' || (formData.serviceType && formData.serviceType.includes('Move'));
+  
+  // Calculate Progress for Mobile Bar
+  const progressPercentage = (step / 5) * 100;
 
   return (
     <section id="quote" className="py-8 lg:py-20 bg-blue-50 relative overflow-hidden">
@@ -237,26 +240,41 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row border border-gray-100 min-h-[500px]">
+        <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row border border-gray-100 lg:min-h-[500px]">
           
-          {/* Left Side: Summary & Testimonial */}
-          <div className="lg:w-4/12 bg-gradient-to-br from-star-dark to-star-blue p-8 text-white relative flex flex-col justify-between shrink-0 transition-all duration-500">
+          {/* Left Side: Summary & Testimonial - COMPACT ON MOBILE */}
+          <div className="lg:w-4/12 bg-gradient-to-br from-star-dark to-star-blue p-6 lg:p-8 text-white relative flex flex-col justify-between shrink-0 transition-all duration-500">
             {/* Overlay Pattern */}
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
             
             <div className="relative z-10">
-              <div className="inline-block bg-yellow-400 text-blue-900 text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded mb-4 shadow-sm animate-pulse-slow">
-                Veteran Owned
+              <div className="flex justify-between items-start lg:block">
+                  <div className="inline-block bg-yellow-400 text-blue-900 text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded mb-2 lg:mb-4 shadow-sm animate-pulse-slow">
+                    Veteran Owned
+                  </div>
+                  {/* Mobile Progress Counter */}
+                  <div className="lg:hidden text-[10px] font-bold opacity-80 uppercase tracking-widest border border-white/20 rounded-full px-2 py-0.5">
+                      Step {step > 4 ? 4 : step}/4
+                  </div>
               </div>
-              <h2 className="text-3xl font-black mb-2 font-heading leading-tight">
+
+              <h2 className="text-2xl lg:text-3xl font-black mb-1 lg:mb-2 font-heading leading-tight">
                 Your Custom Quote
               </h2>
-              <p className="text-blue-100 text-sm leading-tight mb-8">
+              <p className="text-blue-100 text-xs lg:text-sm leading-tight mb-4 lg:mb-8 opacity-90 lg:opacity-100">
                 Proudly serving Charleston for 18 years.
               </p>
 
-              {/* Step Indicators */}
-              <div className="flex flex-col gap-4 mt-2">
+              {/* Mobile Progress Bar - Only visible on small screens */}
+              <div className="lg:hidden w-full h-1.5 bg-blue-900/50 rounded-full overflow-hidden mb-2">
+                  <div 
+                    className="h-full bg-yellow-400 transition-all duration-500 ease-out"
+                    style={{ width: `${Math.min(100, (step / 4) * 100)}%` }}
+                  ></div>
+              </div>
+
+              {/* Step Indicators - Desktop Only */}
+              <div className="hidden lg:flex flex-col gap-4 mt-2">
                   <StepIndicator current={step} num={1} label="Contact Info" />
                   <StepIndicator current={step} num={2} label="Home Details" />
                   <StepIndicator current={step} num={3} label="Your Price" />
@@ -264,8 +282,8 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
               </div>
             </div>
 
-             {/* Reviewer */}
-             <div className="mt-8 pt-6 border-t border-white/10 relative z-10">
+             {/* Reviewer - Desktop Only */}
+             <div className="hidden lg:block mt-8 pt-6 border-t border-white/10 relative z-10">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-white p-0.5 shadow-lg">
                     <img src="https://randomuser.me/api/portraits/women/44.jpg" className="w-full h-full rounded-full object-cover" alt="Client" />
@@ -282,11 +300,11 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
           </div>
 
           {/* Right Side: The Multi-Step Form */}
-          <div className="lg:w-8/12 p-6 lg:p-10 bg-white flex flex-col relative">
+          <div className="lg:w-8/12 p-5 lg:p-10 bg-white flex flex-col relative">
             
             {/* Header */}
             <div className="mb-4 lg:mb-6 flex items-center justify-between border-b border-gray-100 pb-4">
-                 <h3 className="text-xl font-black text-gray-900 font-heading flex items-center gap-2">
+                 <h3 className="text-lg lg:text-xl font-black text-gray-900 font-heading flex items-center gap-2">
                     <span className="w-2 h-2 bg-star-blue rounded-full"></span>
                     {step === 1 && "Let's get in touch"}
                     {step === 2 && "Tell us about your home"}
@@ -294,7 +312,8 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                     {step === 4 && "Price Generated!"}
                     {step === 5 && "Schedule Walkthrough"}
                 </h3>
-                <span className="text-xs text-gray-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                {/* Step Counter on Desktop */}
+                <span className="hidden lg:flex text-xs text-gray-400 font-bold uppercase tracking-wider items-center gap-1">
                     Step {step > 4 ? 4 : step} / 4
                 </span>
             </div>
@@ -306,7 +325,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
               
                   {/* STEP 1: CONTACT */}
                   {step === 1 && (
-                      <div className="grid grid-cols-2 gap-6">
+                      <div className="grid grid-cols-2 gap-4 lg:gap-6">
                         <div className="col-span-2 md:col-span-1">
                             <InputGroup label="Full Name" name="fullName" placeholder="Jane Doe" value={formData.fullName} onChange={handleChange} />
                         </div>
@@ -341,9 +360,9 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
 
                   {/* STEP 2: DETAILS */}
                   {step === 2 && (
-                       <div className="space-y-8">
+                       <div className="space-y-6 lg:space-y-8">
                             {/* Counters */}
-                            <div className="grid grid-cols-2 gap-8">
+                            <div className="grid grid-cols-2 gap-4 lg:gap-8">
                                 <Counter 
                                     label="Bedrooms" 
                                     value={formData.bedrooms} 
@@ -361,7 +380,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                             {/* Pets */}
                             <div>
                                 <label className="text-xs font-bold text-gray-500 uppercase mb-4 block ml-1">Pets in Home? ($10-12/pet)</label>
-                                <div className="flex gap-6">
+                                <div className="flex gap-4 lg:gap-6">
                                     <PetToggle 
                                         label="Dog(s)" 
                                         icon="fa-dog" 
