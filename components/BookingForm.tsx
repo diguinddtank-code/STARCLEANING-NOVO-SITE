@@ -4,6 +4,13 @@ interface BookingFormProps {
   initialData?: any;
 }
 
+// STANDARD OPERATING HOURS
+const DAILY_SLOTS = [
+    { time: '08:30 AM', label: 'Morning Arrival' },
+    { time: '11:30 AM', label: 'Mid-Day Arrival' },
+    { time: '02:30 PM', label: 'Afternoon Arrival' }
+];
+
 const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,6 +30,10 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [availableTimeSlots, setAvailableTimeSlots] = useState<any[]>([]);
   const [isLoadingSlots, setIsLoadingSlots] = useState(false);
+
+  // SIMULATED DATABASE (In a real app, this comes from your API)
+  // Format: "YYYY-MM-DD_TIME"
+  const [bookedSlots, setBookedSlots] = useState<string[]>([]);
 
   // City Lookup
   const [city, setCity] = useState<string | null>(null);
@@ -64,16 +75,25 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
     const dates: Date[] = [];
     const today = new Date();
     let current = new Date(today);
-    current.setDate(current.getDate() + 1);
+    current.setDate(current.getDate() + 1); // Start tomorrow
 
-    while (dates.length < 6) {
+    // Generate next 14 days, skipping Sundays
+    while (dates.length < 10) {
         const day = current.getDay();
-        if (day === 2 || day === 4) {
+        // 0 = Sunday, 6 = Saturday. Let's say we work Mon-Sat.
+        if (day !== 0) { 
             dates.push(new Date(current));
         }
         current.setDate(current.getDate() + 1);
     }
     setAvailableDates(dates);
+    
+    // Simulate some already booked slots for realism
+    const fakeBooked = [];
+    if (dates[0]) fakeBooked.push(`${dates[0].toDateString()}_08:30 AM`);
+    if (dates[1]) fakeBooked.push(`${dates[1].toDateString()}_02:30 PM`);
+    setBookedSlots(prev => [...prev, ...fakeBooked]);
+
   }, []);
 
   // --- PRICING ENGINE ---
@@ -110,26 +130,6 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
 
   }, [formData]);
 
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    if (name === 'zipCode') {
-        const cleanZip = value.replace(/\D/g, '').slice(0, 5);
-        setFormData(prev => ({ ...prev, [name]: cleanZip }));
-
-        if (cleanZip.length === 5) {
-            try {
-                const response = await fetch(`https://api.zippopotam.us/us/${cleanZip}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setCity(data.places[0]['place name']);
-                } else { setCity(null); }
-            } catch (error) { setCity(null); }
-        } else { setCity(null); }
-    } else {
-        setFormData(prev => ({ ...prev, [name]: value }));
-    }
-  };
-
   // --- WEBHOOK HELPER ---
   const submitWebhook = async (stage: string, extraData = {}) => {
       const payload = {
@@ -156,26 +156,57 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
       }
   };
 
+  // --- AVAILABILITY CHECKER ---
   const fetchTimeSlotsForDate = async (dateStr: string) => {
       setIsLoadingSlots(true);
       setAvailableTimeSlots([]); 
       setSelectedTime(null);
 
+      // In a real app, you would fetch from your API here:
+      // const res = await fetch(`https://api.yourdomain.com/availability?date=${dateStr}`);
+      // const bookedForDay = await res.json();
+
       setTimeout(() => {
-        const isFirstDate = dateStr === availableDates[0]?.toDateString();
-        const mockSlotsFromApi = [
-            { time: '08:30 AM', label: 'Morning Arrival', spots: 1, available: !isFirstDate }, 
-            { time: '11:00 AM', label: 'Mid-Day Arrival', spots: 3, available: true },
-            { time: '02:00 PM', label: 'Afternoon Arrival', spots: 2, available: true },
-        ];
-        setAvailableTimeSlots(mockSlotsFromApi.filter(s => s.available));
+        // Map over standard slots and check if they are in our 'bookedSlots' state
+        const calculatedSlots = DAILY_SLOTS.map(slot => {
+            const slotKey = `${dateStr}_${slot.time}`;
+            const isBooked = bookedSlots.includes(slotKey);
+            
+            return {
+                ...slot,
+                available: !isBooked,
+                isBooked: isBooked
+            };
+        });
+
+        setAvailableTimeSlots(calculatedSlots);
         setIsLoadingSlots(false);
-      }, 800); 
+      }, 600); 
   };
 
   const handleDateSelect = (dateStr: string) => {
       setSelectedDate(dateStr);
       fetchTimeSlotsForDate(dateStr);
+  };
+
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    if (name === 'zipCode') {
+        const cleanZip = value.replace(/\D/g, '').slice(0, 5);
+        setFormData(prev => ({ ...prev, [name]: cleanZip }));
+
+        if (cleanZip.length === 5) {
+            try {
+                const response = await fetch(`https://api.zippopotam.us/us/${cleanZip}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setCity(data.places[0]['place name']);
+                } else { setCity(null); }
+            } catch (error) { setCity(null); }
+        } else { setCity(null); }
+    } else {
+        setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const updateCounter = (field: 'bedrooms' | 'bathrooms', delta: number) => {
@@ -219,8 +250,16 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
         alert("Please select a date and time.");
         return;
     }
+    
     setIsSubmitting(true);
+    
+    // 1. Send data to webhook
     await submitWebhook("Walkthrough Scheduled", { visitDate: selectedDate, visitTime: selectedTime });
+    
+    // 2. "Reserve" the slot in our local state (Optimistic Update)
+    const slotKey = `${selectedDate}_${selectedTime}`;
+    setBookedSlots(prev => [...prev, slotKey]);
+
     setIsSubmitting(false);
     setHasBookedTime(true);
     setShowPopup(true);
@@ -228,9 +267,6 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
 
   const isOneTime = formData.frequency === 'One-Time' || (formData.serviceType && formData.serviceType.includes('Move'));
   
-  // Calculate Progress for Mobile Bar
-  const progressPercentage = (step / 5) * 100;
-
   return (
     <section id="quote" className="py-8 lg:py-20 bg-blue-50 relative overflow-hidden">
       {/* Background decoration */}
@@ -242,7 +278,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row border border-gray-100 lg:min-h-[500px]">
           
-          {/* Left Side: Summary & Testimonial - COMPACT ON MOBILE */}
+          {/* Left Side: Summary & Testimonial */}
           <div className="lg:w-4/12 bg-gradient-to-br from-star-dark to-star-blue p-6 lg:p-8 text-white relative flex flex-col justify-between shrink-0 transition-all duration-500">
             {/* Overlay Pattern */}
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
@@ -270,7 +306,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                 Proudly serving Charleston for 18 years.
               </p>
 
-              {/* Mobile Progress Bar - Only visible on small screens */}
+              {/* Mobile Progress Bar */}
               <div className="lg:hidden w-full h-1.5 bg-blue-900/50 rounded-full overflow-hidden mb-2">
                   <div 
                     className="h-full bg-yellow-400 transition-all duration-500 ease-out"
@@ -287,7 +323,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
               </div>
             </div>
 
-             {/* Reviewer - Desktop Only */}
+             {/* Reviewer */}
              <div className="hidden lg:block mt-8 pt-6 border-t border-white/10 relative z-10">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-white p-0.5 shadow-lg">
@@ -325,7 +361,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
 
             <form className="flex-grow flex flex-col justify-between h-full">
               
-              {/* FLUID ANIMATION CONTAINER: Using custom Tailwind Animations */}
+              {/* FLUID ANIMATION CONTAINER */}
               <div key={step} className="animate-slide-in-right flex-grow">
               
                   {/* STEP 1: CONTACT */}
@@ -410,7 +446,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                        </div>
                   )}
 
-                  {/* STEP 3: PRICING (RE-DESIGNED FOR INTUITIVENESS) */}
+                  {/* STEP 3: PRICING */}
                   {step === 3 && (
                       <div className="space-y-4">
                            {/* Frequency Selector */}
@@ -434,12 +470,11 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                 </div>
                            </div>
 
-                           {/* Redesigned Cards: Deep Clean as "The Reset" */}
+                           {/* Redesigned Cards */}
                            <div className="flex flex-col md:flex-row gap-3 mt-2">
                                
                                {/* 1. THE RESET (Deep Clean) */}
                                <div className="flex-1 bg-white border border-gray-200 rounded-xl p-4 shadow-sm relative group hover:border-blue-200 hover:shadow-md transition-all duration-300 overflow-hidden">
-                                    {/* Subtle Top Decor */}
                                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gray-200 to-gray-400"></div>
 
                                     <div className="flex justify-between items-start mb-2">
@@ -458,7 +493,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                         <span className="block text-xl font-black text-gray-800 tracking-tight">${initialMin} - ${initialMax}</span>
                                     </div>
 
-                                    {/* Value Add List - Why does it cost this much? */}
+                                    {/* Value Add List */}
                                     <div className="bg-gray-50 rounded-lg p-2 space-y-1">
                                         <div className="flex items-center gap-1.5 text-[10px] text-gray-600 font-medium">
                                             <i className="fas fa-check text-green-500"></i> Hand-washed baseboards
@@ -475,7 +510,6 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                {/* 2. MAINTENANCE (Recurring) */}
                                {!isOneTime && (
                                     <div className="flex-1 bg-blue-50/50 border border-star-blue rounded-xl p-4 shadow-sm relative flex flex-col justify-between hover:shadow-md transition-shadow duration-300 overflow-hidden">
-                                            {/* Subtle Top Decor */}
                                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-star-blue to-blue-400"></div>
 
                                             <div className="flex justify-between items-start mb-2">
@@ -495,7 +529,6 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                                 </div>
                                             </div>
                                             
-                                            {/* Visual Connector */}
                                             <div className="mt-3 pt-3 border-t border-blue-100 text-[10px] text-gray-500 flex items-center gap-2">
                                                 <i className="fas fa-sync-alt text-star-blue opacity-50"></i>
                                                 <span>Locks in your discounted rate</span>
@@ -553,7 +586,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                       </div>
                   )}
 
-                  {/* STEP 5: CALENDAR */}
+                  {/* STEP 5: CALENDAR (UPDATED LOGIC) */}
                   {step === 5 && (
                       <div className="space-y-4">
                             {/* Header Banner */}
@@ -606,26 +639,32 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                         <div className="grid grid-cols-2 gap-2">
                                             {availableTimeSlots.length > 0 ? availableTimeSlots.map((slot, idx) => {
                                                 const isSelected = selectedTime === slot.time;
+                                                const isBooked = slot.isBooked; // New logic
+
                                                 return (
                                                     <button
                                                         key={idx}
                                                         type="button"
+                                                        disabled={!slot.available}
                                                         onClick={() => setSelectedTime(slot.time)}
-                                                        className={`p-3 rounded-xl border-2 text-left transition-all duration-200 group ${
-                                                            isSelected
-                                                            ? 'bg-green-50 border-green-500 shadow-sm scale-[1.02]'
-                                                            : 'bg-white border-gray-100 hover:border-gray-300 hover:bg-gray-50'
+                                                        className={`p-3 rounded-xl border-2 text-left transition-all duration-200 group relative overflow-hidden ${
+                                                            isBooked 
+                                                            ? 'bg-gray-50 border-gray-100 cursor-not-allowed opacity-60' 
+                                                            : isSelected
+                                                                ? 'bg-green-50 border-green-500 shadow-sm scale-[1.02]'
+                                                                : 'bg-white border-gray-100 hover:border-gray-300 hover:bg-gray-50'
                                                         }`}
                                                     >
                                                         <div className="flex justify-between items-center">
-                                                            <span className={`text-sm font-black ${isSelected ? 'text-green-700' : 'text-gray-900'}`}>{slot.time}</span>
-                                                            {isSelected && <i className="fas fa-check-circle text-green-500 text-xs animate-zoom-in"></i>}
+                                                            <span className={`text-sm font-black ${isBooked ? 'text-gray-400 line-through' : isSelected ? 'text-green-700' : 'text-gray-900'}`}>{slot.time}</span>
+                                                            {!isBooked && isSelected && <i className="fas fa-check-circle text-green-500 text-xs animate-zoom-in"></i>}
+                                                            {isBooked && <span className="text-[9px] font-bold text-red-400 bg-red-50 px-1.5 rounded uppercase">Full</span>}
                                                         </div>
-                                                        <span className="text-[9px] text-gray-500 font-medium block group-hover:text-gray-700">{slot.label}</span>
+                                                        <span className={`text-[9px] font-medium block ${isBooked ? 'text-gray-300' : 'text-gray-500 group-hover:text-gray-700'}`}>{slot.label}</span>
                                                     </button>
                                                 );
                                             }) : (
-                                                <div className="col-span-2 text-center py-2 text-xs text-gray-500">No slots. Try another day.</div>
+                                                <div className="col-span-2 text-center py-2 text-xs text-gray-500">No slots available.</div>
                                             )}
                                         </div>
                                     )}
@@ -635,7 +674,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                   )}
               </div>
 
-              {/* Navigation Buttons (Outside the key container to remain stable) */}
+              {/* Navigation Buttons */}
               <div className="mt-6 flex gap-3 pt-4 border-t border-gray-50">
                 {step > 1 && step < 4 && (
                     <button 
@@ -676,8 +715,6 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                         <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:animate-[shimmer_1s_infinite]"></div>
                     </button>
                 )}
-
-                {/* Step 4 Buttons are inline */}
 
                 {step === 5 && (
                     <>

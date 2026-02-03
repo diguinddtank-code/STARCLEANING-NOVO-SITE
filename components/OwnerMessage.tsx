@@ -60,9 +60,13 @@ const OwnerMessage: React.FC = () => {
                 <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-yellow-400/20 rounded-full blur-3xl"></div>
 
                 <div className="relative z-10">
-                    <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1.5 lg:px-4 lg:py-2 rounded-full mb-4 lg:mb-6 border border-white/10">
-                        <i className="fas fa-flag-usa text-red-400"></i>
-                        <span className="text-[10px] lg:text-xs font-bold uppercase tracking-widest text-blue-50">Veteran Owned Business</span>
+                    <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full mb-4 lg:mb-6 border border-white/10 shadow-sm">
+                        <img 
+                            src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" 
+                            alt="Veteran Owned" 
+                            className="h-8 w-auto"
+                        />
+                        <span className="text-[10px] lg:text-xs font-bold uppercase tracking-widest text-white">Veteran Owned Business</span>
                     </div>
 
                     <h2 className="text-2xl md:text-5xl font-black mb-4 lg:mb-6 font-heading leading-tight">

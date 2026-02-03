@@ -16,8 +16,22 @@ const Footer: React.FC = () => {
               alt="Star Cleaning"
               className="h-14 mb-6 brightness-0 invert opacity-90" 
             />
+            
+            {/* Veteran Seal */}
+            <div className="flex items-center gap-3 mb-6 bg-white/5 p-3 rounded-xl border border-white/10 w-fit">
+                <img 
+                    src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" 
+                    alt="Veteran Owned" 
+                    className="h-10 w-auto"
+                />
+                <div className="flex flex-col">
+                    <span className="text-xs font-bold text-white uppercase tracking-wider">Veteran Owned</span>
+                    <span className="text-[10px] text-gray-400">Values. Integrity. Service.</span>
+                </div>
+            </div>
+
             <p className="text-sm leading-relaxed text-gray-400 mb-8 max-w-sm">
-              #1 rated residential cleaning service in Charleston, Summerville & Surrounding Areas. Veteran Owned & Operated for 18 years.
+              #1 rated residential cleaning service in Charleston, Summerville & Surrounding Areas. Operating with military precision for 18 years.
             </p>
             <div className="flex gap-4">
               <SocialIcon icon="fab fa-facebook-f" />
