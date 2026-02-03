@@ -3,49 +3,68 @@ import React from 'react';
 const Testimonials: React.FC = () => {
   const reviews = [
     {
-      text: "I was nervous about letting someone into my home while I was at work, but the team put me completely at ease. They even left a treat for my dog! My house feels brand new.",
-      author: "Sarah Jenkins",
-      location: "Mount Pleasant",
-      initials: "SJ",
-      source: "nextdoor",
-      rating: 5,
-      image: "https://randomuser.me/api/portraits/women/44.jpg"
-    },
-    {
-      text: "It's not just about the cleaning (which is perfect, by the way). It's the little touches. The way they arrange the pillows, the friendly note they leave. Truly wonderful people.",
-      author: "Mike Ross",
-      location: "Downtown Charleston",
-      initials: "MR",
+      text: "This cleaning company exceeded my expectations! They were professional, on time, and incredibly thorough. Every room looked better than I imagined from the floors to the bathrooms to all the little details that usually get missed. It feels so good to come home to a truly clean house. I’m beyond happy with their work and will absolutely be a repeat customer.",
+      author: "Sarah Rounds",
+      location: "Ridgeville, SC",
+      date: "01/15/2026",
       source: "google",
-      rating: 5,
-      image: "https://randomuser.me/api/portraits/men/32.jpg"
+      rating: 5
     },
     {
-      text: "I booked them for a move-out clean so I could get my deposit back. My landlord was shocked at how good the place looked. Honest, hardworking, and worth every penny.",
-      author: "Emily Davis",
-      location: "West Ashley",
-      initials: "ED",
-      source: "yelp",
-      rating: 5,
-      image: "https://randomuser.me/api/portraits/women/68.jpg"
-    },
-    {
-      text: "My favorite day of the week is Star Cleaning day. Coming home to a sparkling house after a long shift is the best form of self-care. Thank you Maria & team!",
-      author: "Jessica L.",
-      location: "James Island",
-      initials: "JL",
+      text: "Star Cleaning always does an amazing job! We love coming home after our cleaning to a fresh home. There’s nothing better. Marianna is always responsive to any questions we have and has been very flexible when we’ve needed to move our cleaning day. Highly recommend!",
+      author: "Mariah Eddins",
+      location: "Summerville, SC",
+      date: "01/09/2026",
       source: "facebook",
-      rating: 5,
-      image: "https://randomuser.me/api/portraits/women/12.jpg"
+      rating: 5
     },
     {
-      text: "We trust them with our AirBnB property keys. They have never missed a scheduled clean and always send me photos when they are done. Total peace of mind.",
-      author: "David Chen",
-      location: "Folly Beach",
-      initials: "DC",
+      text: "The cleaning that was done today was very good. Everything looks clean and perfectly arranged. Thank you.",
+      author: "Janice Oppenhheimer",
+      location: "Summerville, SC",
+      date: "01/16/2026",
       source: "google",
-      rating: 5,
-      image: "https://randomuser.me/api/portraits/men/85.jpg"
+      rating: 5
+    },
+    {
+      text: "Everything looks fresh and clean! Thank you for a thorough cleaning today and working with my schedule. We appreciate our cleaners hard work.",
+      author: "Ginny Ballard",
+      location: "Summerville, SC",
+      date: "01/15/2026",
+      source: "nextdoor",
+      rating: 5
+    },
+    {
+      text: "Excellent job every time they are here. And they are so polite, just nice hardworking girls.",
+      author: "Janet Richardson",
+      location: "Summerville, SC",
+      date: "01/15/2026",
+      source: "google",
+      rating: 5
+    },
+    {
+      text: "Star Cleaning does an amazing job each month in my home, the ladies make my home sparkle each time! I highly recommend.",
+      author: "Julie Bresonis",
+      location: "Summerville, SC",
+      date: "01/14/2026",
+      source: "facebook",
+      rating: 5
+    },
+    {
+      text: "Great job and thanks for all the extra attention to detail the ladies do for us. Can never do less than.",
+      author: "Kelley Crews",
+      location: "Isle of Palms, SC",
+      date: "01/15/2026",
+      source: "google",
+      rating: 5
+    },
+    {
+      text: "Excellent !!",
+      author: "Laura Paterson",
+      location: "Summerville, SC",
+      date: "01/07/2026",
+      source: "google",
+      rating: 5
     }
   ];
 
@@ -71,7 +90,7 @@ const Testimonials: React.FC = () => {
               Don't just take our word for it.
             </h2>
             <p className="text-base lg:text-lg text-gray-600 leading-relaxed">
-              We believe trust is earned, one clean home at a time. Here is what your neighbors in Charleston are saying about the Star Cleaning experience.
+              We believe trust is earned, one clean home at a time. Here is what your neighbors in Charleston & Summerville are saying.
             </p>
         </div>
       </div>
@@ -104,7 +123,7 @@ const Testimonials: React.FC = () => {
   );
 };
 
-const ReviewCard: React.FC<any> = ({ text, author, location, source, rating, image }) => {
+const ReviewCard: React.FC<any> = ({ text, author, location, source, rating, date }) => {
     // Helper to render the source icon/image
     const renderSourceIcon = (src: string) => {
         if (src === 'google') {
@@ -143,19 +162,26 @@ const ReviewCard: React.FC<any> = ({ text, author, location, source, rating, ima
     };
 
     return (
-        <div className="w-[85vw] sm:w-[320px] md:w-[380px] bg-white p-6 lg:p-8 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.08)] border border-gray-100 flex-shrink-0 relative group hover:-translate-y-2 transition-transform duration-300">
+        <div className="w-[85vw] sm:w-[320px] md:w-[380px] bg-white p-6 lg:p-8 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.08)] border border-gray-100 flex-shrink-0 relative group hover:-translate-y-2 transition-transform duration-300 flex flex-col">
             {/* Quote Icon */}
             <div className="absolute top-6 right-8 text-6xl font-serif text-blue-50 opacity-50 z-0">"</div>
 
-            <div className="relative z-10">
-                <div className="flex gap-1 text-yellow-400 text-sm mb-4">
-                    {[...Array(rating)].map((_, i) => <i key={i} className="fas fa-star"></i>)}
+            <div className="relative z-10 flex flex-col h-full">
+                <div className="flex justify-between items-center mb-4">
+                    <div className="flex gap-1 text-yellow-400 text-sm">
+                        {[...Array(rating)].map((_, i) => <i key={i} className="fas fa-star"></i>)}
+                    </div>
+                    {date && (
+                        <span className="text-[10px] text-gray-400 font-bold bg-gray-50 px-2 py-0.5 rounded-full">{date}</span>
+                    )}
                 </div>
 
-                <p className="text-gray-600 mb-6 font-medium leading-relaxed text-sm lg:text-base">"{text}"</p>
+                <p className="text-gray-600 mb-6 font-medium leading-relaxed text-sm lg:text-base flex-grow">"{text}"</p>
                 
-                <div className="flex items-center gap-4 mt-auto border-t border-gray-50 pt-4">
-                    <img src={image} alt={author} className="w-10 h-10 lg:w-12 lg:h-12 rounded-full object-cover border-2 border-white shadow-sm" />
+                <div className="flex items-center gap-3 mt-auto border-t border-gray-50 pt-4">
+                    <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-500 font-bold text-lg shadow-inner">
+                        {author.charAt(0)}
+                    </div>
                     <div>
                         <p className="font-bold text-gray-900 leading-tight text-sm lg:text-base">{author}</p>
                         <p className="text-xs text-gray-400 font-medium">{location}</p>
