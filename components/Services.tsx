@@ -108,7 +108,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, icon, description, ima
   return (
     <div 
       onClick={onClick}
-      className={`h-full group bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-all duration-300 ease-out border border-gray-100 overflow-hidden cursor-pointer flex flex-col ${isOpen ? 'ring-2 ring-star-blue ring-offset-2' : ''}`}
+      className={`h-full group bg-white rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-all duration-300 ease-out border border-gray-100 overflow-hidden cursor-pointer flex flex-col ${isOpen ? 'ring-2 ring-star-blue ring-offset-2' : ''}`}
     >
       {/* Reduced height on mobile for compactness */}
       <div className={`relative overflow-hidden transition-all duration-500 ${isOpen ? 'h-24 lg:h-32' : 'h-48 lg:h-56'}`}>
@@ -131,40 +131,50 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, icon, description, ima
         
         <p className="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-2">{description}</p>
         
-        {/* Expandable Content */}
-        {/* Increased max-h to allow for button visibility without cutting off */}
-        <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[600px] opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
-          <div className="bg-gray-50 rounded-xl p-4 lg:p-5 border border-gray-100">
-             <h4 className="text-xs font-bold uppercase text-star-blue mb-3 tracking-wider flex items-center gap-2">
-                <i className="fas fa-list-ul"></i> What's Included:
-             </h4>
-             <ul className="space-y-2 mb-5">
-               {details.map((detail, idx) => (
-                 <li key={idx} className="flex items-start text-xs lg:text-sm text-gray-700 font-medium">
-                   <i className="fas fa-check-circle text-green-500 mt-0.5 mr-2 text-xs flex-shrink-0"></i>
-                   <span>{detail}</span>
-                 </li>
-               ))}
-             </ul>
-             
-             {/* CTA Button */}
-             <a 
-                href="#quote" 
-                onClick={(e) => e.stopPropagation()} 
-                className="w-full bg-star-blue hover:bg-star-dark text-white font-bold py-3 rounded-xl shadow-md flex items-center justify-center gap-2 transition-all transform hover:-translate-y-1 active:scale-95 text-sm"
-             >
-                <span>Book This Service</span>
-                <i className="fas fa-arrow-right text-xs"></i>
-             </a>
+        {/* Animated Checklist Section using Grid Rows */}
+        <div 
+          className={`grid transition-[grid-template-rows] duration-500 ease-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
+        >
+          <div className="overflow-hidden min-h-0">
+             <div className="bg-blue-50/50 rounded-2xl p-5 border border-blue-100 mt-2">
+                <h4 className="text-xs font-bold uppercase text-star-blue mb-4 tracking-wider flex items-center gap-2">
+                    <i className="fas fa-tasks"></i> Service Checklist:
+                </h4>
+                
+                <ul className="space-y-3 mb-6">
+                  {details.map((detail, idx) => (
+                    <li 
+                      key={idx} 
+                      className={`flex items-start text-sm text-gray-700 font-medium transition-all duration-500 ease-out transform ${isOpen ? 'translate-x-0 opacity-100' : '-translate-x-8 opacity-0'}`}
+                      style={{ transitionDelay: isOpen ? `${idx * 50}ms` : '0ms' }}
+                    >
+                      <div className="w-5 h-5 rounded-full bg-white border border-green-200 text-green-500 flex items-center justify-center mr-3 shadow-sm mt-0.5 shrink-0">
+                          <i className="fas fa-check text-[10px]"></i>
+                      </div>
+                      <span className="leading-snug">{detail}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Prominent CTA Button */}
+                <a 
+                    href="#quote" 
+                    onClick={(e) => e.stopPropagation()} 
+                    className={`w-full bg-star-blue hover:bg-star-dark text-white font-black py-4 rounded-xl shadow-lg shadow-blue-200 flex items-center justify-center gap-3 transition-all duration-500 transform hover:-translate-y-1 active:scale-95 ${isOpen ? 'translate-y-0 opacity-100 delay-300' : 'translate-y-4 opacity-0'}`}
+                >
+                    <span className="uppercase tracking-wide text-sm">Book This Service</span>
+                    <i className="fas fa-arrow-right animate-pulse"></i>
+                </a>
+             </div>
           </div>
         </div>
 
         <div className="mt-auto pt-5 lg:pt-6 flex items-center justify-between border-t border-gray-50">
           <span className={`text-[10px] lg:text-xs font-bold uppercase tracking-wider transition-colors ${isOpen ? 'text-gray-400' : 'text-star-blue group-hover:underline'}`}>
-              {isOpen ? 'Close Details' : 'View Checklist'}
+              {isOpen ? 'Close Checklist' : 'View Checklist'}
           </span>
-          <div className={`w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center border transition-all duration-300 ${isOpen ? 'bg-gray-100 border-gray-200 rotate-180' : 'border-blue-100 bg-blue-50 text-star-blue group-hover:bg-star-blue group-hover:text-white group-hover:border-transparent'}`}>
-            <i className="fas fa-chevron-down text-[10px] lg:text-xs"></i>
+          <div className={`w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-300 ${isOpen ? 'bg-gray-100 border-gray-200 rotate-180' : 'border-blue-100 bg-blue-50 text-star-blue group-hover:bg-star-blue group-hover:text-white group-hover:border-transparent'}`}>
+            <i className="fas fa-chevron-down text-xs"></i>
           </div>
         </div>
       </div>
