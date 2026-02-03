@@ -301,8 +301,8 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
 
             <form className="flex-grow flex flex-col justify-between h-full">
               
-              {/* FLUID ANIMATION CONTAINER: Key triggers re-render animation */}
-              <div key={step} className="animate-in slide-in-from-right-8 fade-in duration-500 ease-out fill-mode-forwards flex-grow">
+              {/* FLUID ANIMATION CONTAINER: Using custom Tailwind Animations */}
+              <div key={step} className="animate-slide-in-right flex-grow">
               
                   {/* STEP 1: CONTACT */}
                   {step === 1 && (
@@ -331,7 +331,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                             </div>
                         </div>
                         {city && (
-                            <div className="col-span-2 bg-green-50 border border-green-100 rounded-xl p-3 flex items-center gap-2 animate-in slide-in-from-bottom-2 fade-in">
+                            <div className="col-span-2 bg-green-50 border border-green-100 rounded-xl p-3 flex items-center gap-2 animate-slide-in-bottom">
                                 <i className="fas fa-check-circle text-green-500 ml-1"></i>
                                 <p className="text-green-800 text-sm font-bold">Great! We serve <span className="underline">{city}</span>.</p>
                             </div>
@@ -386,7 +386,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                        </div>
                   )}
 
-                  {/* STEP 3: PRICING (COMPACT VIEW) */}
+                  {/* STEP 3: PRICING (RE-DESIGNED FOR INTUITIVENESS) */}
                   {step === 3 && (
                       <div className="space-y-4">
                            {/* Frequency Selector */}
@@ -410,48 +410,79 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                 </div>
                            </div>
 
-                           {/* Compact Split Price Display */}
+                           {/* Redesigned Cards: Deep Clean as "The Reset" */}
                            <div className="flex flex-col md:flex-row gap-3 mt-2">
                                
-                               {/* 1. INITIAL CLEAN CARD */}
-                               <div className="flex-1 bg-white border border-gray-200 rounded-xl p-4 shadow-sm relative group hover:border-blue-200 hover:shadow-md transition-all duration-300">
-                                    <div className="absolute top-0 right-0 bg-gray-100 text-gray-500 text-[9px] font-bold px-2 py-0.5 rounded-bl-lg uppercase tracking-wider">
-                                        First Visit
-                                    </div>
-                                    <div className="flex flex-col h-full justify-between">
-                                        <div className="mb-2">
-                                            <h4 className="font-bold text-gray-900 text-sm leading-tight">
-                                                {formData.serviceType.includes("Move") ? "Move In/Out" : "Deep Clean"}
+                               {/* 1. THE RESET (Deep Clean) */}
+                               <div className="flex-1 bg-white border border-gray-200 rounded-xl p-4 shadow-sm relative group hover:border-blue-200 hover:shadow-md transition-all duration-300 overflow-hidden">
+                                    {/* Subtle Top Decor */}
+                                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gray-200 to-gray-400"></div>
+
+                                    <div className="flex justify-between items-start mb-2">
+                                        <div>
+                                            <h4 className="font-black text-gray-900 text-sm leading-tight flex items-center gap-1">
+                                                {formData.serviceType.includes("Move") ? "Move-In Reset" : "The Deep Clean Reset"}
                                             </h4>
-                                            <p className="text-[10px] text-gray-400">Thorough reset.</p>
+                                            <p className="text-[10px] text-gray-500 font-medium mt-0.5">One-time detailed scrub.</p>
                                         </div>
-                                        <span className="block text-xl font-black text-gray-800">${initialMin} - ${initialMax}</span>
+                                        <span className="bg-gray-100 text-gray-600 text-[9px] font-bold px-2 py-1 rounded-lg uppercase tracking-wider">
+                                            Step 1
+                                        </span>
+                                    </div>
+                                    
+                                    <div className="mb-3">
+                                        <span className="block text-xl font-black text-gray-800 tracking-tight">${initialMin} - ${initialMax}</span>
+                                    </div>
+
+                                    {/* Value Add List - Why does it cost this much? */}
+                                    <div className="bg-gray-50 rounded-lg p-2 space-y-1">
+                                        <div className="flex items-center gap-1.5 text-[10px] text-gray-600 font-medium">
+                                            <i className="fas fa-check text-green-500"></i> Hand-washed baseboards
+                                        </div>
+                                        <div className="flex items-center gap-1.5 text-[10px] text-gray-600 font-medium">
+                                            <i className="fas fa-check text-green-500"></i> Ceiling fans & vents
+                                        </div>
+                                        <div className="flex items-center gap-1.5 text-[10px] text-gray-600 font-medium">
+                                            <i className="fas fa-check text-green-500"></i> Heavy dust removal
+                                        </div>
                                     </div>
                                </div>
 
-                               {/* 2. RECURRING PRICE CARD */}
+                               {/* 2. MAINTENANCE (Recurring) */}
                                {!isOneTime && (
-                                    <div className="flex-1 bg-blue-50/50 border border-star-blue rounded-xl p-4 shadow-sm relative flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
-                                            <div className="absolute -top-2 left-1/2 -translate-x-1/2 bg-yellow-400 text-blue-900 text-[9px] font-black px-2 py-0.5 rounded shadow-sm animate-pulse-slow">
-                                                POPULAR
-                                            </div>
-                                            <div className="mb-2">
-                                                <h4 className="font-bold text-star-blue text-sm leading-tight">Recurring</h4>
-                                                <p className="text-[10px] text-gray-500">Standard clean.</p>
-                                            </div>
-                                            <div>
-                                                <span className="block text-2xl font-black text-star-blue tracking-tight">${recurringMin} - ${recurringMax}</span>
-                                                <div className="text-[9px] text-green-600 font-bold mt-1">
-                                                    Save ${recurringSavings}/visit
+                                    <div className="flex-1 bg-blue-50/50 border border-star-blue rounded-xl p-4 shadow-sm relative flex flex-col justify-between hover:shadow-md transition-shadow duration-300 overflow-hidden">
+                                            {/* Subtle Top Decor */}
+                                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-star-blue to-blue-400"></div>
+
+                                            <div className="flex justify-between items-start mb-2">
+                                                <div>
+                                                    <h4 className="font-black text-star-blue text-sm leading-tight">Maintenance Clean</h4>
+                                                    <p className="text-[10px] text-gray-500 font-medium mt-0.5">Keep it fresh forever.</p>
                                                 </div>
+                                                <span className="bg-blue-100 text-star-blue text-[9px] font-bold px-2 py-1 rounded-lg uppercase tracking-wider">
+                                                    Step 2
+                                                </span>
+                                            </div>
+                                            
+                                            <div className="mb-auto">
+                                                <span className="block text-2xl font-black text-star-blue tracking-tight">${recurringMin} - ${recurringMax}</span>
+                                                <div className="text-[9px] text-green-600 font-bold mt-1 bg-green-50 inline-block px-1.5 py-0.5 rounded">
+                                                    Save ${recurringSavings} per visit
+                                                </div>
+                                            </div>
+                                            
+                                            {/* Visual Connector */}
+                                            <div className="mt-3 pt-3 border-t border-blue-100 text-[10px] text-gray-500 flex items-center gap-2">
+                                                <i className="fas fa-sync-alt text-star-blue opacity-50"></i>
+                                                <span>Locks in your discounted rate</span>
                                             </div>
                                     </div>
                                )}
                            </div>
                            
-                           <div className="text-center">
-                                <p className="text-[10px] text-gray-400 font-medium italic">
-                                    *Price range allows for varying home conditions.
+                           <div className="text-center mt-2">
+                                <p className="text-[10px] text-gray-400 font-medium italic flex items-center justify-center gap-1">
+                                    <i className="fas fa-info-circle"></i> "The Reset" brings your home to our professional standard so maintenance is easy.
                                 </p>
                            </div>
                       </div>
@@ -461,7 +492,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                   {step === 4 && (
                       <div className="py-2">
                           
-                          <div className="bg-green-50 border border-green-100 rounded-2xl p-6 text-center shadow-sm mb-6 animate-in zoom-in-95 duration-500">
+                          <div className="bg-green-50 border border-green-100 rounded-2xl p-6 text-center shadow-sm mb-6 animate-zoom-in">
                               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-500 text-3xl mx-auto mb-4 animate-bounce">
                                   <i className="fas fa-file-invoice-dollar"></i>
                               </div>
@@ -540,7 +571,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
 
                             {/* Time Selection */}
                             {selectedDate && (
-                                <div className="animate-in slide-in-from-bottom-4 fade-in duration-500">
+                                <div className="animate-slide-in-bottom">
                                     <h4 className="text-xs font-black text-gray-900 mb-2 uppercase tracking-wide">2. Arrival Window</h4>
                                     
                                     {isLoadingSlots ? (
@@ -564,7 +595,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                                     >
                                                         <div className="flex justify-between items-center">
                                                             <span className={`text-sm font-black ${isSelected ? 'text-green-700' : 'text-gray-900'}`}>{slot.time}</span>
-                                                            {isSelected && <i className="fas fa-check-circle text-green-500 text-xs animate-in zoom-in"></i>}
+                                                            {isSelected && <i className="fas fa-check-circle text-green-500 text-xs animate-zoom-in"></i>}
                                                         </div>
                                                         <span className="text-[9px] text-gray-500 font-medium block group-hover:text-gray-700">{slot.label}</span>
                                                     </button>
@@ -659,8 +690,8 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
       
       {/* SUCCESS POPUP OVERLAY */}
       {showPopup && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in duration-300">
-            <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full text-center relative transform scale-100 animate-in zoom-in-95 duration-200 border-4 border-white">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-fade-in">
+            <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full text-center relative transform scale-100 animate-zoom-in border-4 border-white">
                 <button 
                     onClick={() => setShowPopup(false)} 
                     className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-400 hover:text-gray-600 transition-colors"
@@ -668,7 +699,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                     <i className="fas fa-times"></i>
                 </button>
                 
-                <div className="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-6 shadow-inner animate-in zoom-in spin-in-12 duration-500">
+                <div className="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-6 shadow-inner animate-zoom-in">
                     <i className="fas fa-check-circle"></i>
                 </div>
                 
