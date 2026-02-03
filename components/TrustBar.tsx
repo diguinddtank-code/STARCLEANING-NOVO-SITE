@@ -40,14 +40,18 @@ const TrustBar: React.FC = () => {
 
           <div className="hidden lg:block h-10 w-px bg-gray-200"></div>
 
-          {/* FIX: Centered Last Item on Mobile (col-span-2) and Tablet (col-start-2) */}
-          <TrustItem 
-            icon="fa-flag-usa" 
-            label="VETERAN OWNED" 
-            subLabel="18 Years Serving SC" 
-            color="text-red-500"
-            className="col-span-2 md:col-span-2 md:col-start-2 lg:col-span-1 lg:col-start-auto"
-          />
+          {/* VETERAN OWNED - IMAGE SEAL UPDATE */}
+          <div className="col-span-2 md:col-span-2 md:col-start-2 lg:col-span-1 lg:col-start-auto flex flex-col items-center justify-center text-center gap-1.5 opacity-90 hover:opacity-100 transition-all group hover:-translate-y-1 duration-300">
+             <img 
+                src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" 
+                alt="Veteran Owned Business Seal" 
+                className="h-12 w-auto object-contain mb-1 group-hover:scale-105 transition-transform drop-shadow-sm"
+             />
+             <div className="flex flex-col">
+                <span className="text-[10px] lg:text-xs font-black text-gray-700 tracking-wider">VETERAN OWNED</span>
+                <span className="text-[9px] lg:text-[10px] text-gray-400 font-medium">18 Years Serving SC</span>
+            </div>
+          </div>
 
         </div>
       </div>

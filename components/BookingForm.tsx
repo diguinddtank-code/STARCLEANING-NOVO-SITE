@@ -37,7 +37,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
     hasDog: false,
     hasCat: false,
     serviceType: 'Standard House Cleaning',
-    frequency: 'Bi-Weekly'
+    frequency: 'Weekly' // Default changed to Weekly
   });
 
   // --- HANDLE INITIAL DATA FROM HERO ---
@@ -248,10 +248,15 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
             
             <div className="relative z-10">
-              <div className="flex justify-between items-start lg:block">
-                  <div className="inline-block bg-yellow-400 text-blue-900 text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded mb-2 lg:mb-4 shadow-sm animate-pulse-slow">
-                    Veteran Owned
+              <div className="flex justify-between items-start lg:flex-col lg:items-start">
+                  <div className="mb-2 lg:mb-4 animate-pulse-slow">
+                     <img 
+                        src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" 
+                        alt="Veteran Owned Business" 
+                        className="h-10 lg:h-14 w-auto object-contain drop-shadow-md"
+                     />
                   </div>
+                  
                   {/* Mobile Progress Counter */}
                   <div className="lg:hidden text-[10px] font-bold opacity-80 uppercase tracking-widest border border-white/20 rounded-full px-2 py-0.5">
                       Step {step > 4 ? 4 : step}/4
@@ -379,7 +384,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
 
                             {/* Pets */}
                             <div>
-                                <label className="text-xs font-bold text-gray-500 uppercase mb-4 block ml-1">Pets in Home? ($10-12/pet)</label>
+                                <label className="text-xs font-bold text-gray-500 uppercase mb-4 block ml-1">Pets in Home?</label>
                                 <div className="flex gap-4 lg:gap-6">
                                     <PetToggle 
                                         label="Dog(s)" 
