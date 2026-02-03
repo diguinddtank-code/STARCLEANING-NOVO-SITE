@@ -239,7 +239,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row border border-gray-100 min-h-[500px]">
           
-          {/* Left Side: Summary & Testimonial (Restored Sidebar Layout) */}
+          {/* Left Side: Summary & Testimonial */}
           <div className="lg:w-4/12 bg-gradient-to-br from-star-dark to-star-blue p-8 text-white relative flex flex-col justify-between shrink-0 transition-all duration-500">
             {/* Overlay Pattern */}
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
@@ -281,11 +281,11 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
             </div>
           </div>
 
-          {/* Right Side: The Multi-Step Form (Restored Spacious Layout) */}
+          {/* Right Side: The Multi-Step Form */}
           <div className="lg:w-8/12 p-6 lg:p-10 bg-white flex flex-col relative">
             
             {/* Header */}
-            <div className="mb-8 flex items-center justify-between border-b border-gray-100 pb-4">
+            <div className="mb-4 lg:mb-6 flex items-center justify-between border-b border-gray-100 pb-4">
                  <h3 className="text-xl font-black text-gray-900 font-heading flex items-center gap-2">
                     <span className="w-2 h-2 bg-star-blue rounded-full"></span>
                     {step === 1 && "Let's get in touch"}
@@ -301,106 +301,106 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
 
             <form className="flex-grow flex flex-col justify-between h-full">
               
-              {/* STEP 1: CONTACT */}
-              {step === 1 && (
-                  <div className="grid grid-cols-2 gap-6 animate-in fade-in slide-in-from-right-4 duration-300">
-                    <div className="col-span-2 md:col-span-1">
-                        <InputGroup label="Full Name" name="fullName" placeholder="Jane Doe" value={formData.fullName} onChange={handleChange} />
-                    </div>
-                    <div className="col-span-2 md:col-span-1">
-                        <InputGroup label="Email" name="email" type="email" placeholder="jane@example.com" value={formData.email} onChange={handleChange} />
-                    </div>
-                    <div className="col-span-1">
-                        <InputGroup label="Phone" name="phone" type="tel" placeholder="(843) ..." value={formData.phone} onChange={handleChange} />
-                    </div>
-                    <div className="col-span-1">
-                         <div className="flex flex-col group w-full">
-                            <label className="text-xs font-bold text-gray-500 uppercase mb-2 ml-1">Zip Code</label>
-                            <input 
-                                type="text"
-                                name="zipCode"
-                                value={formData.zipCode}
-                                onChange={handleChange}
-                                maxLength={5}
-                                placeholder="29401"
-                                className="w-full px-4 py-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white font-semibold"
-                            />
+              {/* Added 'key={step}' to trigger animation on every step change for fluid feel */}
+              <div key={step} className="animate-in slide-in-from-right-8 fade-in duration-500 ease-out fill-mode-forwards flex-grow">
+              
+                  {/* STEP 1: CONTACT */}
+                  {step === 1 && (
+                      <div className="grid grid-cols-2 gap-6">
+                        <div className="col-span-2 md:col-span-1">
+                            <InputGroup label="Full Name" name="fullName" placeholder="Jane Doe" value={formData.fullName} onChange={handleChange} />
                         </div>
-                    </div>
-                    {city && (
-                        <div className="col-span-2 bg-green-50 border border-green-100 rounded-xl p-3 flex items-center gap-2 animate-in fade-in">
-                            <i className="fas fa-check-circle text-green-500 ml-1"></i>
-                            <p className="text-green-800 text-sm font-bold">Great! We serve <span className="underline">{city}</span>.</p>
+                        <div className="col-span-2 md:col-span-1">
+                            <InputGroup label="Email" name="email" type="email" placeholder="jane@example.com" value={formData.email} onChange={handleChange} />
                         </div>
-                    )}
-                  </div>
-              )}
-
-              {/* STEP 2: DETAILS */}
-              {step === 2 && (
-                   <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
-                        {/* Counters */}
-                        <div className="grid grid-cols-2 gap-8">
-                            <Counter 
-                                label="Bedrooms" 
-                                value={formData.bedrooms} 
-                                onMinus={() => updateCounter('bedrooms', -1)} 
-                                onPlus={() => updateCounter('bedrooms', 1)} 
-                            />
-                            <Counter 
-                                label="Bathrooms" 
-                                value={formData.bathrooms} 
-                                onMinus={() => updateCounter('bathrooms', -1)} 
-                                onPlus={() => updateCounter('bathrooms', 1)} 
-                            />
+                        <div className="col-span-1">
+                            <InputGroup label="Phone" name="phone" type="tel" placeholder="(843) ..." value={formData.phone} onChange={handleChange} />
                         </div>
-
-                        {/* Pets */}
-                        <div>
-                            <label className="text-xs font-bold text-gray-500 uppercase mb-4 block ml-1">Pets in Home? ($10-12/pet)</label>
-                            <div className="flex gap-6">
-                                <PetToggle 
-                                    label="Dog(s)" 
-                                    icon="fa-dog" 
-                                    active={formData.hasDog} 
-                                    onClick={() => togglePet('hasDog')} 
-                                />
-                                <PetToggle 
-                                    label="Cat(s)" 
-                                    icon="fa-cat" 
-                                    active={formData.hasCat} 
-                                    onClick={() => togglePet('hasCat')} 
+                        <div className="col-span-1">
+                             <div className="flex flex-col group w-full">
+                                <label className="text-xs font-bold text-gray-500 uppercase mb-2 ml-1">Zip Code</label>
+                                <input 
+                                    type="text"
+                                    name="zipCode"
+                                    value={formData.zipCode}
+                                    onChange={handleChange}
+                                    maxLength={5}
+                                    placeholder="29401"
+                                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white font-semibold"
                                 />
                             </div>
                         </div>
-
-                        {/* Visual feedback if "Move In" selected in Hero */}
-                        {formData.serviceType.includes("Move") && (
-                            <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-xl flex items-center gap-3">
-                                <i className="fas fa-box-open text-yellow-600 text-xl"></i>
-                                <p className="text-sm text-yellow-800 font-bold">Configured for Move In / Move Out Service</p>
+                        {city && (
+                            <div className="col-span-2 bg-green-50 border border-green-100 rounded-xl p-3 flex items-center gap-2 animate-in fade-in">
+                                <i className="fas fa-check-circle text-green-500 ml-1"></i>
+                                <p className="text-green-800 text-sm font-bold">Great! We serve <span className="underline">{city}</span>.</p>
                             </div>
                         )}
-                   </div>
-              )}
+                      </div>
+                  )}
 
-              {/* STEP 3: PRICING (SPLIT VIEW) */}
-              {step === 3 && (
-                  <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
-                       
-                       <div className="grid grid-cols-1 gap-4">
-                            {/* Frequency Selector */}
-                            <div className="flex flex-col group">
-                                <label className="text-xs font-bold text-gray-500 uppercase mb-3 ml-1">How often would you like service?</label>
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {/* STEP 2: DETAILS */}
+                  {step === 2 && (
+                       <div className="space-y-8">
+                            {/* Counters */}
+                            <div className="grid grid-cols-2 gap-8">
+                                <Counter 
+                                    label="Bedrooms" 
+                                    value={formData.bedrooms} 
+                                    onMinus={() => updateCounter('bedrooms', -1)} 
+                                    onPlus={() => updateCounter('bedrooms', 1)} 
+                                />
+                                <Counter 
+                                    label="Bathrooms" 
+                                    value={formData.bathrooms} 
+                                    onMinus={() => updateCounter('bathrooms', -1)} 
+                                    onPlus={() => updateCounter('bathrooms', 1)} 
+                                />
+                            </div>
+
+                            {/* Pets */}
+                            <div>
+                                <label className="text-xs font-bold text-gray-500 uppercase mb-4 block ml-1">Pets in Home? ($10-12/pet)</label>
+                                <div className="flex gap-6">
+                                    <PetToggle 
+                                        label="Dog(s)" 
+                                        icon="fa-dog" 
+                                        active={formData.hasDog} 
+                                        onClick={() => togglePet('hasDog')} 
+                                    />
+                                    <PetToggle 
+                                        label="Cat(s)" 
+                                        icon="fa-cat" 
+                                        active={formData.hasCat} 
+                                        onClick={() => togglePet('hasCat')} 
+                                    />
+                                </div>
+                            </div>
+
+                            {formData.serviceType.includes("Move") && (
+                                <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-xl flex items-center gap-3">
+                                    <i className="fas fa-box-open text-yellow-600 text-xl"></i>
+                                    <p className="text-sm text-yellow-800 font-bold">Configured for Move In / Move Out Service</p>
+                                </div>
+                            )}
+                       </div>
+                  )}
+
+                  {/* STEP 3: PRICING (COMPACT VIEW) */}
+                  {step === 3 && (
+                      <div className="space-y-4">
+                           {/* Frequency Selector */}
+                           <div className="flex flex-col group">
+                                <label className="text-xs font-bold text-gray-500 uppercase mb-2 ml-1">Frequency</label>
+                                <div className="grid grid-cols-4 gap-2">
                                     {['Weekly', 'Bi-Weekly', 'Monthly', 'One-Time'].map((freq) => (
                                         <button
                                             key={freq}
                                             type="button"
                                             onClick={() => setFormData(prev => ({ ...prev, frequency: freq }))}
-                                            className={`py-3 px-2 rounded-xl text-sm font-bold border-2 transition-all ${
+                                            className={`py-2 px-1 rounded-lg text-[10px] md:text-xs font-bold border transition-all truncate ${
                                                 formData.frequency === freq 
-                                                ? 'bg-star-blue text-white border-star-blue shadow-md' 
+                                                ? 'bg-star-blue text-white border-star-blue shadow-sm' 
                                                 : 'bg-white text-gray-600 border-gray-100 hover:border-blue-200'
                                             }`}
                                         >
@@ -408,215 +408,180 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                         </button>
                                     ))}
                                 </div>
-                            </div>
-                       </div>
-
-                       {/* THE SPLIT PRICE DISPLAY */}
-                       <div className="relative mt-4 space-y-4">
-                           
-                           {/* 1. INITIAL CLEAN CARD */}
-                           <div className="relative bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center justify-between group hover:border-blue-200 transition-colors">
-                                <div className="absolute -top-3 left-4 bg-gray-800 text-white text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider">
-                                    1st Visit Only
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-gray-900 text-base">
-                                        {formData.serviceType.includes("Move") ? "Move In/Out Clean" : "Initial Deep Clean"}
-                                    </h4>
-                                    <p className="text-xs text-gray-500">
-                                        {formData.serviceType.includes("Move") ? "Empty home specialist clean." : "Thorough top-to-bottom reset."}
-                                    </p>
-                                </div>
-                                <div className="text-right">
-                                    <span className="block text-2xl font-black text-gray-800">${initialMin} - ${initialMax}</span>
-                                </div>
                            </div>
 
-                           {/* Connector Arrow (If Recurring) */}
-                           {!isOneTime && (
-                               <div className="flex justify-center -my-2 relative z-10">
-                                   <div className="bg-gray-50 p-1.5 rounded-full border border-gray-100">
-                                       <i className="fas fa-arrow-down text-gray-400 text-sm"></i>
-                                   </div>
+                           {/* Compact Split Price Display */}
+                           <div className="flex flex-col md:flex-row gap-3 mt-2">
+                               
+                               {/* 1. INITIAL CLEAN CARD */}
+                               <div className="flex-1 bg-white border border-gray-200 rounded-xl p-4 shadow-sm relative group hover:border-blue-200 transition-colors">
+                                    <div className="absolute top-0 right-0 bg-gray-100 text-gray-500 text-[9px] font-bold px-2 py-0.5 rounded-bl-lg uppercase tracking-wider">
+                                        First Visit
+                                    </div>
+                                    <div className="flex flex-col h-full justify-between">
+                                        <div className="mb-2">
+                                            <h4 className="font-bold text-gray-900 text-sm leading-tight">
+                                                {formData.serviceType.includes("Move") ? "Move In/Out" : "Deep Clean"}
+                                            </h4>
+                                            <p className="text-[10px] text-gray-400">Thorough reset.</p>
+                                        </div>
+                                        <span className="block text-xl font-black text-gray-800">${initialMin} - ${initialMax}</span>
+                                    </div>
                                </div>
-                           )}
 
-                           {/* 2. RECURRING PRICE CARD (Only if not One-Time) */}
-                           {!isOneTime && (
-                                <div className="relative bg-gradient-to-r from-blue-50 to-white border-2 border-star-blue rounded-xl p-5 shadow-md flex items-center justify-between">
-                                        <div className="absolute -top-3 right-4 bg-yellow-400 text-blue-900 text-[10px] font-black px-3 py-1 rounded shadow-sm animate-pulse-slow">
-                                            BEST VALUE
-                                        </div>
-                                        <div>
-                                            <h4 className="font-bold text-star-blue text-base">Recurring {formData.frequency}</h4>
-                                            <p className="text-xs text-gray-500">Standard maintenance clean.</p>
-                                            <div className="text-[10px] text-green-600 font-bold mt-1">
-                                                <i className="fas fa-check-circle mr-1"></i>
-                                                You save ${recurringSavings} per visit
+                               {/* 2. RECURRING PRICE CARD */}
+                               {!isOneTime && (
+                                    <div className="flex-1 bg-blue-50/50 border border-star-blue rounded-xl p-4 shadow-sm relative flex flex-col justify-between">
+                                            <div className="absolute -top-2 left-1/2 -translate-x-1/2 bg-yellow-400 text-blue-900 text-[9px] font-black px-2 py-0.5 rounded shadow-sm">
+                                                POPULAR
                                             </div>
-                                        </div>
-                                        <div className="text-right">
-                                            <span className="block text-3xl font-black text-star-blue tracking-tight">${recurringMin} - ${recurringMax}</span>
-                                        </div>
-                                </div>
-                           )}
+                                            <div className="mb-2">
+                                                <h4 className="font-bold text-star-blue text-sm leading-tight">Recurring</h4>
+                                                <p className="text-[10px] text-gray-500">Standard clean.</p>
+                                            </div>
+                                            <div>
+                                                <span className="block text-2xl font-black text-star-blue tracking-tight">${recurringMin} - ${recurringMax}</span>
+                                                <div className="text-[9px] text-green-600 font-bold mt-1">
+                                                    Save ${recurringSavings}/visit
+                                                </div>
+                                            </div>
+                                    </div>
+                               )}
+                           </div>
                            
-                           <div className="text-center mt-3">
-                                <p className="text-xs text-gray-400 font-medium">
-                                    *Final price confirmed upon walkthrough visit.
+                           <div className="text-center">
+                                <p className="text-[10px] text-gray-400 font-medium italic">
+                                    *Price range allows for varying home conditions.
                                 </p>
                            </div>
-
-                       </div>
-                  </div>
-              )}
-
-              {/* STEP 4: DECISION (Quote Locked, Ask to Schedule) */}
-              {step === 4 && (
-                  <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-300 py-6">
-                      
-                      <div className="bg-green-50 border border-green-100 rounded-2xl p-8 text-center shadow-sm">
-                          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-green-500 text-4xl mx-auto mb-6 animate-bounce">
-                              <i className="fas fa-file-invoice-dollar"></i>
-                          </div>
-                          <h3 className="text-2xl font-black text-gray-900 mb-2">Estimate Generated!</h3>
-                          <div className="text-base text-gray-600 space-y-1">
-                             <p><strong>Initial Visit:</strong> ${initialMin} - ${initialMax}</p>
-                             {!isOneTime && (
-                                <p><strong>Then {formData.frequency}:</strong> ${recurringMin} - ${recurringMax}</p>
-                             )}
-                          </div>
                       </div>
+                  )}
 
-                      <div className="text-center">
-                          <h4 className="text-xl font-bold text-gray-800 mb-4">Let's finalize this price!</h4>
-                          <p className="text-sm text-gray-500 mb-8 max-w-sm mx-auto">
-                              Schedule a quick visit with our team to lock in your exact rate and confirm your cleaning day.
-                          </p>
+                  {/* STEP 4: DECISION */}
+                  {step === 4 && (
+                      <div className="py-2">
                           
-                          <div className="flex flex-col gap-4">
-                              <button 
-                                type="button"
-                                onClick={() => setStep(5)} // Go to Calendar
-                                className="w-full bg-star-blue hover:bg-star-dark text-white font-black py-4 rounded-xl shadow-lg shadow-blue-200 transform hover:-translate-y-0.5 transition duration-200 flex justify-center items-center gap-3 text-lg"
-                              >
-                                  <span>Check Availability for Visit</span>
-                                  <i className="fas fa-calendar-alt"></i>
-                              </button>
+                          <div className="bg-green-50 border border-green-100 rounded-2xl p-6 text-center shadow-sm mb-6">
+                              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-500 text-3xl mx-auto mb-4 animate-bounce">
+                                  <i className="fas fa-file-invoice-dollar"></i>
+                              </div>
+                              <h3 className="text-xl font-black text-gray-900 mb-1">Quote Saved!</h3>
+                              <div className="text-sm text-gray-600">
+                                 <span className="block font-bold">Range: ${initialMin} - ${initialMax}</span>
+                              </div>
+                          </div>
 
-                              <button 
-                                type="button"
-                                onClick={handleSkipScheduling} // Just finish
-                                className="text-gray-400 hover:text-gray-600 font-bold text-sm py-2 underline decoration-gray-300"
-                              >
-                                  Just email me the estimate for now
-                              </button>
+                          <div className="text-center">
+                              <p className="text-sm text-gray-500 mb-6 max-w-sm mx-auto">
+                                  Schedule a quick 15-min walkthrough to lock in your exact price.
+                              </p>
+                              
+                              <div className="flex flex-col gap-3">
+                                  <button 
+                                    type="button"
+                                    onClick={() => setStep(5)}
+                                    className="w-full bg-star-blue hover:bg-star-dark text-white font-black py-4 rounded-xl shadow-lg shadow-blue-200 transform hover:-translate-y-0.5 transition duration-200 flex justify-center items-center gap-3 text-lg"
+                                  >
+                                      <span>See Availability</span>
+                                      <i className="fas fa-calendar-alt"></i>
+                                  </button>
+
+                                  <button 
+                                    type="button"
+                                    onClick={handleSkipScheduling}
+                                    className="text-gray-400 hover:text-gray-600 font-bold text-xs py-2 underline decoration-gray-300"
+                                  >
+                                      No thanks, just email me the quote
+                                  </button>
+                              </div>
                           </div>
                       </div>
-                  </div>
-              )}
+                  )}
 
-              {/* STEP 5: CALENDAR & TIME (If they chose to schedule) */}
-              {step === 5 && (
-                  <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
-                        {/* Header Banner */}
-                        <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-green-500 shadow-sm">
-                                    <i className="fas fa-user-clock text-lg"></i>
+                  {/* STEP 5: CALENDAR */}
+                  {step === 5 && (
+                      <div className="space-y-4">
+                            {/* Header Banner */}
+                            <div className="bg-blue-50 border border-blue-100 p-3 rounded-xl flex items-center gap-3">
+                                <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-green-500 shadow-sm shrink-0">
+                                    <i className="fas fa-clock"></i>
                                 </div>
                                 <div>
-                                    <p className="text-xs font-bold text-blue-900 uppercase tracking-wide">Schedule Walkthrough</p>
-                                    <p className="text-sm font-bold text-gray-600">To finalize your price</p>
+                                    <p className="text-xs font-bold text-blue-900 uppercase">15-Min Walkthrough</p>
+                                    <p className="text-[10px] text-gray-500 font-medium">No cleaning today, just a quick look.</p>
                                 </div>
                             </div>
-                        </div>
 
-                        {/* Date Selection */}
-                        <div>
-                            <h4 className="text-sm font-black text-gray-900 mb-4 flex items-center gap-2">
-                                <span className="bg-gray-200 text-gray-700 w-6 h-6 rounded-full flex items-center justify-center text-xs">1</span>
-                                Choose a Day
-                            </h4>
-                            <div className="grid grid-cols-3 gap-3">
-                                {availableDates.map((date, idx) => {
-                                    const dateStr = date.toDateString();
-                                    const isSelected = selectedDate === dateStr;
-                                    return (
-                                        <button
-                                            key={idx}
-                                            type="button"
-                                            onClick={() => handleDateSelect(dateStr)}
-                                            className={`p-3 rounded-xl border-2 text-center transition-all ${
-                                                isSelected 
-                                                ? 'bg-star-blue text-white border-star-blue shadow-md' 
-                                                : 'bg-white border-gray-100 text-gray-600 hover:border-blue-200'
-                                            }`}
-                                        >
-                                            <span className="block text-[10px] uppercase font-bold opacity-80">{date.toLocaleDateString('en-US', { weekday: 'short' })}</span>
-                                            <span className="block text-2xl font-black">{date.getDate()}</span>
-                                            <span className="block text-[10px] font-bold">{date.toLocaleDateString('en-US', { month: 'short' })}</span>
-                                        </button>
-                                    );
-                                })}
+                            {/* Date Selection */}
+                            <div>
+                                <h4 className="text-xs font-black text-gray-900 mb-2 uppercase tracking-wide">1. Select Day</h4>
+                                <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                                    {availableDates.map((date, idx) => {
+                                        const dateStr = date.toDateString();
+                                        const isSelected = selectedDate === dateStr;
+                                        return (
+                                            <button
+                                                key={idx}
+                                                type="button"
+                                                onClick={() => handleDateSelect(dateStr)}
+                                                className={`min-w-[80px] p-2 rounded-xl border-2 text-center transition-all ${
+                                                    isSelected 
+                                                    ? 'bg-star-blue text-white border-star-blue shadow-md' 
+                                                    : 'bg-white border-gray-100 text-gray-600 hover:border-blue-200'
+                                                }`}
+                                            >
+                                                <span className="block text-[9px] uppercase font-bold opacity-80">{date.toLocaleDateString('en-US', { weekday: 'short' })}</span>
+                                                <span className="block text-xl font-black">{date.getDate()}</span>
+                                            </button>
+                                        );
+                                    })}
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Time Selection (Async Loaded) */}
-                        {selectedDate && (
-                            <div className="animate-in slide-in-from-bottom-2 fade-in">
-                                <h4 className="text-sm font-black text-gray-900 mb-4 flex items-center gap-2">
-                                    <span className="bg-gray-200 text-gray-700 w-6 h-6 rounded-full flex items-center justify-center text-xs">2</span>
-                                    Visit Time Window
-                                </h4>
-                                
-                                {isLoadingSlots ? (
-                                    <div className="flex justify-center items-center py-10">
-                                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-star-blue"></div>
-                                        <span className="ml-3 text-sm font-bold text-gray-500">Checking availability...</span>
-                                    </div>
-                                ) : (
-                                    <div className="grid grid-cols-2 gap-4">
-                                        {availableTimeSlots.length > 0 ? availableTimeSlots.map((slot, idx) => {
-                                            const isSelected = selectedTime === slot.time;
-                                            return (
-                                                <button
-                                                    key={idx}
-                                                    type="button"
-                                                    onClick={() => setSelectedTime(slot.time)}
-                                                    className={`relative p-4 rounded-xl border-2 text-left transition-all group ${
-                                                        isSelected
-                                                        ? 'bg-green-50 border-green-500 shadow-sm'
-                                                        : 'bg-white border-gray-100 hover:border-gray-300'
-                                                    }`}
-                                                >
-                                                    <div className="flex justify-between items-start mb-1">
-                                                        <span className={`text-base font-black ${isSelected ? 'text-green-700' : 'text-gray-900'}`}>{slot.time}</span>
-                                                        {isSelected && <i className="fas fa-check-circle text-green-500"></i>}
-                                                    </div>
-                                                    <span className="text-xs text-gray-500 font-medium block">{slot.label}</span>
-                                                    
-                                                    {slot.spots <= 2 && (
-                                                        <div className="mt-2 inline-block bg-red-100 text-red-600 text-[9px] font-bold px-2 py-0.5 rounded border border-red-200">
-                                                            Only {slot.spots} spot{slot.spots > 1 ? 's' : ''} left!
+                            {/* Time Selection */}
+                            {selectedDate && (
+                                <div className="animate-in slide-in-from-bottom-2 fade-in">
+                                    <h4 className="text-xs font-black text-gray-900 mb-2 uppercase tracking-wide">2. Arrival Window</h4>
+                                    
+                                    {isLoadingSlots ? (
+                                        <div className="py-6 text-center text-xs font-bold text-gray-400">
+                                            <i className="fas fa-spinner fa-spin mr-2"></i> Loading slots...
+                                        </div>
+                                    ) : (
+                                        <div className="grid grid-cols-2 gap-2">
+                                            {availableTimeSlots.length > 0 ? availableTimeSlots.map((slot, idx) => {
+                                                const isSelected = selectedTime === slot.time;
+                                                return (
+                                                    <button
+                                                        key={idx}
+                                                        type="button"
+                                                        onClick={() => setSelectedTime(slot.time)}
+                                                        className={`p-3 rounded-xl border-2 text-left transition-all ${
+                                                            isSelected
+                                                            ? 'bg-green-50 border-green-500 shadow-sm'
+                                                            : 'bg-white border-gray-100 hover:border-gray-300'
+                                                        }`}
+                                                    >
+                                                        <div className="flex justify-between items-center">
+                                                            <span className={`text-sm font-black ${isSelected ? 'text-green-700' : 'text-gray-900'}`}>{slot.time}</span>
+                                                            {isSelected && <i className="fas fa-check-circle text-green-500 text-xs"></i>}
                                                         </div>
-                                                    )}
-                                                </button>
-                                            );
-                                        }) : (
-                                            <div className="col-span-2 text-center py-4 text-sm text-gray-500">
-                                                No slots available for this date. Please try another.
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
-                            </div>
-                        )}
-                  </div>
-              )}
+                                                        <span className="text-[9px] text-gray-500 font-medium block">{slot.label}</span>
+                                                    </button>
+                                                );
+                                            }) : (
+                                                <div className="col-span-2 text-center py-2 text-xs text-gray-500">No slots. Try another day.</div>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                      </div>
+                  )}
+              </div>
 
-              {/* Navigation Buttons */}
-              <div className="mt-8 flex gap-4 pt-6 border-t border-gray-50">
+              {/* Navigation Buttons (Outside the key container to remain stable) */}
+              <div className="mt-6 flex gap-3 pt-4 border-t border-gray-50">
                 {step > 1 && step < 4 && (
                     <button 
                         type="button"
@@ -657,13 +622,13 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                     </button>
                 )}
 
-                {/* Step 4 Buttons are inline in the form body (Decision Step) */}
+                {/* Step 4 Buttons are inline */}
 
                 {step === 5 && (
                     <>
                         <button 
                             type="button"
-                            onClick={() => setStep(4)} // Back to Decision
+                            onClick={() => setStep(4)}
                             className="w-1/3 py-3 rounded-xl font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 transition-colors text-sm"
                         >
                             Back
@@ -678,7 +643,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                 <i className="fas fa-spinner fa-spin"></i>
                             ) : (
                                 <>
-                                    <span>Confirm Visit</span>
+                                    <span>Confirm</span>
                                     <i className="fas fa-check-circle group-hover:scale-110 transition-transform"></i>
                                 </>
                             )}
@@ -742,7 +707,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
   );
 };
 
-// --- HELPER COMPONENTS (RESTORED TO ORIGINAL STYLES) ---
+// --- HELPER COMPONENTS ---
 
 const StepIndicator: React.FC<{ current: number, num: number, label: string }> = ({ current, num, label }) => {
     const isActive = (current === num) || (current === 5 && num === 4); 
