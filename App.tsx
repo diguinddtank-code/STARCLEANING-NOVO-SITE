@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TrustBar from './components/TrustBar';
@@ -15,6 +15,17 @@ import ServiceAreas from './components/ServiceAreas';
 import MobileAppNav from './components/MobileAppNav';
 
 function App() {
+  const [prefilledData, setPrefilledData] = useState<any>(null);
+
+  const handleStartQuote = (data: any) => {
+    setPrefilledData(data);
+    // Smooth scroll to quote section
+    const quoteSection = document.getElementById('quote');
+    if (quoteSection) {
+      quoteSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="font-sans text-gray-800 bg-white selection:bg-yellow-200 selection:text-star-blue">
       {/* Top Notification Bar - Optimized for Mobile One-Line */}
@@ -33,7 +44,7 @@ function App() {
       <Navbar />
       
       <main className="w-full pb-20 lg:pb-0">
-        <Hero />
+        <Hero onStartQuote={handleStartQuote} />
         
         {/* Removed ScrollReveal wrapper so badges load immediately */}
         <TrustBar />
@@ -61,7 +72,7 @@ function App() {
         </ScrollReveal>
         
         <ScrollReveal direction="up">
-          <BookingForm />
+          <BookingForm initialData={prefilledData} />
         </ScrollReveal>
       </main>
       

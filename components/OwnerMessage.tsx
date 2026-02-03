@@ -41,10 +41,9 @@ const OwnerMessage: React.FC = () => {
               {/* Badge Overlay - Enhanced & Enabled on Mobile */}
               <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-left-6 z-30 block animate-pulse-slow">
                  <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 bg-white rounded-full p-1.5 lg:p-2 shadow-2xl">
-                    <div className="w-full h-full rounded-full border-2 border-dashed border-yellow-400 flex flex-col items-center justify-center text-center bg-star-blue text-white overflow-hidden relative group-hover:scale-105 transition-transform">
-                       <div className="absolute inset-0 bg-blue-600 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
-                       <span className="relative text-xl sm:text-2xl lg:text-3xl font-black leading-none mb-0.5 lg:mb-1">100%</span>
-                       <span className="relative text-[6px] sm:text-[8px] lg:text-[9px] uppercase font-bold tracking-wider leading-tight">Satisfaction<br/>Guaranteed</span>
+                    <div className="w-full h-full rounded-full border-2 border-dashed border-blue-900 flex flex-col items-center justify-center text-center bg-white text-blue-900 overflow-hidden relative group-hover:scale-105 transition-transform">
+                       <span className="relative text-xl sm:text-2xl lg:text-3xl font-black leading-none mb-0.5 lg:mb-1">18</span>
+                       <span className="relative text-[6px] sm:text-[8px] lg:text-[9px] uppercase font-bold tracking-wider leading-tight">Years<br/>Serving You</span>
                     </div>
                  </div>
               </div>
@@ -62,8 +61,8 @@ const OwnerMessage: React.FC = () => {
 
                 <div className="relative z-10">
                     <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1.5 lg:px-4 lg:py-2 rounded-full mb-4 lg:mb-6 border border-white/10">
-                        <i className="fas fa-heart text-yellow-400 animate-pulse"></i>
-                        <span className="text-[10px] lg:text-xs font-bold uppercase tracking-widest text-blue-50">Local & Family Owned</span>
+                        <i className="fas fa-flag-usa text-red-400"></i>
+                        <span className="text-[10px] lg:text-xs font-bold uppercase tracking-widest text-blue-50">Veteran Owned Business</span>
                     </div>
 
                     <h2 className="text-2xl md:text-5xl font-black mb-4 lg:mb-6 font-heading leading-tight">
@@ -73,10 +72,10 @@ const OwnerMessage: React.FC = () => {
                     
                     <div className="space-y-4 lg:space-y-6 text-blue-50 text-sm md:text-lg leading-relaxed font-medium opacity-90">
                         <p>
-                            Thank you for visiting! We are dedicated to bringing high-quality, reliable house cleaning services to <strong>Charleston, Summerville</strong>, and the surrounding Lowcountry areas.
+                            Thank you for visiting! For <strong>18 years</strong>, we have dedicated ourselves to serving families in <strong>Charleston, Summerville</strong>, and the Lowcountry.
                         </p>
                         <p>
-                            We know inviting someone into your home is a big deal. That's why at <strong>Star Cleaning</strong>, we treat your home with the same care and respect as our own.
+                            As a <strong>Veteran Owned Business</strong>, we bring discipline, integrity, and respect to every home we clean. We treat your home with the same care as our own.
                         </p>
                     </div>
 

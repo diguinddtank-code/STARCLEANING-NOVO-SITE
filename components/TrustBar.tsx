@@ -42,10 +42,10 @@ const TrustBar: React.FC = () => {
 
           {/* FIX: Centered Last Item on Mobile (col-span-2) and Tablet (col-start-2) */}
           <TrustItem 
-            icon="fa-award" 
-            label="LICENSED & INSURED" 
-            subLabel="Fully Protected" 
-            color="text-yellow-500"
+            icon="fa-flag-usa" 
+            label="VETERAN OWNED" 
+            subLabel="18 Years Serving SC" 
+            color="text-red-500"
             className="col-span-2 md:col-span-2 md:col-start-2 lg:col-span-1 lg:col-start-auto"
           />
 
