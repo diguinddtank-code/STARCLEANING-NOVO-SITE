@@ -4,7 +4,7 @@ const Testimonials: React.FC = () => {
   const reviews = [
     {
       text: "This cleaning company exceeded my expectations! They were professional, on time, and incredibly thorough. Every room looked better than I imagined from the floors to the bathrooms to all the little details that usually get missed. It feels so good to come home to a truly clean house. I’m beyond happy with their work and will absolutely be a repeat customer.",
-      author: "Sarah Rounds",
+      author: "Sarah R.",
       location: "Ridgeville, SC",
       date: "01/15/2026",
       source: "google",
@@ -12,7 +12,7 @@ const Testimonials: React.FC = () => {
     },
     {
       text: "Star Cleaning always does an amazing job! We love coming home after our cleaning to a fresh home. There’s nothing better. Marianna is always responsive to any questions we have and has been very flexible when we’ve needed to move our cleaning day. Highly recommend!",
-      author: "Mariah Eddins",
+      author: "Mariah E.",
       location: "Summerville, SC",
       date: "01/09/2026",
       source: "facebook",
@@ -20,7 +20,7 @@ const Testimonials: React.FC = () => {
     },
     {
       text: "The cleaning that was done today was very good. Everything looks clean and perfectly arranged. Thank you.",
-      author: "Janice Oppenhheimer",
+      author: "Janice O.",
       location: "Summerville, SC",
       date: "01/16/2026",
       source: "google",
@@ -28,7 +28,7 @@ const Testimonials: React.FC = () => {
     },
     {
       text: "Everything looks fresh and clean! Thank you for a thorough cleaning today and working with my schedule. We appreciate our cleaners hard work.",
-      author: "Ginny Ballard",
+      author: "Ginny B.",
       location: "Summerville, SC",
       date: "01/15/2026",
       source: "nextdoor",
@@ -36,7 +36,7 @@ const Testimonials: React.FC = () => {
     },
     {
       text: "Excellent job every time they are here. And they are so polite, just nice hardworking girls.",
-      author: "Janet Richardson",
+      author: "Janet R.",
       location: "Summerville, SC",
       date: "01/15/2026",
       source: "google",
@@ -44,7 +44,7 @@ const Testimonials: React.FC = () => {
     },
     {
       text: "Star Cleaning does an amazing job each month in my home, the ladies make my home sparkle each time! I highly recommend.",
-      author: "Julie Bresonis",
+      author: "Julie B.",
       location: "Summerville, SC",
       date: "01/14/2026",
       source: "facebook",
@@ -52,7 +52,7 @@ const Testimonials: React.FC = () => {
     },
     {
       text: "Great job and thanks for all the extra attention to detail the ladies do for us. Can never do less than.",
-      author: "Kelley Crews",
+      author: "Kelley C.",
       location: "Isle of Palms, SC",
       date: "01/15/2026",
       source: "google",
@@ -60,7 +60,7 @@ const Testimonials: React.FC = () => {
     },
     {
       text: "Excellent !!",
-      author: "Laura Paterson",
+      author: "Laura P.",
       location: "Summerville, SC",
       date: "01/07/2026",
       source: "google",

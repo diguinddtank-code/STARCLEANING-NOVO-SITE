@@ -4,19 +4,20 @@ const ExitIntentPopup: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Check if we have already shown the popup in this session
-    const hasShown = sessionStorage.getItem('starCleaningExitShown');
-
     const handleMouseLeave = (e: MouseEvent) => {
-      // If mouse leaves the top of the viewport and we haven't shown popup yet
-      if (e.clientY <= 0 && !hasShown) {
+      // Check storage dynamically inside the event to ensure we have the latest status
+      const alreadyShown = sessionStorage.getItem('starCleaningExitShown');
+
+      // If mouse leaves the top of the viewport (clientY <= 0) and we haven't shown popup yet
+      if (e.clientY <= 0 && !alreadyShown) {
         setIsVisible(true);
         sessionStorage.setItem('starCleaningExitShown', 'true');
       }
     };
 
-    if (!hasShown) {
-      document.addEventListener('mouseleave', handleMouseLeave);
+    // Only attach listener if not already shown in this session
+    if (!sessionStorage.getItem('starCleaningExitShown')) {
+        document.addEventListener('mouseleave', handleMouseLeave);
     }
 
     return () => {

@@ -493,16 +493,16 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                         <span className="block text-xl font-black text-gray-800 tracking-tight">${initialMin} - ${initialMax}</span>
                                     </div>
 
-                                    {/* Value Add List */}
+                                    {/* Value Add List - UPDATED FOR HIGH IMPACT GUARANTEES */}
                                     <div className="bg-gray-50 rounded-lg p-2 space-y-1">
                                         <div className="flex items-center gap-1.5 text-[10px] text-gray-600 font-medium">
-                                            <i className="fas fa-check text-green-500"></i> Hand-washed baseboards
+                                            <i className="fas fa-shield-alt text-green-500"></i> 100% Satisfaction Guaranteed
                                         </div>
                                         <div className="flex items-center gap-1.5 text-[10px] text-gray-600 font-medium">
-                                            <i className="fas fa-check text-green-500"></i> Ceiling fans & vents
+                                            <i className="fas fa-sparkles text-green-500"></i> Top-to-Bottom Deep Scrub
                                         </div>
                                         <div className="flex items-center gap-1.5 text-[10px] text-gray-600 font-medium">
-                                            <i className="fas fa-check text-green-500"></i> Heavy dust removal
+                                            <i className="fas fa-pump-soap text-green-500"></i> Kitchen & Bath Sanitization
                                         </div>
                                     </div>
                                </div>
