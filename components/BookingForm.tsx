@@ -54,15 +54,14 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
     frequency: 'Weekly' // Default changed to Weekly
   });
 
-  // --- SCROLL TO TOP ON STEP CHANGE (MOBILE FIX) ---
+  // --- SCROLL TO TOP ON STEP CHANGE ---
   useEffect(() => {
-    // Only scroll if we are not on step 1 (initial load) to avoid jumping on page load
-    // And ensure we are scrolling to the form container
+    // Only scroll if we are not on step 1 to avoid jumping on initial load
     if (step > 1 && formTopRef.current) {
-        // Use a small timeout to allow DOM to update height
+        // Reduced timeout for snappier feel
         setTimeout(() => {
              formTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }, 100);
+        }, 50);
     }
   }, [step]);
 
@@ -166,7 +165,6 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
       } else if (stage === "Walkthrough Scheduled") {
           url = "https://webhook.infra-remakingautomacoes.cloud/webhook/scsiteagenda";
       } else {
-          // Strict block: Do not send webhook for any other stage
           return false;
       }
 
@@ -244,7 +242,13 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
       setFormData(prev => ({ ...prev, [pet]: !prev[pet] }));
   };
 
-  const nextStep = () => {
+  const nextStep = (e?: React.MouseEvent) => {
+      // IMPORTANT: Prevent form submission or bubbling
+      if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+      }
+
       if (step === 1) {
           if (!formData.fullName || !formData.email || !formData.phone || !formData.zipCode) {
               alert("Please fill in all fields so we can save your quote.");
@@ -252,17 +256,20 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
           }
       }
       
-      // UX Fix: Close keyboard on mobile to prevent layout jumping
-      if (document.activeElement instanceof HTMLElement) {
-          document.activeElement.blur();
-      }
+      // Removed the document.activeElement.blur() here because it causes the screen to "jump" 
+      // on mobile before the click registers, forcing a second click.
 
       setStep(prev => prev + 1);
   };
 
-  const prevStep = () => setStep(prev => prev - 1);
+  const prevStep = (e?: React.MouseEvent) => {
+      if(e) e.preventDefault();
+      setStep(prev => prev - 1);
+  };
 
-  const handleLockPrice = async () => {
+  const handleLockPrice = async (e?: React.MouseEvent) => {
+    if(e) e.preventDefault();
+    
     setIsSubmitting(true);
     // Fires SC SITE Webhook (Step 3 -> 4)
     await submitWebhook("Quote Range Generated");
@@ -372,7 +379,6 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
           </div>
 
           {/* Right Side: The Multi-Step Form */}
-          {/* Added min-height to ensure consistent layout size during mobile transitions */}
           {/* ADDED REF FOR SCROLL */}
           <div ref={formTopRef} className="lg:w-8/12 p-5 lg:p-10 bg-white flex flex-col relative min-h-[500px] lg:min-h-[600px] scroll-mt-20">
             
@@ -392,7 +398,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                 </span>
             </div>
 
-            <form className="flex-grow flex flex-col justify-between h-full">
+            <form className="flex-grow flex flex-col justify-between h-full" onSubmit={(e) => e.preventDefault()}>
               
               {/* FLUID ANIMATION CONTAINER */}
               <div key={step} className="animate-slide-in-right flex-grow">
@@ -419,7 +425,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                     onChange={handleChange}
                                     maxLength={5}
                                     placeholder="29401"
-                                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white font-semibold hover:border-blue-300"
+                                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white font-semibold hover:border-blue-300 touch-manipulation"
                                 />
                             </div>
                         </div>
@@ -491,7 +497,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                             key={freq}
                                             type="button"
                                             onClick={() => setFormData(prev => ({ ...prev, frequency: freq }))}
-                                            className={`py-2 px-1 rounded-lg text-[10px] md:text-xs font-bold border transition-all duration-200 truncate transform active:scale-95 ${
+                                            className={`py-2 px-1 rounded-lg text-[10px] md:text-xs font-bold border transition-all duration-200 truncate transform active:scale-95 touch-manipulation ${
                                                 formData.frequency === freq 
                                                 ? 'bg-star-blue text-white border-star-blue shadow-md scale-105' 
                                                 : 'bg-white text-gray-600 border-gray-100 hover:border-blue-200 hover:bg-gray-50'
@@ -507,7 +513,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                            <div className="flex flex-col md:flex-row gap-3 mt-2">
                                
                                {/* 1. THE RESET (Deep Clean) */}
-                               <div className="flex-1 bg-white border border-gray-200 rounded-xl p-4 shadow-sm relative group hover:border-blue-200 hover:shadow-md transition-all duration-300 overflow-hidden">
+                               <div className="flex-1 bg-white border border-gray-200 rounded-xl p-4 shadow-sm relative group lg:hover:border-blue-200 lg:hover:shadow-md transition-all duration-300 overflow-hidden">
                                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gray-200 to-gray-400"></div>
 
                                     <div className="flex justify-between items-start mb-2">
@@ -541,7 +547,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
 
                                {/* 2. MAINTENANCE (Recurring) */}
                                {!isOneTime && (
-                                    <div className="flex-1 bg-blue-50/50 border border-star-blue rounded-xl p-4 shadow-sm relative flex flex-col justify-between hover:shadow-md transition-shadow duration-300 overflow-hidden">
+                                    <div className="flex-1 bg-blue-50/50 border border-star-blue rounded-xl p-4 shadow-sm relative flex flex-col justify-between lg:hover:shadow-md transition-shadow duration-300 overflow-hidden">
                                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-star-blue to-blue-400"></div>
 
                                             <div className="flex justify-between items-start mb-2">
@@ -600,7 +606,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                   <button 
                                     type="button"
                                     onClick={() => setStep(5)}
-                                    className="w-full bg-star-blue hover:bg-star-dark text-white font-black py-4 rounded-xl shadow-lg shadow-blue-200 transform hover:-translate-y-1 active:scale-95 transition-all duration-200 flex justify-center items-center gap-3 text-lg group"
+                                    className="w-full bg-star-blue hover:bg-star-dark text-white font-black py-4 rounded-xl shadow-lg shadow-blue-200 transform lg:hover:-translate-y-1 active:scale-95 transition-all duration-200 flex justify-center items-center gap-3 text-lg group touch-manipulation"
                                   >
                                       <span>See Availability</span>
                                       <i className="fas fa-calendar-alt group-hover:rotate-12 transition-transform"></i>
@@ -609,7 +615,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                   <button 
                                     type="button"
                                     onClick={handleSkipScheduling}
-                                    className="text-gray-400 hover:text-gray-600 font-bold text-xs py-2 underline decoration-gray-300 hover:decoration-gray-500 transition-all"
+                                    className="text-gray-400 hover:text-gray-600 font-bold text-xs py-2 underline decoration-gray-300 hover:decoration-gray-500 transition-all touch-manipulation"
                                   >
                                       No thanks, just email me the quote
                                   </button>
@@ -646,7 +652,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                                     isSelected 
                                                     ? 'bg-star-blue text-white border-star-blue shadow-md scale-105' 
                                                     : 'bg-white border-gray-100 text-gray-600 hover:border-blue-200 hover:bg-gray-50'
-                                                }`}
+                                                } touch-manipulation`}
                                             >
                                                 <span className="block text-[9px] uppercase font-bold opacity-80">{date.toLocaleDateString('en-US', { weekday: 'short' })}</span>
                                                 <span className="block text-xl font-black">{date.getDate()}</span>
@@ -682,7 +688,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                                             : isSelected
                                                                 ? 'bg-green-50 border-green-500 shadow-sm scale-[1.02]'
                                                                 : 'bg-white border-gray-100 hover:border-gray-300 hover:bg-gray-50'
-                                                        }`}
+                                                        } touch-manipulation`}
                                                     >
                                                         <div className="flex justify-between items-center">
                                                             <span className={`text-sm font-black ${isBooked ? 'text-gray-400 line-through' : isSelected ? 'text-green-700' : 'text-gray-900'}`}>{slot.time}</span>
@@ -709,7 +715,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                     <button 
                         type="button"
                         onClick={prevStep}
-                        className="w-1/3 py-3 rounded-xl font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 transition-colors text-sm active:scale-95"
+                        className="w-1/3 py-3 rounded-xl font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 transition-colors text-sm active:scale-95 touch-manipulation"
                     >
                         Back
                     </button>
@@ -719,7 +725,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                      <button 
                         type="button"
                         onClick={nextStep}
-                        className="w-full py-4 rounded-xl font-black text-white bg-star-blue hover:bg-star-dark shadow-md transition-all flex items-center justify-center gap-2 text-lg active:scale-95 group"
+                        className="w-full py-4 rounded-xl font-black text-white bg-star-blue hover:bg-star-dark shadow-md transition-all flex items-center justify-center gap-2 text-lg active:scale-95 group touch-manipulation"
                     >
                         <span>Next Step</span>
                         <i className="fas fa-arrow-right text-sm group-hover:translate-x-1 transition-transform"></i>
@@ -731,7 +737,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                         type="button"
                         onClick={handleLockPrice}
                         disabled={isSubmitting}
-                        className="w-full py-4 rounded-xl font-black text-blue-900 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 shadow-xl shadow-yellow-200/50 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2 text-lg relative overflow-hidden active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed group"
+                        className="w-full py-4 rounded-xl font-black text-blue-900 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 shadow-xl shadow-yellow-200/50 transform lg:hover:-translate-y-1 transition-all flex items-center justify-center gap-2 text-lg relative overflow-hidden active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed group touch-manipulation"
                     >
                         {isSubmitting ? (
                             <i className="fas fa-spinner fa-spin"></i>
@@ -750,7 +756,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                         <button 
                             type="button"
                             onClick={() => setStep(4)}
-                            className="w-1/3 py-3 rounded-xl font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 transition-colors text-sm active:scale-95"
+                            className="w-1/3 py-3 rounded-xl font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 transition-colors text-sm active:scale-95 touch-manipulation"
                         >
                             Back
                         </button>
@@ -758,7 +764,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                             type="button"
                             onClick={handleFinalBooking}
                             disabled={isSubmitting || !selectedDate || !selectedTime}
-                            className="w-full py-4 rounded-xl font-black text-white bg-green-500 hover:bg-green-600 shadow-xl shadow-green-200/50 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2 text-lg relative overflow-hidden active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed group"
+                            className="w-full py-4 rounded-xl font-black text-white bg-green-500 hover:bg-green-600 shadow-xl shadow-green-200/50 transform lg:hover:-translate-y-1 transition-all flex items-center justify-center gap-2 text-lg relative overflow-hidden active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed group touch-manipulation"
                         >
                             {isSubmitting ? (
                                 <i className="fas fa-spinner fa-spin"></i>
@@ -847,7 +853,7 @@ const InputGroup: React.FC<any> = ({ label, type = "text", ...props }) => (
     <label className="text-xs font-bold text-gray-500 uppercase mb-2 ml-1 group-focus-within:text-star-blue transition-colors">{label}</label>
     <input 
       type={type}
-      className="w-full px-4 py-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white placeholder-gray-400 font-semibold hover:border-blue-300"
+      className="w-full px-4 py-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white placeholder-gray-400 font-semibold hover:border-blue-300 touch-manipulation"
       {...props}
     />
   </div>
@@ -857,11 +863,11 @@ const Counter: React.FC<{ label: string, value: number, onMinus: () => void, onP
     <div className="bg-gray-50 rounded-xl p-4 border border-gray-200 flex flex-col items-center justify-center hover:border-blue-200 transition-colors">
         <label className="text-xs font-bold text-gray-500 uppercase mb-3">{label}</label>
         <div className="flex items-center gap-6">
-            <button type="button" onClick={onMinus} className="w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-600 flex items-center justify-center hover:bg-gray-100 active:scale-90 transition-transform">
+            <button type="button" onClick={onMinus} className="w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-600 flex items-center justify-center hover:bg-gray-100 active:scale-90 transition-transform touch-manipulation">
                 <i className="fas fa-minus text-xs"></i>
             </button>
             <span className="text-2xl font-black text-gray-900 w-8 text-center">{value}</span>
-            <button type="button" onClick={onPlus} className="w-10 h-10 rounded-full bg-white border border-star-blue text-star-blue flex items-center justify-center hover:bg-blue-50 active:scale-90 transition-transform shadow-sm">
+            <button type="button" onClick={onPlus} className="w-10 h-10 rounded-full bg-white border border-star-blue text-star-blue flex items-center justify-center hover:bg-blue-50 active:scale-90 transition-transform shadow-sm touch-manipulation">
                 <i className="fas fa-plus text-xs"></i>
             </button>
         </div>
@@ -871,7 +877,7 @@ const Counter: React.FC<{ label: string, value: number, onMinus: () => void, onP
 const PetToggle: React.FC<{ label: string, icon: string, active: boolean, onClick: () => void }> = ({ label, icon, active, onClick }) => (
     <div 
         onClick={onClick}
-        className={`flex-1 cursor-pointer rounded-xl border-2 p-4 flex flex-col items-center gap-3 transition-all duration-200 transform active:scale-95 ${active ? 'border-star-blue bg-blue-50 scale-105 shadow-sm' : 'border-gray-200 bg-gray-50 hover:bg-gray-100 hover:border-gray-300'}`}
+        className={`flex-1 cursor-pointer rounded-xl border-2 p-4 flex flex-col items-center gap-3 transition-all duration-200 transform active:scale-95 ${active ? 'border-star-blue bg-blue-50 scale-105 shadow-sm' : 'border-gray-200 bg-gray-50 hover:bg-gray-100 hover:border-gray-300'} touch-manipulation`}
     >
         <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors ${active ? 'bg-star-blue text-white' : 'bg-white text-gray-400'}`}>
             <i className={`fas ${icon} text-xl`}></i>
