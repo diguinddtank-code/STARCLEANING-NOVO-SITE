@@ -37,24 +37,6 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
     }
   };
 
-  const submitToWebhook = async (data: any) => {
-    try {
-      await fetch("https://webhook.infra-remakingautomacoes.cloud/webhook/scsite", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...data,
-          cityDetected: city || "Unknown",
-          source: "Hero Section",
-          stage: "Initial Lead Captured",
-          submittedAt: new Date().toISOString()
-        })
-      });
-    } catch (error) {
-      console.error("Webhook error:", error);
-    }
-  };
-
   const handleSubmit = async (e?: React.FormEvent | React.MouseEvent | React.TouchEvent) => {
     if (e) e.preventDefault();
     if (!formRef.current) return;
@@ -69,10 +51,10 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
 
     setIsSubmitting(true);
     
-    // 1. Submit lead to webhook immediately
-    await submitToWebhook(data);
+    // Simulate a brief processing time for UX, but NO webhook is sent here.
+    await new Promise(resolve => setTimeout(resolve, 500));
 
-    // 2. Pass data up to App component and scroll to BookingForm
+    // Pass data up to App component and scroll to BookingForm
     onStartQuote({
         ...data,
         zipCode: zipCode

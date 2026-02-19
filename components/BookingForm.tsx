@@ -143,13 +143,20 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
         submittedAt: new Date().toISOString()
       };
 
-      // Default URL for leads and quotes
-      let url = "https://webhook.infra-remakingautomacoes.cloud/webhook/scsite";
+      let url = "";
 
-      // Specific URL for scheduling appointments
-      if (stage === "Walkthrough Scheduled") {
+      // Logic: Only send to specific webhooks on specific stages
+      if (stage === "Quote Range Generated") {
+          url = "https://webhook.infra-remakingautomacoes.cloud/webhook/scsite";
+      } else if (stage === "Walkthrough Scheduled") {
           url = "https://webhook.infra-remakingautomacoes.cloud/webhook/scsiteagenda";
+      } else {
+          // If we want to track dropped leads in the future, we could add logic here.
+          // For now, if it's not one of the two explicit actions, do not send.
+          return false;
       }
+
+      if (!url) return false;
 
       try {
         await fetch(url, {
@@ -231,11 +238,12 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
           }
       }
       
-      // Update webhook on step 2 (Details) to track progression
-      if (step === 2) {
-          submitWebhook("Lead Details Updated");
+      // UX Fix: Close keyboard on mobile to prevent layout jumping
+      if (document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur();
       }
-      
+
+      // No webhook here anymore.
       setStep(prev => prev + 1);
   };
 
@@ -243,13 +251,14 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
 
   const handleLockPrice = async () => {
     setIsSubmitting(true);
+    // Fires SC SITE Webhook
     await submitWebhook("Quote Range Generated");
     setIsSubmitting(false);
     setStep(4); 
   };
 
   const handleSkipScheduling = async () => {
-      await submitWebhook("Lead Dropped at Scheduling", { skipped: true });
+      // Optional: If you want to track drop-off, uncomment logic in submitWebhook
       setHasBookedTime(false);
       setShowPopup(true);
   };
@@ -263,7 +272,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
     
     setIsSubmitting(true);
     
-    // 1. Send data to webhook (using scsiteagenda via the logic in submitWebhook)
+    // Fires AGENDA Webhook
     await submitWebhook("Walkthrough Scheduled", { visitDate: selectedDate, visitTime: selectedTime });
     
     // 2. "Reserve" the slot in our local state (Optimistic Update)
@@ -351,7 +360,8 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
           </div>
 
           {/* Right Side: The Multi-Step Form */}
-          <div className="lg:w-8/12 p-5 lg:p-10 bg-white flex flex-col relative">
+          {/* Added min-height to ensure consistent layout size during mobile transitions */}
+          <div className="lg:w-8/12 p-5 lg:p-10 bg-white flex flex-col relative min-h-[500px] lg:min-h-[600px]">
             
             {/* Header */}
             <div className="mb-4 lg:mb-6 flex items-center justify-between border-b border-gray-100 pb-4">
