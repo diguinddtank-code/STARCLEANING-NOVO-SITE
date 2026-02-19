@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface BookingFormProps {
   initialData?: any;
@@ -37,6 +37,9 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
 
   // City Lookup
   const [city, setCity] = useState<string | null>(null);
+
+  // Refs for scrolling
+  const formTopRef = useRef<HTMLDivElement>(null);
   
   const [formData, setFormData] = useState({
     fullName: '',
@@ -50,6 +53,18 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
     serviceType: 'Standard House Cleaning',
     frequency: 'Weekly' // Default changed to Weekly
   });
+
+  // --- SCROLL TO TOP ON STEP CHANGE (MOBILE FIX) ---
+  useEffect(() => {
+    // Only scroll if we are not on step 1 (initial load) to avoid jumping on page load
+    // And ensure we are scrolling to the form container
+    if (step > 1 && formTopRef.current) {
+        // Use a small timeout to allow DOM to update height
+        setTimeout(() => {
+             formTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+    }
+  }, [step]);
 
   // --- HANDLE INITIAL DATA FROM HERO ---
   useEffect(() => {
@@ -151,8 +166,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
       } else if (stage === "Walkthrough Scheduled") {
           url = "https://webhook.infra-remakingautomacoes.cloud/webhook/scsiteagenda";
       } else {
-          // If we want to track dropped leads in the future, we could add logic here.
-          // For now, if it's not one of the two explicit actions, do not send.
+          // Strict block: Do not send webhook for any other stage
           return false;
       }
 
@@ -243,7 +257,6 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
           document.activeElement.blur();
       }
 
-      // No webhook here anymore.
       setStep(prev => prev + 1);
   };
 
@@ -251,14 +264,13 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
 
   const handleLockPrice = async () => {
     setIsSubmitting(true);
-    // Fires SC SITE Webhook
+    // Fires SC SITE Webhook (Step 3 -> 4)
     await submitWebhook("Quote Range Generated");
     setIsSubmitting(false);
     setStep(4); 
   };
 
   const handleSkipScheduling = async () => {
-      // Optional: If you want to track drop-off, uncomment logic in submitWebhook
       setHasBookedTime(false);
       setShowPopup(true);
   };
@@ -272,7 +284,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
     
     setIsSubmitting(true);
     
-    // Fires AGENDA Webhook
+    // Fires AGENDA Webhook (Step 5 confirmed)
     await submitWebhook("Walkthrough Scheduled", { visitDate: selectedDate, visitTime: selectedTime });
     
     // 2. "Reserve" the slot in our local state (Optimistic Update)
@@ -361,7 +373,8 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
 
           {/* Right Side: The Multi-Step Form */}
           {/* Added min-height to ensure consistent layout size during mobile transitions */}
-          <div className="lg:w-8/12 p-5 lg:p-10 bg-white flex flex-col relative min-h-[500px] lg:min-h-[600px]">
+          {/* ADDED REF FOR SCROLL */}
+          <div ref={formTopRef} className="lg:w-8/12 p-5 lg:p-10 bg-white flex flex-col relative min-h-[500px] lg:min-h-[600px] scroll-mt-20">
             
             {/* Header */}
             <div className="mb-4 lg:mb-6 flex items-center justify-between border-b border-gray-100 pb-4">
