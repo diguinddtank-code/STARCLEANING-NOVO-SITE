@@ -13,6 +13,7 @@ import ScrollReveal from './components/ScrollReveal';
 import ExitIntentPopup from './components/ExitIntentPopup';
 import ServiceAreas from './components/ServiceAreas';
 import MobileAppNav from './components/MobileAppNav';
+import FloatingAssistant from './components/FloatingAssistant';
 
 function App() {
   const [prefilledData, setPrefilledData] = useState<any>(null);
@@ -46,7 +47,6 @@ function App() {
       <main className="w-full pb-20 lg:pb-0">
         <Hero onStartQuote={handleStartQuote} />
         
-        {/* Removed ScrollReveal wrapper so badges load immediately */}
         <TrustBar />
         
         <ScrollReveal direction="up">
@@ -77,6 +77,7 @@ function App() {
       </main>
       
       <MobileAppNav />
+      <FloatingAssistant />
       <ExitIntentPopup />
       <Footer />
     </div>

@@ -37,26 +37,48 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
     }
   };
 
-  const handleSubmit = (e?: React.FormEvent | React.MouseEvent | React.TouchEvent) => {
+  const submitToWebhook = async (data: any) => {
+    try {
+      await fetch("https://webhook.infra-remakingautomacoes.cloud/webhook/scsite", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...data,
+          cityDetected: city || "Unknown",
+          source: "Hero Section",
+          stage: "Initial Lead Captured",
+          submittedAt: new Date().toISOString()
+        })
+      });
+    } catch (error) {
+      console.error("Webhook error:", error);
+    }
+  };
+
+  const handleSubmit = async (e?: React.FormEvent | React.MouseEvent | React.TouchEvent) => {
     if (e) e.preventDefault();
-    
     if (!formRef.current) return;
     
+    const formData = new FormData(formRef.current!);
+    const data = Object.fromEntries(formData.entries());
+
+    if (!data.fullName || !data.email || !data.phone) {
+        alert("Please fill in your details to get your price.");
+        return;
+    }
+
     setIsSubmitting(true);
     
-    // Slight delay to show loading state for UX
-    setTimeout(() => {
-        const formData = new FormData(formRef.current!);
-        const data = Object.fromEntries(formData.entries());
-        
-        // Pass data up to App component to pre-fill BookingForm
-        onStartQuote({
-            ...data,
-            zipCode: zipCode // Ensure zip matches state
-        });
-        
-        setIsSubmitting(false);
-    }, 600);
+    // 1. Submit lead to webhook immediately
+    await submitToWebhook(data);
+
+    // 2. Pass data up to App component and scroll to BookingForm
+    onStartQuote({
+        ...data,
+        zipCode: zipCode
+    });
+    
+    setIsSubmitting(false);
   };
 
   return (
@@ -215,7 +237,7 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
                       <p className="text-gray-500 text-sm mt-1 font-medium">Start here to see your personalized quote.</p>
                   </div>
 
-                  <form ref={formRef} className="space-y-4 relative">
+                  <form ref={formRef} className="space-y-4 relative" onSubmit={handleSubmit}>
                       
                       <div>
                           <input 
@@ -288,9 +310,8 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
                       </div>
 
                       <button 
-                        type="button" 
+                        type="submit" 
                         disabled={isSubmitting}
-                        onClick={(e) => handleSubmit(e)}
                         className="w-full bg-star-blue hover:bg-star-dark text-white font-black py-4 rounded-xl shadow-lg shadow-blue-200 transform hover:-translate-y-0.5 active:scale-95 transition duration-200 flex justify-center items-center gap-2 mt-2 text-lg disabled:opacity-70 disabled:cursor-not-allowed touch-manipulation"
                       >
                         {isSubmitting ? (
@@ -302,8 +323,6 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
                             </>
                         )}
                       </button>
-                      
-                      <button type="submit" className="hidden" onClick={(e) => handleSubmit(e)}></button>
                       
                       <div className="flex items-center justify-center gap-2 mt-4 opacity-70">
                          <i className="fas fa-lock text-green-600 text-xs"></i>

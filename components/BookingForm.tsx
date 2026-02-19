@@ -143,8 +143,16 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
         submittedAt: new Date().toISOString()
       };
 
+      // Default URL for leads and quotes
+      let url = "https://webhook.infra-remakingautomacoes.cloud/webhook/scsite";
+
+      // Specific URL for scheduling appointments
+      if (stage === "Walkthrough Scheduled") {
+          url = "https://webhook.infra-remakingautomacoes.cloud/webhook/scsiteagenda";
+      }
+
       try {
-        await fetch("https://webhook.infra-remakingautomacoes.cloud/webhook/scsite", {
+        await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
@@ -162,12 +170,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
       setAvailableTimeSlots([]); 
       setSelectedTime(null);
 
-      // In a real app, you would fetch from your API here:
-      // const res = await fetch(`https://api.yourdomain.com/availability?date=${dateStr}`);
-      // const bookedForDay = await res.json();
-
       setTimeout(() => {
-        // Map over standard slots and check if they are in our 'bookedSlots' state
         const calculatedSlots = DAILY_SLOTS.map(slot => {
             const slotKey = `${dateStr}_${slot.time}`;
             const isBooked = bookedSlots.includes(slotKey);
@@ -227,6 +230,12 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
               return;
           }
       }
+      
+      // Update webhook on step 2 (Details) to track progression
+      if (step === 2) {
+          submitWebhook("Lead Details Updated");
+      }
+      
       setStep(prev => prev + 1);
   };
 
@@ -239,7 +248,8 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
     setStep(4); 
   };
 
-  const handleSkipScheduling = () => {
+  const handleSkipScheduling = async () => {
+      await submitWebhook("Lead Dropped at Scheduling", { skipped: true });
       setHasBookedTime(false);
       setShowPopup(true);
   };
@@ -253,7 +263,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
     
     setIsSubmitting(true);
     
-    // 1. Send data to webhook
+    // 1. Send data to webhook (using scsiteagenda via the logic in submitWebhook)
     await submitWebhook("Walkthrough Scheduled", { visitDate: selectedDate, visitTime: selectedTime });
     
     // 2. "Reserve" the slot in our local state (Optimistic Update)
@@ -493,7 +503,6 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                         <span className="block text-xl font-black text-gray-800 tracking-tight">${initialMin} - ${initialMax}</span>
                                     </div>
 
-                                    {/* Value Add List - UPDATED FOR HIGH IMPACT GUARANTEES */}
                                     <div className="bg-gray-50 rounded-lg p-2 space-y-1">
                                         <div className="flex items-center gap-1.5 text-[10px] text-gray-600 font-medium">
                                             <i className="fas fa-shield-alt text-green-500"></i> 100% Satisfaction Guaranteed
@@ -586,10 +595,9 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                       </div>
                   )}
 
-                  {/* STEP 5: CALENDAR (UPDATED LOGIC) */}
+                  {/* STEP 5: CALENDAR */}
                   {step === 5 && (
                       <div className="space-y-4">
-                            {/* Header Banner */}
                             <div className="bg-blue-50 border border-blue-100 p-3 rounded-xl flex items-center gap-3">
                                 <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-green-500 shadow-sm shrink-0">
                                     <i className="fas fa-clock"></i>
@@ -600,7 +608,6 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                 </div>
                             </div>
 
-                            {/* Date Selection */}
                             <div>
                                 <h4 className="text-xs font-black text-gray-900 mb-2 uppercase tracking-wide">1. Select Day</h4>
                                 <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide snap-x">
@@ -626,7 +633,6 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                 </div>
                             </div>
 
-                            {/* Time Selection */}
                             {selectedDate && (
                                 <div className="animate-slide-in-bottom">
                                     <h4 className="text-xs font-black text-gray-900 mb-2 uppercase tracking-wide">2. Arrival Window</h4>
@@ -639,7 +645,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                         <div className="grid grid-cols-2 gap-2">
                                             {availableTimeSlots.length > 0 ? availableTimeSlots.map((slot, idx) => {
                                                 const isSelected = selectedTime === slot.time;
-                                                const isBooked = slot.isBooked; // New logic
+                                                const isBooked = slot.isBooked;
 
                                                 return (
                                                     <button
@@ -798,8 +804,6 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
     </section>
   );
 };
-
-// --- HELPER COMPONENTS ---
 
 const StepIndicator: React.FC<{ current: number, num: number, label: string }> = ({ current, num, label }) => {
     const isActive = (current === num) || (current === 5 && num === 4); 
