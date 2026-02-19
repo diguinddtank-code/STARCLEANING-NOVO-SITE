@@ -4,22 +4,38 @@ const FloatingAssistant: React.FC = () => {
   // Stages manage the lifecycle of the assistant
   const [stage, setStage] = useState<'hidden' | 'avatar-only' | 'typing' | 'message' | 'minimized'>('hidden');
   const [hasUnread, setHasUnread] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Check if mobile on mount
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     // 1. Initial appearance of avatar
     const showAvatarTimer = setTimeout(() => setStage('avatar-only'), 1000);
     
-    // 2. Start typing effect after delay
+    // 2. Start typing effect (Desktop only to prevent blocking mobile buttons)
     const startTypingTimer = setTimeout(() => {
-        setStage(prev => prev === 'avatar-only' ? 'typing' : prev);
+        if (window.innerWidth >= 768) {
+            setStage(prev => prev === 'avatar-only' ? 'typing' : prev);
+        }
     }, 3000); 
 
-    // 3. Show the message bubble
+    // 3. Show the message bubble (Desktop only)
     const showMessageTimer = setTimeout(() => {
-        setStage(prev => prev === 'typing' ? 'message' : prev);
+        if (window.innerWidth >= 768) {
+            setStage(prev => prev === 'typing' ? 'message' : prev);
+        } else {
+            // On mobile, just mark as unread so they see the red badge, but don't pop the bubble
+            setHasUnread(true);
+        }
     }, 5500);
 
     return () => {
+      window.removeEventListener('resize', checkMobile);
       clearTimeout(showAvatarTimer);
       clearTimeout(startTypingTimer);
       clearTimeout(showMessageTimer);
@@ -36,8 +52,11 @@ const FloatingAssistant: React.FC = () => {
     if (stage === 'minimized' || stage === 'avatar-only') {
       setStage('message');
       setHasUnread(false);
+    } else if (stage === 'message') {
+      // Toggle close on click if already open
+      setStage('minimized');
     } else {
-        // Smooth scroll to quote instead of harsh jump
+        // Fallback
         const quoteSection = document.getElementById('quote');
         if (quoteSection) {
             quoteSection.scrollIntoView({ behavior: 'smooth' });
@@ -54,9 +73,9 @@ const FloatingAssistant: React.FC = () => {
 
   return (
     // Main Container
-    // Mobile: bottom-24 (approx 96px) to clear the MobileAppNav + safe area
+    // Mobile: bottom-32 (approx 128px) to sit HIGHER than the form buttons
     // Desktop: bottom-6
-    <div className="fixed bottom-24 right-4 md:bottom-6 md:right-6 z-50 flex flex-col items-end pointer-events-none">
+    <div className="fixed bottom-32 right-4 md:bottom-6 md:right-6 z-50 flex flex-col items-end pointer-events-none">
       
       <div className="relative flex items-end">
         
@@ -65,7 +84,7 @@ const FloatingAssistant: React.FC = () => {
             className={`absolute right-full mr-4 mb-1 origin-right transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1) pointer-events-auto ${
             isBubbleVisible 
                 ? 'opacity-100 translate-x-0 scale-100' 
-                : 'opacity-0 translate-x-8 scale-75'
+                : 'opacity-0 translate-x-8 scale-75 pointer-events-none'
             }`}
         >
             <div className={`bg-white rounded-2xl rounded-br-sm shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-gray-100 relative overflow-hidden ${
