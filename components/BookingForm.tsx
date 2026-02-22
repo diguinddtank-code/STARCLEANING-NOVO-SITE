@@ -91,11 +91,11 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
     let current = new Date(today);
     current.setDate(current.getDate() + 1); // Start tomorrow
 
-    // Generate next 14 days, skipping Sundays
+    // Generate next available slots (Tuesdays and Thursdays only)
     while (dates.length < 10) {
         const day = current.getDay();
-        // 0 = Sunday, 6 = Saturday. Let's say we work Mon-Sat.
-        if (day !== 0) { 
+        // 2 = Tuesday, 4 = Thursday
+        if (day === 2 || day === 4) { 
             dates.push(new Date(current));
         }
         current.setDate(current.getDate() + 1);
@@ -163,7 +163,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
       if (stage === "Quote Range Generated") {
           url = "https://n8n.infra-remakingautomacoes.cloud/webhook-test/scsite";
       } else if (stage === "Walkthrough Scheduled") {
-          url = "https://webhook.infra-remakingautomacoes.cloud/webhook/scsiteagenda";
+          url = "https://n8n.infra-remakingautomacoes.cloud/webhook-test/scsiteagenda";
       } else {
           return false;
       }
@@ -182,6 +182,32 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
         return false;
       }
   };
+
+  // --- VERIFICAÇÃO DE DISPONIBILIDADE EM TEMPO REAL (Exemplo) ---
+  // Para evitar sobreposições, você precisa buscar a lista de horários já agendados do seu backend/n8n.
+  // Essa função é chamada quando o componente monta.
+  const fetchBookedSlotsFromBackend = async () => {
+      console.log("Iniciando busca de horários agendados...");
+      try {
+          // Exemplo: Busque de um webhook n8n que retorna um array JSON de strings agendadas como ["Mon Oct 23 2023_08:30 AM"]
+          const response = await fetch('https://n8n.infra-remakingautomacoes.cloud/webhook-test/buscar-horarios-agendados');
+          console.log("Resposta do webhook:", response.status);
+          if (response.ok) {
+             const data = await response.json();
+             console.log("Dados recebidos:", data);
+             // Certifique-se de que o n8n retorne um array de strings, ex: ["Fri Feb 24 2026_08:30 AM"]
+             if (Array.isArray(data)) {
+                 setBookedSlots(prev => [...prev, ...data]);
+             }
+          }
+      } catch (error) {
+          console.error("Falha ao buscar horários agendados", error);
+      }
+  };
+
+  useEffect(() => {
+      fetchBookedSlotsFromBackend();
+  }, []);
 
   // --- AVAILABILITY CHECKER ---
   const fetchTimeSlotsForDate = async (dateStr: string) => {
