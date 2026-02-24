@@ -161,9 +161,9 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
 
       // Logic: Only send to specific webhooks on specific stages
       if (stage === "Quote Range Generated") {
-          url = "https://n8n.infra-remakingautomacoes.cloud/webhook-test/scsite";
+          url = "https://webhook.infra-remakingautomacoes.cloud/webhook/scsite";
       } else if (stage === "Walkthrough Scheduled") {
-          url = "https://n8n.infra-remakingautomacoes.cloud/webhook-test/scsiteagenda";
+          url = "https://webhook.infra-remakingautomacoes.cloud/webhook/scsiteagenda";
       } else {
           return false;
       }
