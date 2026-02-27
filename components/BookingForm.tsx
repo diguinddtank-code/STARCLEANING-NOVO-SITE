@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { supabase } from '../lib/supabase';
 
 interface BookingFormProps {
   initialData?: any;
@@ -183,25 +185,27 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
       }
   };
 
-  // --- VERIFICAÇÃO DE DISPONIBILIDADE EM TEMPO REAL (Exemplo) ---
-  // Para evitar sobreposições, você precisa buscar a lista de horários já agendados do seu backend/n8n.
-  // Essa função é chamada quando o componente monta.
+  // --- VERIFICAÇÃO DE DISPONIBILIDADE EM TEMPO REAL (SUPABASE) ---
   const fetchBookedSlotsFromBackend = async () => {
-      console.log("Iniciando busca de horários agendados...");
+      console.log("Iniciando busca de horários agendados via Supabase...");
       try {
-          // Exemplo: Busque de um webhook n8n que retorna um array JSON de strings agendadas como ["Mon Oct 23 2023_08:30 AM"]
-          const response = await fetch('https://n8n.infra-remakingautomacoes.cloud/webhook-test/buscar-horarios-agendados');
-          console.log("Resposta do webhook:", response.status);
-          if (response.ok) {
-             const data = await response.json();
-             console.log("Dados recebidos:", data);
-             // Certifique-se de que o n8n retorne um array de strings, ex: ["Fri Feb 24 2026_08:30 AM"]
-             if (Array.isArray(data)) {
-                 setBookedSlots(prev => [...prev, ...data]);
-             }
+          const { data, error } = await supabase
+              .from('bookings')
+              .select('slot_id');
+
+          if (error) {
+              console.error("Erro ao buscar do Supabase:", error);
+              return;
+          }
+
+          if (data) {
+              // Extrai apenas os IDs dos slots (ex: ["Fri Feb 27 2026_08:30 AM"])
+              const bookedIds = data.map(item => item.slot_id);
+              console.log("Horários ocupados recebidos:", bookedIds);
+              setBookedSlots(prev => [...prev, ...bookedIds]);
           }
       } catch (error) {
-          console.error("Falha ao buscar horários agendados", error);
+          console.error("Falha inesperada ao buscar horários", error);
       }
   };
 
@@ -427,7 +431,15 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
             <form className="flex-grow flex flex-col justify-between h-full" onSubmit={(e) => e.preventDefault()}>
               
               {/* FLUID ANIMATION CONTAINER */}
-              <div key={step} className="animate-slide-in-right flex-grow">
+              <AnimatePresence mode="wait">
+                <motion.div 
+                  key={step} 
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="flex-grow"
+                >
               
                   {/* STEP 1: CONTACT */}
                   {step === 1 && (
@@ -733,7 +745,8 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                             )}
                       </div>
                   )}
-              </div>
+                </motion.div>
+              </AnimatePresence>
 
               {/* Navigation Buttons */}
               <div className="mt-6 flex gap-3 pt-4 border-t border-gray-50">
@@ -811,13 +824,25 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
       </div>
       
       {/* SUCCESS POPUP OVERLAY */}
-      {showPopup && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-fade-in">
-            <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full text-center relative transform scale-100 animate-zoom-in border-4 border-white">
-                <button 
-                    onClick={() => setShowPopup(false)} 
-                    className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-400 hover:text-gray-600 transition-colors"
-                >
+      <AnimatePresence>
+        {showPopup && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
+          >
+              <motion.div 
+                initial={{ scale: 0.8, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.8, opacity: 0, y: 20 }}
+                transition={{ type: "spring", damping: 20, stiffness: 300 }}
+                className="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full text-center relative border-4 border-white"
+              >
+                  <button 
+                      onClick={() => setShowPopup(false)} 
+                      className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-400 hover:text-gray-600 transition-colors"
+                  >
                     <i className="fas fa-times"></i>
                 </button>
                 
@@ -853,9 +878,10 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                         Awesome, Thanks!
                     </button>
                 </div>
-            </div>
-        </div>
-      )}
+              </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

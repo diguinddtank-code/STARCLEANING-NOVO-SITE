@@ -1,4 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
 
 interface ScrollRevealProps {
   children: React.ReactNode;
@@ -15,57 +16,32 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
   delay = 0,
   width = 'full' 
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      {
-        threshold: 0.15, // Trigger when 15% of the element is visible
-        rootMargin: "50px"
-      }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, []);
-
-  const getDirectionClass = () => {
+  const getVariants = () => {
     switch (direction) {
-      case 'up': return 'translate-y-16';
-      case 'down': return '-translate-y-16';
-      case 'left': return 'translate-x-16';
-      case 'right': return '-translate-x-16';
-      case 'none': return 'scale-95';
-      default: return 'translate-y-16';
+      case 'up': return { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } };
+      case 'down': return { hidden: { opacity: 0, y: -40 }, visible: { opacity: 1, y: 0 } };
+      case 'left': return { hidden: { opacity: 0, x: 40 }, visible: { opacity: 1, x: 0 } };
+      case 'right': return { hidden: { opacity: 0, x: -40 }, visible: { opacity: 1, x: 0 } };
+      case 'none': return { hidden: { opacity: 0, scale: 0.95 }, visible: { opacity: 1, scale: 1 } };
+      default: return { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } };
     }
   };
 
   return (
-    <div
-      ref={ref}
-      className={`transition-all duration-1000 ease-out ${width === 'full' ? 'w-full' : 'w-auto'} ${className} ${
-        isVisible 
-          ? 'opacity-100 translate-y-0 translate-x-0 scale-100' 
-          : `opacity-0 ${getDirectionClass()}`
-      }`}
-      style={{ transitionDelay: `${delay}ms` }}
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ 
+        duration: 0.8, 
+        delay: delay / 1000, 
+        ease: [0.16, 1, 0.3, 1] // Custom spring-like easing
+      }}
+      variants={getVariants()}
+      className={`${width === 'full' ? 'w-full' : 'w-auto'} ${className}`}
     >
       {children}
-    </div>
+    </motion.div>
   );
 };
 

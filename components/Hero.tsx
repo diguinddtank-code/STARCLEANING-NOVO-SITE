@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { motion } from 'framer-motion';
 
 interface HeroProps {
   onStartQuote: (data: any) => void;
@@ -104,7 +105,7 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
                 </span>
                 <img 
                     src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" 
-                    alt="Veteran Owned" 
+                    alt="Veteran Owned House Cleaning Service Charleston SC" 
                     className="h-4 w-auto opacity-80"
                 />
             </div>
@@ -112,24 +113,24 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
             {/* Mobile Headline Container */}
             <div className="lg:hidden bg-white/60 backdrop-blur-sm rounded-2xl p-4 mb-6 shadow-sm border border-white/50">
                 <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-gray-900 leading-[1.1] mb-2 lg:mb-6 font-heading drop-shadow-sm lg:drop-shadow-none">
-                Take Back<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-star-blue">Your Weekend.</span>
+                Charleston's Best<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-star-blue">House Cleaning.</span>
                 </h1>
                 
                 <h2 className="text-sm sm:text-lg md:text-xl text-gray-700 lg:text-gray-600 lg:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed font-semibold lg:font-medium">
-                Life is too short to scrub floors. Join neighbors in <strong>Charleston & Summerville</strong> who trust Star Cleaning.
+                Take back your weekend. Join neighbors in <strong>Charleston & Summerville</strong> who trust our top-rated maid service.
                 </h2>
             </div>
             
             {/* Desktop Headline */}
             <div className="hidden lg:block">
                 <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-gray-900 leading-[1.1] mb-4 lg:mb-6 font-heading drop-shadow-sm lg:drop-shadow-none">
-                Take Back<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-star-blue">Your Weekend.</span>
+                Charleston's Best<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-star-blue">House Cleaning.</span>
                 </h1>
                 
                 <h2 className="text-sm sm:text-lg md:text-xl text-gray-700 lg:text-gray-600 mb-6 lg:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed font-semibold lg:font-medium bg-white/30 lg:bg-transparent rounded-lg backdrop-blur-[1px] lg:backdrop-blur-none p-2 lg:p-0">
-                Life is too short to scrub floors. Join neighbors in <strong>Charleston & Summerville</strong> who trust Star Cleaning.
+                Take back your weekend. Join neighbors in <strong>Charleston & Summerville</strong> who trust our top-rated maid service.
                 </h2>
             </div>
 

@@ -26,7 +26,7 @@ const ServiceAreas: React.FC = () => {
                 Service Areas
             </span>
             <h2 className="text-3xl md:text-4xl font-black text-gray-900 font-heading">
-                Proudly Serving the Lowcountry
+                Proudly Serving Charleston, Summerville & The Lowcountry
             </h2>
         </div>
 
