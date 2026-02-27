@@ -104,11 +104,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
     }
     setAvailableDates(dates);
     
-    // Simulate some already booked slots for realism
-    const fakeBooked = [];
-    if (dates[0]) fakeBooked.push(`${dates[0].toDateString()}_08:30 AM`);
-    if (dates[1]) fakeBooked.push(`${dates[1].toDateString()}_02:30 PM`);
-    setBookedSlots(prev => [...prev, ...fakeBooked]);
+    // REMOVED FAKE BOOKED SLOTS - NOW USING SUPABASE ONLY
 
   }, []);
 
@@ -321,11 +317,33 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
     
     setIsSubmitting(true);
     
-    // Fires AGENDA Webhook (Step 5 confirmed)
+    const slotKey = `${selectedDate}_${selectedTime}`;
+
+    // 1. Save to Supabase (Source of Truth)
+    try {
+        const { error } = await supabase
+            .from('bookings')
+            .insert([
+                { 
+                    slot_id: slotKey,
+                    customer_name: formData.fullName,
+                    customer_email: formData.email,
+                    customer_phone: formData.phone
+                }
+            ]);
+
+        if (error) {
+            console.error("Supabase insert error:", error);
+            // Optional: Handle duplicate key error gracefully if needed
+        }
+    } catch (err) {
+        console.error("Unexpected Supabase error:", err);
+    }
+
+    // 2. Fires AGENDA Webhook (Step 5 confirmed) - Keep for notifications
     await submitWebhook("Walkthrough Scheduled", { visitDate: selectedDate, visitTime: selectedTime });
     
-    // 2. "Reserve" the slot in our local state (Optimistic Update)
-    const slotKey = `${selectedDate}_${selectedTime}`;
+    // 3. "Reserve" the slot in our local state (Optimistic Update)
     setBookedSlots(prev => [...prev, slotKey]);
 
     setIsSubmitting(false);
@@ -404,6 +422,18 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                   <p className="text-xs text-blue-100 leading-tight italic">"They gave me my weekends back! Worth every penny."</p>
                   <p className="text-[10px] font-bold text-white mt-1">- Sarah, Mount Pleasant</p>
                 </div>
+              </div>
+              
+              {/* TRUST BADGES */}
+              <div className="mt-6 pt-4 border-t border-white/10 flex items-center gap-3 opacity-80">
+                  <div className="flex items-center gap-1.5 bg-white/10 px-2 py-1 rounded-md backdrop-blur-sm border border-white/20">
+                      <i className="fas fa-shield-alt text-yellow-400 text-xs"></i>
+                      <span className="text-[9px] font-bold uppercase tracking-wider">Licensed & Insured</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 bg-white/10 px-2 py-1 rounded-md backdrop-blur-sm border border-white/20">
+                      <i className="fas fa-award text-yellow-400 text-xs"></i>
+                      <span className="text-[9px] font-bold uppercase tracking-wider">Satisfaction Guaranteed</span>
+                  </div>
               </div>
             </div>
           </div>
@@ -530,20 +560,34 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                            <div className="flex flex-col group">
                                 <label className="text-xs font-bold text-gray-500 uppercase mb-2 ml-1">Frequency</label>
                                 <div className="grid grid-cols-4 gap-2">
-                                    {['Weekly', 'Bi-Weekly', 'Monthly', 'One-Time'].map((freq) => (
-                                        <button
-                                            key={freq}
-                                            type="button"
-                                            onClick={() => setFormData(prev => ({ ...prev, frequency: freq }))}
-                                            className={`py-2 px-1 rounded-lg text-[10px] md:text-xs font-bold border transition-all duration-200 truncate transform active:scale-95 touch-manipulation ${
-                                                formData.frequency === freq 
-                                                ? 'bg-star-blue text-white border-star-blue shadow-md scale-105' 
-                                                : 'bg-white text-gray-600 border-gray-100 hover:border-blue-200 hover:bg-gray-50'
-                                            }`}
-                                        >
-                                            {freq}
-                                        </button>
-                                    ))}
+                                    {['Weekly', 'Bi-Weekly', 'Monthly', 'One-Time'].map((freq) => {
+                                        const isSelected = formData.frequency === freq;
+                                        return (
+                                            <motion.button
+                                                key={freq}
+                                                type="button"
+                                                onClick={() => setFormData(prev => ({ ...prev, frequency: freq }))}
+                                                whileHover={{ scale: 1.05 }}
+                                                whileTap={{ scale: 0.95 }}
+                                                animate={isSelected ? { scale: 1.05, y: -2 } : { scale: 1, y: 0 }}
+                                                className={`py-2 px-1 rounded-lg text-[10px] md:text-xs font-bold border transition-colors duration-200 truncate touch-manipulation relative overflow-hidden ${
+                                                    isSelected 
+                                                    ? 'bg-star-blue text-white border-star-blue shadow-md' 
+                                                    : 'bg-white text-gray-600 border-gray-100 hover:border-blue-200 hover:bg-gray-50'
+                                                }`}
+                                            >
+                                                {isSelected && (
+                                                    <motion.div
+                                                        layoutId="freq-highlight"
+                                                        className="absolute inset-0 bg-white/10"
+                                                        initial={false}
+                                                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                                                    />
+                                                )}
+                                                <span className="relative z-10">{freq}</span>
+                                            </motion.button>
+                                        );
+                                    })}
                                 </div>
                            </div>
 
@@ -572,13 +616,13 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
 
                                     <div className="bg-gray-50 rounded-lg p-2 space-y-1">
                                         <div className="flex items-center gap-1.5 text-[10px] text-gray-600 font-medium">
-                                            <i className="fas fa-shield-alt text-green-500"></i> 100% Satisfaction Guaranteed
+                                            <i className="fas fa-shield-alt text-green-500"></i> Licensed & Insured
+                                        </div>
+                                        <div className="flex items-center gap-1.5 text-[10px] text-gray-600 font-medium">
+                                            <i className="fas fa-award text-green-500"></i> 100% Satisfaction Guaranteed
                                         </div>
                                         <div className="flex items-center gap-1.5 text-[10px] text-gray-600 font-medium">
                                             <i className="fas fa-sparkles text-green-500"></i> Top-to-Bottom Deep Scrub
-                                        </div>
-                                        <div className="flex items-center gap-1.5 text-[10px] text-gray-600 font-medium">
-                                            <i className="fas fa-pump-soap text-green-500"></i> Kitchen & Bath Sanitization
                                         </div>
                                     </div>
                                </div>
