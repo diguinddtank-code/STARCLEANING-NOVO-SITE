@@ -303,6 +303,28 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
     setStep(4); 
   };
 
+  const resetForm = () => {
+      setStep(1);
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        zipCode: '',
+        bedrooms: 3, 
+        bathrooms: 2, 
+        hasDog: false,
+        hasCat: false,
+        serviceType: 'Standard House Cleaning',
+        frequency: 'Weekly'
+      });
+      setSelectedDate(null);
+      setSelectedTime(null);
+      setCity(null);
+      setShowPopup(false);
+      setHasBookedTime(false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleSkipScheduling = async () => {
       setHasBookedTime(false);
       setShowPopup(true);
@@ -334,7 +356,8 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
 
         if (error) {
             console.error("Supabase insert error:", error);
-            // Optional: Handle duplicate key error gracefully if needed
+        } else {
+            console.log("Supabase insert success");
         }
     } catch (err) {
         console.error("Unexpected Supabase error:", err);
@@ -884,7 +907,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                 className="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full text-center relative border-4 border-white"
               >
                   <button 
-                      onClick={() => setShowPopup(false)} 
+                      onClick={resetForm} 
                       className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-gray-400 hover:text-gray-600 transition-colors"
                   >
                     <i className="fas fa-times"></i>
@@ -916,7 +939,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                 
                 <div className="space-y-3">
                     <button 
-                        onClick={() => setShowPopup(false)}
+                        onClick={resetForm}
                         className="w-full bg-star-blue text-white font-bold py-3.5 rounded-xl transition-colors shadow-lg shadow-blue-200 active:scale-95"
                     >
                         Awesome, Thanks!
