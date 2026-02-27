@@ -618,13 +618,16 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                            <div className="flex flex-col md:flex-row gap-3 mt-2">
                                
                                {/* 1. THE RESET (Deep Clean) */}
-                               <div className="flex-1 bg-white border border-gray-200 rounded-xl p-4 shadow-sm relative group lg:hover:border-blue-200 lg:hover:shadow-md transition-all duration-300 overflow-hidden">
+                               <motion.div 
+                                    layout
+                                    className="flex-1 bg-white border border-gray-200 rounded-xl p-3 md:p-4 shadow-sm relative group lg:hover:border-blue-200 lg:hover:shadow-md transition-all duration-300 overflow-hidden"
+                               >
                                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gray-200 to-gray-400"></div>
 
                                     <div className="flex justify-between items-start mb-2">
                                         <div>
                                             <h4 className="font-black text-gray-900 text-sm leading-tight flex items-center gap-1">
-                                                {formData.serviceType.includes("Move") ? "Move-In Reset" : "The Deep Clean Reset"}
+                                                {formData.serviceType.includes("Move") ? "Move-In Reset" : "Deep Clean Reset"}
                                             </h4>
                                             <p className="text-[10px] text-gray-500 font-medium mt-0.5">One-time detailed scrub.</p>
                                         </div>
@@ -633,8 +636,18 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                         </span>
                                     </div>
                                     
-                                    <div className="mb-3">
-                                        <span className="block text-xl font-black text-gray-800 tracking-tight">${initialMin} - ${initialMax}</span>
+                                    <div className="mb-2 md:mb-3">
+                                        <AnimatePresence mode="wait">
+                                            <motion.span 
+                                                key={initialMin}
+                                                initial={{ opacity: 0, y: 10 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: -10 }}
+                                                className="block text-xl md:text-2xl font-black text-gray-800 tracking-tight"
+                                            >
+                                                ${initialMin} - ${initialMax}
+                                            </motion.span>
+                                        </AnimatePresence>
                                     </div>
 
                                     <div className="bg-gray-50 rounded-lg p-2 space-y-1">
@@ -648,11 +661,17 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                             <i className="fas fa-sparkles text-green-500"></i> Top-to-Bottom Deep Scrub
                                         </div>
                                     </div>
-                               </div>
+                               </motion.div>
 
                                {/* 2. MAINTENANCE (Recurring) */}
+                               <AnimatePresence>
                                {!isOneTime && (
-                                    <div className="flex-1 bg-blue-50/50 border border-star-blue rounded-xl p-4 shadow-sm relative flex flex-col justify-between lg:hover:shadow-md transition-shadow duration-300 overflow-hidden">
+                                    <motion.div 
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.9 }}
+                                        className="flex-1 bg-blue-50/50 border border-star-blue rounded-xl p-3 md:p-4 shadow-sm relative flex flex-col justify-between lg:hover:shadow-md transition-shadow duration-300 overflow-hidden"
+                                    >
                                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-star-blue to-blue-400"></div>
 
                                             <div className="flex justify-between items-start mb-2">
@@ -666,18 +685,29 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                             </div>
                                             
                                             <div className="mb-auto">
-                                                <span className="block text-2xl font-black text-star-blue tracking-tight">${recurringMin} - ${recurringMax}</span>
+                                                <AnimatePresence mode="wait">
+                                                    <motion.span 
+                                                        key={recurringMin}
+                                                        initial={{ opacity: 0, y: 10 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        exit={{ opacity: 0, y: -10 }}
+                                                        className="block text-xl md:text-2xl font-black text-star-blue tracking-tight"
+                                                    >
+                                                        ${recurringMin} - ${recurringMax}
+                                                    </motion.span>
+                                                </AnimatePresence>
                                                 <div className="text-[9px] text-green-600 font-bold mt-1 bg-green-50 inline-block px-1.5 py-0.5 rounded">
                                                     Save ${recurringSavings} per visit
                                                 </div>
                                             </div>
                                             
-                                            <div className="mt-3 pt-3 border-t border-blue-100 text-[10px] text-gray-500 flex items-center gap-2">
+                                            <div className="mt-2 md:mt-3 pt-2 md:pt-3 border-t border-blue-100 text-[10px] text-gray-500 flex items-center gap-2">
                                                 <i className="fas fa-sync-alt text-star-blue opacity-50"></i>
                                                 <span>Locks in your discounted rate</span>
                                             </div>
-                                    </div>
+                                    </motion.div>
                                )}
+                               </AnimatePresence>
                            </div>
                            
                            <div className="text-center mt-2">
