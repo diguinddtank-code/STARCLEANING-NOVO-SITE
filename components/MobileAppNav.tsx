@@ -34,7 +34,7 @@ const MobileAppNav: React.FC = () => {
 
   return (
     <div className="lg:hidden fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-xl border-t border-gray-200 z-[45] pb-[env(safe-area-inset-bottom)] shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
-      <div className="flex justify-around items-center h-16 px-2">
+      <div className="flex justify-around items-center h-12 px-2">
         
         <NavItem 
           icon="fa-home" 
@@ -51,12 +51,12 @@ const MobileAppNav: React.FC = () => {
         />
 
         {/* Center CTA Button - "Floating" effect */}
-        <div className="relative -top-5">
+        <div className="relative -top-3">
             <button 
                 onClick={() => scrollToSection('quote')}
-                className="w-14 h-14 bg-star-blue rounded-full shadow-lg shadow-blue-200 flex items-center justify-center text-white border-4 border-white transform active:scale-95 transition-transform"
+                className="w-10 h-10 bg-star-blue rounded-full shadow-lg shadow-blue-200 flex items-center justify-center text-white border-2 border-white transform active:scale-95 transition-transform"
             >
-                <i className="fas fa-calendar-check text-lg"></i>
+                <i className="fas fa-calendar-check text-sm"></i>
             </button>
         </div>
 
@@ -69,10 +69,10 @@ const MobileAppNav: React.FC = () => {
 
         <a 
           href="tel:8432979935"
-          className="flex flex-col items-center justify-center w-16 gap-1 text-gray-400 hover:text-green-600 transition-colors"
+          className="flex flex-col items-center justify-center w-12 gap-0.5 text-gray-400 hover:text-green-600 transition-colors"
         >
-          <i className={`fas fa-phone text-xl mb-0.5`}></i>
-          <span className="text-[10px] font-medium leading-none">Call</span>
+          <i className={`fas fa-phone text-base mb-0.5`}></i>
+          <span className="text-[9px] font-medium leading-none">Call</span>
         </a>
 
       </div>
@@ -90,10 +90,10 @@ interface NavItemProps {
 const NavItem: React.FC<NavItemProps> = ({ icon, label, isActive, onClick }) => (
   <button 
     onClick={onClick}
-    className={`flex flex-col items-center justify-center w-16 gap-1 transition-all duration-300 ${isActive ? 'text-star-blue translate-y-[-2px]' : 'text-gray-400'}`}
+    className={`flex flex-col items-center justify-center w-12 gap-0.5 transition-all duration-300 ${isActive ? 'text-star-blue translate-y-[-1px]' : 'text-gray-400'}`}
   >
-    <i className={`fas ${icon} text-xl mb-0.5 ${isActive ? 'scale-110' : ''}`}></i>
-    <span className={`text-[10px] font-medium leading-none ${isActive ? 'font-bold' : ''}`}>{label}</span>
+    <i className={`fas ${icon} text-base mb-0.5 ${isActive ? 'scale-110' : ''}`}></i>
+    <span className={`text-[9px] font-medium leading-none ${isActive ? 'font-bold' : ''}`}>{label}</span>
   </button>
 );
 

@@ -625,20 +625,20 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                           {/* Frequency Selector */}
                           <div>
                               <label className="text-[9px] font-bold text-gray-400 uppercase mb-1 block tracking-wider">Select Frequency</label>
-                              <div className="grid grid-cols-4 gap-1">
+                              <div className="grid grid-cols-4 gap-2">
                                   {['Weekly', 'Bi-Weekly', 'Monthly', 'One-Time'].map((freq) => (
                                       <button
                                           key={freq}
                                           type="button"
                                           onClick={() => setFormData(prev => ({ ...prev, frequency: freq }))}
-                                          className={`py-1.5 px-1 rounded-lg text-[9px] sm:text-[10px] font-bold transition-all border touch-manipulation flex flex-col items-center justify-center ${
+                                          className={`py-2.5 px-1 rounded-lg text-[10px] sm:text-xs font-bold transition-all border touch-manipulation flex flex-col items-center justify-center gap-0.5 ${
                                               formData.frequency === freq 
-                                              ? 'border-[#00b4db] bg-blue-50 text-[#00b4db] shadow-sm' 
-                                              : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200 hover:bg-gray-50'
+                                              ? 'bg-blue-900 border-blue-900 text-white shadow-md' 
+                                              : 'bg-white border-gray-200 text-gray-500 hover:border-gray-300 hover:bg-gray-50'
                                           }`}
                                       >
                                           <span>{freq}</span>
-                                          {freq === 'One-Time' && <span className="text-[7px] font-normal opacity-70 leading-none mt-0.5">Move In/Out</span>}
+                                          {freq === 'One-Time' && <span className={`text-[7px] font-normal leading-none ${formData.frequency === freq ? 'text-blue-100' : 'text-gray-400'}`}>Move In/Out</span>}
                                       </button>
                                   ))}
                               </div>
@@ -651,7 +651,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                                   onClick={() => setFormData(prev => ({ ...prev, serviceType: 'Deep Clean Reset' }))}
                                   className={`relative p-2.5 rounded-xl border-2 cursor-pointer transition-all duration-200 flex flex-col touch-manipulation ${
                                       formData.serviceType === 'Deep Clean Reset'
-                                      ? 'border-[#00b4db] bg-white shadow-md ring-1 ring-[#00b4db]/20' 
+                                      ? 'border-blue-900 bg-white shadow-md ring-1 ring-blue-900/20' 
                                       : 'border-gray-100 bg-white hover:border-gray-200'
                                   }`}
                               >
@@ -690,16 +690,16 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                                           onClick={() => setFormData(prev => ({ ...prev, serviceType: 'Standard House Cleaning' }))}
                                           className={`relative p-2.5 rounded-xl border-2 cursor-pointer transition-all duration-200 flex flex-col touch-manipulation overflow-hidden ${
                                               formData.serviceType === 'Standard House Cleaning'
-                                              ? 'border-[#00b4db] bg-white shadow-md ring-1 ring-[#00b4db]/20' 
+                                              ? 'border-blue-900 bg-white shadow-md ring-1 ring-blue-900/20' 
                                               : 'border-gray-100 bg-white hover:border-gray-200'
                                           }`}
                                       >
                                           <div className="flex justify-between items-center mb-1">
                                               <div>
-                                                  <h4 className="font-black text-xs text-[#00b4db]">Recurring Cleaning</h4>
+                                                  <h4 className="font-black text-xs text-blue-900">Recurring Cleaning</h4>
                                                   <p className="text-[9px] text-gray-500 leading-tight">Keep it fresh.</p>
                                               </div>
-                                              <div className="bg-blue-100 text-[#00b4db] text-[8px] font-bold px-1.5 py-0.5 rounded">STEP 2</div>
+                                              <div className="bg-blue-100 text-blue-900 text-[8px] font-bold px-1.5 py-0.5 rounded">STEP 2</div>
                                           </div>
                                           
                                           <div className="flex items-center justify-between">
@@ -707,7 +707,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                                                 key={recurringMin}
                                                 initial={{ scale: 0.8, opacity: 0 }}
                                                 animate={{ scale: 1, opacity: 1 }}
-                                                className="text-lg font-black text-[#00b4db]"
+                                                className="text-lg font-black text-blue-900"
                                               >
                                                   ${recurringMin} - ${recurringMax}
                                               </motion.div>
