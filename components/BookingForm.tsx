@@ -4,6 +4,8 @@ import { supabase } from '../lib/supabase';
 
 interface BookingFormProps {
   initialData?: any;
+  variant?: 'default' | 'full';
+  hideSidebar?: boolean;
 }
 
 // STANDARD OPERATING HOURS
@@ -13,11 +15,44 @@ const DAILY_SLOTS = [
     { time: '02:30 PM', label: 'Afternoon Arrival' }
 ];
 
-const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
+const ServiceOption = ({ selected, onClick, icon, title, subtitle, badge, badgeColor }: any) => (
+    <div 
+        onClick={onClick}
+        className={`relative p-3.5 rounded-2xl border-2 cursor-pointer transition-all duration-200 flex items-center gap-4 touch-manipulation ${
+            selected 
+            ? 'border-[#00b4db] bg-blue-50/30 shadow-sm' 
+            : 'border-gray-100 bg-white hover:border-gray-200 hover:bg-gray-50'
+        }`}
+    >
+        {badge && (
+            <div className={`absolute -top-2.5 right-4 px-2 py-0.5 rounded text-[9px] font-black text-white uppercase tracking-wider shadow-sm ${badgeColor}`}>
+                {badge}
+            </div>
+        )}
+        <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0 transition-colors ${
+            selected ? 'bg-[#00b4db] text-white shadow-md' : 'bg-gray-100 text-gray-400'
+        }`}>
+            <i className={`fas ${icon}`}></i>
+        </div>
+        <div className="flex-grow">
+            <h4 className={`font-black text-base ${selected ? 'text-[#00b4db]' : 'text-gray-800'}`}>{title}</h4>
+            <p className="text-xs text-gray-500 font-medium">{subtitle}</p>
+        </div>
+        <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ${
+            selected ? 'border-[#00b4db] bg-[#00b4db] text-white' : 'border-gray-200'
+        }`}>
+            {selected && <i className="fas fa-check text-xs"></i>}
+        </div>
+    </div>
+);
+
+const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'default', hideSidebar = false }) => {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [hasBookedTime, setHasBookedTime] = useState(false);
+  
+  const isFull = variant === 'full';
   
   // Pricing State
   const [initialMin, setInitialMin] = useState("0.00");
@@ -39,6 +74,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
 
   // City Lookup
   const [city, setCity] = useState<string | null>(null);
+  const [demandCount, setDemandCount] = useState(0);
 
   // Refs for scrolling
   const formTopRef = useRef<HTMLDivElement>(null);
@@ -50,11 +86,22 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
     zipCode: '',
     bedrooms: 3, 
     bathrooms: 2, 
+    sqft: 1500,
     hasDog: false,
     hasCat: false,
     serviceType: 'Standard House Cleaning',
-    frequency: 'Weekly' // Default changed to Weekly
+    frequency: 'Bi-Weekly' // Default changed to Bi-Weekly for better recurring presentation
   });
+
+  const [serviceTab, setServiceTab] = useState<'Recurring' | 'One-Time'>('Recurring');
+
+  useEffect(() => {
+      if (formData.frequency === 'One-Time') {
+          setServiceTab('One-Time');
+      } else {
+          setServiceTab('Recurring');
+      }
+  }, [formData.frequency]);
 
   // --- SCROLL TO TOP ON STEP CHANGE ---
   useEffect(() => {
@@ -115,6 +162,18 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
     standardBase += (bedDiff * 28.50); 
     const bathDiff = formData.bathrooms - 2;
     standardBase += (bathDiff * 22.75); 
+
+    let sqftMultiplier = 0;
+    if (formData.sqft < 1000) sqftMultiplier = -15;
+    else if (formData.sqft < 1500) sqftMultiplier = 0;
+    else if (formData.sqft < 2000) sqftMultiplier = 20;
+    else if (formData.sqft < 2500) sqftMultiplier = 40;
+    else if (formData.sqft < 3000) sqftMultiplier = 60;
+    else if (formData.sqft < 3500) sqftMultiplier = 80;
+    else if (formData.sqft < 4000) sqftMultiplier = 100;
+    else sqftMultiplier = 130;
+    standardBase += sqftMultiplier;
+
     if (formData.hasDog) standardBase += 12.50;
     if (formData.hasCat) standardBase += 10.50;
     if (standardBase < 120.00) standardBase = 120.00;
@@ -249,6 +308,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                 if (response.ok) {
                     const data = await response.json();
                     setCity(data.places[0]['place name']);
+                    setDemandCount(Math.floor(Math.random() * (42 - 18 + 1)) + 18);
                 } else { setCity(null); }
             } catch (error) { setCity(null); }
         } else { setCity(null); }
@@ -312,10 +372,11 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
         zipCode: '',
         bedrooms: 3, 
         bathrooms: 2, 
+        sqft: 1500,
         hasDog: false,
         hasCat: false,
         serviceType: 'Standard House Cleaning',
-        frequency: 'Weekly'
+        frequency: 'Bi-Weekly'
       });
       setSelectedDate(null);
       setSelectedTime(null);
@@ -377,108 +438,62 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
   const isOneTime = formData.frequency === 'One-Time' || (formData.serviceType && formData.serviceType.includes('Move'));
   
   return (
-    <section id="quote" className="py-8 lg:py-20 bg-blue-50 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] bg-yellow-200 rounded-full blur-[100px] opacity-30"></div>
-        <div className="absolute bottom-[0%] left-[0%] w-[30%] h-[30%] bg-blue-200 rounded-full blur-[80px] opacity-30"></div>
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row border border-gray-100 lg:min-h-[500px]">
+    <div id="quote" className={`relative w-full ${isFull ? 'min-h-screen' : ''}`}>
+      <div className={`${isFull ? 'w-full' : 'container mx-auto px-4 relative z-10'}`}>
+        <div ref={formTopRef} className={`${
+            isFull 
+            ? 'w-full min-h-screen bg-white flex flex-col' 
+            : 'max-w-md mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-white/10 scroll-mt-20'
+        }`}>
           
-          {/* Left Side: Summary & Testimonial */}
-          <div className="lg:w-4/12 bg-gradient-to-br from-star-dark to-star-blue p-6 lg:p-8 text-white relative flex flex-col justify-between shrink-0 transition-all duration-500">
-            {/* Overlay Pattern */}
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
-            
-            <div className="relative z-10">
-              <div className="flex justify-between items-start lg:flex-col lg:items-start">
-                  <div className="mb-2 lg:mb-4 animate-pulse-slow">
-                     <img 
-                        src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" 
-                        alt="Veteran Owned Business" 
-                        className="h-10 lg:h-14 w-auto object-contain drop-shadow-md"
-                     />
-                  </div>
-                  
-                  {/* Mobile Progress Counter */}
-                  <div className="lg:hidden text-[10px] font-bold opacity-80 uppercase tracking-widest border border-white/20 rounded-full px-2 py-0.5">
-                      Step {step > 4 ? 4 : step}/4
-                  </div>
-              </div>
+          {/* CLASSIC BLUE HEADER */}
+          <div className="bg-gradient-to-br from-blue-900 to-blue-800 p-6 text-white relative overflow-hidden">
+              {/* Decorative Elements */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-blue-500/20 rounded-full blur-xl translate-y-1/2 -translate-x-1/4"></div>
 
-              <h2 className="text-2xl lg:text-3xl font-black mb-1 lg:mb-2 font-heading leading-tight">
-                Your Custom Quote
-              </h2>
-              <p className="text-blue-100 text-xs lg:text-sm leading-tight mb-4 lg:mb-8 opacity-90 lg:opacity-100">
-                Proudly serving Charleston for 18 years.
-              </p>
-
-              {/* Mobile Progress Bar */}
-              <div className="lg:hidden w-full h-1.5 bg-blue-900/50 rounded-full overflow-hidden mb-2">
-                  <div 
-                    className="h-full bg-yellow-400 transition-all duration-500 ease-out"
-                    style={{ width: `${Math.min(100, (step / 4) * 100)}%` }}
-                  ></div>
-              </div>
-
-              {/* Step Indicators - Desktop Only */}
-              <div className="hidden lg:flex flex-col gap-4 mt-2">
-                  <StepIndicator current={step} num={1} label="Contact Info" />
-                  <StepIndicator current={step} num={2} label="Home Details" />
-                  <StepIndicator current={step} num={3} label="Your Price" />
-                  <StepIndicator current={step >= 4 ? 4 : step} num={4} label="Visit" />
-              </div>
-            </div>
-
-             {/* Reviewer */}
-             <div className="hidden lg:block mt-8 pt-6 border-t border-white/10 relative z-10">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-white p-0.5 shadow-lg">
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg" className="w-full h-full rounded-full object-cover" alt="Client" />
-                </div>
-                <div>
-                  <div className="flex text-yellow-400 text-[10px] mb-1">
-                    <i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i>
+              <div className="relative z-10">
+                  <div className="flex justify-between items-start mb-4">
+                      {/* Veteran Badge */}
+                      <div className="bg-white/10 backdrop-blur-sm px-2 py-1 rounded border border-white/20 flex items-center gap-1.5 shadow-sm">
+                          <i className="fas fa-flag-usa text-red-400 text-[10px]"></i>
+                          <span className="text-[9px] font-bold uppercase tracking-wider text-blue-50">Veteran Owned</span>
+                      </div>
+                      
+                      {/* Step Indicator */}
+                      <div className="bg-blue-950/50 backdrop-blur-sm px-2 py-1 rounded text-[9px] font-bold uppercase tracking-widest text-blue-200 border border-blue-500/30">
+                          Step {step}/4
+                      </div>
                   </div>
-                  <p className="text-xs text-blue-100 leading-tight italic">"They gave me my weekends back! Worth every penny."</p>
-                  <p className="text-[10px] font-bold text-white mt-1">- Sarah, Mount Pleasant</p>
-                </div>
-              </div>
-              
-              {/* TRUST BADGES */}
-              <div className="mt-6 pt-4 border-t border-white/10 flex items-center gap-3 opacity-80">
-                  <div className="flex items-center gap-1.5 bg-white/10 px-2 py-1 rounded-md backdrop-blur-sm border border-white/20">
-                      <i className="fas fa-shield-alt text-yellow-400 text-xs"></i>
-                      <span className="text-[9px] font-bold uppercase tracking-wider">Licensed & Insured</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 bg-white/10 px-2 py-1 rounded-md backdrop-blur-sm border border-white/20">
-                      <i className="fas fa-award text-yellow-400 text-xs"></i>
-                      <span className="text-[9px] font-bold uppercase tracking-wider">Satisfaction Guaranteed</span>
+
+                  <h2 className="text-2xl font-black mb-1 font-heading tracking-tight">Your Custom Quote</h2>
+                  <p className="text-blue-200 text-xs font-medium opacity-90 mb-4">Proudly serving Charleston for 18 years.</p>
+
+                  {/* Progress Bar */}
+                  <div className="h-1.5 w-full bg-blue-950/50 rounded-full overflow-hidden">
+                      <motion.div 
+                          className="h-full bg-yellow-400 rounded-full shadow-[0_0_10px_rgba(250,204,21,0.5)]"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${(step / 4) * 100}%` }}
+                          transition={{ duration: 0.5, ease: "easeInOut" }}
+                      />
                   </div>
               </div>
-            </div>
           </div>
 
-          {/* Right Side: The Multi-Step Form */}
-          {/* ADDED REF FOR SCROLL */}
-          <div ref={formTopRef} className="lg:w-8/12 p-5 lg:p-10 bg-white flex flex-col relative min-h-[500px] lg:min-h-[600px] scroll-mt-20">
+          {/* Form Body */}
+          <div className="bg-white p-5 md:p-6 relative">
             
-            {/* Header */}
-            <div className="mb-4 lg:mb-6 flex items-center justify-between border-b border-gray-100 pb-4">
-                 <h3 className="text-lg lg:text-xl font-black text-gray-900 font-heading flex items-center gap-2">
-                    <span className="w-2 h-2 bg-star-blue rounded-full"></span>
+            {/* Section Title */}
+            <div className="mb-6 flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
+                <h3 className="text-lg font-black text-gray-900">
                     {step === 1 && "Let's get in touch"}
                     {step === 2 && "Tell us about your home"}
-                    {step === 3 && "Review your plan"}
-                    {step === 4 && "Price Generated!"}
-                    {step === 5 && "Schedule Walkthrough"}
+                    {step === 3 && "Choose your service"}
+                    {step === 4 && "Your estimated price"}
+                    {step === 5 && "Schedule your walkthrough"}
                 </h3>
-                {/* Step Counter on Desktop */}
-                <span className="hidden lg:flex text-xs text-gray-400 font-bold uppercase tracking-wider items-center gap-1">
-                    Step {step > 4 ? 4 : step} / 4
-                </span>
             </div>
 
             <form className="flex-grow flex flex-col justify-between h-full" onSubmit={(e) => e.preventDefault()}>
@@ -496,34 +511,30 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
               
                   {/* STEP 1: CONTACT */}
                   {step === 1 && (
-                      <div className="grid grid-cols-2 gap-4 lg:gap-6">
-                        <div className="col-span-2 md:col-span-1">
-                            <InputGroup label="Full Name" name="fullName" placeholder="Jane Doe" value={formData.fullName} onChange={handleChange} />
+                      <div className="space-y-1">
+                        <InputGroup label="Full Name" name="fullName" icon="fa-user" placeholder="e.g., John Doe" value={formData.fullName} onChange={handleChange} />
+                        <InputGroup label="Email Address" name="email" type="email" icon="fa-envelope" placeholder="john@example.com" value={formData.email} onChange={handleChange} />
+                        <div className="grid grid-cols-2 gap-3">
+                            <InputGroup label="Phone Number" name="phone" type="tel" icon="fa-phone" placeholder="(555) 123-4567" value={formData.phone} onChange={handleChange} />
+                            <InputGroup label="Zip Code" name="zipCode" type="text" icon="fa-map-marker-alt" placeholder="29401" value={formData.zipCode} onChange={handleChange} maxLength={5} />
                         </div>
-                        <div className="col-span-2 md:col-span-1">
-                            <InputGroup label="Email" name="email" type="email" placeholder="jane@example.com" value={formData.email} onChange={handleChange} />
-                        </div>
-                        <div className="col-span-1">
-                            <InputGroup label="Phone" name="phone" type="tel" placeholder="(843) ..." value={formData.phone} onChange={handleChange} />
-                        </div>
-                        <div className="col-span-1">
-                             <div className="flex flex-col group w-full">
-                                <label className="text-xs font-bold text-gray-500 uppercase mb-2 ml-1">Zip Code</label>
-                                <input 
-                                    type="text"
-                                    name="zipCode"
-                                    value={formData.zipCode}
-                                    onChange={handleChange}
-                                    maxLength={5}
-                                    placeholder="29401"
-                                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white font-semibold hover:border-blue-300 touch-manipulation"
-                                />
-                            </div>
+                        <div className="flex justify-center gap-6 mt-2 pt-2 text-[9px] font-bold text-gray-400 uppercase tracking-wider">
+                            <div className="flex items-center gap-1.5"><i className="fas fa-lock"></i> SSL Encrypted</div>
+                            <div className="flex items-center gap-1.5"><i className="fas fa-shield-alt"></i> No Spam Promise</div>
                         </div>
                         {city && (
-                            <div className="col-span-2 bg-green-50 border border-green-100 rounded-xl p-3 flex items-center gap-2 animate-slide-in-bottom">
-                                <i className="fas fa-check-circle text-green-500 ml-1"></i>
-                                <p className="text-green-800 text-sm font-bold">Great! We serve <span className="underline">{city}</span>.</p>
+                            <div className="mt-2 bg-gray-50 border border-gray-100 rounded-xl p-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2 animate-slide-in-bottom">
+                                <div className="flex items-center gap-2">
+                                    <i className="fas fa-check-circle text-green-500 ml-1"></i>
+                                    <p className="text-gray-700 text-xs font-bold">Available in <span className="text-star-blue">{city}</span></p>
+                                </div>
+                                <div className="flex items-center gap-1.5 text-gray-500 text-[10px] font-medium">
+                                    <span className="relative flex h-2 w-2">
+                                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                                      <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+                                    </span>
+                                    {demandCount} neighbors booked this week
+                                </div>
                             </div>
                         )}
                       </div>
@@ -531,9 +542,9 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
 
                   {/* STEP 2: DETAILS */}
                   {step === 2 && (
-                       <div className="space-y-6 lg:space-y-8">
-                            {/* Counters */}
-                            <div className="grid grid-cols-2 gap-4 lg:gap-8">
+                       <div className="space-y-4">
+                            {/* Counters & SqFt */}
+                            <div className="grid grid-cols-2 gap-3">
                                 <Counter 
                                     label="Bedrooms" 
                                     value={formData.bedrooms} 
@@ -548,173 +559,177 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                 />
                             </div>
 
+                            {/* SqFt Slider */}
+                            <div className="bg-white border border-gray-100 rounded-xl p-3 shadow-sm">
+                                <div className="flex justify-between items-end mb-2">
+                                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Approx. Size</label>
+                                    <span className="text-sm font-black text-star-blue bg-blue-50 px-2 py-0.5 rounded-md">{formData.sqft.toLocaleString()} sq ft</span>
+                                </div>
+                                <div className="relative px-1">
+                                    <input 
+                                        type="range" 
+                                        min="500" 
+                                        max="5000" 
+                                        step="100" 
+                                        value={formData.sqft}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, sqft: parseInt(e.target.value) }))}
+                                        className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-star-blue"
+                                    />
+                                    <div className="flex justify-between text-[8px] font-bold text-gray-400 mt-1.5 uppercase tracking-wider">
+                                        <span>Small Apt</span>
+                                        <span>Large Home</span>
+                                    </div>
+                                </div>
+                            </div>
+
                             {/* Pets */}
                             <div>
-                                <label className="text-xs font-bold text-gray-500 uppercase mb-4 block ml-1">Pets in Home?</label>
-                                <div className="flex gap-4 lg:gap-6">
-                                    <PetToggle 
-                                        label="Dog(s)" 
-                                        icon="fa-dog" 
-                                        active={formData.hasDog} 
-                                        onClick={() => togglePet('hasDog')} 
-                                    />
-                                    <PetToggle 
-                                        label="Cat(s)" 
-                                        icon="fa-cat" 
-                                        active={formData.hasCat} 
-                                        onClick={() => togglePet('hasCat')} 
-                                    />
+                                <label className="text-[10px] font-bold text-gray-500 uppercase mb-1.5 block ml-1 tracking-wider">Pets in Home</label>
+                                <div className="flex gap-1.5">
+                                    <button
+                                        type="button"
+                                        onClick={() => setFormData(prev => ({ ...prev, hasDog: !prev.hasDog }))}
+                                        className={`flex-1 py-2.5 rounded-lg border-2 text-xs font-bold transition-all flex items-center justify-center gap-1.5 touch-manipulation ${formData.hasDog ? 'border-star-blue bg-blue-50 text-star-blue shadow-sm' : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200'}`}
+                                    >
+                                        <i className="fas fa-dog"></i> Dogs
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setFormData(prev => ({ ...prev, hasCat: !prev.hasCat }))}
+                                        className={`flex-1 py-2.5 rounded-lg border-2 text-xs font-bold transition-all flex items-center justify-center gap-1.5 touch-manipulation ${formData.hasCat ? 'border-star-blue bg-blue-50 text-star-blue shadow-sm' : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200'}`}
+                                    >
+                                        <i className="fas fa-cat"></i> Cats
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setFormData(prev => ({ ...prev, hasDog: false, hasCat: false }))}
+                                        className={`flex-1 py-2.5 rounded-lg border-2 text-xs font-bold transition-all flex items-center justify-center gap-1.5 touch-manipulation ${!formData.hasDog && !formData.hasCat ? 'border-gray-800 bg-gray-800 text-white shadow-sm' : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200'}`}
+                                    >
+                                        None
+                                    </button>
                                 </div>
                             </div>
 
                             {formData.serviceType.includes("Move") && (
-                                <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-xl flex items-center gap-3 animate-pulse-slow">
-                                    <i className="fas fa-box-open text-yellow-600 text-xl"></i>
-                                    <p className="text-sm text-yellow-800 font-bold">Configured for Move In / Move Out Service</p>
+                                <div className="bg-yellow-50 border border-yellow-200 p-3 rounded-xl flex items-center gap-3 animate-pulse-slow">
+                                    <i className="fas fa-box-open text-yellow-600 text-lg"></i>
+                                    <p className="text-xs text-yellow-800 font-bold">Configured for Move In / Move Out Service</p>
                                 </div>
                             )}
                        </div>
                   )}
 
-                  {/* STEP 3: PRICING */}
+                  {/* STEP 3: FREQUENCY & SERVICE */}
                   {step === 3 && (
-                      <div className="space-y-4">
-                           {/* Frequency Selector */}
-                           <div className="flex flex-col group">
-                                <label className="text-xs font-bold text-gray-500 uppercase mb-2 ml-1">Frequency</label>
-                                <div className="grid grid-cols-4 gap-2">
-                                    {['Weekly', 'Bi-Weekly', 'Monthly', 'One-Time'].map((freq) => {
-                                        const isSelected = formData.frequency === freq;
-                                        return (
-                                            <motion.button
-                                                key={freq}
-                                                type="button"
-                                                onClick={() => setFormData(prev => ({ ...prev, frequency: freq }))}
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                                animate={isSelected ? { scale: 1.05, y: -2 } : { scale: 1, y: 0 }}
-                                                className={`py-2 px-1 rounded-lg text-[10px] md:text-xs font-bold border transition-colors duration-200 truncate touch-manipulation relative overflow-hidden ${
-                                                    isSelected 
-                                                    ? 'bg-star-blue text-white border-star-blue shadow-md' 
-                                                    : 'bg-white text-gray-600 border-gray-100 hover:border-blue-200 hover:bg-gray-50'
-                                                }`}
-                                            >
-                                                {isSelected && (
-                                                    <motion.div
-                                                        layoutId="freq-highlight"
-                                                        className="absolute inset-0 bg-white/10"
-                                                        initial={false}
-                                                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                                                    />
-                                                )}
-                                                <span className="relative z-10">{freq}</span>
-                                            </motion.button>
-                                        );
-                                    })}
-                                </div>
-                           </div>
+                      <div className="space-y-3">
+                          {/* Frequency Selector */}
+                          <div>
+                              <label className="text-[10px] font-bold text-gray-400 uppercase mb-2 block tracking-wider">Select Frequency</label>
+                              <div className="grid grid-cols-4 gap-1.5">
+                                  {['Weekly', 'Bi-Weekly', 'Monthly', 'One-Time'].map((freq) => (
+                                      <button
+                                          key={freq}
+                                          type="button"
+                                          onClick={() => setFormData(prev => ({ ...prev, frequency: freq }))}
+                                          className={`py-2 px-1 rounded-lg text-[10px] sm:text-xs font-bold transition-all border touch-manipulation flex flex-col items-center justify-center ${
+                                              formData.frequency === freq 
+                                              ? 'border-[#00b4db] bg-blue-50 text-[#00b4db] shadow-sm' 
+                                              : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200 hover:bg-gray-50'
+                                          }`}
+                                      >
+                                          <span>{freq}</span>
+                                          {freq === 'One-Time' && <span className="text-[8px] font-normal opacity-70 leading-none mt-0.5">Move In/Out</span>}
+                                      </button>
+                                  ))}
+                              </div>
+                          </div>
 
-                           {/* Redesigned Cards */}
-                           <div className="flex flex-col md:flex-row gap-3 mt-2">
-                               
-                               {/* 1. THE RESET (Deep Clean) */}
-                               <motion.div 
-                                    layout
-                                    className="flex-1 bg-white border border-gray-200 rounded-xl p-3 md:p-4 shadow-sm relative group lg:hover:border-blue-200 lg:hover:shadow-md transition-all duration-300 overflow-hidden"
-                               >
-                                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gray-200 to-gray-400"></div>
+                          {/* Service Cards */}
+                          <div className="grid md:grid-cols-2 gap-3 items-start">
+                              {/* Deep Clean Card */}
+                              <div 
+                                  onClick={() => setFormData(prev => ({ ...prev, serviceType: 'Deep Clean Reset' }))}
+                                  className={`relative p-3 rounded-xl border-2 cursor-pointer transition-all duration-200 flex flex-col touch-manipulation ${
+                                      formData.serviceType === 'Deep Clean Reset'
+                                      ? 'border-[#00b4db] bg-white shadow-md ring-1 ring-[#00b4db]/20' 
+                                      : 'border-gray-100 bg-white hover:border-gray-200'
+                                  }`}
+                              >
+                                  <div className="flex justify-between items-start mb-1.5">
+                                      <div>
+                                          <h4 className="font-black text-sm text-gray-900">Deep Clean Reset</h4>
+                                          <p className="text-[10px] text-gray-500">One-time detailed scrub.</p>
+                                      </div>
+                                      <div className="bg-gray-100 text-gray-500 text-[9px] font-bold px-1.5 py-0.5 rounded">STEP 1</div>
+                                  </div>
+                                  
+                                  <div className="text-xl font-black text-gray-900 mb-2">
+                                      ${initialMin} - ${initialMax}
+                                  </div>
+                                  
+                                  <div className="bg-gray-50 rounded-lg p-2 space-y-1.5 mt-auto">
+                                      <div className="flex items-center gap-1.5 text-[10px] text-gray-600">
+                                          <i className="fas fa-shield-alt text-green-500 text-[9px]"></i> Licensed & Insured
+                                      </div>
+                                      <div className="flex items-center gap-1.5 text-[10px] text-gray-600">
+                                          <i className="fas fa-medal text-green-500 text-[9px]"></i> Satisfaction Guaranteed
+                                      </div>
+                                      <div className="flex items-center gap-1.5 text-[10px] text-gray-600">
+                                          <i className="fas fa-flag-usa text-blue-500 text-[9px]"></i> Veteran Owned
+                                      </div>
+                                  </div>
+                              </div>
 
-                                    <div className="flex justify-between items-start mb-2">
-                                        <div>
-                                            <h4 className="font-black text-gray-900 text-sm leading-tight flex items-center gap-1">
-                                                {formData.serviceType.includes("Move") ? "Move-In Reset" : "Deep Clean Reset"}
-                                            </h4>
-                                            <p className="text-[10px] text-gray-500 font-medium mt-0.5">One-time detailed scrub.</p>
-                                        </div>
-                                        <span className="bg-gray-100 text-gray-600 text-[9px] font-bold px-2 py-1 rounded-lg uppercase tracking-wider">
-                                            Step 1
-                                        </span>
-                                    </div>
-                                    
-                                    <div className="mb-2 md:mb-3">
-                                        <AnimatePresence mode="wait">
-                                            <motion.span 
-                                                key={initialMin}
-                                                initial={{ opacity: 0, y: 10 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                exit={{ opacity: 0, y: -10 }}
-                                                className="block text-xl md:text-2xl font-black text-gray-800 tracking-tight"
-                                            >
-                                                ${initialMin} - ${initialMax}
-                                            </motion.span>
-                                        </AnimatePresence>
-                                    </div>
-
-                                    <div className="bg-gray-50 rounded-lg p-2 space-y-1">
-                                        <div className="flex items-center gap-1.5 text-[10px] text-gray-600 font-medium">
-                                            <i className="fas fa-shield-alt text-green-500"></i> Licensed & Insured
-                                        </div>
-                                        <div className="flex items-center gap-1.5 text-[10px] text-gray-600 font-medium">
-                                            <i className="fas fa-award text-green-500"></i> 100% Satisfaction Guaranteed
-                                        </div>
-                                        <div className="flex items-center gap-1.5 text-[10px] text-gray-600 font-medium">
-                                            <i className="fas fa-sparkles text-green-500"></i> Top-to-Bottom Deep Scrub
-                                        </div>
-                                    </div>
-                               </motion.div>
-
-                               {/* 2. MAINTENANCE (Recurring) */}
-                               <AnimatePresence>
-                               {!isOneTime && (
-                                    <motion.div 
-                                        initial={{ opacity: 0, scale: 0.9 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.9 }}
-                                        className="flex-1 bg-blue-50/50 border border-star-blue rounded-xl p-3 md:p-4 shadow-sm relative flex flex-col justify-between lg:hover:shadow-md transition-shadow duration-300 overflow-hidden"
-                                    >
-                                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-star-blue to-blue-400"></div>
-
-                                            <div className="flex justify-between items-start mb-2">
-                                                <div>
-                                                    <h4 className="font-black text-star-blue text-sm leading-tight">Maintenance Clean</h4>
-                                                    <p className="text-[10px] text-gray-500 font-medium mt-0.5">Keep it fresh forever.</p>
-                                                </div>
-                                                <span className="bg-blue-100 text-star-blue text-[9px] font-bold px-2 py-1 rounded-lg uppercase tracking-wider">
-                                                    Step 2
-                                                </span>
-                                            </div>
-                                            
-                                            <div className="mb-auto">
-                                                <AnimatePresence mode="wait">
-                                                    <motion.span 
-                                                        key={recurringMin}
-                                                        initial={{ opacity: 0, y: 10 }}
-                                                        animate={{ opacity: 1, y: 0 }}
-                                                        exit={{ opacity: 0, y: -10 }}
-                                                        className="block text-xl md:text-2xl font-black text-star-blue tracking-tight"
-                                                    >
-                                                        ${recurringMin} - ${recurringMax}
-                                                    </motion.span>
-                                                </AnimatePresence>
-                                                <div className="text-[9px] text-green-600 font-bold mt-1 bg-green-50 inline-block px-1.5 py-0.5 rounded">
-                                                    Save ${recurringSavings} per visit
-                                                </div>
-                                            </div>
-                                            
-                                            <div className="mt-2 md:mt-3 pt-2 md:pt-3 border-t border-blue-100 text-[10px] text-gray-500 flex items-center gap-2">
-                                                <i className="fas fa-sync-alt text-star-blue opacity-50"></i>
-                                                <span>Locks in your discounted rate</span>
-                                            </div>
-                                    </motion.div>
-                               )}
-                               </AnimatePresence>
-                           </div>
-                           
-                           <div className="text-center mt-2">
-                                <p className="text-[10px] text-gray-400 font-medium italic flex items-center justify-center gap-1">
-                                    <i className="fas fa-info-circle"></i> "The Reset" brings your home to our professional standard so maintenance is easy.
-                                </p>
-                           </div>
+                              {/* Maintenance Clean Card - Slimmer */}
+                              <AnimatePresence>
+                                  {!isOneTime && (
+                                      <motion.div 
+                                          initial={{ opacity: 0, scale: 0.95 }}
+                                          animate={{ opacity: 1, scale: 1 }}
+                                          exit={{ opacity: 0, scale: 0.95 }}
+                                          onClick={() => setFormData(prev => ({ ...prev, serviceType: 'Standard House Cleaning' }))}
+                                          className={`relative p-3 rounded-xl border-2 cursor-pointer transition-all duration-200 flex flex-col touch-manipulation ${
+                                              formData.serviceType === 'Standard House Cleaning'
+                                              ? 'border-[#00b4db] bg-white shadow-md ring-1 ring-[#00b4db]/20' 
+                                              : 'border-gray-100 bg-white hover:border-gray-200'
+                                          }`}
+                                      >
+                                          <div className="flex justify-between items-start mb-1.5">
+                                              <div>
+                                                  <h4 className="font-black text-sm text-[#00b4db]">Recurring Cleaning</h4>
+                                                  <p className="text-[10px] text-gray-500">Keep it fresh.</p>
+                                              </div>
+                                              <div className="bg-blue-100 text-[#00b4db] text-[9px] font-bold px-1.5 py-0.5 rounded">STEP 2</div>
+                                          </div>
+                                          
+                                          <motion.div 
+                                            key={recurringMin}
+                                            initial={{ scale: 0.8, opacity: 0 }}
+                                            animate={{ scale: 1, opacity: 1 }}
+                                            className="text-xl font-black text-[#00b4db] mb-1.5"
+                                          >
+                                              ${recurringMin} - ${recurringMax}
+                                          </motion.div>
+                                          
+                                          <div className="inline-block bg-green-50 text-green-600 text-[9px] font-bold px-1.5 py-0.5 rounded mb-2 w-fit">
+                                              Save ${recurringSavings} / visit
+                                          </div>
+                                          
+                                          <div className="border-t border-gray-100 pt-1.5 mt-auto">
+                                              <div className="flex items-center gap-1.5 text-[10px] text-gray-500">
+                                                  <i className="fas fa-sync-alt text-[9px]"></i> Locks in discounted rate
+                                              </div>
+                                          </div>
+                                      </motion.div>
+                                  )}
+                              </AnimatePresence>
+                          </div>
+                          
+                          {!isOneTime && (
+                              <p className="text-center text-[10px] text-gray-400 italic mt-1">
+                                  <i className="fas fa-info-circle"></i> "The Reset" brings your home to our professional standard.
+                              </p>
+                          )}
                       </div>
                   )}
 
@@ -741,7 +756,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                   <button 
                                     type="button"
                                     onClick={() => setStep(5)}
-                                    className="w-full bg-star-blue hover:bg-star-dark text-white font-black py-4 rounded-xl shadow-lg shadow-blue-200 transform lg:hover:-translate-y-1 active:scale-95 transition-all duration-200 flex justify-center items-center gap-3 text-lg group touch-manipulation"
+                                    className="w-full bg-gradient-to-r from-[#00b4db] to-[#0083b0] text-white font-black py-4 rounded-xl shadow-lg shadow-blue-200 transform hover:-translate-y-0.5 active:scale-95 transition-all duration-200 flex justify-center items-center gap-3 text-lg group touch-manipulation"
                                   >
                                       <span>See Availability</span>
                                       <i className="fas fa-calendar-alt group-hover:rotate-12 transition-transform"></i>
@@ -846,14 +861,15 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
               </AnimatePresence>
 
               {/* Navigation Buttons */}
-              <div className="mt-6 flex gap-3 pt-4 border-t border-gray-50">
+              <div className="mt-3 flex items-center gap-3">
                 {step > 1 && step < 4 && (
                     <button 
                         type="button"
                         onClick={prevStep}
-                        className="w-1/3 py-3 rounded-xl font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 transition-colors text-sm active:scale-95 touch-manipulation"
+                        className="w-12 h-12 rounded-xl font-bold text-gray-400 hover:text-gray-600 bg-gray-50 hover:bg-gray-100 transition-all text-sm active:scale-95 touch-manipulation flex items-center justify-center shrink-0"
+                        aria-label="Go Back"
                     >
-                        Back
+                        <i className="fas fa-arrow-left"></i>
                     </button>
                 )}
                 
@@ -861,7 +877,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                      <button 
                         type="button"
                         onClick={nextStep}
-                        className="w-full py-4 rounded-xl font-black text-white bg-star-blue hover:bg-star-dark shadow-md transition-all flex items-center justify-center gap-2 text-lg active:scale-95 group touch-manipulation"
+                        className="flex-grow py-3.5 rounded-xl font-black text-white bg-gradient-to-r from-[#00b4db] to-[#0083b0] shadow-lg shadow-blue-200 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-base active:scale-95 group touch-manipulation"
                     >
                         <span>Next Step</span>
                         <i className="fas fa-arrow-right text-sm group-hover:translate-x-1 transition-transform"></i>
@@ -873,7 +889,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                         type="button"
                         onClick={handleLockPrice}
                         disabled={isSubmitting}
-                        className="w-full py-4 rounded-xl font-black text-blue-900 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 shadow-xl shadow-yellow-200/50 transform lg:hover:-translate-y-1 transition-all flex items-center justify-center gap-2 text-lg relative overflow-hidden active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed group touch-manipulation"
+                        className="flex-grow py-3.5 rounded-xl font-black text-white bg-gradient-to-r from-[#00b4db] to-[#0083b0] shadow-lg shadow-blue-200 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-base active:scale-95 group disabled:opacity-70 disabled:cursor-not-allowed touch-manipulation"
                     >
                         {isSubmitting ? (
                             <i className="fas fa-spinner fa-spin"></i>
@@ -883,41 +899,54 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                                 <i className="fas fa-lock group-hover:scale-110 transition-transform"></i>
                             </>
                         )}
-                        <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:animate-[shimmer_1s_infinite]"></div>
                     </button>
                 )}
 
                 {step === 5 && (
-                    <>
+                    <div className="flex gap-3 w-full">
                         <button 
                             type="button"
                             onClick={() => setStep(4)}
-                            className="w-1/3 py-3 rounded-xl font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 transition-colors text-sm active:scale-95 touch-manipulation"
+                            className="w-12 h-12 rounded-xl font-bold text-gray-400 hover:text-gray-600 bg-gray-50 hover:bg-gray-100 transition-all text-sm active:scale-95 touch-manipulation flex items-center justify-center shrink-0"
                         >
-                            Back
+                            <i className="fas fa-arrow-left"></i>
                         </button>
                         <button 
                             type="button"
                             onClick={handleFinalBooking}
                             disabled={isSubmitting || !selectedDate || !selectedTime}
-                            className="w-full py-4 rounded-xl font-black text-white bg-green-500 hover:bg-green-600 shadow-xl shadow-green-200/50 transform lg:hover:-translate-y-1 transition-all flex items-center justify-center gap-2 text-lg relative overflow-hidden active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed group touch-manipulation"
+                            className="flex-grow py-3.5 rounded-xl font-black text-white bg-green-500 hover:bg-green-600 shadow-xl shadow-green-200/50 transform lg:hover:-translate-y-1 transition-all flex items-center justify-center gap-2 text-base relative overflow-hidden active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed group touch-manipulation"
                         >
                             {isSubmitting ? (
                                 <i className="fas fa-spinner fa-spin"></i>
                             ) : (
                                 <>
-                                    <span>Confirm</span>
+                                    <span>Confirm Booking</span>
                                     <i className="fas fa-check-circle group-hover:scale-110 transition-transform"></i>
                                 </>
                             )}
                         </button>
-                    </>
+                    </div>
                 )}
 
               </div>
             </form>
           </div>
         </div>
+
+        {/* Trust Badges Below Form */}
+        {!isFull && (
+            <div className="flex justify-center gap-4 mt-6">
+                <div className="flex items-center gap-1.5 bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
+                    <i className="fas fa-check-circle text-green-400 text-xs"></i>
+                    <span className="text-[10px] font-bold text-white uppercase tracking-wider">Guaranteed</span>
+                </div>
+                <div className="flex items-center gap-1.5 bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
+                    <i className="fas fa-star text-yellow-400 text-xs"></i>
+                    <span className="text-[10px] font-bold text-white uppercase tracking-wider">4.9/5 Rated</span>
+                </div>
+            </div>
+        )}
       </div>
       
       {/* SUCCESS POPUP OVERLAY */}
@@ -970,7 +999,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
                 <div className="space-y-3">
                     <button 
                         onClick={resetForm}
-                        className="w-full bg-star-blue text-white font-bold py-3.5 rounded-xl transition-colors shadow-lg shadow-blue-200 active:scale-95"
+                        className="w-full bg-gradient-to-r from-[#00b4db] to-[#0083b0] text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-blue-200 active:scale-95 hover:-translate-y-0.5"
                     >
                         Awesome, Thanks!
                     </button>
@@ -979,7 +1008,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData }) => {
           </motion.div>
         )}
       </AnimatePresence>
-    </section>
+    </div>
   );
 };
 
@@ -997,27 +1026,34 @@ const StepIndicator: React.FC<{ current: number, num: number, label: string }> =
     );
 };
 
-const InputGroup: React.FC<any> = ({ label, type = "text", ...props }) => (
-  <div className="flex flex-col group w-full">
-    <label className="text-xs font-bold text-gray-500 uppercase mb-2 ml-1 group-focus-within:text-star-blue transition-colors">{label}</label>
-    <input 
-      type={type}
-      className="w-full px-4 py-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-star-blue focus:border-star-blue block shadow-sm transition-all focus:bg-white placeholder-gray-400 font-semibold hover:border-blue-300 touch-manipulation"
-      {...props}
-    />
+const InputGroup: React.FC<any> = ({ label, type = "text", icon, ...props }) => (
+  <div className="flex flex-col group w-full mb-3">
+    <label className="text-[10px] font-bold text-gray-500 uppercase mb-1.5 ml-1 tracking-wider group-focus-within:text-[#00b4db] transition-colors">{label}</label>
+    <div className="relative">
+        {icon && (
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+                <i className={`fas ${icon}`}></i>
+            </div>
+        )}
+        <input 
+          type={type}
+          className={`w-full ${icon ? 'pl-11' : 'pl-4'} pr-4 py-3.5 bg-gray-50 border-transparent text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-[#00b4db]/20 focus:border-[#00b4db] block shadow-sm transition-all focus:bg-white placeholder-gray-300 font-semibold touch-manipulation`}
+          {...props}
+        />
+    </div>
   </div>
 );
 
 const Counter: React.FC<{ label: string, value: number, onMinus: () => void, onPlus: () => void }> = ({ label, value, onMinus, onPlus }) => (
-    <div className="bg-gray-50 rounded-xl p-4 border border-gray-200 flex flex-col items-center justify-center hover:border-blue-200 transition-colors">
-        <label className="text-xs font-bold text-gray-500 uppercase mb-3">{label}</label>
-        <div className="flex items-center gap-6">
-            <button type="button" onClick={onMinus} className="w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-600 flex items-center justify-center hover:bg-gray-100 active:scale-90 transition-transform touch-manipulation">
-                <i className="fas fa-minus text-xs"></i>
+    <div className="bg-gray-50 rounded-xl p-3 border border-gray-200 flex flex-col items-center justify-center hover:border-blue-200 transition-colors">
+        <label className="text-[10px] font-bold text-gray-500 uppercase mb-2">{label}</label>
+        <div className="flex items-center gap-4">
+            <button type="button" onClick={onMinus} className="w-8 h-8 rounded-full bg-white border border-gray-300 text-gray-600 flex items-center justify-center hover:bg-gray-100 active:scale-90 transition-transform touch-manipulation">
+                <i className="fas fa-minus text-[10px]"></i>
             </button>
-            <span className="text-2xl font-black text-gray-900 w-8 text-center">{value}</span>
-            <button type="button" onClick={onPlus} className="w-10 h-10 rounded-full bg-white border border-star-blue text-star-blue flex items-center justify-center hover:bg-blue-50 active:scale-90 transition-transform shadow-sm touch-manipulation">
-                <i className="fas fa-plus text-xs"></i>
+            <span className="text-xl font-black text-gray-900 w-6 text-center">{value}</span>
+            <button type="button" onClick={onPlus} className="w-8 h-8 rounded-full bg-white border border-star-blue text-star-blue flex items-center justify-center hover:bg-blue-50 active:scale-90 transition-transform shadow-sm touch-manipulation">
+                <i className="fas fa-plus text-[10px]"></i>
             </button>
         </div>
     </div>
