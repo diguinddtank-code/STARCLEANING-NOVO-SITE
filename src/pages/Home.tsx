@@ -75,7 +75,7 @@ const Home = () => {
         </ScrollReveal>
       </main>
       
-      <MobileAppNav />
+      {/* <MobileAppNav /> */}
       <ExitIntentPopup />
       <Footer />
     </div>

@@ -439,35 +439,35 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
   
   return (
     <div id="quote" className={`relative w-full ${isFull ? 'min-h-screen' : ''}`}>
-      <div className={`${isFull ? 'w-full' : 'container mx-auto px-4 relative z-10'}`}>
+      <div className={`${isFull ? 'w-full' : 'container mx-auto px-0 sm:px-2 relative z-10'}`}>
         <div ref={formTopRef} className={`${
             isFull 
             ? 'w-full min-h-screen bg-white flex flex-col' 
-            : 'max-w-md mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-white/10 scroll-mt-20'
+            : 'max-w-xl mx-auto bg-white/80 backdrop-blur-md rounded-xl sm:rounded-3xl shadow-2xl overflow-hidden border border-white/50 scroll-mt-20'
         }`}>
           
           {/* CLASSIC BLUE HEADER */}
-          <div className="bg-gradient-to-br from-blue-900 to-blue-800 p-6 text-white relative overflow-hidden">
+          <div className="bg-gradient-to-br from-blue-900 to-blue-800 p-4 sm:p-6 text-white relative overflow-hidden">
               {/* Decorative Elements */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-blue-500/20 rounded-full blur-xl translate-y-1/2 -translate-x-1/4"></div>
 
               <div className="relative z-10">
-                  <div className="flex justify-between items-start mb-4">
+                  <div className="flex justify-between items-start mb-3 sm:mb-4">
                       {/* Veteran Badge */}
-                      <div className="bg-white/10 backdrop-blur-sm px-2 py-1 rounded border border-white/20 flex items-center gap-1.5 shadow-sm">
-                          <i className="fas fa-flag-usa text-red-400 text-[10px]"></i>
-                          <span className="text-[9px] font-bold uppercase tracking-wider text-blue-50">Veteran Owned</span>
+                      <div className="px-2 py-1 rounded border border-white/30 flex items-center gap-1.5">
+                          <i className="fas fa-flag-usa text-red-400 text-[10px] opacity-90"></i>
+                          <span className="text-[9px] font-bold uppercase tracking-wider text-white">Veteran Owned</span>
                       </div>
                       
                       {/* Step Indicator */}
-                      <div className="bg-blue-950/50 backdrop-blur-sm px-2 py-1 rounded text-[9px] font-bold uppercase tracking-widest text-blue-200 border border-blue-500/30">
+                      <div className="bg-blue-950/40 px-2 py-1 rounded text-[9px] font-bold uppercase tracking-widest text-white">
                           Step {step}/4
                       </div>
                   </div>
 
-                  <h2 className="text-2xl font-black mb-1 font-heading tracking-tight">Your Custom Quote</h2>
-                  <p className="text-blue-200 text-xs font-medium opacity-90 mb-4">Proudly serving Charleston for 18 years.</p>
+                  <h2 className="text-xl sm:text-2xl font-black mb-1 font-heading tracking-tight">Your Custom Quote</h2>
+                  <p className="text-blue-200 text-xs font-medium opacity-90 mb-3 sm:mb-4">Proudly serving Charleston for 18 years.</p>
 
                   {/* Progress Bar */}
                   <div className="h-1.5 w-full bg-blue-950/50 rounded-full overflow-hidden">
@@ -669,10 +669,10 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                                   
                                   <div className="bg-gray-50 rounded-lg p-1.5 flex flex-wrap gap-2 mt-auto">
                                       <div className="flex items-center gap-1 text-[9px] text-gray-600">
-                                          <i className="fas fa-shield-alt text-green-500 text-[8px]"></i> Licensed
+                                          <i className="fas fa-shield-alt text-green-500 text-[8px]"></i> Licensed & Insured
                                       </div>
                                       <div className="flex items-center gap-1 text-[9px] text-gray-600">
-                                          <i className="fas fa-medal text-green-500 text-[8px]"></i> Guaranteed
+                                          <i className="fas fa-medal text-green-500 text-[8px]"></i> Satisfaction Guaranteed
                                       </div>
                                       <div className="flex items-center gap-1 text-[9px] text-gray-600">
                                           <i className="fas fa-flag-usa text-blue-500 text-[8px]"></i> Veteran Owned
@@ -681,44 +681,43 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                               </div>
 
                               {/* Maintenance Clean Card - Slimmer */}
-                              <AnimatePresence>
-                                  {!isOneTime && (
-                                      <motion.div 
-                                          initial={{ opacity: 0, height: 0 }}
-                                          animate={{ opacity: 1, height: 'auto' }}
-                                          exit={{ opacity: 0, height: 0 }}
-                                          onClick={() => setFormData(prev => ({ ...prev, serviceType: 'Standard House Cleaning' }))}
-                                          className={`relative p-2.5 rounded-xl border-2 cursor-pointer transition-all duration-200 flex flex-col touch-manipulation overflow-hidden ${
-                                              formData.serviceType === 'Standard House Cleaning'
-                                              ? 'border-blue-900 bg-white shadow-md ring-1 ring-blue-900/20' 
-                                              : 'border-gray-100 bg-white hover:border-gray-200'
-                                          }`}
-                                      >
-                                          <div className="flex justify-between items-center mb-1">
-                                              <div>
-                                                  <h4 className="font-black text-xs text-blue-900">Recurring Cleaning</h4>
-                                                  <p className="text-[9px] text-gray-500 leading-tight">Keep it fresh.</p>
-                                              </div>
-                                              <div className="bg-blue-100 text-blue-900 text-[8px] font-bold px-1.5 py-0.5 rounded">STEP 2</div>
+                              {!isOneTime && (
+                                  <div 
+                                      onClick={() => setFormData(prev => ({ ...prev, serviceType: 'Standard House Cleaning' }))}
+                                      className={`relative p-2.5 rounded-xl border-2 cursor-pointer transition-all duration-200 flex flex-col touch-manipulation overflow-hidden mt-3 ${
+                                          formData.serviceType === 'Standard House Cleaning'
+                                          ? 'border-blue-900 bg-white shadow-md ring-1 ring-blue-900/20' 
+                                          : 'border-gray-100 bg-white/90 hover:border-gray-200'
+                                      }`}
+                                  >
+                                      <div className="flex justify-between items-center mb-1">
+                                          <div>
+                                              <h4 className="font-black text-xs text-blue-900">Recurring Cleaning</h4>
+                                              <p className="text-[9px] text-gray-500 leading-tight">Keep it fresh.</p>
+                                          </div>
+                                          <div className="bg-blue-100 text-blue-900 text-[8px] font-bold px-1.5 py-0.5 rounded">STEP 2</div>
+                                      </div>
+                                      
+                                      <div className="flex items-center justify-between mb-1.5">
+                                          <div className="text-lg font-black text-blue-900">
+                                              ${recurringMin} - ${recurringMax}
                                           </div>
                                           
-                                          <div className="flex items-center justify-between">
-                                              <motion.div 
-                                                key={recurringMin}
-                                                initial={{ scale: 0.8, opacity: 0 }}
-                                                animate={{ scale: 1, opacity: 1 }}
-                                                className="text-lg font-black text-blue-900"
-                                              >
-                                                  ${recurringMin} - ${recurringMax}
-                                              </motion.div>
-                                              
-                                              <div className="bg-green-50 text-green-600 text-[8px] font-bold px-1.5 py-0.5 rounded">
-                                                  Save ${recurringSavings} / visit
-                                              </div>
+                                          <div className="bg-green-50 text-green-600 text-[8px] font-bold px-1.5 py-0.5 rounded">
+                                              Save ${recurringSavings} / visit
                                           </div>
-                                      </motion.div>
-                                  )}
-                              </AnimatePresence>
+                                      </div>
+                                      
+                                      <div className="border-t border-gray-100 pt-1.5 mt-auto">
+                                          <div className="flex items-center gap-1.5 text-[9px] text-gray-500 mb-1">
+                                              <i className="fas fa-sync-alt text-blue-500 text-[8px]"></i> Locks in discounted rate
+                                          </div>
+                                          <div className="flex items-center gap-1.5 text-[9px] text-gray-500">
+                                              <i className="fas fa-calendar-check text-blue-500 text-[8px]"></i> Same cleaner every time
+                                          </div>
+                                      </div>
+                                  </div>
+                              )}
                           </div>
                           
                           {!isOneTime && (
@@ -873,7 +872,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                      <button 
                         type="button"
                         onClick={nextStep}
-                        className="flex-grow py-3.5 rounded-xl font-black text-white bg-gradient-to-r from-[#00b4db] to-[#0083b0] shadow-lg shadow-blue-200 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-base active:scale-95 group touch-manipulation"
+                        className="flex-grow py-3.5 rounded-xl font-black text-white bg-gradient-to-r from-blue-900 to-blue-800 shadow-lg shadow-blue-900/20 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-base active:scale-95 group touch-manipulation"
                     >
                         <span>Next Step</span>
                         <i className="fas fa-arrow-right text-sm group-hover:translate-x-1 transition-transform"></i>
@@ -885,7 +884,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                         type="button"
                         onClick={handleLockPrice}
                         disabled={isSubmitting}
-                        className="flex-grow py-3.5 rounded-xl font-black text-white bg-gradient-to-r from-[#00b4db] to-[#0083b0] shadow-lg shadow-blue-200 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-base active:scale-95 group disabled:opacity-70 disabled:cursor-not-allowed touch-manipulation"
+                        className="flex-grow py-3.5 rounded-xl font-black text-white bg-gradient-to-r from-blue-900 to-blue-800 shadow-lg shadow-blue-900/20 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-base active:scale-95 group disabled:opacity-70 disabled:cursor-not-allowed touch-manipulation"
                     >
                         {isSubmitting ? (
                             <i className="fas fa-spinner fa-spin"></i>
@@ -995,7 +994,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                 <div className="space-y-3">
                     <button 
                         onClick={resetForm}
-                        className="w-full bg-gradient-to-r from-[#00b4db] to-[#0083b0] text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-blue-200 active:scale-95 hover:-translate-y-0.5"
+                        className="w-full bg-gradient-to-r from-blue-900 to-blue-800 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-blue-900/20 active:scale-95 hover:-translate-y-0.5"
                     >
                         Awesome, Thanks!
                     </button>
