@@ -90,7 +90,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
     hasDog: false,
     hasCat: false,
     serviceType: 'Standard House Cleaning',
-    frequency: 'Bi-Weekly' // Default changed to Bi-Weekly for better recurring presentation
+    frequency: 'Weekly' // Default changed to Weekly as requested
   });
 
   const [serviceTab, setServiceTab] = useState<'Recurring' | 'One-Time'>('Recurring');
@@ -621,61 +621,61 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
 
                   {/* STEP 3: FREQUENCY & SERVICE */}
                   {step === 3 && (
-                      <div className="space-y-3">
+                      <div className="space-y-2">
                           {/* Frequency Selector */}
                           <div>
-                              <label className="text-[10px] font-bold text-gray-400 uppercase mb-2 block tracking-wider">Select Frequency</label>
-                              <div className="grid grid-cols-4 gap-1.5">
+                              <label className="text-[9px] font-bold text-gray-400 uppercase mb-1 block tracking-wider">Select Frequency</label>
+                              <div className="grid grid-cols-4 gap-1">
                                   {['Weekly', 'Bi-Weekly', 'Monthly', 'One-Time'].map((freq) => (
                                       <button
                                           key={freq}
                                           type="button"
                                           onClick={() => setFormData(prev => ({ ...prev, frequency: freq }))}
-                                          className={`py-2 px-1 rounded-lg text-[10px] sm:text-xs font-bold transition-all border touch-manipulation flex flex-col items-center justify-center ${
+                                          className={`py-1.5 px-1 rounded-lg text-[9px] sm:text-[10px] font-bold transition-all border touch-manipulation flex flex-col items-center justify-center ${
                                               formData.frequency === freq 
                                               ? 'border-[#00b4db] bg-blue-50 text-[#00b4db] shadow-sm' 
                                               : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200 hover:bg-gray-50'
                                           }`}
                                       >
                                           <span>{freq}</span>
-                                          {freq === 'One-Time' && <span className="text-[8px] font-normal opacity-70 leading-none mt-0.5">Move In/Out</span>}
+                                          {freq === 'One-Time' && <span className="text-[7px] font-normal opacity-70 leading-none mt-0.5">Move In/Out</span>}
                                       </button>
                                   ))}
                               </div>
                           </div>
 
                           {/* Service Cards */}
-                          <div className="grid md:grid-cols-2 gap-3 items-start">
+                          <div className="grid gap-2 items-start">
                               {/* Deep Clean Card */}
                               <div 
                                   onClick={() => setFormData(prev => ({ ...prev, serviceType: 'Deep Clean Reset' }))}
-                                  className={`relative p-3 rounded-xl border-2 cursor-pointer transition-all duration-200 flex flex-col touch-manipulation ${
+                                  className={`relative p-2.5 rounded-xl border-2 cursor-pointer transition-all duration-200 flex flex-col touch-manipulation ${
                                       formData.serviceType === 'Deep Clean Reset'
                                       ? 'border-[#00b4db] bg-white shadow-md ring-1 ring-[#00b4db]/20' 
                                       : 'border-gray-100 bg-white hover:border-gray-200'
                                   }`}
                               >
-                                  <div className="flex justify-between items-start mb-1.5">
+                                  <div className="flex justify-between items-start mb-1">
                                       <div>
-                                          <h4 className="font-black text-sm text-gray-900">Deep Clean Reset</h4>
-                                          <p className="text-[10px] text-gray-500">One-time detailed scrub.</p>
+                                          <h4 className="font-black text-xs text-gray-900">Deep Clean Reset</h4>
+                                          <p className="text-[9px] text-gray-500 leading-tight">One-time detailed scrub.</p>
                                       </div>
-                                      <div className="bg-gray-100 text-gray-500 text-[9px] font-bold px-1.5 py-0.5 rounded">STEP 1</div>
+                                      <div className="bg-gray-100 text-gray-500 text-[8px] font-bold px-1.5 py-0.5 rounded">STEP 1</div>
                                   </div>
                                   
-                                  <div className="text-xl font-black text-gray-900 mb-2">
+                                  <div className="text-lg font-black text-gray-900 mb-1.5">
                                       ${initialMin} - ${initialMax}
                                   </div>
                                   
-                                  <div className="bg-gray-50 rounded-lg p-2 space-y-1.5 mt-auto">
-                                      <div className="flex items-center gap-1.5 text-[10px] text-gray-600">
-                                          <i className="fas fa-shield-alt text-green-500 text-[9px]"></i> Licensed & Insured
+                                  <div className="bg-gray-50 rounded-lg p-1.5 flex flex-wrap gap-2 mt-auto">
+                                      <div className="flex items-center gap-1 text-[9px] text-gray-600">
+                                          <i className="fas fa-shield-alt text-green-500 text-[8px]"></i> Licensed
                                       </div>
-                                      <div className="flex items-center gap-1.5 text-[10px] text-gray-600">
-                                          <i className="fas fa-medal text-green-500 text-[9px]"></i> Satisfaction Guaranteed
+                                      <div className="flex items-center gap-1 text-[9px] text-gray-600">
+                                          <i className="fas fa-medal text-green-500 text-[8px]"></i> Guaranteed
                                       </div>
-                                      <div className="flex items-center gap-1.5 text-[10px] text-gray-600">
-                                          <i className="fas fa-flag-usa text-blue-500 text-[9px]"></i> Veteran Owned
+                                      <div className="flex items-center gap-1 text-[9px] text-gray-600">
+                                          <i className="fas fa-flag-usa text-blue-500 text-[8px]"></i> Veteran Owned
                                       </div>
                                   </div>
                               </div>
@@ -684,40 +684,36 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                               <AnimatePresence>
                                   {!isOneTime && (
                                       <motion.div 
-                                          initial={{ opacity: 0, scale: 0.95 }}
-                                          animate={{ opacity: 1, scale: 1 }}
-                                          exit={{ opacity: 0, scale: 0.95 }}
+                                          initial={{ opacity: 0, height: 0 }}
+                                          animate={{ opacity: 1, height: 'auto' }}
+                                          exit={{ opacity: 0, height: 0 }}
                                           onClick={() => setFormData(prev => ({ ...prev, serviceType: 'Standard House Cleaning' }))}
-                                          className={`relative p-3 rounded-xl border-2 cursor-pointer transition-all duration-200 flex flex-col touch-manipulation ${
+                                          className={`relative p-2.5 rounded-xl border-2 cursor-pointer transition-all duration-200 flex flex-col touch-manipulation overflow-hidden ${
                                               formData.serviceType === 'Standard House Cleaning'
                                               ? 'border-[#00b4db] bg-white shadow-md ring-1 ring-[#00b4db]/20' 
                                               : 'border-gray-100 bg-white hover:border-gray-200'
                                           }`}
                                       >
-                                          <div className="flex justify-between items-start mb-1.5">
+                                          <div className="flex justify-between items-center mb-1">
                                               <div>
-                                                  <h4 className="font-black text-sm text-[#00b4db]">Recurring Cleaning</h4>
-                                                  <p className="text-[10px] text-gray-500">Keep it fresh.</p>
+                                                  <h4 className="font-black text-xs text-[#00b4db]">Recurring Cleaning</h4>
+                                                  <p className="text-[9px] text-gray-500 leading-tight">Keep it fresh.</p>
                                               </div>
-                                              <div className="bg-blue-100 text-[#00b4db] text-[9px] font-bold px-1.5 py-0.5 rounded">STEP 2</div>
+                                              <div className="bg-blue-100 text-[#00b4db] text-[8px] font-bold px-1.5 py-0.5 rounded">STEP 2</div>
                                           </div>
                                           
-                                          <motion.div 
-                                            key={recurringMin}
-                                            initial={{ scale: 0.8, opacity: 0 }}
-                                            animate={{ scale: 1, opacity: 1 }}
-                                            className="text-xl font-black text-[#00b4db] mb-1.5"
-                                          >
-                                              ${recurringMin} - ${recurringMax}
-                                          </motion.div>
-                                          
-                                          <div className="inline-block bg-green-50 text-green-600 text-[9px] font-bold px-1.5 py-0.5 rounded mb-2 w-fit">
-                                              Save ${recurringSavings} / visit
-                                          </div>
-                                          
-                                          <div className="border-t border-gray-100 pt-1.5 mt-auto">
-                                              <div className="flex items-center gap-1.5 text-[10px] text-gray-500">
-                                                  <i className="fas fa-sync-alt text-[9px]"></i> Locks in discounted rate
+                                          <div className="flex items-center justify-between">
+                                              <motion.div 
+                                                key={recurringMin}
+                                                initial={{ scale: 0.8, opacity: 0 }}
+                                                animate={{ scale: 1, opacity: 1 }}
+                                                className="text-lg font-black text-[#00b4db]"
+                                              >
+                                                  ${recurringMin} - ${recurringMax}
+                                              </motion.div>
+                                              
+                                              <div className="bg-green-50 text-green-600 text-[8px] font-bold px-1.5 py-0.5 rounded">
+                                                  Save ${recurringSavings} / visit
                                               </div>
                                           </div>
                                       </motion.div>
@@ -726,7 +722,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                           </div>
                           
                           {!isOneTime && (
-                              <p className="text-center text-[10px] text-gray-400 italic mt-1">
+                              <p className="text-center text-[9px] text-gray-400 italic mt-0.5">
                                   <i className="fas fa-info-circle"></i> "The Reset" brings your home to our professional standard.
                               </p>
                           )}
