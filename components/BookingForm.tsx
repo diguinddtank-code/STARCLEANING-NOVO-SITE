@@ -624,110 +624,90 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
 
                   {/* STEP 3: FREQUENCY & SERVICE */}
                   {step === 3 && (
-                      <div className="space-y-2">
+                      <div className="space-y-4 animate-fade-in">
                           {/* Frequency Selector */}
                           <div>
-                              <label className="text-[9px] font-bold text-gray-400 uppercase mb-1 block tracking-wider">Select Frequency</label>
-                              <div className="grid grid-cols-4 gap-2">
+                              <div className="flex justify-between items-end mb-2">
+                                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Select Frequency</label>
+                                  <span className="text-[9px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded uppercase tracking-wider border border-green-100">Most Popular: Bi-Weekly</span>
+                              </div>
+                              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                                   {['Weekly', 'Bi-Weekly', 'Monthly', 'One-Time'].map((freq) => (
                                       <button
                                           key={freq}
                                           type="button"
                                           onClick={() => setFormData(prev => ({ ...prev, frequency: freq }))}
-                                          className={`py-2.5 px-1 rounded-lg text-[10px] sm:text-xs font-bold transition-all border touch-manipulation flex flex-col items-center justify-center gap-0.5 ${
+                                          className={`relative py-3 px-1 rounded-xl text-xs font-bold transition-all border-2 touch-manipulation flex flex-col items-center justify-center gap-1 ${
                                               formData.frequency === freq 
-                                              ? 'bg-blue-900 border-blue-900 text-white shadow-md' 
-                                              : 'bg-white border-gray-200 text-gray-500 hover:border-gray-300 hover:bg-gray-50'
+                                              ? 'bg-blue-50 border-blue-500 text-blue-900 shadow-sm' 
+                                              : 'bg-white border-gray-100 text-gray-500 hover:border-gray-300 hover:bg-gray-50'
                                           }`}
                                       >
+                                          {freq === 'Bi-Weekly' && formData.frequency !== freq && (
+                                              <div className="absolute -top-2 bg-yellow-400 text-yellow-900 text-[8px] font-black px-1.5 py-0.5 rounded-sm uppercase tracking-wider shadow-sm">
+                                                  Popular
+                                              </div>
+                                          )}
                                           <span>{freq}</span>
-                                          {freq === 'One-Time' && <span className={`text-[7px] font-normal leading-none ${formData.frequency === freq ? 'text-blue-100' : 'text-gray-400'}`}>Move In/Out</span>}
+                                          {freq === 'One-Time' && <span className={`text-[8px] font-medium leading-none ${formData.frequency === freq ? 'text-blue-700' : 'text-gray-400'}`}>Move In/Out</span>}
+                                          {freq !== 'One-Time' && <span className={`text-[8px] font-medium leading-none ${formData.frequency === freq ? 'text-blue-700' : 'text-gray-400'}`}>Save up to 20%</span>}
                                       </button>
                                   ))}
                               </div>
                           </div>
 
-                          {/* Service Cards */}
-                          <div className="grid gap-2 items-start">
-                              {/* Deep Clean Card */}
-                              <div 
-                                  onClick={() => setFormData(prev => ({ ...prev, serviceType: 'Deep Clean Reset' }))}
-                                  className={`relative p-2.5 rounded-xl border-2 cursor-pointer transition-all duration-200 flex flex-col touch-manipulation ${
-                                      formData.serviceType === 'Deep Clean Reset'
-                                      ? 'border-blue-900 bg-white shadow-md ring-1 ring-blue-900/20' 
-                                      : 'border-gray-100 bg-white hover:border-gray-200'
-                                  }`}
-                              >
-                                  <div className="flex justify-between items-start mb-1">
-                                      <div>
-                                          <h4 className="font-black text-xs text-gray-900">Deep Clean Reset</h4>
-                                          <p className="text-[9px] text-gray-500 leading-tight">One-time detailed scrub.</p>
-                                      </div>
-                                      <div className="bg-gray-100 text-gray-500 text-[8px] font-bold px-1.5 py-0.5 rounded">STEP 1</div>
-                                  </div>
-                                  
-                                  <div className="text-lg font-black text-gray-900 mb-1.5">
-                                      ${initialMin} - ${initialMax}
-                                  </div>
-                                  
-                                  <div className="bg-gray-50 rounded-lg p-1.5 flex flex-wrap gap-2 mt-auto">
-                                      <div className="flex items-center gap-1 text-[9px] text-gray-600">
-                                          <i className="fas fa-shield-alt text-green-500 text-[8px]"></i> Licensed & Insured
-                                      </div>
-                                      <div className="flex items-center gap-1 text-[9px] text-gray-600">
-                                          <i className="fas fa-medal text-green-500 text-[8px]"></i> Satisfaction Guaranteed
-                                      </div>
-                                      <div className="flex items-center gap-1 text-[9px] text-gray-600">
-                                          <i className="fas fa-flag-usa text-blue-500 text-[8px]"></i> Veteran Owned
-                                      </div>
+                          {/* Pricing Presentation */}
+                          <div className="bg-white rounded-2xl border-2 border-blue-100 shadow-sm overflow-hidden">
+                              <div className="bg-gradient-to-r from-blue-50 to-white px-4 py-3 border-b border-blue-100 flex justify-between items-center">
+                                  <h4 className="font-black text-sm text-blue-900">Your Custom Estimate</h4>
+                                  <div className="flex gap-1 text-yellow-400 text-xs">
+                                      <i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i>
                                   </div>
                               </div>
-
-                              {/* Maintenance Clean Card - Slimmer */}
-                              {!isOneTime && (
-                                  <div 
-                                      onClick={() => setFormData(prev => ({ ...prev, serviceType: 'Standard House Cleaning' }))}
-                                      className={`relative p-2.5 rounded-xl border-2 cursor-pointer transition-all duration-200 flex flex-col touch-manipulation overflow-hidden mt-3 ${
-                                          formData.serviceType === 'Standard House Cleaning'
-                                          ? 'border-blue-900 bg-white shadow-md ring-1 ring-blue-900/20' 
-                                          : 'border-gray-100 bg-white/90 hover:border-gray-200'
-                                      }`}
-                                  >
-                                      <div className="flex justify-between items-center mb-1">
-                                          <div>
-                                              <h4 className="font-black text-xs text-blue-900">Recurring Cleaning</h4>
-                                              <p className="text-[9px] text-gray-500 leading-tight">Keep it fresh.</p>
+                              
+                              <div className="p-4 space-y-4">
+                                  {/* First Visit / One Time */}
+                                  <div className="flex justify-between items-center">
+                                      <div>
+                                          <div className="flex items-center gap-2">
+                                              <h5 className="font-bold text-gray-900 text-sm">
+                                                  {isOneTime ? 'Deep Clean Reset' : 'Initial Deep Clean'}
+                                              </h5>
+                                              {!isOneTime && <span className="bg-blue-100 text-blue-800 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">Required</span>}
                                           </div>
-                                          <div className="bg-blue-100 text-blue-900 text-[8px] font-bold px-1.5 py-0.5 rounded">STEP 2</div>
+                                          <p className="text-[10px] text-gray-500 mt-0.5">Thorough top-to-bottom detail.</p>
                                       </div>
-                                      
-                                      <div className="flex items-center justify-between mb-1.5">
-                                          <div className="text-lg font-black text-blue-900">
-                                              ${recurringMin} - ${recurringMax}
-                                          </div>
-                                          
-                                          <div className="bg-green-50 text-green-600 text-[8px] font-bold px-1.5 py-0.5 rounded">
-                                              Save ${recurringSavings} / visit
-                                          </div>
-                                      </div>
-                                      
-                                      <div className="border-t border-gray-100 pt-1.5 mt-auto">
-                                          <div className="flex items-center gap-1.5 text-[9px] text-gray-500 mb-1">
-                                              <i className="fas fa-sync-alt text-blue-500 text-[8px]"></i> Locks in discounted rate
-                                          </div>
-                                          <div className="flex items-center gap-1.5 text-[9px] text-gray-500">
-                                              <i className="fas fa-calendar-check text-blue-500 text-[8px]"></i> Same cleaner every time
-                                          </div>
+                                      <div className="text-right">
+                                          <div className="text-lg font-black text-gray-900">${initialMin} - ${initialMax}</div>
                                       </div>
                                   </div>
-                              )}
+
+                                  {/* Ongoing Visits (If Recurring) */}
+                                  {!isOneTime && (
+                                      <>
+                                          <div className="h-px w-full bg-gray-100"></div>
+                                          <div className="flex justify-between items-center">
+                                              <div>
+                                                  <div className="flex items-center gap-2">
+                                                      <h5 className="font-bold text-blue-900 text-sm">Ongoing {formData.frequency}</h5>
+                                                      <span className="bg-green-100 text-green-800 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">Discounted</span>
+                                                  </div>
+                                                  <p className="text-[10px] text-gray-500 mt-0.5">Keep your home fresh & clean.</p>
+                                              </div>
+                                              <div className="text-right">
+                                                  <div className="text-lg font-black text-blue-900">${recurringMin} - ${recurringMax}</div>
+                                                  <div className="text-[9px] font-bold text-green-600">Save ${recurringSavings}/visit</div>
+                                              </div>
+                                          </div>
+                                      </>
+                                  )}
+                              </div>
+                              
+                              <div className="bg-gray-50 px-4 py-2.5 border-t border-gray-100 flex justify-between items-center text-[10px] font-bold text-gray-500">
+                                  <span className="flex items-center gap-1.5"><i className="fas fa-shield-alt text-green-500"></i> 100% Guaranteed</span>
+                                  <span className="flex items-center gap-1.5"><i className="fas fa-calendar-check text-blue-500"></i> No Contracts</span>
+                              </div>
                           </div>
-                          
-                          {!isOneTime && (
-                              <p className="text-center text-[9px] text-gray-400 italic mt-0.5">
-                                  <i className="fas fa-info-circle"></i> "The Reset" brings your home to our professional standard.
-                              </p>
-                          )}
                       </div>
                   )}
 
@@ -893,7 +873,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                             <i className="fas fa-spinner fa-spin"></i>
                         ) : (
                             <>
-                                <span>Save Estimate</span>
+                                <span>Lock In This Quote</span>
                                 <i className="fas fa-lock group-hover:scale-110 transition-transform"></i>
                             </>
                         )}
