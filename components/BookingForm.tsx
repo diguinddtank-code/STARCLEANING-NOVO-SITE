@@ -4,7 +4,7 @@ import { supabase } from '../lib/supabase';
 
 interface BookingFormProps {
   initialData?: any;
-  variant?: 'default' | 'full';
+  variant?: 'default' | 'full' | 'glass';
   hideSidebar?: boolean;
 }
 
@@ -53,6 +53,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
   const [hasBookedTime, setHasBookedTime] = useState(false);
   
   const isFull = variant === 'full';
+  const isGlass = variant === 'glass';
   
   // Pricing State
   const [initialMin, setInitialMin] = useState("0.00");
@@ -439,21 +440,23 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
   
   return (
     <div id="quote" className={`relative w-full ${isFull ? 'min-h-screen' : ''}`}>
-      <div className={`${isFull ? 'w-full' : 'container mx-auto px-0 sm:px-2 relative z-10'}`}>
+      <div className={`${isFull ? 'w-full' : isGlass ? 'container mx-auto px-0 sm:px-2 relative z-10' : 'container mx-auto px-4 relative z-10'}`}>
         <div ref={formTopRef} className={`${
             isFull 
             ? 'w-full min-h-screen bg-white flex flex-col' 
-            : 'max-w-xl mx-auto bg-white/80 backdrop-blur-md rounded-xl sm:rounded-3xl shadow-2xl overflow-hidden border border-white/50 scroll-mt-20'
+            : isGlass
+            ? 'max-w-xl mx-auto bg-white/80 backdrop-blur-md rounded-xl sm:rounded-3xl shadow-2xl overflow-hidden border border-white/50 scroll-mt-20'
+            : 'max-w-md mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-white/10 scroll-mt-20'
         }`}>
           
           {/* CLASSIC BLUE HEADER */}
-          <div className="bg-gradient-to-br from-blue-900 to-blue-800 p-4 sm:p-6 text-white relative overflow-hidden">
+          <div className={`bg-gradient-to-br from-blue-900 to-blue-800 ${isGlass ? 'p-4 sm:p-6' : 'p-6'} text-white relative overflow-hidden`}>
               {/* Decorative Elements */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-blue-500/20 rounded-full blur-xl translate-y-1/2 -translate-x-1/4"></div>
 
               <div className="relative z-10">
-                  <div className="flex justify-between items-start mb-3 sm:mb-4">
+                  <div className={`flex justify-between items-start ${isGlass ? 'mb-3 sm:mb-4' : 'mb-4'}`}>
                       {/* Veteran Badge */}
                       <div className="px-2 py-1 rounded border border-white/30 flex items-center gap-1.5">
                           <i className="fas fa-flag-usa text-red-400 text-[10px] opacity-90"></i>
@@ -466,8 +469,8 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                       </div>
                   </div>
 
-                  <h2 className="text-xl sm:text-2xl font-black mb-1 font-heading tracking-tight">Your Custom Quote</h2>
-                  <p className="text-blue-200 text-xs font-medium opacity-90 mb-3 sm:mb-4">Proudly serving Charleston for 18 years.</p>
+                  <h2 className={`${isGlass ? 'text-xl sm:text-2xl' : 'text-2xl'} font-black mb-1 font-heading tracking-tight`}>Your Custom Quote</h2>
+                  <p className={`text-blue-200 text-xs font-medium opacity-90 ${isGlass ? 'mb-3 sm:mb-4' : 'mb-4'}`}>Proudly serving Charleston for 18 years.</p>
 
                   {/* Progress Bar */}
                   <div className="h-1.5 w-full bg-blue-950/50 rounded-full overflow-hidden">

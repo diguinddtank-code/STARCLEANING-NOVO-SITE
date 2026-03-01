@@ -24,35 +24,46 @@ const QuoteLanding = () => {
           {/* Dark Overlay matching screenshot vibe - Even Lighter */}
           <div className="absolute inset-0 bg-slate-900/50"></div>
           
-          <div className="container mx-auto px-1 sm:px-4 relative z-10 w-full max-w-5xl flex flex-col items-center">
+          <div className="container mx-auto px-4 sm:px-8 relative z-10 w-full max-w-5xl flex flex-col items-center">
             
             {/* Header / Logo & Phone */}
-            <div className="w-full flex justify-between items-center mb-2 px-3 sm:px-2">
+            <div className="w-full flex justify-between items-center mb-6 mt-2 px-2 sm:px-0">
                 <Link to="/" className="inline-block hover:opacity-90 transition-opacity">
                     <img 
                         src="https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95" 
                         alt="Star Cleaning" 
-                        className="h-7 md:h-10 w-auto object-contain brightness-0 invert" 
+                        className="h-10 md:h-14 w-auto object-contain brightness-0 invert" 
                     />
                 </Link>
-                <a href="tel:8432979935" className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors">
-                    <i className="fas fa-phone-alt text-xs md:text-sm"></i>
+                <a href="tel:8432979935" className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors shadow-lg backdrop-blur-sm">
+                    <i className="fas fa-phone-alt text-sm md:text-base"></i>
                 </a>
             </div>
 
             {/* Headlines */}
-            <div className="text-center mb-3 max-w-3xl mx-auto px-2">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-1 font-heading tracking-tight leading-tight drop-shadow-md">
+            <div className="text-center mb-8 max-w-3xl mx-auto px-2">
+                {/* Value Badge */}
+                <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 shadow-lg">
+                    <i className="fas fa-trophy text-yellow-400"></i> Voted #1 in Charleston
+                </div>
+
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-4 font-heading tracking-tight leading-tight drop-shadow-lg">
                     Reclaim Your <br className="sm:hidden" /><span className="text-[#89CFF0]">Weekends.</span>
                 </h1>
-                <p className="text-white/95 text-xs sm:text-sm md:text-base font-medium tracking-wide drop-shadow-md">
-                    5-star hotel standards. 100% guaranteed.
-                </p>
+                
+                {/* Highlights */}
+                <div className="flex flex-wrap justify-center items-center gap-3 md:gap-6 text-white/95 text-xs sm:text-sm md:text-base font-bold drop-shadow-md">
+                    <span className="flex items-center gap-1.5"><i className="fas fa-star text-yellow-400"></i> 5-Star Rated</span>
+                    <span className="hidden sm:inline opacity-50">•</span>
+                    <span className="flex items-center gap-1.5"><i className="fas fa-shield-alt text-green-400"></i> 100% Guaranteed</span>
+                    <span className="hidden sm:inline opacity-50">•</span>
+                    <span className="flex items-center gap-1.5"><i className="fas fa-clock text-blue-300"></i> 60-Sec Quote</span>
+                </div>
             </div>
 
             {/* The Form Component - Wider, Less Margin, Slide Up */}
             <div className="w-full animate-slide-up-fade" style={{ animationDuration: '0.8s' }}>
-                <BookingForm hideSidebar={true} />
+                <BookingForm hideSidebar={true} variant="glass" />
                 
                 {/* Trust Badges Below Form */}
                 <div className="flex flex-col items-center justify-center gap-2 mt-6">
