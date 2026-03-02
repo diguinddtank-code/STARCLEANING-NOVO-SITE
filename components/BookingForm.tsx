@@ -50,6 +50,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [showLockPopup, setShowLockPopup] = useState(false);
   const [hasBookedTime, setHasBookedTime] = useState(false);
   
   const isFull = variant === 'full';
@@ -361,7 +362,12 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
     // Fires SC SITE Webhook (Step 3 -> 4)
     await submitWebhook("Quote Range Generated");
     setIsSubmitting(false);
-    setStep(4); 
+    
+    setShowLockPopup(true);
+    setTimeout(() => {
+        setShowLockPopup(false);
+        setStep(4); 
+    }, 1500);
   };
 
   const resetForm = () => {
@@ -438,6 +444,17 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
 
   const isOneTime = formData.frequency === 'One-Time' || (formData.serviceType && formData.serviceType.includes('Move'));
   
+  const handleFrequencySelect = (freq: string) => {
+      setFormData(prev => ({ ...prev, frequency: freq }));
+      // Scroll down slightly to make the next button visible
+      setTimeout(() => {
+          const summaryBox = document.getElementById('quote-summary-box');
+          if (summaryBox) {
+              summaryBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+      }, 100);
+  };
+
   return (
     <div id="quote" className={`relative w-full ${isFull ? 'min-h-screen' : ''}`}>
       <div className={`${isFull ? 'w-full' : isGlass ? 'container mx-auto px-0 sm:px-2 relative z-10' : 'container mx-auto px-4 relative z-10'}`}>
@@ -499,8 +516,45 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                 </h3>
             </div>
 
-            <form className="flex-grow flex flex-col justify-between h-full" onSubmit={(e) => e.preventDefault()}>
+            <form className="flex-grow flex flex-col justify-between h-full relative" onSubmit={(e) => e.preventDefault()}>
               
+              {/* SUCCESS OVERLAY POPUP */}
+              <AnimatePresence>
+                  {showLockPopup && (
+                      <motion.div 
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          className="absolute inset-0 z-50 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center rounded-2xl"
+                      >
+                          <motion.div 
+                              initial={{ scale: 0.5, opacity: 0 }}
+                              animate={{ scale: 1, opacity: 1 }}
+                              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                              className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center text-white text-4xl shadow-xl shadow-green-500/30 mb-4"
+                          >
+                              <i className="fas fa-check"></i>
+                          </motion.div>
+                          <motion.h3 
+                              initial={{ y: 10, opacity: 0 }}
+                              animate={{ y: 0, opacity: 1 }}
+                              transition={{ delay: 0.1 }}
+                              className="text-2xl font-black text-gray-900"
+                          >
+                              Quote Locked!
+                          </motion.h3>
+                          <motion.p 
+                              initial={{ y: 10, opacity: 0 }}
+                              animate={{ y: 0, opacity: 1 }}
+                              transition={{ delay: 0.2 }}
+                              className="text-gray-500 font-medium mt-2"
+                          >
+                              Preparing your next steps...
+                          </motion.p>
+                      </motion.div>
+                  )}
+              </AnimatePresence>
+
               {/* FLUID ANIMATION CONTAINER */}
               <AnimatePresence mode="wait">
                 <motion.div 
@@ -636,16 +690,16 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                                       <button
                                           key={freq}
                                           type="button"
-                                          onClick={() => setFormData(prev => ({ ...prev, frequency: freq }))}
+                                          onClick={() => handleFrequencySelect(freq)}
                                           className={`relative py-3 px-1 rounded-xl text-xs font-bold transition-all border-2 touch-manipulation flex flex-col items-center justify-center gap-1 ${
                                               formData.frequency === freq 
                                               ? 'bg-blue-50 border-blue-500 text-blue-900 shadow-sm' 
                                               : 'bg-white border-gray-100 text-gray-500 hover:border-gray-300 hover:bg-gray-50'
                                           }`}
                                       >
-                                          {freq === 'Bi-Weekly' && formData.frequency !== freq && (
-                                              <div className="absolute -top-2 bg-yellow-400 text-yellow-900 text-[8px] font-black px-1.5 py-0.5 rounded-sm uppercase tracking-wider shadow-sm">
-                                                  Popular
+                                          {formData.frequency === freq && (
+                                              <div className="absolute -top-2 -right-2 w-5 h-5 bg-blue-500 text-white rounded-full flex items-center justify-center text-[10px] shadow-sm animate-zoom-in">
+                                                  <i className="fas fa-check"></i>
                                               </div>
                                           )}
                                           <span>{freq}</span>
@@ -657,7 +711,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                           </div>
 
                           {/* Pricing Presentation */}
-                          <div className="bg-white rounded-2xl border-2 border-blue-100 shadow-sm overflow-hidden">
+                          <div id="quote-summary-box" className="bg-white rounded-2xl border-2 border-blue-100 shadow-sm overflow-hidden">
                               <div className="bg-gradient-to-r from-blue-50 to-white px-4 py-3 border-b border-blue-100 flex justify-between items-center">
                                   <h4 className="font-black text-sm text-blue-900">Your Custom Estimate</h4>
                                   <div className="flex gap-1 text-yellow-400 text-xs">
@@ -667,18 +721,18 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                               
                               <div className="p-4 space-y-4">
                                   {/* First Visit / One Time */}
-                                  <div className="flex justify-between items-center">
+                                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-4">
                                       <div>
                                           <div className="flex items-center gap-2">
                                               <h5 className="font-bold text-gray-900 text-sm">
                                                   {isOneTime ? 'Deep Clean Reset' : 'Initial Deep Clean'}
                                               </h5>
-                                              {!isOneTime && <span className="bg-blue-100 text-blue-800 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">Required</span>}
+                                              {!isOneTime && <span className="bg-blue-100 text-blue-800 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase shrink-0">Required</span>}
                                           </div>
                                           <p className="text-[10px] text-gray-500 mt-0.5">Thorough top-to-bottom detail.</p>
                                       </div>
-                                      <div className="text-right">
-                                          <div className="text-lg font-black text-gray-900">${initialMin} - ${initialMax}</div>
+                                      <div className="text-left sm:text-right mt-1 sm:mt-0">
+                                          <div className="text-lg sm:text-xl font-black text-gray-900 whitespace-nowrap">${initialMin} - ${initialMax}</div>
                                       </div>
                                   </div>
 
@@ -686,16 +740,16 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                                   {!isOneTime && (
                                       <>
                                           <div className="h-px w-full bg-gray-100"></div>
-                                          <div className="flex justify-between items-center">
+                                          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-4">
                                               <div>
                                                   <div className="flex items-center gap-2">
                                                       <h5 className="font-bold text-blue-900 text-sm">Ongoing {formData.frequency}</h5>
-                                                      <span className="bg-green-100 text-green-800 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">Discounted</span>
+                                                      <span className="bg-green-100 text-green-800 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase shrink-0">Discounted</span>
                                                   </div>
                                                   <p className="text-[10px] text-gray-500 mt-0.5">Keep your home fresh & clean.</p>
                                               </div>
-                                              <div className="text-right">
-                                                  <div className="text-lg font-black text-blue-900">${recurringMin} - ${recurringMax}</div>
+                                              <div className="text-left sm:text-right mt-1 sm:mt-0">
+                                                  <div className="text-lg sm:text-xl font-black text-blue-900 whitespace-nowrap">${recurringMin} - ${recurringMax}</div>
                                                   <div className="text-[9px] font-bold text-green-600">Save ${recurringSavings}/visit</div>
                                               </div>
                                           </div>
@@ -867,15 +921,18 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                         type="button"
                         onClick={handleLockPrice}
                         disabled={isSubmitting}
-                        className="flex-grow py-3.5 rounded-xl font-black text-white bg-gradient-to-r from-blue-900 to-blue-800 shadow-lg shadow-blue-900/20 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-base active:scale-95 group disabled:opacity-70 disabled:cursor-not-allowed touch-manipulation"
+                        className="flex-grow py-3.5 rounded-xl font-black text-white bg-gradient-to-r from-blue-900 to-blue-800 shadow-lg shadow-blue-900/20 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-base active:scale-95 group disabled:opacity-70 disabled:cursor-not-allowed touch-manipulation animate-pulse-slow relative overflow-hidden"
                     >
+                        {/* Shine effect */}
+                        <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-[shimmer_1.5s_infinite]"></div>
+                        
                         {isSubmitting ? (
-                            <i className="fas fa-spinner fa-spin"></i>
+                            <i className="fas fa-spinner fa-spin relative z-10"></i>
                         ) : (
-                            <>
+                            <div className="relative z-10 flex items-center gap-2">
                                 <span>Lock In This Quote</span>
                                 <i className="fas fa-lock group-hover:scale-110 transition-transform"></i>
-                            </>
+                            </div>
                         )}
                     </button>
                 )}
