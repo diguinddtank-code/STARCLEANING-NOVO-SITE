@@ -305,15 +305,50 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
         setFormData(prev => ({ ...prev, [name]: cleanZip }));
 
         if (cleanZip.length === 5) {
-            try {
-                const response = await fetch(`https://api.zippopotam.us/us/${cleanZip}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setCity(data.places[0]['place name']);
-                    setDemandCount(Math.floor(Math.random() * (42 - 18 + 1)) + 18);
-                } else { setCity(null); }
-            } catch (error) { setCity(null); }
-        } else { setCity(null); }
+            // Local dictionary for Charleston area for instant, reliable lookup
+            const LOCAL_ZIPS: Record<string, string> = {
+                '29401': 'Charleston', '29403': 'Charleston', '29405': 'North Charleston',
+                '29406': 'North Charleston', '29407': 'West Ashley', '29409': 'Charleston',
+                '29412': 'James Island', '29414': 'West Ashley', '29418': 'North Charleston',
+                '29420': 'North Charleston', '29424': 'Charleston', '29425': 'Charleston',
+                '29492': 'Daniel Island', '29464': 'Mount Pleasant', '29466': 'Mount Pleasant',
+                '29483': 'Summerville', '29484': 'Summerville', '29485': 'Summerville',
+                '29486': 'Summerville', '29445': 'Goose Creek', '29410': 'Hanahan',
+                '29455': 'Johns Island', '29451': 'Isle of Palms', '29482': "Sullivan's Island",
+                '29439': 'Folly Beach', '29456': 'Ladson', '29461': 'Moncks Corner',
+                '29429': 'Awendaw', '29449': 'Hollywood', '29470': 'Ravenel'
+            };
+
+            const setCitySuccess = (cityName: string) => {
+                setCity(cityName);
+                setDemandCount(Math.floor(Math.random() * (42 - 18 + 1)) + 18);
+            };
+
+            if (LOCAL_ZIPS[cleanZip]) {
+                setCitySuccess(LOCAL_ZIPS[cleanZip]);
+            } else {
+                try {
+                    const response = await fetch(`https://api.zippopotam.us/us/${cleanZip}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        setCitySuccess(data.places[0]['place name']);
+                    } else if (cleanZip.startsWith('294')) {
+                        // Fallback for any unknown 294xx zip code
+                        setCitySuccess('the Lowcountry');
+                    } else {
+                        setCity(null);
+                    }
+                } catch (error) { 
+                    if (cleanZip.startsWith('294')) {
+                        setCitySuccess('the Lowcountry');
+                    } else {
+                        setCity(null); 
+                    }
+                }
+            }
+        } else { 
+            setCity(null); 
+        }
     } else {
         setFormData(prev => ({ ...prev, [name]: value }));
     }
