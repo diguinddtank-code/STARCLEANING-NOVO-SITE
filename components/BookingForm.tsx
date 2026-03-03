@@ -462,8 +462,8 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
             isFull 
             ? 'w-full min-h-screen bg-white flex flex-col' 
             : isGlass
-            ? 'max-w-xl mx-auto bg-white/80 backdrop-blur-md rounded-xl sm:rounded-3xl shadow-2xl overflow-hidden border border-white/50 scroll-mt-20'
-            : 'max-w-md mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-white/10 scroll-mt-20'
+            ? 'w-full max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto bg-white/80 backdrop-blur-md rounded-xl sm:rounded-3xl shadow-2xl overflow-hidden border border-white/50 scroll-mt-20'
+            : 'w-full max-w-md md:max-w-lg lg:max-w-xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-white/10 scroll-mt-20'
         }`}>
           
           {/* CLASSIC BLUE HEADER */}
@@ -569,9 +569,11 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                   {/* STEP 1: CONTACT */}
                   {step === 1 && (
                       <div className="space-y-1">
-                        <InputGroup label="Full Name" name="fullName" icon="fa-user" placeholder="e.g., John Doe" value={formData.fullName} onChange={handleChange} />
-                        <InputGroup label="Email Address" name="email" type="email" icon="fa-envelope" placeholder="john@example.com" value={formData.email} onChange={handleChange} />
-                        <div className="grid grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <InputGroup label="Full Name" name="fullName" icon="fa-user" placeholder="e.g., John Doe" value={formData.fullName} onChange={handleChange} />
+                            <InputGroup label="Email Address" name="email" type="email" icon="fa-envelope" placeholder="john@example.com" value={formData.email} onChange={handleChange} />
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <InputGroup label="Phone Number" name="phone" type="tel" icon="fa-phone" placeholder="(555) 123-4567" value={formData.phone} onChange={handleChange} />
                             <InputGroup label="Zip Code" name="zipCode" type="text" icon="fa-map-marker-alt" placeholder="29401" value={formData.zipCode} onChange={handleChange} maxLength={5} />
                         </div>
@@ -600,79 +602,85 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                   {/* STEP 2: DETAILS */}
                   {step === 2 && (
                        <div className="space-y-4">
-                            {/* Counters & SqFt */}
-                            <div className="grid grid-cols-2 gap-3">
-                                <Counter 
-                                    label="Bedrooms" 
-                                    value={formData.bedrooms} 
-                                    onMinus={() => updateCounter('bedrooms', -1)} 
-                                    onPlus={() => updateCounter('bedrooms', 1)} 
-                                />
-                                <Counter 
-                                    label="Bathrooms" 
-                                    value={formData.bathrooms} 
-                                    onMinus={() => updateCounter('bathrooms', -1)} 
-                                    onPlus={() => updateCounter('bathrooms', 1)} 
-                                />
-                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="space-y-4">
+                                    {/* Counters */}
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <Counter 
+                                            label="Bedrooms" 
+                                            value={formData.bedrooms} 
+                                            onMinus={() => updateCounter('bedrooms', -1)} 
+                                            onPlus={() => updateCounter('bedrooms', 1)} 
+                                        />
+                                        <Counter 
+                                            label="Bathrooms" 
+                                            value={formData.bathrooms} 
+                                            onMinus={() => updateCounter('bathrooms', -1)} 
+                                            onPlus={() => updateCounter('bathrooms', 1)} 
+                                        />
+                                    </div>
 
-                            {/* SqFt Slider */}
-                            <div className="bg-white border border-gray-100 rounded-xl p-3 shadow-sm">
-                                <div className="flex justify-between items-end mb-2">
-                                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Approx. Size</label>
-                                    <span className="text-sm font-black text-star-blue bg-blue-50 px-2 py-0.5 rounded-md">{formData.sqft.toLocaleString()} sq ft</span>
-                                </div>
-                                <div className="relative px-1">
-                                    <input 
-                                        type="range" 
-                                        min="500" 
-                                        max="5000" 
-                                        step="100" 
-                                        value={formData.sqft}
-                                        onChange={(e) => setFormData(prev => ({ ...prev, sqft: parseInt(e.target.value) }))}
-                                        className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-star-blue"
-                                    />
-                                    <div className="flex justify-between text-[8px] font-bold text-gray-400 mt-1.5 uppercase tracking-wider">
-                                        <span>Small Apt</span>
-                                        <span>Large Home</span>
+                                    {/* SqFt Slider */}
+                                    <div className="bg-white border border-gray-100 rounded-xl p-3 shadow-sm">
+                                        <div className="flex justify-between items-end mb-2">
+                                            <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Approx. Size</label>
+                                            <span className="text-sm font-black text-star-blue bg-blue-50 px-2 py-0.5 rounded-md">{formData.sqft.toLocaleString()} sq ft</span>
+                                        </div>
+                                        <div className="relative px-1">
+                                            <input 
+                                                type="range" 
+                                                min="500" 
+                                                max="5000" 
+                                                step="100" 
+                                                value={formData.sqft}
+                                                onChange={(e) => setFormData(prev => ({ ...prev, sqft: parseInt(e.target.value) }))}
+                                                className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-star-blue"
+                                            />
+                                            <div className="flex justify-between text-[8px] font-bold text-gray-400 mt-1.5 uppercase tracking-wider">
+                                                <span>Small Apt</span>
+                                                <span>Large Home</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            {/* Pets */}
-                            <div>
-                                <label className="text-[10px] font-bold text-gray-500 uppercase mb-1.5 block ml-1 tracking-wider">Pets in Home</label>
-                                <div className="flex gap-1.5">
-                                    <button
-                                        type="button"
-                                        onClick={() => setFormData(prev => ({ ...prev, hasDog: !prev.hasDog }))}
-                                        className={`flex-1 py-2.5 rounded-lg border-2 text-xs font-bold transition-all flex items-center justify-center gap-1.5 touch-manipulation ${formData.hasDog ? 'border-star-blue bg-blue-50 text-star-blue shadow-sm' : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200'}`}
-                                    >
-                                        <i className="fas fa-dog"></i> Dogs
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onClick={() => setFormData(prev => ({ ...prev, hasCat: !prev.hasCat }))}
-                                        className={`flex-1 py-2.5 rounded-lg border-2 text-xs font-bold transition-all flex items-center justify-center gap-1.5 touch-manipulation ${formData.hasCat ? 'border-star-blue bg-blue-50 text-star-blue shadow-sm' : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200'}`}
-                                    >
-                                        <i className="fas fa-cat"></i> Cats
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onClick={() => setFormData(prev => ({ ...prev, hasDog: false, hasCat: false }))}
-                                        className={`flex-1 py-2.5 rounded-lg border-2 text-xs font-bold transition-all flex items-center justify-center gap-1.5 touch-manipulation ${!formData.hasDog && !formData.hasCat ? 'border-gray-800 bg-gray-800 text-white shadow-sm' : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200'}`}
-                                    >
-                                        None
-                                    </button>
+                                <div className="space-y-4">
+                                    {/* Pets */}
+                                    <div>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase mb-1.5 block ml-1 tracking-wider">Pets in Home</label>
+                                        <div className="flex flex-col sm:flex-row gap-1.5">
+                                            <button
+                                                type="button"
+                                                onClick={() => setFormData(prev => ({ ...prev, hasDog: !prev.hasDog }))}
+                                                className={`flex-1 py-2.5 rounded-lg border-2 text-xs font-bold transition-all flex items-center justify-center gap-1.5 touch-manipulation ${formData.hasDog ? 'border-star-blue bg-blue-50 text-star-blue shadow-sm' : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200'}`}
+                                            >
+                                                <i className="fas fa-dog"></i> Dogs
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => setFormData(prev => ({ ...prev, hasCat: !prev.hasCat }))}
+                                                className={`flex-1 py-2.5 rounded-lg border-2 text-xs font-bold transition-all flex items-center justify-center gap-1.5 touch-manipulation ${formData.hasCat ? 'border-star-blue bg-blue-50 text-star-blue shadow-sm' : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200'}`}
+                                            >
+                                                <i className="fas fa-cat"></i> Cats
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => setFormData(prev => ({ ...prev, hasDog: false, hasCat: false }))}
+                                                className={`flex-1 py-2.5 rounded-lg border-2 text-xs font-bold transition-all flex items-center justify-center gap-1.5 touch-manipulation ${!formData.hasDog && !formData.hasCat ? 'border-gray-800 bg-gray-800 text-white shadow-sm' : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200'}`}
+                                            >
+                                                None
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {formData.serviceType.includes("Move") && (
+                                        <div className="bg-yellow-50 border border-yellow-200 p-3 rounded-xl flex items-center gap-3 animate-pulse-slow">
+                                            <i className="fas fa-box-open text-yellow-600 text-lg"></i>
+                                            <p className="text-xs text-yellow-800 font-bold">Configured for Move In / Move Out Service</p>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
-
-                            {formData.serviceType.includes("Move") && (
-                                <div className="bg-yellow-50 border border-yellow-200 p-3 rounded-xl flex items-center gap-3 animate-pulse-slow">
-                                    <i className="fas fa-box-open text-yellow-600 text-lg"></i>
-                                    <p className="text-xs text-yellow-800 font-bold">Configured for Move In / Move Out Service</p>
-                                </div>
-                            )}
                        </div>
                   )}
 
@@ -853,7 +861,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                                             <i className="fas fa-spinner fa-spin mr-2"></i> Loading slots...
                                         </div>
                                     ) : (
-                                        <div className="grid grid-cols-2 gap-2">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                                             {availableTimeSlots.length > 0 ? availableTimeSlots.map((slot, idx) => {
                                                 const isSelected = selectedTime === slot.time;
                                                 const isBooked = slot.isBooked;

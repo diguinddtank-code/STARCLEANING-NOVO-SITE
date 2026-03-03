@@ -33,19 +33,62 @@ const ServiceAreas: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             
             {/* Map Column */}
-            <div className="w-full h-[300px] lg:h-[400px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white relative z-10 group">
+            <div className="w-full h-[300px] lg:h-[400px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white relative z-10 group bg-gray-100 cursor-crosshair">
                 <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d107387.83606995648!2d-80.14167664883445!3d32.79878298711681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88fe7a42d398d9b5%3A0x6295777c57af9893!2sCharleston%2C%20SC!5e0!3m2!1sen!2sus!4v1716300000000!5m2!1sen!2sus" 
+                    src="https://maps.google.com/maps?q=Star%20Cleaning%20SC,%20Charleston,%20SC&t=&z=10&ie=UTF8&iwloc=&output=embed" 
                     width="100%" 
                     height="100%" 
                     style={{ border: 0 }} 
                     allowFullScreen={true} 
                     loading="lazy" 
                     referrerPolicy="no-referrer-when-downgrade"
-                    className="grayscale hover:grayscale-0 transition-all duration-700 ease-in-out"
+                    className="grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out pointer-events-none w-full h-full"
                     title="Star Cleaning Service Area Map"
                 ></iframe>
                 
+                {/* Fake Client Pins Overlay */}
+                <div className="absolute inset-0 pointer-events-none">
+                    {/* Client 1 */}
+                    <div className="absolute top-[35%] left-[30%] flex flex-col items-center">
+                        <div className="bg-white px-2 py-1 rounded-md shadow-md text-[8px] font-bold text-gray-600 mb-1 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                            Cleaning now...
+                        </div>
+                        <div className="relative">
+                            <div className="absolute inset-0 bg-blue-400 rounded-full animate-ping opacity-75"></div>
+                            <div className="relative w-4 h-4 bg-blue-500 border-2 border-white rounded-full shadow-md"></div>
+                        </div>
+                    </div>
+
+                    {/* Client 2 */}
+                    <div className="absolute top-[50%] right-[25%] flex flex-col items-center">
+                        <div className="bg-white px-2 py-1 rounded-md shadow-md text-[8px] font-bold text-gray-600 mb-1 opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100 translate-y-2 group-hover:translate-y-0">
+                            Scheduled
+                        </div>
+                        <div className="relative">
+                            <div className="absolute inset-0 bg-green-400 rounded-full animate-ping opacity-75" style={{ animationDelay: '0.5s' }}></div>
+                            <div className="relative w-3 h-3 bg-green-500 border-2 border-white rounded-full shadow-md"></div>
+                        </div>
+                    </div>
+
+                    {/* Client 3 */}
+                    <div className="absolute bottom-[30%] left-[45%] flex flex-col items-center">
+                        <div className="bg-white px-2 py-1 rounded-md shadow-md text-[8px] font-bold text-gray-600 mb-1 opacity-0 group-hover:opacity-100 transition-all duration-300 delay-200 translate-y-2 group-hover:translate-y-0">
+                            Finished
+                        </div>
+                        <div className="relative">
+                            <div className="relative w-3.5 h-3.5 bg-gray-400 border-2 border-white rounded-full shadow-md"></div>
+                        </div>
+                    </div>
+                    
+                    {/* Client 4 */}
+                    <div className="absolute top-[20%] right-[40%] flex flex-col items-center">
+                        <div className="relative">
+                            <div className="absolute inset-0 bg-blue-400 rounded-full animate-ping opacity-75" style={{ animationDelay: '1.2s' }}></div>
+                            <div className="relative w-3 h-3 bg-blue-500 border-2 border-white rounded-full shadow-md"></div>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Overlay Badge */}
                 <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-lg border border-gray-100 pointer-events-none">
                     <div className="flex items-center gap-2">
