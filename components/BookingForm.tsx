@@ -394,6 +394,16 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
     if(e) e.preventDefault();
     
     setIsSubmitting(true);
+    
+    // Track Lead Event on Facebook Pixel
+    if (window.fbq) {
+        window.fbq('track', 'Lead', {
+            content_name: 'Quote Generated',
+            value: recurringMin, // Using the minimum recurring price as value
+            currency: 'USD'
+        });
+    }
+
     // Fires SC SITE Webhook (Step 3 -> 4)
     await submitWebhook("Quote Range Generated");
     setIsSubmitting(false);
