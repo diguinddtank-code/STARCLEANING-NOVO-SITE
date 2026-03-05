@@ -76,6 +76,7 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
           playsInline
           poster="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
           className="w-full h-full object-cover object-center"
+          fetchPriority="high"
         >
           <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
         </video>

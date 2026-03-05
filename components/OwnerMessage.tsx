@@ -36,6 +36,8 @@ const OwnerMessage: React.FC = () => {
                 src="https://i.imgur.com/Nv15wCN.png"
                 alt="Star Cleaning Team Member"
                 className="w-full h-auto rounded-[2rem] lg:rounded-[3rem] shadow-2xl border-4 lg:border-[6px] border-white relative z-10 object-cover aspect-[4/5]"
+                loading="lazy"
+                decoding="async"
               />
               
               {/* Badge Overlay - Enhanced & Enabled on Mobile */}
@@ -65,6 +67,8 @@ const OwnerMessage: React.FC = () => {
                             src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" 
                             alt="Veteran Owned" 
                             className="h-8 w-auto"
+                            loading="lazy"
+                            decoding="async"
                         />
                         <span className="text-[10px] lg:text-xs font-bold uppercase tracking-widest text-white">Veteran Owned Business</span>
                     </div>

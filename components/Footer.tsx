@@ -15,6 +15,8 @@ const Footer: React.FC = () => {
               src="https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95" 
               alt="Star Cleaning"
               className="h-14 mb-6 brightness-0 invert opacity-90" 
+              loading="lazy"
+              decoding="async"
             />
             
             {/* Veteran Seal */}
@@ -23,6 +25,8 @@ const Footer: React.FC = () => {
                     src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" 
                     alt="Veteran Owned" 
                     className="h-10 w-auto"
+                    loading="lazy"
+                    decoding="async"
                 />
                 <div className="flex flex-col">
                     <span className="text-xs font-bold text-white uppercase tracking-wider">Veteran Owned</span>

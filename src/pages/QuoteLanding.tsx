@@ -17,6 +17,7 @@ const QuoteLanding = () => {
               muted 
               playsInline 
               className="absolute inset-0 w-full h-full object-cover"
+              fetchPriority="high"
           >
               <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
           </video>
@@ -33,6 +34,7 @@ const QuoteLanding = () => {
                         src="https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95" 
                         alt="Star Cleaning" 
                         className="h-10 md:h-14 w-auto object-contain brightness-0 invert" 
+                        fetchPriority="high"
                     />
                 </Link>
                 <a href="tel:8432979935" className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors shadow-lg backdrop-blur-sm">

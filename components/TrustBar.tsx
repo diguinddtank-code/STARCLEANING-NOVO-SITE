@@ -46,6 +46,8 @@ const TrustBar: React.FC = () => {
                 src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" 
                 alt="Veteran Owned Business Seal" 
                 className="h-12 w-auto object-contain mb-1 group-hover:scale-105 transition-transform drop-shadow-sm"
+                loading="lazy"
+                decoding="async"
              />
              <div className="flex flex-col">
                 <span className="text-[10px] lg:text-xs font-black text-gray-700 tracking-wider">VETERAN OWNED</span>
