@@ -79,7 +79,7 @@ const QuoteLanding = () => {
       {/* Trust Bar / Social Proof */}
       <div className="bg-white py-12 border-b border-gray-100">
           <div className="container mx-auto px-4">
-              <p className="text-center text-xs font-bold text-gray-400 uppercase tracking-widest mb-8">Trusted by families across Charleston & Summerville</p>
+              <p className="text-center text-xs font-bold text-gray-400 uppercase tracking-widest mb-8">Trusted by families across Charleston, North Charleston, Summerville & Nexton</p>
               <TrustBar />
           </div>
       </div>
@@ -92,7 +92,7 @@ const QuoteLanding = () => {
           <div className="container mx-auto px-4 max-w-4xl text-center">
               <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-4 font-heading">Want to learn more about us?</h2>
               <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-                  Discover our full range of services, read more customer reviews, and see why we are Charleston's top-rated cleaning company.
+                  Discover our full range of services, read more customer reviews, and see why we are the top-rated cleaning company in Charleston and Summerville.
               </p>
               <Link to="/" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gray-50 hover:bg-gray-100 text-gray-900 font-bold rounded-xl border border-gray-200 transition-all hover:-translate-y-1 shadow-sm">
                   Visit Our Main Website <i className="fas fa-arrow-right text-sm"></i>

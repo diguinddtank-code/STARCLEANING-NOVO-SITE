@@ -69,10 +69,10 @@ const Services: React.FC = () => {
             </span>
             {/* H2 optimized for High Intent Keywords including Summerville */}
             <h2 className="text-3xl md:text-5xl font-black mb-4 lg:mb-6 text-gray-900 font-heading leading-tight">
-                Premium House Cleaning <br/> in Charleston & Summerville
+                Premium House Cleaning <br/> in Charleston, Summerville & Nexton
             </h2>
             <p className="text-gray-600 text-base lg:text-lg leading-relaxed">
-                Whether you need a weekly maid service or a one-time deep clean, our vetted professionals have you covered.
+                Whether you need a weekly maid service, move-out cleaning, or a one-time deep clean, our vetted professionals have you covered across the Lowcountry.
             </p>
             </div>
         </ScrollReveal>

@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
             </div>
 
             <p className="text-sm leading-relaxed text-gray-400 mb-8 max-w-sm">
-              #1 rated residential cleaning service in Charleston, Summerville & Surrounding Areas. Operating with military precision for 18 years.
+              #1 rated residential cleaning service in Charleston, North Charleston, Summerville, Nexton & The Islands. Operating with military precision for 18 years.
             </p>
             <div className="flex gap-4">
               <SocialIcon icon="fab fa-facebook-f" />
@@ -67,17 +67,20 @@ const Footer: React.FC = () => {
               <ul className="space-y-4 text-sm font-medium text-gray-400">
                 <li className="flex items-start gap-3">
                     <i className="fas fa-phone mt-1 text-yellow-500"></i> 
-                    <span>(843) 297-9935<br/><span className="text-xs opacity-50">Mon-Fri 8am-6pm</span></span>
+                    <span>+1 843-297-9935<br/><span className="text-xs opacity-50">Tue-Sat 9am-6pm</span></span>
                 </li>
                 <li className="flex items-center gap-3"><i className="fas fa-envelope text-yellow-500"></i> admin@starcleaningsc.com</li>
-                <li className="flex items-center gap-3"><i className="fas fa-map-marker-alt text-yellow-500"></i> Charleston & Summerville, SC</li>
+                <li className="flex items-start gap-3">
+                    <i className="fas fa-map-marker-alt mt-1 text-yellow-500"></i> 
+                    <span>Charleston, North Charleston,<br/>Summerville, Nexton, SC</span>
+                </li>
               </ul>
             </div>
           </div>
         </div>
         
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 font-medium">
-          <p>&copy; {new Date().getFullYear()} Star Cleaning LLC. Veteran Owned.</p>
+          <p>&copy; {new Date().getFullYear()} Star Cleaning SC. Veteran Owned.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>

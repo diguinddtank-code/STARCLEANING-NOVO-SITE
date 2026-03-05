@@ -118,7 +118,7 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
                 </h1>
                 
                 <h2 className="text-sm sm:text-lg md:text-xl text-gray-700 lg:text-gray-600 lg:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed font-semibold lg:font-medium">
-                Take back your weekend. Join neighbors in <strong>Charleston & Summerville</strong> who trust our top-rated maid service.
+                Take back your weekend. Join neighbors in <strong>Charleston, North Charleston, Summerville & Nexton</strong> who trust our top-rated maid service.
                 </h2>
             </div>
             
@@ -130,7 +130,7 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
                 </h1>
                 
                 <h2 className="text-sm sm:text-lg md:text-xl text-gray-700 lg:text-gray-600 mb-6 lg:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed font-semibold lg:font-medium bg-white/30 lg:bg-transparent rounded-lg backdrop-blur-[1px] lg:backdrop-blur-none p-2 lg:p-0">
-                Take back your weekend. Join neighbors in <strong>Charleston & Summerville</strong> who trust our top-rated maid service.
+                Take back your weekend. Join neighbors in <strong>Charleston, North Charleston, Summerville & Nexton</strong> who trust our top-rated maid service.
                 </h2>
             </div>
 
