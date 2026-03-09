@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Open Sans", sans-serif;
-  --font-heading: "Montserrat", sans-serif;
-  --font-handwriting: "Dancing Script", cursive;
+  --font-sans: var(--font-open-sans), sans-serif;
+  --font-heading: var(--font-montserrat), sans-serif;
+  --font-handwriting: var(--font-dancing-script), cursive;
   --color-star-blue: #004aad;
   --color-star-dark: #002855;
   --color-nextdoor: #8ED500;
@@ -17,42 +17,42 @@
   --animate-zoom-in: zoom-in 0.3s ease-out forwards;
   --animate-slide-up-fade: slide-up-fade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   --animate-shimmer: shimmer 2s infinite linear;
+}
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-  }
-  @keyframes pulse-slow {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-  }
-  @keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-  @keyframes slide-in-right {
-    0% { transform: translateX(20px); opacity: 0; }
-    100% { transform: translateX(0); opacity: 1; }
-  }
-  @keyframes slide-in-bottom {
-    0% { transform: translateY(10px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-  }
-  @keyframes fade-in {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-  @keyframes zoom-in {
-    0% { transform: scale(0.95); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-  }
-  @keyframes slide-up-fade {
-    0% { opacity: 0; transform: translateY(40px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes shimmer {
-    100% { transform: translateX(100%); }
-  }
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes pulse-slow {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes slide-in-right {
+  0% { transform: translateX(20px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+@keyframes slide-in-bottom {
+  0% { transform: translateY(10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes zoom-in {
+  0% { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes slide-up-fade {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
 }
 
 /* CRITICAL FIX: Prevent double scrollbars and allow natural scroll */
@@ -63,13 +63,6 @@ html, body {
     padding: 0;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-}
-
-#root {
-    width: 100%;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
 }
 
 /* Award Seal Style */

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 const OwnerMessage: React.FC = () => {
   return (
@@ -28,16 +29,16 @@ const OwnerMessage: React.FC = () => {
             </div>
 
             {/* Main Image Container */}
-            <div className="relative z-10 w-full max-w-[280px] lg:max-w-[380px]">
+            <div className="relative z-10 w-[280px] h-[350px] sm:w-[320px] sm:h-[400px] lg:w-[380px] lg:h-[475px]">
               {/* Abstract shapes behind */}
               <div className="absolute inset-0 bg-gradient-to-tr from-yellow-300 to-yellow-400 rounded-[2rem] lg:rounded-[3rem] transform rotate-3 scale-[1.03] shadow-lg group-hover:rotate-2 transition-transform duration-500"></div>
               
-              <img
+              <Image
                 src="https://i.imgur.com/Nv15wCN.png"
                 alt="Star Cleaning Team Member"
-                className="w-full h-auto rounded-[2rem] lg:rounded-[3rem] shadow-2xl border-4 lg:border-[6px] border-white relative z-10 object-cover aspect-[4/5]"
-                loading="lazy"
-                decoding="async"
+                fill
+                sizes="(max-width: 1024px) 280px, 380px"
+                className="rounded-[2rem] lg:rounded-[3rem] shadow-2xl border-4 lg:border-[6px] border-white relative z-10 object-cover"
               />
               
               {/* Badge Overlay - Enhanced & Enabled on Mobile */}
@@ -63,13 +64,15 @@ const OwnerMessage: React.FC = () => {
 
                 <div className="relative z-10">
                     <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full mb-4 lg:mb-6 border border-white/10 shadow-sm">
-                        <img 
-                            src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" 
-                            alt="Veteran Owned" 
-                            className="h-8 w-auto"
-                            loading="lazy"
-                            decoding="async"
-                        />
+                        <div className="relative h-8 w-16">
+                          <Image 
+                              src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" 
+                              alt="Veteran Owned" 
+                              fill
+                              sizes="64px"
+                              className="object-contain"
+                          />
+                        </div>
                         <span className="text-[10px] lg:text-xs font-bold uppercase tracking-widest text-white">Veteran Owned Business</span>
                     </div>
 

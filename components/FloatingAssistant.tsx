@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 const FloatingAssistant: React.FC = () => {
   // Stages manage the lifecycle of the assistant
@@ -149,17 +150,19 @@ const FloatingAssistant: React.FC = () => {
             className={`relative group cursor-pointer pointer-events-auto transition-transform duration-300 active:scale-95`}
             onClick={handleAvatarClick}
         >
-            <div className="relative">
+            <div className="relative w-14 h-14 md:w-16 md:h-16">
                 {/* Pulsing ring */}
                 {(stage === 'message' || hasUnread) && (
                     <div className="absolute inset-0 -m-1 bg-green-400 rounded-full animate-ping opacity-20"></div>
                 )}
                 
                 {/* Image */}
-                <img 
+                <Image 
                     src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop" 
                     alt="Laís" 
-                    className="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover border-4 border-white shadow-xl hover:shadow-2xl transition-all"
+                    fill
+                    sizes="(max-width: 768px) 56px, 64px"
+                    className="rounded-full object-cover border-4 border-white shadow-xl hover:shadow-2xl transition-all"
                 />
                 
                 {/* Notification Badge */}

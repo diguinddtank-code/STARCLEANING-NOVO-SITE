@@ -1,18 +1,21 @@
+"use client";
+
 import React, { useState } from 'react';
-import Navbar from '../../components/Navbar';
-import Hero from '../../components/Hero';
-import TrustBar from '../../components/TrustBar';
-import OwnerMessage from '../../components/OwnerMessage';
-import Services from '../../components/Services';
-import BeforeAfter from '../../components/BeforeAfter';
-import Testimonials from '../../components/Testimonials';
-import FAQ from '../../components/FAQ';
-import BookingForm from '../../components/BookingForm';
-import Footer from '../../components/Footer';
-import ScrollReveal from '../../components/ScrollReveal';
-import ExitIntentPopup from '../../components/ExitIntentPopup';
-import ServiceAreas from '../../components/ServiceAreas';
-import MobileAppNav from '../../components/MobileAppNav';
+import Navbar from '../components/Navbar';
+import Hero from '../components/Hero';
+import TrustBar from '../components/TrustBar';
+import OwnerMessage from '../components/OwnerMessage';
+import Services from '../components/Services';
+import BeforeAfter from '../components/BeforeAfter';
+import Testimonials from '../components/Testimonials';
+import FAQ from '../components/FAQ';
+import BookingForm from '../components/BookingForm';
+import Footer from '../components/Footer';
+import ScrollReveal from '../components/ScrollReveal';
+import ExitIntentPopup from '../components/ExitIntentPopup';
+import ServiceAreas from '../components/ServiceAreas';
+import MobileAppNav from '../components/MobileAppNav';
+import FloatingAssistant from '../components/FloatingAssistant';
 
 const Home = () => {
   const [prefilledData, setPrefilledData] = useState<any>(null);
@@ -75,8 +78,9 @@ const Home = () => {
         </ScrollReveal>
       </main>
       
-      {/* <MobileAppNav /> */}
+      <MobileAppNav />
       <ExitIntentPopup />
+      <FloatingAssistant />
       <Footer />
     </div>
   );

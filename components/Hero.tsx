@@ -1,5 +1,8 @@
+"use client";
+
 import React, { useState, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
+import Image from 'next/image';
 
 interface HeroProps {
   onStartQuote: (data: any) => void;
@@ -67,8 +70,9 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
   return (
     <section id="home" className="relative py-8 lg:py-28 overflow-hidden min-h-[75vh] lg:min-h-[90vh] flex items-center bg-white">
       
-      {/* Background Video */}
+      {/* Background Video/Image */}
       <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* Desktop Video */}
         <video 
           autoPlay 
           loop 
@@ -76,10 +80,15 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
           playsInline
           poster="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
           className="w-full h-full object-cover object-center"
-          fetchPriority="high"
         >
           <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
         </video>
+        
+        {/* Mobile Image */}
+        <div 
+          className="hidden w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: "url('https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg')" }}
+        ></div>
         <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
         <div className="block lg:hidden absolute inset-0 bg-gradient-to-b from-white/80 via-transparent to-transparent"></div>
         <div className="absolute bottom-0 left-0 w-full h-32 lg:h-64 bg-gradient-to-t from-white via-white/80 to-transparent z-10"></div>
@@ -104,11 +113,16 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
                 <span className="text-xs font-bold text-gray-700 uppercase tracking-wide">
                     #1 Rated & Veteran Owned
                 </span>
-                <img 
-                    src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" 
-                    alt="Veteran Owned House Cleaning Service Charleston SC" 
-                    className="h-4 w-auto opacity-80"
-                />
+                <div className="relative h-4 w-16 opacity-80">
+                  <Image 
+                      src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" 
+                      alt="Veteran Owned House Cleaning Service Charleston SC" 
+                      fill
+                      sizes="64px"
+                      className="object-contain"
+                      referrerPolicy="no-referrer"
+                  />
+                </div>
             </div>
             
             {/* Mobile Headline Container */}

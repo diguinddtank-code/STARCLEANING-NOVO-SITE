@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -35,12 +36,17 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <a href="#" className="flex items-center group relative z-50">
-            <img 
-              src="https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95" 
-              alt="Star Cleaning" 
-              className={`w-auto object-contain transition-all duration-500 ${scrolled ? 'h-12' : 'h-16 md:h-20'}`} 
-              fetchPriority="high"
-            />
+            <div className={`relative transition-all duration-500 ${scrolled ? 'h-12 w-[91px]' : 'h-16 md:h-20 w-[122px] md:w-[152px]'}`}>
+              <Image 
+                src="https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95" 
+                alt="Star Cleaning" 
+                fill
+                sizes="(max-width: 768px) 122px, 152px"
+                className="object-contain"
+                priority
+                referrerPolicy="no-referrer"
+              />
+            </div>
           </a>
 
           {/* Desktop Nav */}

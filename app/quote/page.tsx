@@ -1,5 +1,8 @@
+"use client";
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import Image from 'next/image';
 import BookingForm from '../../components/BookingForm';
 import TrustBar from '../../components/TrustBar';
 import OwnerMessage from '../../components/OwnerMessage';
@@ -17,7 +20,6 @@ const QuoteLanding = () => {
               muted 
               playsInline 
               className="absolute inset-0 w-full h-full object-cover"
-              fetchPriority="high"
           >
               <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
           </video>
@@ -29,12 +31,13 @@ const QuoteLanding = () => {
             
             {/* Header / Logo & Phone */}
             <div className="w-full flex justify-between items-center mb-6 mt-2 px-2 sm:px-0">
-                <Link to="/" className="inline-block hover:opacity-90 transition-opacity">
-                    <img 
+                <Link href="/" className="inline-block hover:opacity-90 transition-opacity relative h-10 md:h-14 w-36 md:w-48">
+                    <Image 
                         src="https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95" 
                         alt="Star Cleaning" 
-                        className="h-10 md:h-14 w-auto object-contain brightness-0 invert" 
-                        fetchPriority="high"
+                        fill
+                        sizes="(max-width: 768px) 144px, 192px"
+                        className="object-contain brightness-0 invert" 
                     />
                 </Link>
                 <a href="tel:8432979935" className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors shadow-lg backdrop-blur-sm">
@@ -96,7 +99,7 @@ const QuoteLanding = () => {
               <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
                   Discover our full range of services, read more customer reviews, and see why we are the top-rated cleaning company in Charleston and Summerville.
               </p>
-              <Link to="/" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gray-50 hover:bg-gray-100 text-gray-900 font-bold rounded-xl border border-gray-200 transition-all hover:-translate-y-1 shadow-sm">
+              <Link href="/" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gray-50 hover:bg-gray-100 text-gray-900 font-bold rounded-xl border border-gray-200 transition-all hover:-translate-y-1 shadow-sm">
                   Visit Our Main Website <i className="fas fa-arrow-right text-sm"></i>
               </Link>
           </div>
@@ -133,7 +136,7 @@ const QuoteLanding = () => {
       {/* Footer Links */}
       <footer className="bg-white border-t border-gray-100 py-10 text-center">
           <div className="container mx-auto px-4">
-              <Link to="/" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-blue-900 transition-colors font-bold uppercase tracking-widest mb-6">
+              <Link href="/" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-blue-900 transition-colors font-bold uppercase tracking-widest mb-6">
                   <i className="fas fa-arrow-left"></i> Back to Home
               </Link>
               <p className="text-xs text-gray-400 font-medium">

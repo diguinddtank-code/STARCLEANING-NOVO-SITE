@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ScrollReveal from './ScrollReveal';
+import Image from 'next/image';
 
 const Services: React.FC = () => {
   const [activeCard, setActiveCard] = useState<number | null>(null);
@@ -113,7 +114,13 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, icon, description, ima
       {/* Reduced height on mobile for compactness */}
       <div className={`relative overflow-hidden transition-all duration-500 ${isOpen ? 'h-24 lg:h-32' : 'h-48 lg:h-56'}`}>
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity"></div>
-        <img src={image} alt={`${title} Service Charleston & Summerville`} className="w-full h-full object-cover transform group-hover:scale-110 transition duration-700 ease-out" loading="lazy" decoding="async" />
+        <Image 
+          src={image} 
+          alt={`${title} Service Charleston & Summerville`} 
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transform group-hover:scale-110 transition duration-700 ease-out" 
+        />
         {tag && (
           <div className="absolute top-3 right-3 lg:top-4 lg:right-4 bg-yellow-400 text-blue-900 px-2 py-0.5 lg:px-3 lg:py-1 rounded-full text-[9px] lg:text-[10px] font-black uppercase z-20 shadow-md">
             {tag}

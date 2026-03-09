@@ -50,7 +50,7 @@ const BeforeAfter: React.FC = () => {
           <div className="lg:w-1/2 w-full order-1 lg:order-2 flex flex-col items-center">
              
              {/* Main Image Container */}
-             <div className="relative mx-auto max-w-[500px] w-full aspect-[4/3] rounded-3xl shadow-2xl border-4 border-white overflow-hidden group">
+             <div className="relative mx-auto w-[300px] h-[225px] sm:w-[400px] sm:h-[300px] lg:w-[500px] lg:h-[375px] rounded-3xl shadow-2xl border-4 border-white overflow-hidden group">
                 
                 {/* AFTER IMAGE (Bottom Layer) */}
                 <div 
