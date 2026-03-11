@@ -81,7 +81,7 @@ const Hero: React.FC<HeroProps> = () => {
         {/* Desktop Video */}
         <div className="hidden lg:block absolute inset-0 w-full h-full">
           <Image
-            src="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
+            src="/images/hero-bg.jpg"
             alt="Cleaning Background"
             fill
             priority
@@ -95,14 +95,14 @@ const Hero: React.FC<HeroProps> = () => {
             playsInline
             className="absolute inset-0 w-full h-full object-cover object-center"
           >
-            <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
+            <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" media="(min-width: 1024px)" />
           </video>
         </div>
         
         {/* Mobile Image */}
         <div className="block lg:hidden absolute inset-0 w-full h-full">
           <Image
-            src="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
+            src="/images/hero-bg.jpg"
             alt="Cleaning Background"
             fill
             priority
@@ -136,7 +136,7 @@ const Hero: React.FC<HeroProps> = () => {
                 </span>
                 <div className="relative h-4 w-16 opacity-80">
                   <Image 
-                      src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" 
+                      src="/images/veteran-owned.png" 
                       alt="Veteran Owned House Cleaning Service Charleston SC" 
                       fill
                       sizes="64px"

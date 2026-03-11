@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
           <div className="lg:col-span-4">
             <div className="relative h-14 w-32 mb-6 brightness-0 invert opacity-90">
               <Image 
-                src="https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95" 
+                src="/images/logo.png" 
                 alt="Star Cleaning"
                 fill
                 sizes="128px"
@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
             <div className="flex items-center gap-3 mb-6 bg-white/5 p-3 rounded-xl border border-white/10 w-fit">
                 <div className="relative h-10 w-20">
                   <Image 
-                      src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" 
+                      src="/images/veteran-owned.png" 
                       alt="Veteran Owned" 
                       fill
                       sizes="80px"

@@ -58,7 +58,7 @@ const BeforeAfter: React.FC = () => {
                 {/* AFTER IMAGE (Bottom Layer) */}
                 <div className="absolute inset-0 w-full h-full transition-transform duration-700 ease-out">
                     <Image
-                        src="https://i.imgur.com/gpqI75Lh.jpg"
+                        src="/images/after.jpg"
                         alt="Cleaned Room"
                         fill
                         sizes="(max-width: 640px) 300px, (max-width: 1024px) 400px, 500px"
@@ -69,7 +69,7 @@ const BeforeAfter: React.FC = () => {
                 {/* BEFORE IMAGE (Top Layer) - Fades out when cleaned */}
                 <div className={`absolute inset-0 w-full h-full transition-all duration-1000 ease-in-out ${isCleaned ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}>
                     <Image
-                        src="https://i.imgur.com/XhU71Rxh.jpg"
+                        src="/images/before.jpg"
                         alt="Dirty Room"
                         fill
                         sizes="(max-width: 640px) 300px, (max-width: 1024px) 400px, 500px"

@@ -1,9 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import BookingForm from '../../components/BookingForm';
+import dynamic from 'next/dynamic';
 import TrustBar from '../../components/TrustBar';
 import OwnerMessage from '../../components/OwnerMessage';
+
+const BookingForm = dynamic(() => import('../../components/BookingForm'));
 
 const QuoteLanding = () => {
   return (
@@ -14,7 +16,7 @@ const QuoteLanding = () => {
           {/* Video Background */}
           <div className="absolute inset-0 w-full h-full">
             <Image
-              src="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
+              src="/images/hero-bg.jpg"
               alt="Cleaning Background"
               fill
               priority
@@ -28,7 +30,7 @@ const QuoteLanding = () => {
                 playsInline 
                 className="absolute inset-0 w-full h-full object-cover"
             >
-                <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
+                <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" media="(min-width: 1024px)" />
             </video>
           </div>
           
@@ -41,7 +43,7 @@ const QuoteLanding = () => {
             <div className="w-full flex justify-between items-center mb-6 mt-2 px-2 sm:px-0">
                 <Link href="/" className="inline-block hover:opacity-90 transition-opacity relative h-10 md:h-14 w-36 md:w-48">
                     <Image 
-                        src="https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95" 
+                        src="/images/logo.png" 
                         alt="Star Cleaning" 
                         fill
                         priority

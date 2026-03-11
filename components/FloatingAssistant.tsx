@@ -160,7 +160,7 @@ const FloatingAssistant: React.FC = () => {
                 
                 {/* Image */}
                 <Image 
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop" 
+                    src="/images/assistant.jpg" 
                     alt="Laís" 
                     fill
                     sizes="(max-width: 768px) 56px, 64px"

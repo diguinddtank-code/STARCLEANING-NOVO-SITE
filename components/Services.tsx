@@ -16,7 +16,7 @@ const Services: React.FC = () => {
       title: "Residential Cleaning",
       icon: "fa-spray-can",
       description: "Keep your home consistently fresh with our weekly or bi-weekly plans.",
-      image: "https://mistyclean.com/wp-content/uploads/2024/07/Banner-img-Professional-cleaning-Services-in-Maryland-scaled.webp",
+      image: "/images/service-1.webp",
       tag: "MOST POPULAR",
       details: ["Dusting all surfaces", "Vacuuming carpets", "Mopping floors", "Sanitizing bathrooms", "Kitchen detailing", "Making beds"]
     },
@@ -24,35 +24,35 @@ const Services: React.FC = () => {
       title: "Deep Cleaning",
       icon: "fa-hand-sparkles",
       description: "Perfect for spring cleaning or first-time service. We touch every surface.",
-      image: "https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80",
+      image: "/images/service-2.jpg",
       details: ["Baseboards & doors", "Inside windows", "Deep scrub tiles", "Cabinet exteriors", "Light fixtures", "Vents & fans"]
     },
     {
       title: "Move In / Move Out",
       icon: "fa-box-open",
       description: "Secure your deposit or prepare your new home. Empty home specialist.",
-      image: "https://jjccservices.com/wp-content/uploads/2025/03/Move-In-Move-Out-Cleaning-Checklist-Latest-2021-Update.jpg",
+      image: "/images/service-3.jpg",
       details: ["Inside cabinets", "Inside appliances", "Deep bathroom clean", "Spot clean walls", "Window tracks", "Garage sweep"]
     },
     {
       title: "Vacation Rental / Airbnb",
       icon: "fa-suitcase-rolling",
       description: "Fast turnovers for 5-star host ratings. Linen service included.",
-      image: "https://prohousekeepers.com/wp-content/uploads/2020/03/airbnb_pixabay-e1584981299557-1.jpg",
+      image: "/images/service-4.jpg",
       details: ["Same-day turnover", "Linen changing", "Restocking essentials", "Damage reporting", "Key management", "Welcome setups"]
     },
     {
       title: "Commercial Office",
       icon: "fa-building",
       description: "Office spaces, retail stores, and medical facilities. Flexible hours.",
-      image: "https://nextdaycleaning.com/wp-content/uploads/2020/12/What-are-the-Benefits-of-Commercial-Office-Cleaning-1024x683.jpg",
+      image: "/images/service-5.jpg",
       details: ["Reception areas", "Cubicles/Offices", "Breakrooms", "Restrooms", "Trash removal", "Floor maintenance"]
     },
     {
       title: "Post-Construction",
       icon: "fa-hard-hat",
       description: "Removing dust and debris after renovation or new builds.",
-      image: "https://imperialcleaning.com/wp-content/uploads/2019/03/Post-Construction-Cleaning-Services.jpg",
+      image: "/images/service-6.jpg",
       details: ["Drywall dust removal", "Sticker removal", "Fixture polishing", "Vent vacuuming", "Cabinet interiors", "Final detail"]
     }
   ];
