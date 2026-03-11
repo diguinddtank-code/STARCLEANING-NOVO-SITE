@@ -3,11 +3,14 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { preload } from 'react-dom';
 import BookingForm from '../../components/BookingForm';
 import TrustBar from '../../components/TrustBar';
 import OwnerMessage from '../../components/OwnerMessage';
 
 const QuoteLanding = () => {
+  preload('https://i.imgur.com/Q7QVFW7.mp4', { as: 'video' });
+  
   return (
     <div className="min-h-screen bg-gray-50 font-sans text-gray-800 selection:bg-yellow-200 selection:text-star-blue">
       
@@ -36,6 +39,7 @@ const QuoteLanding = () => {
                         src="https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95" 
                         alt="Star Cleaning" 
                         fill
+                        priority
                         sizes="(max-width: 768px) 144px, 192px"
                         className="object-contain brightness-0 invert" 
                     />

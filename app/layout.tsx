@@ -71,8 +71,10 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${montserrat.variable} ${openSans.variable} ${dancingScript.variable}`}>
-      <body className="antialiased font-sans">
+      <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+      </head>
+      <body className="antialiased font-sans">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

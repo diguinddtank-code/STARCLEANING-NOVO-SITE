@@ -1,21 +1,23 @@
 "use client";
 
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
-import TrustBar from '../components/TrustBar';
-import OwnerMessage from '../components/OwnerMessage';
-import Services from '../components/Services';
-import BeforeAfter from '../components/BeforeAfter';
-import Testimonials from '../components/Testimonials';
-import FAQ from '../components/FAQ';
-import BookingForm from '../components/BookingForm';
-import Footer from '../components/Footer';
 import ScrollReveal from '../components/ScrollReveal';
-import ExitIntentPopup from '../components/ExitIntentPopup';
-import ServiceAreas from '../components/ServiceAreas';
-import MobileAppNav from '../components/MobileAppNav';
-import FloatingAssistant from '../components/FloatingAssistant';
+import TrustBar from '../components/TrustBar';
+
+const OwnerMessage = dynamic(() => import('../components/OwnerMessage'));
+const Services = dynamic(() => import('../components/Services'));
+const BeforeAfter = dynamic(() => import('../components/BeforeAfter'));
+const Testimonials = dynamic(() => import('../components/Testimonials'));
+const FAQ = dynamic(() => import('../components/FAQ'));
+const BookingForm = dynamic(() => import('../components/BookingForm'));
+const Footer = dynamic(() => import('../components/Footer'));
+const ExitIntentPopup = dynamic(() => import('../components/ExitIntentPopup'));
+const ServiceAreas = dynamic(() => import('../components/ServiceAreas'));
+const MobileAppNav = dynamic(() => import('../components/MobileAppNav'));
+const FloatingAssistant = dynamic(() => import('../components/FloatingAssistant'));
 
 const Home = () => {
   const [prefilledData, setPrefilledData] = useState<any>(null);

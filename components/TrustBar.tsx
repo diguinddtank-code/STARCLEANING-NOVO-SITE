@@ -50,6 +50,7 @@ const TrustBar: React.FC = () => {
                   fill
                   sizes="96px"
                   className="object-contain"
+                  priority
                />
              </div>
              <div className="flex flex-col">

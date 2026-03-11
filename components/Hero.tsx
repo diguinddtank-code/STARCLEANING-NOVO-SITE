@@ -1,14 +1,18 @@
 "use client";
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'motion/react';
 import Image from 'next/image';
+import { preload } from 'react-dom';
 
 interface HeroProps {
   onStartQuote: (data: any) => void;
 }
 
 const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
+  preload('https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg', { as: 'image' });
+  preload('https://i.imgur.com/Q7QVFW7.mp4', { as: 'video' });
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   
@@ -78,6 +82,7 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
           loop 
           muted 
           playsInline
+          preload="auto"
           poster="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
           className="w-full h-full object-cover object-center"
         >
@@ -85,10 +90,16 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
         </video>
         
         {/* Mobile Image */}
-        <div 
-          className="hidden w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: "url('https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg')" }}
-        ></div>
+        <div className="block lg:hidden absolute inset-0 w-full h-full">
+          <Image
+            src="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
+            alt="Cleaning Background"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        </div>
         <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
         <div className="block lg:hidden absolute inset-0 bg-gradient-to-b from-white/80 via-transparent to-transparent"></div>
         <div className="absolute bottom-0 left-0 w-full h-32 lg:h-64 bg-gradient-to-t from-white via-white/80 to-transparent z-10"></div>
