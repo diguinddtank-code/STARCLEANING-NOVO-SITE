@@ -1,31 +1,36 @@
-"use client";
-
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { preload } from 'react-dom';
 import BookingForm from '../../components/BookingForm';
 import TrustBar from '../../components/TrustBar';
 import OwnerMessage from '../../components/OwnerMessage';
 
 const QuoteLanding = () => {
-  preload('https://i.imgur.com/Q7QVFW7.mp4', { as: 'video' });
-  
   return (
     <div className="min-h-screen bg-gray-50 font-sans text-gray-800 selection:bg-yellow-200 selection:text-star-blue">
       
       {/* Hero Section with Video Background & Form */}
       <section className="relative min-h-screen flex flex-col items-center pt-2 pb-12 overflow-hidden">
           {/* Video Background */}
-          <video 
-              autoPlay 
-              loop 
-              muted 
-              playsInline 
-              className="absolute inset-0 w-full h-full object-cover"
-          >
-              <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
-          </video>
+          <div className="absolute inset-0 w-full h-full">
+            <Image
+              src="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
+              alt="Cleaning Background"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+            <video 
+                autoPlay 
+                loop 
+                muted 
+                playsInline 
+                className="absolute inset-0 w-full h-full object-cover"
+            >
+                <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
+            </video>
+          </div>
           
           {/* Dark Overlay matching screenshot vibe - Even Lighter */}
           <div className="absolute inset-0 bg-slate-900/50"></div>

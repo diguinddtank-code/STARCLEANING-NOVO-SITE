@@ -3,16 +3,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'motion/react';
 import Image from 'next/image';
-import { preload } from 'react-dom';
 
 interface HeroProps {
-  onStartQuote: (data: any) => void;
+  // onStartQuote removed
 }
 
-const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
-  preload('https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg', { as: 'image', fetchPriority: 'high' });
-  preload('https://i.imgur.com/Q7QVFW7.mp4', { as: 'video', fetchPriority: 'high' });
-  
+const Hero: React.FC<HeroProps> = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   
@@ -62,11 +58,17 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
     // Simulate a brief processing time for UX, but NO webhook is sent here.
     await new Promise(resolve => setTimeout(resolve, 500));
 
-    // Pass data up to App component and scroll to BookingForm
-    onStartQuote({
-        ...data,
-        zipCode: zipCode
+    // Dispatch event to BookingForm
+    const event = new CustomEvent('startQuote', { 
+        detail: { ...data, zipCode: zipCode } 
     });
+    window.dispatchEvent(event);
+    
+    // Smooth scroll to quote section
+    const quoteSection = document.getElementById('quote');
+    if (quoteSection) {
+      quoteSection.scrollIntoView({ behavior: 'smooth' });
+    }
     
     setIsSubmitting(false);
   };
@@ -77,17 +79,25 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
       {/* Background Video/Image */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {/* Desktop Video */}
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-          preload="auto"
-          poster="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
-          className="w-full h-full object-cover object-center"
-        >
-          <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
-        </video>
+        <div className="hidden lg:block absolute inset-0 w-full h-full">
+          <Image
+            src="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
+            alt="Cleaning Background"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          >
+            <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
+          </video>
+        </div>
         
         {/* Mobile Image */}
         <div className="block lg:hidden absolute inset-0 w-full h-full">

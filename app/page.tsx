@@ -1,36 +1,23 @@
-"use client";
-
-import React, { useState } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import ScrollReveal from '../components/ScrollReveal';
 import TrustBar from '../components/TrustBar';
+import OwnerMessage from '../components/OwnerMessage';
+import Testimonials from '../components/Testimonials';
+import ServiceAreas from '../components/ServiceAreas';
+import Footer from '../components/Footer';
 
-const OwnerMessage = dynamic(() => import('../components/OwnerMessage'));
 const Services = dynamic(() => import('../components/Services'));
 const BeforeAfter = dynamic(() => import('../components/BeforeAfter'));
-const Testimonials = dynamic(() => import('../components/Testimonials'));
 const FAQ = dynamic(() => import('../components/FAQ'));
 const BookingForm = dynamic(() => import('../components/BookingForm'));
-const Footer = dynamic(() => import('../components/Footer'));
 const ExitIntentPopup = dynamic(() => import('../components/ExitIntentPopup'));
-const ServiceAreas = dynamic(() => import('../components/ServiceAreas'));
 const MobileAppNav = dynamic(() => import('../components/MobileAppNav'));
 const FloatingAssistant = dynamic(() => import('../components/FloatingAssistant'));
 
 const Home = () => {
-  const [prefilledData, setPrefilledData] = useState<any>(null);
-
-  const handleStartQuote = (data: any) => {
-    setPrefilledData(data);
-    // Smooth scroll to quote section
-    const quoteSection = document.getElementById('quote');
-    if (quoteSection) {
-      quoteSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <div className="font-sans text-gray-800 bg-white selection:bg-yellow-200 selection:text-star-blue">
       {/* Top Notification Bar - Optimized for Mobile One-Line */}
@@ -49,7 +36,7 @@ const Home = () => {
       <Navbar />
       
       <main className="w-full pb-20 lg:pb-0">
-        <Hero onStartQuote={handleStartQuote} />
+        <Hero />
         
         <TrustBar />
         
@@ -76,7 +63,7 @@ const Home = () => {
         </ScrollReveal>
         
         <ScrollReveal direction="up">
-          <BookingForm initialData={prefilledData} />
+          <BookingForm />
         </ScrollReveal>
       </main>
       

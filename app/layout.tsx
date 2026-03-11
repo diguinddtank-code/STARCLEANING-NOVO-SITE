@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Open_Sans, Dancing_Script } from "next/font/google";
 import "./globals.css";
+import FontAwesomeLoader from "../components/FontAwesomeLoader";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -71,10 +72,8 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${montserrat.variable} ${openSans.variable} ${dancingScript.variable}`}>
-      <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" fetchPriority="low" />
-      </head>
       <body className="antialiased font-sans">
+        <FontAwesomeLoader />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

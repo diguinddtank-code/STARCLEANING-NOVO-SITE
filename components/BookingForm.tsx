@@ -120,6 +120,29 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
 
   // --- HANDLE INITIAL DATA FROM HERO ---
   useEffect(() => {
+    const handleStartQuote = (e: Event) => {
+        const customEvent = e as CustomEvent;
+        const data = customEvent.detail;
+        if (data) {
+            setFormData(prev => ({
+                ...prev,
+                ...data,
+                serviceType: data.serviceType || prev.serviceType
+            }));
+            
+            if (data.fullName && data.email) {
+                setStep(2);
+            }
+
+            if (data.serviceType && data.serviceType.includes("Move")) {
+                 setFormData(prev => ({ ...prev, frequency: 'One-Time' }));
+            }
+        }
+    };
+
+    window.addEventListener('startQuote', handleStartQuote);
+    
+    // Also handle initialData prop if provided directly
     if (initialData) {
         setFormData(prev => ({
             ...prev,
@@ -135,6 +158,10 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
              setFormData(prev => ({ ...prev, frequency: 'One-Time' }));
         }
     }
+
+    return () => {
+        window.removeEventListener('startQuote', handleStartQuote);
+    };
   }, [initialData]);
 
   // --- CALENDAR GENERATOR ---
