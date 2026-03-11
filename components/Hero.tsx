@@ -10,8 +10,8 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
-  preload('https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg', { as: 'image' });
-  preload('https://i.imgur.com/Q7QVFW7.mp4', { as: 'video' });
+  preload('https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg', { as: 'image', fetchPriority: 'high' });
+  preload('https://i.imgur.com/Q7QVFW7.mp4', { as: 'video', fetchPriority: 'high' });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
