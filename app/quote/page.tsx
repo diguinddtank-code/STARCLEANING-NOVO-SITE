@@ -1,11 +1,11 @@
+"use client";
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
+import BookingForm from '../../components/BookingForm';
 import TrustBar from '../../components/TrustBar';
 import OwnerMessage from '../../components/OwnerMessage';
-
-const BookingForm = dynamic(() => import('../../components/BookingForm'));
 
 const QuoteLanding = () => {
   return (
@@ -14,25 +14,15 @@ const QuoteLanding = () => {
       {/* Hero Section with Video Background & Form */}
       <section className="relative min-h-screen flex flex-col items-center pt-2 pb-12 overflow-hidden">
           {/* Video Background */}
-          <div className="absolute inset-0 w-full h-full">
-            <Image
-              src="/images/hero-bg.jpg"
-              alt="Cleaning Background"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover object-center"
-            />
-            <video 
-                autoPlay 
-                loop 
-                muted 
-                playsInline 
-                className="absolute inset-0 w-full h-full object-cover"
-            >
-                <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" media="(min-width: 1024px)" />
-            </video>
-          </div>
+          <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline 
+              className="absolute inset-0 w-full h-full object-cover"
+          >
+              <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
+          </video>
           
           {/* Dark Overlay matching screenshot vibe - Even Lighter */}
           <div className="absolute inset-0 bg-slate-900/50"></div>
@@ -43,10 +33,9 @@ const QuoteLanding = () => {
             <div className="w-full flex justify-between items-center mb-6 mt-2 px-2 sm:px-0">
                 <Link href="/" className="inline-block hover:opacity-90 transition-opacity relative h-10 md:h-14 w-36 md:w-48">
                     <Image 
-                        src="/images/logo.png" 
+                        src="https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95" 
                         alt="Star Cleaning" 
                         fill
-                        priority
                         sizes="(max-width: 768px) 144px, 192px"
                         className="object-contain brightness-0 invert" 
                     />

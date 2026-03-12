@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 
@@ -160,7 +158,7 @@ const FloatingAssistant: React.FC = () => {
                 
                 {/* Image */}
                 <Image 
-                    src="/images/assistant.jpg" 
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop" 
                     alt="Laís" 
                     fill
                     sizes="(max-width: 768px) 56px, 64px"

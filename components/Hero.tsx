@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'motion/react';
 import Image from 'next/image';
 
 interface HeroProps {
-  // onStartQuote removed
+  onStartQuote: (data: any) => void;
 }
 
-const Hero: React.FC<HeroProps> = () => {
+const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   
@@ -58,17 +58,11 @@ const Hero: React.FC<HeroProps> = () => {
     // Simulate a brief processing time for UX, but NO webhook is sent here.
     await new Promise(resolve => setTimeout(resolve, 500));
 
-    // Dispatch event to BookingForm
-    const event = new CustomEvent('startQuote', { 
-        detail: { ...data, zipCode: zipCode } 
+    // Pass data up to App component and scroll to BookingForm
+    onStartQuote({
+        ...data,
+        zipCode: zipCode
     });
-    window.dispatchEvent(event);
-    
-    // Smooth scroll to quote section
-    const quoteSection = document.getElementById('quote');
-    if (quoteSection) {
-      quoteSection.scrollIntoView({ behavior: 'smooth' });
-    }
     
     setIsSubmitting(false);
   };
@@ -79,37 +73,22 @@ const Hero: React.FC<HeroProps> = () => {
       {/* Background Video/Image */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {/* Desktop Video */}
-        <div className="hidden lg:block absolute inset-0 w-full h-full">
-          <Image
-            src="/images/hero-bg.jpg"
-            alt="Cleaning Background"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover object-center"
-          >
-            <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" media="(min-width: 1024px)" />
-          </video>
-        </div>
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          poster="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
+          className="w-full h-full object-cover object-center"
+        >
+          <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
+        </video>
         
         {/* Mobile Image */}
-        <div className="block lg:hidden absolute inset-0 w-full h-full">
-          <Image
-            src="/images/hero-bg.jpg"
-            alt="Cleaning Background"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-        </div>
+        <div 
+          className="hidden w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: "url('https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg')" }}
+        ></div>
         <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
         <div className="block lg:hidden absolute inset-0 bg-gradient-to-b from-white/80 via-transparent to-transparent"></div>
         <div className="absolute bottom-0 left-0 w-full h-32 lg:h-64 bg-gradient-to-t from-white via-white/80 to-transparent z-10"></div>
@@ -136,7 +115,7 @@ const Hero: React.FC<HeroProps> = () => {
                 </span>
                 <div className="relative h-4 w-16 opacity-80">
                   <Image 
-                      src="/images/veteran-owned.png" 
+                      src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" 
                       alt="Veteran Owned House Cleaning Service Charleston SC" 
                       fill
                       sizes="64px"
