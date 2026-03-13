@@ -120,29 +120,6 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
 
   // --- HANDLE INITIAL DATA FROM HERO ---
   useEffect(() => {
-    const handleStartQuote = (e: Event) => {
-        const customEvent = e as CustomEvent;
-        const data = customEvent.detail;
-        if (data) {
-            setFormData(prev => ({
-                ...prev,
-                ...data,
-                serviceType: data.serviceType || prev.serviceType
-            }));
-            
-            if (data.fullName && data.email) {
-                setStep(2);
-            }
-
-            if (data.serviceType && data.serviceType.includes("Move")) {
-                 setFormData(prev => ({ ...prev, frequency: 'One-Time' }));
-            }
-        }
-    };
-
-    window.addEventListener('startQuote', handleStartQuote);
-    
-    // Also handle initialData prop if provided directly
     if (initialData) {
         setFormData(prev => ({
             ...prev,
@@ -158,10 +135,6 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
              setFormData(prev => ({ ...prev, frequency: 'One-Time' }));
         }
     }
-
-    return () => {
-        window.removeEventListener('startQuote', handleStartQuote);
-    };
   }, [initialData]);
 
   // --- CALENDAR GENERATOR ---
@@ -530,7 +503,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
   };
 
   return (
-    <div id="quote" className={`relative w-full ${isFull ? 'min-h-screen' : ''}`}>
+    <div className={`relative w-full ${isFull ? 'min-h-screen' : ''}`}>
       <div className={`${isFull ? 'w-full' : isGlass ? 'container mx-auto px-0 sm:px-2 relative z-10' : 'container mx-auto px-4 relative z-10'}`}>
         <div ref={formTopRef} className={`${
             isFull 

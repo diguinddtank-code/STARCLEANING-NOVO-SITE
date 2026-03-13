@@ -9,6 +9,7 @@ interface ScrollRevealProps {
   direction?: 'up' | 'down' | 'left' | 'right' | 'none';
   delay?: number;
   width?: 'full' | 'auto';
+  id?: string;
 }
 
 const ScrollReveal: React.FC<ScrollRevealProps> = ({ 
@@ -16,7 +17,8 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
   className = "", 
   direction = 'up', 
   delay = 0,
-  width = 'full' 
+  width = 'full',
+  id
 }) => {
   const getVariants = () => {
     switch (direction) {
@@ -31,6 +33,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
 
   return (
     <motion.div
+      id={id}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
