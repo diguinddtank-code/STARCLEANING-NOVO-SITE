@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import ScrollReveal from './ScrollReveal';
 import Image from 'next/image';

@@ -73,7 +73,7 @@ const ExitIntentPopup: React.FC = () => {
         <div className="w-full md:w-5/12 bg-gradient-to-br from-star-blue to-star-dark relative flex flex-col items-center justify-center text-center p-6 shrink-0">
             
             {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-10 bg-[url('/images/carbon-fibre.png')]"></div>
+            <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
             
             {/* Animated Discount Badge */}
             <div className="relative z-10 animate-bounce" style={{ animationDuration: '2.5s' }}>
