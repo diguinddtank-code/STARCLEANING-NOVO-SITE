@@ -110,7 +110,7 @@ const Navbar: React.FC = () => {
                   (843) 297-9935
                 </a>
               </div>
-              <Link href="/contact/" className="btn-cta bg-star-blue hover:bg-star-dark text-white px-7 py-3 rounded-full font-bold shadow-lg shadow-blue-200 flex items-center gap-2 transform hover:-translate-y-1 transition-all duration-300">
+              <Link href="/#quote" className="btn-cta bg-star-blue hover:bg-star-dark text-white px-7 py-3 rounded-full font-bold shadow-lg shadow-blue-200 flex items-center gap-2 transform hover:-translate-y-1 transition-all duration-300">
                 <span>Get Free Quote</span>
                 <i className="fas fa-arrow-right text-xs"></i>
               </Link>
@@ -136,7 +136,7 @@ const Navbar: React.FC = () => {
       <div className={`fixed inset-0 bg-white z-40 flex flex-col pt-24 px-6 transition-all duration-500 lg:hidden overflow-y-auto ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
           
           <Link 
-            href="/contact/" 
+            href="/#quote" 
             onClick={() => setIsMobileMenuOpen(false)}
             className="w-full bg-star-blue text-white text-center py-4 rounded-xl shadow-lg font-black text-lg mb-8"
           >
