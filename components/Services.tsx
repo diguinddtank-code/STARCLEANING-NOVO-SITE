@@ -98,12 +98,6 @@ const Services: React.FC = () => {
             </ScrollReveal>
           ))}
         </div>
-
-        <div className="mt-16 text-center">
-          <Link href="/services/" className="inline-flex items-center gap-2 bg-white border-2 border-star-blue text-star-blue hover:bg-star-blue hover:text-white px-8 py-4 rounded-full font-bold transition-colors shadow-sm">
-            See All Services <i className="fas fa-arrow-right"></i>
-          </Link>
-        </div>
       </div>
     </section>
   );
