@@ -202,12 +202,12 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { title: "Residential Cleaning", desc: "Regular upkeep to keep your home consistently fresh and welcoming.", img: "https://mistyclean.com/wp-content/uploads/2024/07/Banner-img-Professional-cleaning-Services-in-Maryland-scaled.webp" },
-              { title: "Deep Cleaning", desc: "Intensive, top-to-bottom cleaning targeting hidden dirt and grime.", img: "https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80" },
-              { title: "Move In/Out Cleaning", desc: "Detailed cleaning to ensure you get your deposit back or start fresh.", img: "https://jjccservices.com/wp-content/uploads/2025/03/Move-In-Move-Out-Cleaning-Checklist-Latest-2021-Update.jpg" },
-              { title: "Airbnb/Vacation Rental", desc: "Fast, reliable turnover cleaning to guarantee 5-star guest reviews.", img: "https://prohousekeepers.com/wp-content/uploads/2020/03/airbnb_pixabay-e1584981299557-1.jpg" },
-              { title: "Commercial Office", desc: "Professional cleaning for a healthier, more productive workspace.", img: "https://nextdaycleaning.com/wp-content/uploads/2020/12/What-are-the-Benefits-of-Commercial-Office-Cleaning-1024x683.jpg" },
-              { title: "Post-Construction", desc: "Thorough removal of drywall dust and debris after renovations.", img: "https://imperialcleaning.com/wp-content/uploads/2019/03/Post-Construction-Cleaning-Services.jpg" }
+              { title: "Residential Cleaning", desc: "Regular upkeep to keep your home consistently fresh and welcoming.", img: "https://mistyclean.com/wp-content/uploads/2024/07/Banner-img-Professional-cleaning-Services-in-Maryland-scaled.webp", href: "/services/residential-cleaning" },
+              { title: "Deep Cleaning", desc: "Intensive, top-to-bottom cleaning targeting hidden dirt and grime.", img: "https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80", href: "/services/deep-cleaning" },
+              { title: "Move In/Out Cleaning", desc: "Detailed cleaning to ensure you get your deposit back or start fresh.", img: "https://jjccservices.com/wp-content/uploads/2025/03/Move-In-Move-Out-Cleaning-Checklist-Latest-2021-Update.jpg", href: "/services/move-in-move-out-cleaning" },
+              { title: "Airbnb/Vacation Rental", desc: "Fast, reliable turnover cleaning to guarantee 5-star guest reviews.", img: "https://prohousekeepers.com/wp-content/uploads/2020/03/airbnb_pixabay-e1584981299557-1.jpg", href: "/services/vacation-rental-airbnb-cleaning" },
+              { title: "Commercial Office", desc: "Professional cleaning for a healthier, more productive workspace.", img: "https://nextdaycleaning.com/wp-content/uploads/2020/12/What-are-the-Benefits-of-Commercial-Office-Cleaning-1024x683.jpg", href: "/services/commercial-office-cleaning" },
+              { title: "Post-Construction", desc: "Thorough removal of drywall dust and debris after renovations.", img: "https://imperialcleaning.com/wp-content/uploads/2019/03/Post-Construction-Cleaning-Services.jpg", href: "/services/post-construction-cleaning" }
             ].map((service, i) => (
               <div key={i} className="bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow overflow-hidden group">
                 <div className="relative h-48 w-full overflow-hidden">
@@ -222,7 +222,7 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
                 <div className="p-8">
                   <h3 className="text-xl font-bold text-slate-900 mb-3">{service.title}</h3>
                   <p className="text-slate-600 mb-4">{service.desc}</p>
-                  <Link href="/services" className="text-blue-600 font-semibold hover:text-blue-700 inline-flex items-center gap-1">
+                  <Link href={service.href} className="text-blue-600 font-semibold hover:text-blue-700 inline-flex items-center gap-1">
                     Learn more <span aria-hidden="true">&rarr;</span>
                   </Link>
                 </div>

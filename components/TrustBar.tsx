@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { ShieldCheck } from 'lucide-react';
 
 const TrustBar: React.FC = () => {
   return (
@@ -43,15 +44,8 @@ const TrustBar: React.FC = () => {
 
           {/* VETERAN OWNED - IMAGE SEAL UPDATE */}
           <div className="col-span-2 md:col-span-2 md:col-start-2 lg:col-span-1 lg:col-start-auto flex flex-col items-center justify-center text-center gap-1.5 opacity-90 hover:opacity-100 transition-all group hover:-translate-y-1 duration-300">
-             <div className="relative h-12 w-24 mb-1 group-hover:scale-105 transition-transform drop-shadow-sm">
-               <Image 
-                  src="/images/veteran-owned.png" 
-                  alt="Veteran Owned Business Seal" 
-                  fill
-                  sizes="96px"
-                  className="object-contain"
-                  priority
-               />
+             <div className="relative h-12 w-12 mb-1 group-hover:scale-105 transition-transform drop-shadow-sm flex items-center justify-center">
+               <ShieldCheck className="w-10 h-10 text-emerald-600" />
              </div>
              <div className="flex flex-col">
                 <span className="text-[10px] lg:text-xs font-black text-gray-700 tracking-wider">VETERAN OWNED</span>
