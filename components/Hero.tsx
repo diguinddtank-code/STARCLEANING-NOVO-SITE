@@ -6,13 +6,20 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 interface HeroProps {
-  onStartQuote: (data: any) => void;
+  onStartQuote?: (data: any) => void;
 }
 
 const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   
+  // Helper to safely call onStartQuote
+  const handleStartQuote = (data: any) => {
+    if (onStartQuote) {
+      onStartQuote(data);
+    }
+  };
+
   // States for Zip Code Logic
   const [zipCode, setZipCode] = useState('');
   const [city, setCity] = useState<string | null>(null);
@@ -60,7 +67,7 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
     await new Promise(resolve => setTimeout(resolve, 500));
 
     // Pass data up to App component and scroll to BookingForm
-    onStartQuote({
+    handleStartQuote({
         ...data,
         zipCode: zipCode
     });
