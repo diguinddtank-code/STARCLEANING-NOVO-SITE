@@ -121,16 +121,6 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
                 <span className="text-xs font-bold text-gray-700 uppercase tracking-wide">
                     #1 Rated & Veteran Owned
                 </span>
-                <div className="relative h-4 w-16 opacity-80">
-                  <Image 
-                      src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" 
-                      alt="Veteran Owned House Cleaning Service Charleston SC" 
-                      fill
-                      sizes="64px"
-                      className="object-contain"
-                      referrerPolicy="no-referrer"
-                  />
-                </div>
             </div>
             
             {/* Mobile Headline Container */}
@@ -170,9 +160,6 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
                           SAVE 20%
                       </div>
                   </Link>
-                  <Link href="/services/" className="text-star-blue font-bold hover:text-star-dark transition-colors underline underline-offset-4 decoration-2">
-                    View All Services
-                  </Link>
                 </div>
                 <div className="flex items-center gap-2 mt-1 opacity-80">
                     <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">
@@ -197,9 +184,6 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
                         <span>Call Now</span>
                       </a>
                   </div>
-                  <Link href="/services/" className="text-center text-star-blue font-bold hover:text-star-dark transition-colors underline underline-offset-4 decoration-2 mt-2">
-                    View All Services
-                  </Link>
               </div>
 
               {/* Desktop Guarantee */}
