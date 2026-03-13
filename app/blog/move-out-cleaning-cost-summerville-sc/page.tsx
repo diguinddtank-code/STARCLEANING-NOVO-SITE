@@ -139,7 +139,7 @@ const BlogPost2 = () => {
                   <p className="text-slate-700 mb-4">
                     To get the most accurate quote and save money, ensure the home is 100% empty of furniture and trash before the cleaners arrive.
                   </p>
-                  <Link href="/contact" className="inline-flex items-center text-blue-700 font-bold hover:text-blue-900 transition-colors">
+                  <Link href="/#quote" className="inline-flex items-center text-blue-700 font-bold hover:text-blue-900 transition-colors">
                     <i className="fas fa-arrow-right mr-2"></i> Book your move-out clean in Summerville
                   </Link>
                 </div>
@@ -201,7 +201,7 @@ const BlogPost2 = () => {
               Moving out is exhausting enough without having to scrub the inside of a refrigerator at midnight. Understanding the costs associated with a professional move-out clean allows you to budget properly and protect your valuable security deposit or home equity.
             </p>
             <p>
-              By investing in a professional service, you are buying peace of mind and the freedom to focus on settling into your new home. Let our veteran-owned team handle the dirty work with precision and care. Ready for a cleaner transition in Summerville? <Link href="/contact" className="font-bold">Get your free quote today &rarr;</Link>
+              By investing in a professional service, you are buying peace of mind and the freedom to focus on settling into your new home. Let our veteran-owned team handle the dirty work with precision and care. Ready for a cleaner transition in Summerville? <Link href="/#quote" className="font-bold">Get your free quote today &rarr;</Link>
             </p>
 
             <hr className="my-12 border-slate-200" />

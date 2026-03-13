@@ -29,9 +29,9 @@ const Footer: React.FC = () => {
               Veteran-owned and operated, providing top-tier residential and commercial cleaning to the Charleston Lowcountry. Fully insured, background-checked, and 100% guaranteed.
             </p>
             <div className="flex gap-4">
-              <SocialIcon icon="fab fa-facebook-f" />
+              <SocialIcon icon="fab fa-facebook-f" href="https://facebook.com" />
               <SocialIcon icon="fab fa-instagram" href="https://instagram.com/star.cleaningsc" />
-              <SocialIcon icon="fab fa-google" href="#" />
+              <SocialIcon icon="fab fa-google" href="https://www.google.com/search?q=Star+Cleaning+SC" />
             </div>
           </div>
 
@@ -91,8 +91,8 @@ const Footer: React.FC = () => {
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 font-medium">
           <p>&copy; {new Date().getFullYear()} Star Cleaning SC. All Rights Reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
-            <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/#" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/#" className="hover:text-white transition-colors">Terms of Service</Link>
             <Link href="/sitemap.xml" className="hover:text-white transition-colors">Sitemap</Link>
           </div>
           <p className="mt-4 md:mt-0 text-yellow-500 font-bold tracking-wider">Veteran-Owned & Operated 🎖️</p>

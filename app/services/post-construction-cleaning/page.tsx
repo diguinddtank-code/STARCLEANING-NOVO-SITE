@@ -59,7 +59,7 @@ export default function PostConstructionCleaningPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start mb-10">
-                <Link href="/quote" className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all duration-300 transform hover:-translate-y-1 shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2">
+                <Link href="/#quote" className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all duration-300 transform hover:-translate-y-1 shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2">
                   Get a Free Estimate <ArrowRight className="w-5 h-5" />
                 </Link>
                 <a href="tel:8432979935" className="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-xl transition-all duration-300 border border-white/10 backdrop-blur-sm flex items-center justify-center">
@@ -293,7 +293,7 @@ export default function PostConstructionCleaningPage() {
                 </ul>
               </div>
               <div className="mt-8 text-center">
-                <Link href="/quote" className="inline-flex items-center gap-2 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-lg transition-colors">
+                <Link href="/#quote" className="inline-flex items-center gap-2 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-lg transition-colors">
                   Get a Free Project Estimate <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>
@@ -401,7 +401,7 @@ export default function PostConstructionCleaningPage() {
             Don't let construction debris ruin the reveal of your new space. Contact Charleston's post-construction cleaning experts today.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link href="/quote" className="px-8 py-4 bg-white text-blue-600 font-bold rounded-lg hover:bg-slate-50 transition-colors text-lg">
+            <Link href="/#quote" className="px-8 py-4 bg-white text-blue-600 font-bold rounded-lg hover:bg-slate-50 transition-colors text-lg">
               Get Your Free Estimate
             </Link>
             <a href="tel:8432979935" className="px-8 py-4 bg-blue-700 text-white font-bold rounded-lg hover:bg-blue-800 transition-colors border border-blue-500 text-lg">
@@ -441,9 +441,9 @@ export default function PostConstructionCleaningPage() {
             <div>
               <h4 className="text-white font-bold mb-4">Company</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/about" className="hover:text-blue-400 transition-colors">About Us</Link></li>
-                <li><Link href="/faq" className="hover:text-blue-400 transition-colors">FAQ</Link></li>
-                <li><Link href="/contact" className="hover:text-blue-400 transition-colors">Contact</Link></li>
+
+                <li><Link href="/#faq" className="hover:text-blue-400 transition-colors">FAQ</Link></li>
+                <li><Link href="/#quote" className="hover:text-blue-400 transition-colors">Contact</Link></li>
               </ul>
             </div>
           </div>

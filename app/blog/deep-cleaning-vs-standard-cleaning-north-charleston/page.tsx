@@ -134,7 +134,7 @@ const BlogPost3 = () => {
                   <p className="text-slate-700 mb-4">
                     Look up! The easiest way to tell if your home needs a deep clean is to check your ceiling fan blades and HVAC return vents. If they are caked in dust, it's time for a deep clean.
                   </p>
-                  <Link href="/contact" className="inline-flex items-center text-blue-700 font-bold hover:text-blue-900 transition-colors">
+                  <Link href="/#quote" className="inline-flex items-center text-blue-700 font-bold hover:text-blue-900 transition-colors">
                     <i className="fas fa-arrow-right mr-2"></i> Book your deep clean in N. Charleston
                   </Link>
                 </div>
@@ -186,7 +186,7 @@ const BlogPost3 = () => {
               Choosing between a standard clean and a deep clean comes down to the current condition of your home and your ultimate goals. If you have kept up with chores and just need a helping hand, a standard clean is perfect. But if you want to hit the reset button, eradicate hidden allergens, and make your home feel brand new again, a deep clean is the only way to go.
             </p>
             <p>
-              Don't let built-up grime steal your peace of mind. Let our veteran-owned team deliver a military-grade clean that exceeds your expectations. Ready for a cleaner home in North Charleston? <Link href="/contact" className="font-bold">Get your free quote today &rarr;</Link>
+              Don't let built-up grime steal your peace of mind. Let our veteran-owned team deliver a military-grade clean that exceeds your expectations. Ready for a cleaner home in North Charleston? <Link href="/#quote" className="font-bold">Get your free quote today &rarr;</Link>
             </p>
 
             <hr className="my-12 border-slate-200" />

@@ -44,12 +44,12 @@ const OwnerMessage: React.FC = () => {
               
               {/* Badge Overlay - Enhanced & Enabled on Mobile */}
               <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-left-6 z-30 block animate-pulse-slow">
-                 <Link href="/about/" className="w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 bg-white rounded-full p-1.5 lg:p-2 shadow-2xl block">
+                 <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 bg-white rounded-full p-1.5 lg:p-2 shadow-2xl block">
                     <div className="w-full h-full rounded-full border-2 border-dashed border-blue-900 flex flex-col items-center justify-center text-center bg-white text-blue-900 overflow-hidden relative group-hover:scale-105 transition-transform">
                        <span className="relative text-xl sm:text-2xl lg:text-3xl font-black leading-none mb-0.5 lg:mb-1">18</span>
                        <span className="relative text-[6px] sm:text-[8px] lg:text-[9px] uppercase font-bold tracking-wider leading-tight">Years<br/>Experience</span>
                     </div>
-                 </Link>
+                 </div>
               </div>
             </div>
 
@@ -100,8 +100,8 @@ const OwnerMessage: React.FC = () => {
                     </div>
 
                     <div className="mt-8 lg:mt-10 flex flex-col sm:flex-row gap-4 lg:gap-5 items-center">
-                        <Link href="/about/" className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-300 text-blue-900 px-8 py-3.5 lg:py-4 rounded-xl font-black shadow-[0_10px_20px_rgba(250,204,21,0.3)] transform hover:-translate-y-1 transition-all duration-300 flex justify-center items-center gap-3">
-                            <span>Learn About Our Story</span>
+                        <Link href="/#quote" className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-300 text-blue-900 px-8 py-3.5 lg:py-4 rounded-xl font-black shadow-[0_10px_20px_rgba(250,204,21,0.3)] transform hover:-translate-y-1 transition-all duration-300 flex justify-center items-center gap-3">
+                            <span>Get Your Free Quote</span>
                             <i className="fas fa-arrow-right"></i>
                         </Link>
                         <a href="tel:8432979935" className="group flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white/10 transition">

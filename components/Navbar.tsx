@@ -67,7 +67,7 @@ const Navbar: React.FC = () => {
                     <Link href="/services/commercial-office-cleaning/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Commercial Cleaning</Link>
                     <Link href="/services/post-construction-cleaning/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Post-Construction</Link>
                     <div className="border-t border-gray-100 mt-2 pt-2">
-                      <Link href="/services/" className="block px-4 py-2 text-xs font-black text-star-blue hover:bg-blue-50">SEE ALL SERVICES &rarr;</Link>
+                      <Link href="/#services" className="block px-4 py-2 text-xs font-black text-star-blue hover:bg-blue-50">SEE ALL SERVICES &rarr;</Link>
                     </div>
                   </div>
                 </div>
@@ -97,7 +97,7 @@ const Navbar: React.FC = () => {
                 Blog
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-star-blue transition-all duration-300 ease-out group-hover:w-full"></span>
               </Link>
-              <Link href="/faq/" className="hover:text-star-blue transition-colors duration-300 relative group py-2">
+              <Link href="/#faq" className="hover:text-star-blue transition-colors duration-300 relative group py-2">
                 FAQ
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-star-blue transition-all duration-300 ease-out group-hover:w-full"></span>
               </Link>
@@ -161,7 +161,7 @@ const Navbar: React.FC = () => {
                 <Link href="/services/vacation-rental-airbnb-cleaning/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Airbnb Cleaning</Link>
                 <Link href="/services/commercial-office-cleaning/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Commercial Cleaning</Link>
                 <Link href="/services/post-construction-cleaning/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Post-Construction</Link>
-                <Link href="/services/" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-black text-star-blue mt-2">SEE ALL SERVICES &rarr;</Link>
+                <Link href="/#services" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-black text-star-blue mt-2">SEE ALL SERVICES &rarr;</Link>
               </div>
             </div>
 
@@ -186,7 +186,7 @@ const Navbar: React.FC = () => {
             </div>
 
             <Link href="/blog/" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-gray-100 hover:text-star-blue transition-colors">Blog</Link>
-            <Link href="/faq/" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-gray-100 hover:text-star-blue transition-colors">FAQ</Link>
+            <Link href="/#faq" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-gray-100 hover:text-star-blue transition-colors">FAQ</Link>
             
             <div className="mt-6">
               <p className="text-xs text-gray-500 uppercase tracking-widest mb-2">Call Now:</p>

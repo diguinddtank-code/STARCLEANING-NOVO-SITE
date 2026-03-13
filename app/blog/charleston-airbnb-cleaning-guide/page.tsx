@@ -143,7 +143,7 @@ const BlogPost1 = () => {
                   <p className="text-slate-700 mb-4">
                     Always keep three complete sets of linens for every bed in your rental. This allows cleaners to simply swap sheets and wash the dirty ones off-site, saving hours during tight turnovers.
                   </p>
-                  <Link href="/contact" className="inline-flex items-center text-blue-700 font-bold hover:text-blue-900 transition-colors">
+                  <Link href="/#quote" className="inline-flex items-center text-blue-700 font-bold hover:text-blue-900 transition-colors">
                     <i className="fas fa-arrow-right mr-2"></i> Book your Airbnb cleaning in Charleston
                   </Link>
                 </div>
@@ -198,7 +198,7 @@ const BlogPost1 = () => {
               Securing consistent 5-star reviews doesn't happen by accident; it is the result of meticulous, reliable, and thorough turnovers. By utilizing strict checklists, managing coastal humidity, and treating your rental like a luxury hotel, you can elevate your guest experience and maximize your rental income.
             </p>
             <p>
-              Managing this alone can be exhausting. Let our veteran-owned team bring military precision to your property so you can enjoy passive income without the active stress. Ready for a cleaner, more profitable rental in Charleston? <Link href="/contact" className="font-bold">Get your free quote today &rarr;</Link>
+              Managing this alone can be exhausting. Let our veteran-owned team bring military precision to your property so you can enjoy passive income without the active stress. Ready for a cleaner, more profitable rental in Charleston? <Link href="/#quote" className="font-bold">Get your free quote today &rarr;</Link>
             </p>
 
             <hr className="my-12 border-slate-200" />

@@ -32,7 +32,7 @@ const FAQ: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 bg-blue-50">
+    <section id="faq" className="py-24 bg-blue-50">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="text-center mb-16">
           <span className="text-star-blue font-bold uppercase tracking-widest text-xs bg-white border border-blue-100 px-3 py-1 rounded-full shadow-sm">Common Questions</span>
