@@ -1,4 +1,7 @@
+"use client";
+
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 const BeforeAfter: React.FC = () => {
   const [isCleaned, setIsCleaned] = useState(false);
@@ -53,16 +56,25 @@ const BeforeAfter: React.FC = () => {
              <div className="relative mx-auto w-[300px] h-[225px] sm:w-[400px] sm:h-[300px] lg:w-[500px] lg:h-[375px] rounded-3xl shadow-2xl border-4 border-white overflow-hidden group">
                 
                 {/* AFTER IMAGE (Bottom Layer) */}
-                <div 
-                    className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-700 ease-out"
-                    style={{ backgroundImage: "url('https://i.imgur.com/gpqI75Lh.jpg')" }}
-                ></div>
+                <div className="absolute inset-0 w-full h-full transition-transform duration-700 ease-out">
+                    <Image
+                        src="/images/after.jpg"
+                        alt="Cleaned Room"
+                        fill
+                        sizes="(max-width: 640px) 300px, (max-width: 1024px) 400px, 500px"
+                        className="object-cover object-center"
+                    />
+                </div>
 
                 {/* BEFORE IMAGE (Top Layer) - Fades out when cleaned */}
-                <div 
-                    className={`absolute inset-0 w-full h-full bg-cover bg-center transition-all duration-1000 ease-in-out ${isCleaned ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
-                    style={{ backgroundImage: "url('https://i.imgur.com/XhU71Rxh.jpg')" }}
-                >
+                <div className={`absolute inset-0 w-full h-full transition-all duration-1000 ease-in-out ${isCleaned ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}>
+                    <Image
+                        src="/images/before.jpg"
+                        alt="Dirty Room"
+                        fill
+                        sizes="(max-width: 640px) 300px, (max-width: 1024px) 400px, 500px"
+                        className="object-cover object-center"
+                    />
                     {/* Overlay to make text readable on dirty image */}
                     <div className="absolute inset-0 bg-black/10"></div>
                 </div>

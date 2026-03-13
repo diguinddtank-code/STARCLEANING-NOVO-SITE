@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'motion/react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface HeroProps {
   onStartQuote: (data: any) => void;
@@ -154,13 +155,18 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
               
               {/* DESKTOP BUTTONS */}
               <div className="hidden sm:flex flex-col items-center lg:items-start gap-2">
-                <button onClick={() => document.getElementById('quote')?.scrollIntoView({behavior: 'smooth'})} className="relative btn-cta bg-star-blue hover:bg-star-dark text-white px-8 py-3.5 lg:py-4 rounded-full font-extrabold text-base lg:text-lg shadow-lg shadow-blue-200/50 w-auto text-center transform hover:scale-105 transition duration-200 border-b-4 border-blue-900 active:border-b-0 active:translate-y-1">
-                    Get Free Estimate
-                    {/* Desktop 20% Off Badge */}
-                    <div className="absolute -top-3 -right-6 bg-yellow-400 text-blue-900 text-[10px] font-black px-2 py-0.5 rounded-md shadow-sm animate-pulse rotate-3">
-                        SAVE 20%
-                    </div>
-                </button>
+                <div className="flex items-center gap-4">
+                  <Link href="/contact/" className="relative btn-cta bg-star-blue hover:bg-star-dark text-white px-8 py-3.5 lg:py-4 rounded-full font-extrabold text-base lg:text-lg shadow-lg shadow-blue-200/50 w-auto text-center transform hover:scale-105 transition duration-200 border-b-4 border-blue-900 active:border-b-0 active:translate-y-1">
+                      Get Free Estimate
+                      {/* Desktop 20% Off Badge */}
+                      <div className="absolute -top-3 -right-6 bg-yellow-400 text-blue-900 text-[10px] font-black px-2 py-0.5 rounded-md shadow-sm animate-pulse rotate-3">
+                          SAVE 20%
+                      </div>
+                  </Link>
+                  <Link href="/services/" className="text-star-blue font-bold hover:text-star-dark transition-colors underline underline-offset-4 decoration-2">
+                    View All Services
+                  </Link>
+                </div>
                 <div className="flex items-center gap-2 mt-1 opacity-80">
                     <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">
                         <i className="fas fa-bolt text-yellow-500 mr-1"></i> Fast & Free Quote
@@ -171,19 +177,22 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
               {/* MOBILE BUTTONS */}
               <div className="flex flex-col w-full sm:hidden gap-2">
                   <div className="flex w-full gap-3">
-                      <button onClick={() => document.getElementById('quote')?.scrollIntoView({behavior: 'smooth'})} className="flex-1 bg-star-blue hover:bg-star-dark text-white rounded-xl shadow-md text-center flex flex-col items-center justify-center border-b-4 border-blue-900 active:border-b-0 active:translate-y-1 transition-all py-3 relative overflow-hidden group">
+                      <Link href="/contact/" className="flex-1 bg-star-blue hover:bg-star-dark text-white rounded-xl shadow-md text-center flex flex-col items-center justify-center border-b-4 border-blue-900 active:border-b-0 active:translate-y-1 transition-all py-3 relative overflow-hidden group">
                         <span className="font-bold text-sm leading-tight uppercase tracking-wide">Free Estimate</span>
                         {/* Mobile 20% Off Badge Inside Button */}
                         <div className="mt-0.5 bg-white/20 px-2 py-0.5 rounded text-[10px] font-bold text-yellow-300 animate-pulse">
                             SAVE 20%
                         </div>
-                      </button>
+                      </Link>
                       
                       <a href="tel:8432979935" className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-blue-900 rounded-xl font-bold text-sm shadow-md text-center flex items-center justify-center gap-2 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 transition-all py-3">
                         <i className="fas fa-phone-alt text-lg"></i>
                         <span>Call Now</span>
                       </a>
                   </div>
+                  <Link href="/services/" className="text-center text-star-blue font-bold hover:text-star-dark transition-colors underline underline-offset-4 decoration-2 mt-2">
+                    View All Services
+                  </Link>
               </div>
 
               {/* Desktop Guarantee */}

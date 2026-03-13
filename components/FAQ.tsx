@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 
 const FAQ: React.FC = () => {
   const faqs = [
@@ -41,6 +42,12 @@ const FAQ: React.FC = () => {
           {faqs.map((faq, index) => (
             <FAQItem key={index} question={faq.question} answer={faq.answer} />
           ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <Link href="/faq/" className="inline-flex items-center gap-2 bg-star-blue hover:bg-star-dark text-white px-8 py-4 rounded-full font-bold transition-all transform hover:-translate-y-1 shadow-lg shadow-blue-200">
+            See all FAQs <i className="fas fa-arrow-right"></i>
+          </Link>
         </div>
       </div>
     </section>

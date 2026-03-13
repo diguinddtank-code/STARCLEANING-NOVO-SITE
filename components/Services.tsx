@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ScrollReveal from './ScrollReveal';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Services: React.FC = () => {
   const [activeCard, setActiveCard] = useState<number | null>(null);
@@ -12,6 +13,7 @@ const Services: React.FC = () => {
   const servicesData = [
     {
       title: "Residential Cleaning",
+      slug: "residential-cleaning",
       icon: "fa-spray-can",
       description: "Keep your home consistently fresh with our weekly or bi-weekly plans.",
       image: "https://mistyclean.com/wp-content/uploads/2024/07/Banner-img-Professional-cleaning-Services-in-Maryland-scaled.webp",
@@ -20,6 +22,7 @@ const Services: React.FC = () => {
     },
     {
       title: "Deep Cleaning",
+      slug: "deep-cleaning",
       icon: "fa-hand-sparkles",
       description: "Perfect for spring cleaning or first-time service. We touch every surface.",
       image: "https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80",
@@ -27,6 +30,7 @@ const Services: React.FC = () => {
     },
     {
       title: "Move In / Move Out",
+      slug: "move-in-move-out-cleaning",
       icon: "fa-box-open",
       description: "Secure your deposit or prepare your new home. Empty home specialist.",
       image: "https://jjccservices.com/wp-content/uploads/2025/03/Move-In-Move-Out-Cleaning-Checklist-Latest-2021-Update.jpg",
@@ -34,6 +38,7 @@ const Services: React.FC = () => {
     },
     {
       title: "Vacation Rental / Airbnb",
+      slug: "vacation-rental-airbnb-cleaning",
       icon: "fa-suitcase-rolling",
       description: "Fast turnovers for 5-star host ratings. Linen service included.",
       image: "https://prohousekeepers.com/wp-content/uploads/2020/03/airbnb_pixabay-e1584981299557-1.jpg",
@@ -41,6 +46,7 @@ const Services: React.FC = () => {
     },
     {
       title: "Commercial Office",
+      slug: "commercial-office-cleaning",
       icon: "fa-building",
       description: "Office spaces, retail stores, and medical facilities. Flexible hours.",
       image: "https://nextdaycleaning.com/wp-content/uploads/2020/12/What-are-the-Benefits-of-Commercial-Office-Cleaning-1024x683.jpg",
@@ -48,6 +54,7 @@ const Services: React.FC = () => {
     },
     {
       title: "Post-Construction",
+      slug: "post-construction-cleaning",
       icon: "fa-hard-hat",
       description: "Removing dust and debris after renovation or new builds.",
       image: "https://imperialcleaning.com/wp-content/uploads/2019/03/Post-Construction-Cleaning-Services.jpg",
@@ -89,6 +96,12 @@ const Services: React.FC = () => {
             </ScrollReveal>
           ))}
         </div>
+
+        <div className="mt-16 text-center">
+          <Link href="/services/" className="inline-flex items-center gap-2 bg-white border-2 border-star-blue text-star-blue hover:bg-star-blue hover:text-white px-8 py-4 rounded-full font-bold transition-colors shadow-sm">
+            See All Services <i className="fas fa-arrow-right"></i>
+          </Link>
+        </div>
       </div>
     </section>
   );
@@ -96,6 +109,7 @@ const Services: React.FC = () => {
 
 interface ServiceCardProps {
   title: string;
+  slug: string;
   icon: string;
   description: string;
   image: string;
@@ -105,7 +119,7 @@ interface ServiceCardProps {
   onClick: () => void;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ title, icon, description, image, tag, details, isOpen, onClick }) => {
+const ServiceCard: React.FC<ServiceCardProps> = ({ title, slug, icon, description, image, tag, details, isOpen, onClick }) => {
   return (
     <div 
       onClick={onClick}
@@ -164,14 +178,14 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, icon, description, ima
                 </ul>
 
                 {/* Prominent CTA Button */}
-                <a 
-                    href="#quote" 
+                <Link 
+                    href={`/services/${slug}/`} 
                     onClick={(e) => e.stopPropagation()} 
                     className={`w-full bg-star-blue hover:bg-star-dark text-white font-black py-4 rounded-xl shadow-lg shadow-blue-200 flex items-center justify-center gap-3 transition-all duration-500 transform hover:-translate-y-1 active:scale-95 ${isOpen ? 'translate-y-0 opacity-100 delay-300' : 'translate-y-4 opacity-0'}`}
                 >
-                    <span className="uppercase tracking-wide text-sm">Book This Service</span>
+                    <span className="uppercase tracking-wide text-sm">Learn More</span>
                     <i className="fas fa-arrow-right animate-pulse"></i>
-                </a>
+                </Link>
              </div>
           </div>
         </div>
