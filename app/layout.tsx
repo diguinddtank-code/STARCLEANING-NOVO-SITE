@@ -21,6 +21,7 @@ const dancingScript = Dancing_Script({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://starcleaningsc.com"),
   title: "Star Cleaning SC - Charleston's #1 Rated Cleaning Service",
   description: "Reclaim your weekends with Star Cleaning SC. 5-star rated, 100% guaranteed house cleaning services in Charleston, SC and surrounding areas.",
   keywords: "house cleaning Charleston, maid service Charleston SC, deep cleaning, move in cleaning, move out cleaning, Star Cleaning SC, professional cleaners",
@@ -40,9 +41,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Star Cleaning SC - Charleston's #1 Rated Cleaning Service",
     description: "5-star rated, 100% guaranteed house cleaning services in Charleston, SC.",
-  },
-  alternates: {
-    canonical: "https://starcleaningsc.com",
   },
 };
 
