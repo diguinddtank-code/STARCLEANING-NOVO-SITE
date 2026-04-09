@@ -2,6 +2,31 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  async redirects() {
+    return [
+      // 1. Canonicalization: starcleaningsc.com/* -> www.starcleaningsc.com/*
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'starcleaningsc.com',
+          },
+        ],
+        destination: 'https://www.starcleaningsc.com/:path*',
+        permanent: true,
+      },
+      // 2. Old pages redirecting to homepage
+      { source: '/terms-and-conditions', destination: '/', permanent: true },
+      { source: '/m/create-account', destination: '/', permanent: true },
+      { source: '/m/login', destination: '/', permanent: true },
+      { source: '/airbnb-cleaning', destination: '/', permanent: true },
+      { source: '/privacy-policy', destination: '/', permanent: true },
+      { source: '/contact', destination: '/', permanent: true },
+      { source: '/residential-services', destination: '/', permanent: true },
+      { source: '/commercial-services', destination: '/', permanent: true },
+    ];
+  },
   images: {
     remotePatterns: [
       {
