@@ -5,6 +5,10 @@ import Link from 'next/link';
 export const metadata = {
   title: 'Thank You | Star Cleaning SC',
   description: 'Thank you for contacting Star Cleaning SC.',
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function ThanksPage() {

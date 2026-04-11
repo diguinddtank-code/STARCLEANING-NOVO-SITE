@@ -5,6 +5,11 @@ import dynamic from 'next/dynamic';
 import TrustBar from '../../components/TrustBar';
 import OwnerMessage from '../../components/OwnerMessage';
 
+export const metadata = {
+  title: 'Get a Free Quote | Star Cleaning SC',
+  description: 'Get an instant free quote for house cleaning services in Charleston, SC. Book your 5-star rated cleaning today.',
+};
+
 const BookingForm = dynamic(() => import('../../components/BookingForm'));
 
 const QuoteLanding = () => {
