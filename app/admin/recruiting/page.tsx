@@ -3,6 +3,26 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { formatDistanceToNow } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+
+const tVal = (val: string | undefined | null) => {
+  if (!val) return 'N/A';
+  const map: Record<string, string> = {
+    '1_plus_years': 'Mais de 1 ano',
+    'less_than_1_year': 'Menos de 1 ano',
+    'none': 'Sem experiência',
+    'full_time': 'Tempo integral',
+    'part_time': 'Meio período',
+    'no': 'Não',
+    'yes': 'Sim',
+    'prefer_team': 'Prefere em equipe',
+    'more_or_less': 'Mais ou menos',
+    'immediately': 'Imediatamente',
+    'within_2_weeks': 'Em até 2 semanas',
+    'more_than_2_weeks': 'Mais de 2 semanas'
+  };
+  return map[val] || val.replace(/_/g, ' ');
+};
 
 export default function RecruitingDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -21,7 +41,7 @@ export default function RecruitingDashboard() {
       setIsAuthenticated(true);
       fetchApplicants();
     } else {
-      setError('Invalid PIN');
+      setError('PIN Inválido');
     }
   };
 
@@ -37,6 +57,28 @@ export default function RecruitingDashboard() {
       setApplicants(data || []);
     } catch (err) {
       console.error("Error fetching applicants:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleClearAll = async () => {
+    const isConfirmed = window.confirm("ATENÇÃO: Você tem certeza que deseja EXCLUIR TODOS os leads da lista? Isso não pode ser desfeito.");
+    if (!isConfirmed) return;
+
+    try {
+      setIsLoading(true);
+      const { error } = await supabase
+        .from('job_applications')
+        .delete()
+        .gte('qualification_score', -1); // Deletes all rows since all scores are >= 0
+      
+      if (error) throw error;
+      setApplicants([]);
+      setSelectedApplicant(null);
+    } catch (err) {
+      console.error("Error clearing applicants:", err);
+      alert("Erro ao limpar a lista.");
     } finally {
       setIsLoading(false);
     }
@@ -58,8 +100,8 @@ export default function RecruitingDashboard() {
           <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <i className="fas fa-lock text-blue-600 text-2xl"></i>
           </div>
-          <h1 className="text-2xl font-black text-gray-900 mb-2">Team Access</h1>
-          <p className="text-gray-500 text-sm mb-6">Enter PIN to access recruiting data.</p>
+          <h1 className="text-2xl font-black text-gray-900 mb-2">Acesso da Equipe</h1>
+          <p className="text-gray-500 text-sm mb-6">Digite o PIN para acessar o recrutamento.</p>
           
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
@@ -74,7 +116,7 @@ export default function RecruitingDashboard() {
               {error && <p className="text-red-500 text-xs font-bold mt-2">{error}</p>}
             </div>
             <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all">
-              Unlock
+              Desbloquear
             </button>
           </form>
         </div>
@@ -98,12 +140,15 @@ export default function RecruitingDashboard() {
         {/* Header */}
         <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
           <div>
-            <h1 className="text-3xl font-black text-gray-900">Leads & Recruiting</h1>
-            <p className="text-gray-500 font-medium mt-1">Manage and connect with your Cleaning Technician candidates.</p>
+            <h1 className="text-3xl font-black text-gray-900">Gestão de Candidatos</h1>
+            <p className="text-gray-500 font-medium mt-1">Gerencie e entre em contato com seus candidatos a Cleaning Technician.</p>
           </div>
           <div className="flex gap-4">
+            <button onClick={handleClearAll} className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 font-bold rounded-lg hover:bg-red-100 transition-colors">
+              <i className="fas fa-trash-alt"></i> Limpar Fila
+            </button>
             <button onClick={fetchApplicants} className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 font-bold rounded-lg hover:bg-blue-100 transition-colors">
-              <i className="fas fa-sync-alt"></i> Refresh
+              <i className="fas fa-sync-alt"></i> Atualizar
             </button>
           </div>
         </header>
@@ -112,7 +157,7 @@ export default function RecruitingDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
             <div>
-              <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Total Leads</p>
+              <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Total de Leads</p>
               <h2 className="text-4xl font-black text-gray-900">{applicants.length}</h2>
             </div>
             <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl">
@@ -122,7 +167,7 @@ export default function RecruitingDashboard() {
           
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
             <div>
-              <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Avg Qualification</p>
+              <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Média de Qualificação</p>
               <h2 className="text-4xl font-black text-blue-600">{avgScore} / 100</h2>
             </div>
             <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-xl">
@@ -132,7 +177,7 @@ export default function RecruitingDashboard() {
 
           <div className="bg-gradient-to-br from-green-500 to-green-600 p-6 rounded-2xl shadow-lg border border-green-400 flex items-center justify-between text-white">
             <div>
-              <p className="text-xs font-bold text-green-100 uppercase tracking-widest mb-1">Top Candidates</p>
+              <p className="text-xs font-bold text-green-100 uppercase tracking-widest mb-1">Super Candidatos</p>
               <h2 className="text-4xl font-black text-white">{topCandidatesNum} <span className="text-lg font-medium text-green-200">leads &gt;80 pts</span></h2>
             </div>
             <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-xl">
@@ -147,19 +192,19 @@ export default function RecruitingDashboard() {
             onClick={() => setActiveTab('all')}
             className={`px-5 py-2.5 rounded-full font-bold text-sm whitespace-nowrap transition-all ${activeTab === 'all' ? 'bg-gray-900 text-white shadow-md' : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'}`}
           >
-            All Leads ({applicants.length})
+            Todos os Leads ({applicants.length})
           </button>
           <button 
             onClick={() => setActiveTab('top')}
             className={`px-5 py-2.5 rounded-full font-bold text-sm whitespace-nowrap transition-all flex items-center gap-2 ${activeTab === 'top' ? 'bg-green-500 text-white shadow-md' : 'bg-white text-gray-600 border border-gray-200 hover:bg-green-50 hover:text-green-600 hover:border-green-200'}`}
           >
-            <i className="fas fa-star text-xs"></i> Top Matches ({topCandidatesNum})
+            <i className="fas fa-star text-xs"></i> Maior Afinidade ({topCandidatesNum})
           </button>
           <button 
             onClick={() => setActiveTab('needs_review')}
             className={`px-5 py-2.5 rounded-full font-bold text-sm whitespace-nowrap transition-all ${activeTab === 'needs_review' ? 'bg-orange-500 text-white shadow-md' : 'bg-white text-gray-600 border border-gray-200 hover:bg-orange-50 hover:text-orange-600'}`}
           >
-            Needs Review
+            Abaixo da Média
           </button>
         </div>
 
@@ -167,15 +212,15 @@ export default function RecruitingDashboard() {
         {isLoading ? (
           <div className="text-center py-20 text-gray-400 font-medium">
             <i className="fas fa-spinner fa-spin text-3xl mb-4 text-blue-500"></i>
-            <p>Loading your leads...</p>
+            <p>Carregando seus leads...</p>
           </div>
         ) : filteredApplicants.length === 0 ? (
           <div className="bg-white rounded-3xl border border-gray-100 p-12 text-center shadow-sm">
             <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400 text-3xl">
               <i className="fas fa-inbox"></i>
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-1">No leads found</h3>
-            <p className="text-gray-500">There are no candidates matching this filter yet.</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-1">Nenhum candidato</h3>
+            <p className="text-gray-500">Não há resultados para exibir neste filtro no momento.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -184,7 +229,7 @@ export default function RecruitingDashboard() {
                 <div className="p-5 border-b border-gray-50 flex justify-between items-start">
                   <div>
                     <h3 className="font-bold text-gray-900 text-lg truncate pr-2" title={app.full_name}>{app.full_name || 'N/A'}</h3>
-                    <p className="text-xs text-gray-500 mt-1 flex items-center gap-1.5"><i className="fas fa-map-marker-alt"></i> {app.city || 'Location unknown'}</p>
+                    <p className="text-xs text-gray-500 mt-1 flex items-center gap-1.5"><i className="fas fa-map-marker-alt"></i> {app.city || 'Desconhecida'}</p>
                   </div>
                   <div className={`shrink-0 flex items-center justify-center w-12 h-12 rounded-full font-black text-lg shadow-inner ${
                     app.qualification_score >= 80 ? 'bg-green-100 text-green-700' : 
@@ -197,19 +242,19 @@ export default function RecruitingDashboard() {
                 <div className="p-5 flex-grow space-y-4">
                   <div className="flex items-center gap-3 text-sm">
                     <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-500 shrink-0"><i className="fas fa-briefcase"></i></div>
-                    <div className="font-medium text-gray-700 capitalize">{app.experience?.replace(/_/g, ' ')}</div>
+                    <div className="font-medium text-gray-700 capitalize">{tVal(app.experience)}</div>
                   </div>
                   <div className="flex items-center gap-3 text-sm">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${app.has_transport ? 'bg-green-50 text-green-500' : 'bg-red-50 text-red-500'}`}>
                       <i className={`fas ${app.has_transport ? 'fa-car' : 'fa-ban'}`}></i>
                     </div>
-                    <div className="font-medium text-gray-700">{app.has_transport ? 'Has Own Vehicle' : 'No Transportation'}</div>
+                    <div className="font-medium text-gray-700">{app.has_transport ? 'Possui Veículo Próprio' : 'Sem Transporte'}</div>
                   </div>
                   <div className="flex items-center gap-3 text-sm">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${app.work_auth ? 'bg-blue-50 text-blue-500' : 'bg-red-50 text-red-500'}`}>
                       <i className={`fas ${app.work_auth ? 'fa-id-card' : 'fa-ban'}`}></i>
                     </div>
-                    <div className="font-medium text-gray-700">{app.work_auth ? 'Authorized US Worker' : 'Unauthorized'}</div>
+                    <div className="font-medium text-gray-700">{app.work_auth ? 'Trabalhador Autorizado (EUA)' : 'Sem Autorização'}</div>
                   </div>
                 </div>
                 
@@ -218,7 +263,7 @@ export default function RecruitingDashboard() {
                       onClick={() => setSelectedApplicant(app)}
                       className="py-2.5 bg-white border border-gray-200 text-gray-700 font-bold text-sm rounded-xl hover:bg-gray-100 transition-colors"
                     >
-                      View Details
+                      Ver Detalhes
                     </button>
                     <a 
                       href={getWaLink(app.phone)} 
@@ -226,7 +271,7 @@ export default function RecruitingDashboard() {
                       rel="noopener noreferrer"
                       className="py-2.5 bg-[#25D366] text-white font-bold text-sm rounded-xl hover:bg-[#1ebd5a] transition-colors flex items-center justify-center gap-2 shadow-sm shadow-green-600/20"
                     >
-                      <i className="fab fa-whatsapp text-lg"></i> Message
+                      <i className="fab fa-whatsapp text-lg"></i> Chamar
                     </a>
                 </div>
               </div>
@@ -244,7 +289,7 @@ export default function RecruitingDashboard() {
             <div className="p-6 md:p-8 border-b border-gray-100 flex items-start justify-between sticky top-0 bg-white/90 backdrop-blur z-10">
               <div>
                 <h2 className="text-2xl font-black text-gray-900">{selectedApplicant.full_name}</h2>
-                <p className="text-gray-500 text-sm mt-1">Applied {selectedApplicant.created_at ? formatDistanceToNow(new Date(selectedApplicant.created_at), { addSuffix: true }) : ''} via {selectedApplicant.language_used?.toUpperCase() || 'EN'}</p>
+                <p className="text-gray-500 text-sm mt-1">Preencheu {selectedApplicant.created_at ? formatDistanceToNow(new Date(selectedApplicant.created_at), { locale: ptBR, addSuffix: true }) : ''} via {selectedApplicant.language_used?.toUpperCase() || 'EN'}</p>
               </div>
               <button onClick={() => setSelectedApplicant(null)} className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
                 <i className="fas fa-times"></i>
@@ -255,51 +300,51 @@ export default function RecruitingDashboard() {
               
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
-                  <p className="text-xs font-bold text-blue-500 uppercase tracking-widest mb-1">Score</p>
+                  <p className="text-xs font-bold text-blue-500 uppercase tracking-widest mb-1">Pontuação</p>
                   <p className="text-2xl font-black text-blue-700">{selectedApplicant.qualification_score} / 100</p>
                 </div>
                 <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                  <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Phone</p>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Telefone</p>
                   <p className="text-lg font-bold text-gray-900">{selectedApplicant.phone}</p>
                 </div>
               </div>
 
               <div>
-                <h4 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-3 border-b pb-2">Questions & Answers</h4>
+                <h4 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-3 border-b pb-2">Perguntas & Respostas</h4>
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
-                    <span className="text-gray-500 font-medium text-sm">Experience:</span>
-                    <span className="sm:col-span-2 font-bold text-gray-900 capitalize">{selectedApplicant.experience?.replace(/_/g, ' ')}</span>
+                    <span className="text-gray-500 font-medium text-sm">Experiência:</span>
+                    <span className="sm:col-span-2 font-bold text-gray-900 capitalize">{tVal(selectedApplicant.experience)}</span>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 border-t border-gray-50 pt-3">
-                    <span className="text-gray-500 font-medium text-sm">Availability:</span>
-                    <span className="sm:col-span-2 font-bold text-gray-900 capitalize">{selectedApplicant.availability?.replace(/_/g, ' ')}</span>
+                    <span className="text-gray-500 font-medium text-sm">Disponibilidade:</span>
+                    <span className="sm:col-span-2 font-bold text-gray-900 capitalize">{tVal(selectedApplicant.availability)}</span>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 border-t border-gray-50 pt-3">
-                    <span className="text-gray-500 font-medium text-sm">Can start:</span>
-                    <span className="sm:col-span-2 font-bold text-gray-900 capitalize">{selectedApplicant.start_date?.replace(/_/g, ' ')}</span>
+                    <span className="text-gray-500 font-medium text-sm">Início:</span>
+                    <span className="sm:col-span-2 font-bold text-gray-900 capitalize">{tVal(selectedApplicant.start_date)}</span>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 border-t border-gray-50 pt-3">
-                    <span className="text-gray-500 font-medium text-sm">Own Transport:</span>
-                    <span className="sm:col-span-2 font-bold text-gray-900">{selectedApplicant.has_transport ? 'Yes' : 'No'}</span>
+                    <span className="text-gray-500 font-medium text-sm">Veículo Próprio:</span>
+                    <span className="sm:col-span-2 font-bold text-gray-900">{selectedApplicant.has_transport ? 'Sim' : 'Não'}</span>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 border-t border-gray-50 pt-3">
-                    <span className="text-gray-500 font-medium text-sm">Comfortable Solo:</span>
-                    <span className="sm:col-span-2 font-bold text-gray-900">{selectedApplicant.comfortable_solo ? 'Yes' : 'No (Prefers Team)'}</span>
+                    <span className="text-gray-500 font-medium text-sm">Confortável Sozinho:</span>
+                    <span className="sm:col-span-2 font-bold text-gray-900">{selectedApplicant.comfortable_solo ? 'Sim' : 'Não (Prefere Equipe)'}</span>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 border-t border-gray-50 pt-3">
-                    <span className="text-gray-500 font-medium text-sm">Detail Oriented:</span>
-                    <span className="sm:col-span-2 font-bold text-gray-900 capitalize">{selectedApplicant.detail_oriented?.replace(/_/g, ' ')}</span>
+                    <span className="text-gray-500 font-medium text-sm">Detalhes/Checklists:</span>
+                    <span className="sm:col-span-2 font-bold text-gray-900 capitalize">{tVal(selectedApplicant.detail_oriented)}</span>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 border-t border-gray-50 pt-3">
-                    <span className="text-gray-500 font-medium text-sm">Work Auth:</span>
-                    <span className="sm:col-span-2 font-bold text-gray-900">{selectedApplicant.work_auth ? 'Yes' : 'No'}</span>
+                    <span className="text-gray-500 font-medium text-sm">Autorização nos EUA:</span>
+                    <span className="sm:col-span-2 font-bold text-gray-900">{selectedApplicant.work_auth ? 'Sim' : 'Não'}</span>
                   </div>
                 </div>
               </div>
 
               <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100">
-                <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2"><i className="fas fa-quote-left text-gray-300 mr-2"></i> Why do they want to work here?</p>
+                <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2"><i className="fas fa-quote-left text-gray-300 mr-2"></i> Por que deseja trabalhar conosco?</p>
                 <p className="text-gray-800 italic leading-relaxed text-sm">
                   "{selectedApplicant.why_us}"
                 </p>
@@ -314,7 +359,7 @@ export default function RecruitingDashboard() {
                   rel="noopener noreferrer"
                   className="flex-1 py-3 bg-[#25D366] text-white font-bold text-center rounded-xl hover:bg-[#1ebd5a] transition-colors shadow-lg shadow-green-600/20"
                 >
-                  <i className="fab fa-whatsapp text-xl mr-2 align-middle"></i> Open in WhatsApp
+                  <i className="fab fa-whatsapp text-xl mr-2 align-middle"></i> Abrir Conversa no WhatsApp
                 </a>
             </div>
           </div>
