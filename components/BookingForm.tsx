@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { supabase } from '../lib/supabase';
+import { getBookedSlots, saveBooking } from '@/app/actions/booking';
 
 interface BookingFormProps {
   initialData?: any;
@@ -248,23 +248,13 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
   const fetchBookedSlotsFromBackend = async () => {
       console.log("Iniciando busca de horários agendados via Supabase...");
       try {
-          const { data, error } = await supabase
-              .from('bookings')
-              .select('slot_id');
-
-          if (error) {
-              console.error("Erro ao buscar do Supabase:", error);
-              return;
-          }
-
-          if (data) {
-              // Extrai apenas os IDs dos slots (ex: ["Fri Feb 27 2026_08:30 AM"])
-              const bookedIds = data.map(item => item.slot_id);
+          const bookedIds = await getBookedSlots();
+          if (bookedIds && bookedIds.length > 0) {
               console.log("Horários ocupados recebidos:", bookedIds);
               setBookedSlots(prev => [...prev, ...bookedIds]);
           }
       } catch (error) {
-          console.error("Falha inesperada ao buscar horários", error);
+          console.error("Falha inesperada ao buscar horários:", error);
       }
   };
 
@@ -458,22 +448,8 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
 
     // 1. Save to Supabase (Source of Truth)
     try {
-        const { error } = await supabase
-            .from('bookings')
-            .insert([
-                { 
-                    slot_id: slotKey,
-                    customer_name: formData.fullName,
-                    customer_email: formData.email,
-                    customer_phone: formData.phone
-                }
-            ]);
-
-        if (error) {
-            console.error("Supabase insert error:", error);
-        } else {
-            console.log("Supabase insert success");
-        }
+        await saveBooking(slotKey, formData.fullName, formData.email, formData.phone);
+        console.log("Supabase insert success");
     } catch (err) {
         console.error("Unexpected Supabase error:", err);
     }
