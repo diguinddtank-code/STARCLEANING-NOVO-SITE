@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { supabase } from '@/lib/supabase';
 
 // Custom InputGroup component to match BookingForm style
 const InputGroup = ({ label, name, type = 'text', icon, placeholder, value, onChange, required = false }: any) => (
@@ -198,11 +199,67 @@ export default function CareersForm() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const calculateScore = (data: typeof formData) => {
+    let score = 0;
+    
+    // Experience (Max 25)
+    if (data.experience === '1_plus_years') score += 25;
+    else if (data.experience === 'less_than_1_year') score += 10;
+    
+    // Transport (Critical - Max 20)
+    if (data.transport === 'yes') score += 20;
+    
+    // Availability (Max 20)
+    if (data.availability === 'full_time') score += 20;
+    else if (data.availability === 'part_time') score += 10;
+    
+    // Solo (Max 10)
+    if (data.solo === 'yes') score += 10;
+    else if (data.solo === 'prefer_team') score += 5;
+    
+    // Details (Max 10)
+    if (data.details === 'yes') score += 10;
+    else if (data.details === 'more_or_less') score += 5;
+    
+    // Work Auth (Critical - Max 15)
+    if (data.workAuth === 'yes') score += 15;
+
+    return Math.min(score, 100);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
     try {
+      const qualificationScore = calculateScore(formData);
+
+      // Add to Supabase
+      const { error: supabaseError } = await supabase
+        .from('job_applications')
+        .insert([{
+          full_name: formData.fullName,
+          phone: formData.phone,
+          city: formData.city,
+          experience: formData.experience,
+          has_transport: formData.transport === 'yes',
+          availability: formData.availability,
+          comfortable_solo: formData.solo === 'yes',
+          detail_oriented: formData.details,
+          work_auth: formData.workAuth === 'yes',
+          start_date: formData.startDate,
+          why_us: formData.whyUs,
+          language_used: lang,
+          qualification_score: qualificationScore,
+          status: 'new'
+        }]);
+
+      if (supabaseError) {
+        console.error("Error saving to Supabase:", supabaseError);
+        // Continue even if Supabase fails so n8n can still try
+      }
+
+      // Send to n8n Webhook
       await fetch('https://n8n.infra-remakingautomacoes.cloud/webhook-test/sce', {
         method: 'POST',
         headers: {
@@ -211,6 +268,7 @@ export default function CareersForm() {
         body: JSON.stringify({
           ...formData,
           language: lang,
+          qualificationScore,
           source: 'careers_page'
         }),
       });
@@ -219,19 +277,29 @@ export default function CareersForm() {
     } finally {
       setIsSubmitting(false);
       setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   if (submitted) {
     return (
-      <div className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl border border-gray-100 text-center flex flex-col items-center justify-center min-h-[400px]">
-        <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center text-white text-4xl shadow-xl shadow-green-500/30 mb-6">
-            <i className="fas fa-check"></i>
+      <div className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl border border-gray-100 text-center flex flex-col items-center justify-center min-h-[400px] animate-fade-in">
+        <div className="relative mb-8">
+          <div className="absolute inset-0 bg-green-200 rounded-full animate-ping opacity-75"></div>
+          <div className="relative w-24 h-24 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white text-5xl shadow-xl shadow-green-500/30">
+              <i className="fas fa-check"></i>
+          </div>
         </div>
-        <h3 className="text-2xl md:text-3xl font-black text-gray-900 mb-2">{t.thanks}</h3>
-        <p className="text-gray-500 font-medium mb-8">
-          {t.contactSoon}
+        <h3 className="text-3xl md:text-4xl font-black text-gray-900 mb-4 tracking-tight">{t.thanks}</h3>
+        <p className="text-gray-500 font-medium text-lg mb-8 max-w-sm leading-relaxed">
+          {lang === 'en' && "Your application has been successfully submitted! We're reviewing your profile and will contact you very soon via phone."}
+          {lang === 'pt' && "Sua candidatura foi enviada com sucesso! Estamos revisando seu perfil e entraremos em contato muito em breve pelo telefone."}
+          {lang === 'es' && "¡Su solicitud ha sido enviada con éxito! Estamos revisando su perfil y nos pondremos en contacto con usted muy pronto por teléfono."}
         </p>
+        <div className="bg-gray-50 rounded-xl p-4 w-full flex items-center justify-center gap-3 text-sm font-bold text-gray-600 border border-gray-100">
+           <i className="fas fa-envelope-open-text text-blue-500 text-lg"></i>
+           <span>{t.contactSoon}</span>
+        </div>
       </div>
     );
   }
