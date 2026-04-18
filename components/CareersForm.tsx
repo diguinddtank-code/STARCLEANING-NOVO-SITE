@@ -272,6 +272,16 @@ export default function CareersForm() {
           source: 'careers_page'
         }),
       });
+
+      // Track Meta Pixel Lead event
+      if (typeof window !== 'undefined' && (window as any).fbq) {
+        (window as any).fbq('track', 'Lead', {
+          content_name: 'Job Application',
+          value: qualificationScore,
+          currency: 'USD'
+        });
+      }
+      
     } catch (error) {
       console.error('Error submitting application:', error);
     } finally {

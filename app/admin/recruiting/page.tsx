@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { fetchLeads, clearAllLeads } from '../actions';
 
 const tVal = (val: string | undefined | null) => {
   if (!val) return 'N/A';
@@ -35,31 +35,25 @@ export default function RecruitingDashboard() {
   const [activeTab, setActiveTab] = useState<'all' | 'top' | 'needs_review'>('all');
   const [selectedApplicant, setSelectedApplicant] = useState<any | null>(null);
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (pin === '7827' || pin === 'star20') {
-      setIsAuthenticated(true);
-      fetchApplicants();
-    } else {
-      setError('PIN Inválido');
-    }
-  };
-
-  const fetchApplicants = async () => {
+  const performFetch = async (currentPin: string) => {
     setIsLoading(true);
     try {
-      const { data, error } = await supabase
-        .from('job_applications')
-        .select('*')
-        .order('created_at', { ascending: false });
-        
-      if (error) throw error;
+      const data = await fetchLeads(currentPin);
       setApplicants(data || []);
-    } catch (err) {
+      setIsAuthenticated(true);
+      setError('');
+    } catch (err: any) {
       console.error("Error fetching applicants:", err);
+      setError(err.message || 'Senha Inválida ou Falha na Conexão');
+      setIsAuthenticated(false);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    performFetch(pin);
   };
 
   const handleClearAll = async () => {
@@ -68,17 +62,12 @@ export default function RecruitingDashboard() {
 
     try {
       setIsLoading(true);
-      const { error } = await supabase
-        .from('job_applications')
-        .delete()
-        .gte('qualification_score', -1); // Deletes all rows since all scores are >= 0
-      
-      if (error) throw error;
+      await clearAllLeads(pin);
       setApplicants([]);
       setSelectedApplicant(null);
     } catch (err) {
       console.error("Error clearing applicants:", err);
-      alert("Erro ao limpar a lista.");
+      alert("Erro ao limpar a lista. Verifique as permissões.");
     } finally {
       setIsLoading(false);
     }
@@ -147,7 +136,7 @@ export default function RecruitingDashboard() {
             <button onClick={handleClearAll} className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 font-bold rounded-lg hover:bg-red-100 transition-colors">
               <i className="fas fa-trash-alt"></i> Limpar Fila
             </button>
-            <button onClick={fetchApplicants} className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 font-bold rounded-lg hover:bg-blue-100 transition-colors">
+            <button onClick={() => performFetch(pin)} className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 font-bold rounded-lg hover:bg-blue-100 transition-colors">
               <i className="fas fa-sync-alt"></i> Atualizar
             </button>
           </div>
