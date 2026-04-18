@@ -245,21 +245,21 @@ export default function CareersForm() {
         <div className="flex bg-gray-100 p-1 rounded-xl mb-6 shadow-inner w-full max-w-[280px]">
           <button 
             onClick={() => setLang('en')}
-            className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${lang === 'en' ? 'bg-white text-blue-600 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-700'}`}
+            className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 ${lang === 'en' ? 'bg-white text-blue-600 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-700'}`}
           >
-            EN
+            <span className="text-base leading-none">🇺🇸</span> EN
           </button>
           <button 
             onClick={() => setLang('pt')}
-            className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${lang === 'pt' ? 'bg-white text-blue-600 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-700'}`}
+            className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 ${lang === 'pt' ? 'bg-white text-blue-600 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-700'}`}
           >
-            PT-BR
+            <span className="text-base leading-none">🇧🇷</span> PT-BR
           </button>
           <button 
             onClick={() => setLang('es')}
-            className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${lang === 'es' ? 'bg-white text-blue-600 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-700'}`}
+            className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 ${lang === 'es' ? 'bg-white text-blue-600 shadow-sm border border-gray-200/50' : 'text-gray-500 hover:text-gray-700'}`}
           >
-            ES
+            <span className="text-base leading-none">🇪🇸</span> ES
           </button>
         </div>
 

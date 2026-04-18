@@ -36,9 +36,32 @@ export default function CareersPage() {
                   Work With <br className="hidden sm:block" />
                   <span className="text-[#89CFF0]">Star Cleaning.</span>
               </h1>
-              <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium">
+              <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium mb-8">
                   18 years serving the Lowcountry. Stable schedule, competitive pay.
               </p>
+              
+              <div className="hidden lg:block w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border border-white/10 mt-12 relative">
+                  <div className="absolute inset-0 bg-blue-600/20 mix-blend-overlay z-10 pointer-events-none"></div>
+                  <Image 
+                    src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=1080&q=80" 
+                    alt="Happy Cleaner Team" 
+                    width={600} 
+                    height={400} 
+                    className="w-full h-[280px] object-cover hover:scale-105 transition-transform duration-700"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent p-6 z-20">
+                      <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white shadow-lg">
+                              <i className="fas fa-check"></i>
+                          </div>
+                          <div>
+                              <p className="text-white font-bold whitespace-nowrap">Join Our Team</p>
+                              <p className="text-blue-200 text-xs font-medium">Apply in 2 minutes</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
             </div>
 
             {/* Right Content (Form) */}
