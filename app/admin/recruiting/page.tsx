@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { fetchLeads, clearAllLeads } from '../actions';
+import { supabase } from '@/lib/supabase';
 
 const tVal = (val: string | undefined | null) => {
   if (!val) return 'N/A';
@@ -38,7 +38,18 @@ export default function RecruitingDashboard() {
   const performFetch = async (currentPin: string) => {
     setIsLoading(true);
     try {
-      const data = await fetchLeads(currentPin);
+      const validPins = ['7827', 'star20'];
+      if (!validPins.includes(currentPin)) {
+        throw new Error('PIN Inválido');
+      }
+
+      const { data, error } = await supabase
+        .from('job_applications')
+        .select('*')
+        .order('created_at', { ascending: false });
+        
+      if (error) throw new Error(error.message);
+
       setApplicants(data || []);
       setIsAuthenticated(true);
       setError('');
@@ -62,12 +73,24 @@ export default function RecruitingDashboard() {
 
     try {
       setIsLoading(true);
-      await clearAllLeads(pin);
+      
+      const validPins = ['7827', 'star20'];
+      if (!validPins.includes(pin)) {
+        throw new Error('PIN Inválido');
+      }
+
+      const { error } = await supabase
+        .from('job_applications')
+        .delete()
+        .gte('qualification_score', -1);
+        
+      if (error) throw new Error(error.message);
+
       setApplicants([]);
       setSelectedApplicant(null);
     } catch (err) {
       console.error("Error clearing applicants:", err);
-      alert("Erro ao limpar a lista. Verifique as permissões.");
+      alert("Erro ao limpar a lista. Talvez restrições de permissão estejam ativas no Supabase.");
     } finally {
       setIsLoading(false);
     }

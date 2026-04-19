@@ -28,40 +28,43 @@ export default function CareersPage() {
         fbq('track', 'PageView');
         `}
       </Script>
-      <Script id="meta-pixel-noscript" strategy="afterInteractive">
-        {`<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2259353031142127&ev=PageView&noscript=1" /></noscript>`}
-      </Script>
+      <noscript>
+        <img height="1" width="1" style={{display: 'none'}} src="https://www.facebook.com/tr?id=2259353031142127&ev=PageView&noscript=1" alt="" />
+      </noscript>
       {/* End Meta Pixel Code */}
 
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-24 pb-20 lg:pt-28 lg:pb-28 overflow-hidden bg-slate-900 text-white min-h-[90vh] flex items-start">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
-            alt="Cleaning Background"
-            fill
-            className="object-cover opacity-20"
-            referrerPolicy="no-referrer"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/80 to-slate-900" />
+      <section className="relative pt-16 pb-16 lg:pt-20 lg:pb-20 overflow-hidden bg-slate-900 text-white min-h-[90vh] flex items-start">
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            poster="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
+            className="w-full h-full object-cover object-center opacity-40"
+          >
+            <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/30 via-slate-900/50 to-slate-900" />
         </div>
         
         <div className="container mx-auto px-4 relative z-10 max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-start">
               
             {/* Left Content (Text) */}
-            <div className="lg:col-span-5 text-center lg:text-left space-y-4">
+            <div className="lg:col-span-5 text-center lg:text-left">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-2 font-heading tracking-tight leading-tight drop-shadow-lg">
                   Work With <br className="hidden sm:block" />
                   <span className="text-[#89CFF0]">Star Cleaning.</span>
               </h1>
-              <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium mb-8">
+              <p className="text-lg md:text-xl text-slate-200 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium mb-6 mt-2">
                   18 years serving the Lowcountry. Stable schedule, competitive pay.
               </p>
               
-              <div className="hidden lg:block w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border border-white/10 mt-12 relative">
+              <div className="hidden lg:block w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border border-white/10 mt-8 relative">
                   <div className="absolute inset-0 bg-blue-600/20 mix-blend-overlay z-10 pointer-events-none"></div>
                   <Image 
                     src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=1080&q=80" 
@@ -86,7 +89,7 @@ export default function CareersPage() {
             </div>
 
             {/* Right Content (Form) */}
-            <div className="lg:col-span-7 w-full max-w-lg mx-auto lg:mx-0 lg:ml-auto mt-6 lg:mt-0 relative z-20">
+            <div className="lg:col-span-7 w-full max-w-lg mx-auto lg:mx-0 lg:ml-auto mt-4 lg:mt-0 relative z-20">
               <CareersForm />
             </div>
           </div>
