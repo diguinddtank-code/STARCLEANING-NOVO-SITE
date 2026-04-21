@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow, isToday } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { supabase } from '@/lib/supabase';
 
@@ -32,7 +32,7 @@ export default function RecruitingDashboard() {
   const [applicants, setApplicants] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   
-  const [activeTab, setActiveTab] = useState<'all' | 'top' | 'needs_review'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'top' | 'needs_review' | 'today'>('all');
   const [selectedApplicant, setSelectedApplicant] = useState<any | null>(null);
 
   const performFetch = async (currentPin: string) => {
@@ -138,8 +138,10 @@ export default function RecruitingDashboard() {
 
   const avgScore = applicants.length > 0 ? Math.round(applicants.reduce((acc, curr) => acc + (curr.qualification_score || 0), 0) / applicants.length) : 0;
   const topCandidatesNum = applicants.filter(a => a.qualification_score >= 80).length;
+  const todayCandidatesNum = applicants.filter(a => a.created_at && isToday(new Date(a.created_at))).length;
 
   const filteredApplicants = applicants.filter(app => {
+    if (activeTab === 'today') return app.created_at && isToday(new Date(app.created_at));
     if (activeTab === 'top') return app.qualification_score >= 80;
     if (activeTab === 'needs_review') return app.qualification_score < 80 && app.qualification_score >= 50;
     return true;
@@ -207,6 +209,12 @@ export default function RecruitingDashboard() {
             Todos os Leads ({applicants.length})
           </button>
           <button 
+            onClick={() => setActiveTab('today')}
+            className={`px-5 py-2.5 rounded-full font-bold text-sm whitespace-nowrap transition-all flex items-center gap-2 ${activeTab === 'today' ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-gray-600 border border-gray-200 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200'}`}
+          >
+            <i className="fas fa-calendar-day text-xs"></i> Hoje ({todayCandidatesNum})
+          </button>
+          <button 
             onClick={() => setActiveTab('top')}
             className={`px-5 py-2.5 rounded-full font-bold text-sm whitespace-nowrap transition-all flex items-center gap-2 ${activeTab === 'top' ? 'bg-green-500 text-white shadow-md' : 'bg-white text-gray-600 border border-gray-200 hover:bg-green-50 hover:text-green-600 hover:border-green-200'}`}
           >
@@ -239,9 +247,16 @@ export default function RecruitingDashboard() {
             {filteredApplicants.map((app) => (
               <div key={app.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow flex flex-col">
                 <div className="p-5 border-b border-gray-50 flex justify-between items-start">
-                  <div>
-                    <h3 className="font-bold text-gray-900 text-lg truncate pr-2" title={app.full_name}>{app.full_name || 'N/A'}</h3>
-                    <p className="text-xs text-gray-500 mt-1 flex items-center gap-1.5"><i className="fas fa-map-marker-alt"></i> {app.city || 'Desconhecida'}</p>
+                  <div className="flex-1 min-w-0 pr-2">
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                      <h3 className="font-bold text-gray-900 text-lg truncate" title={app.full_name}>{app.full_name || 'N/A'}</h3>
+                      {app.created_at && isToday(new Date(app.created_at)) && (
+                        <span className="px-2 py-0.5 bg-blue-600 text-white text-[10px] font-bold tracking-widest uppercase rounded-full animate-pulse whitespace-nowrap shadow-sm shadow-blue-500/20">
+                          Novo Hoje
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs text-gray-500 flex items-center gap-1.5"><i className="fas fa-map-marker-alt"></i> {app.city || 'Desconhecida'}</p>
                   </div>
                   <div className={`shrink-0 flex items-center justify-center w-12 h-12 rounded-full font-black text-lg shadow-inner ${
                     app.qualification_score >= 80 ? 'bg-green-100 text-green-700' : 
