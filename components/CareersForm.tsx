@@ -242,6 +242,19 @@ export default function CareersForm({
     try {
       const qualificationScore = calculateScore(formData);
 
+      // Track Meta Pixel Lead event FIRST, ensure nothing blocks it
+      try {
+        if (typeof window !== 'undefined' && typeof (window as any).fbq === 'function') {
+          (window as any).fbq('track', 'Lead', {
+            content_name: 'Job Application',
+            value: qualificationScore,
+            currency: 'USD'
+          });
+        }
+      } catch (err) {
+        console.error("Meta Pixel tracking failed", err);
+      }
+
       // Add to Supabase
       const { error: supabaseError } = await supabase
         .from('job_applications')
@@ -263,33 +276,30 @@ export default function CareersForm({
         }]);
 
       if (supabaseError) {
-        console.error("Error saving to Supabase:", supabaseError);
+        console.error("Error saving to Supabase (Check RLS Policies):", supabaseError);
         // Continue even if Supabase fails so n8n can still try
       }
 
       // Send to n8n Webhook
-      await fetch('https://n8n.infra-remakingautomacoes.cloud/webhook-test/sce', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          language: lang,
-          qualificationScore,
-          source: 'careers_page'
-        }),
-      });
-
-      // Track Meta Pixel Lead event
-      if (typeof window !== 'undefined' && (window as any).fbq) {
-        (window as any).fbq('track', 'Lead', {
-          content_name: 'Job Application',
-          value: qualificationScore,
-          currency: 'USD'
+      try {
+        // NOTE: webhook-test in n8n only works when you are actively listening on the n8n interface.
+        // Change to /webhook/ instead of /webhook-test/ for production!
+        await fetch('https://n8n.infra-remakingautomacoes.cloud/webhook-test/sce', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...formData,
+            language: lang,
+            qualificationScore,
+            source: 'careers_page'
+          }),
         });
+      } catch (webhookErr) {
+        console.error("Webhook submission failed:", webhookErr);
       }
-      
+
     } catch (error) {
       console.error('Error submitting application:', error);
     } finally {

@@ -96,6 +96,28 @@ export default function RecruitingDashboard() {
     }
   };
 
+  const handleDeleteApplicant = async (id: number) => {
+    const isConfirmed = window.confirm("Tem certeza que deseja apagar este candidato?");
+    if (!isConfirmed) return;
+
+    try {
+      const { error } = await supabase
+        .from('job_applications')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw new Error(error.message);
+
+      setApplicants(prev => prev.filter(a => a.id !== id));
+      if (selectedApplicant?.id === id) {
+        setSelectedApplicant(null);
+      }
+    } catch (err) {
+      console.error("Error deleting applicant:", err);
+      alert("Erro ao apagar. Verifique sua conexão e permissões.");
+    }
+  };
+
   const getWaLink = (phone: string) => {
     if (!phone) return '#';
     // Mantenha apenas números
@@ -285,10 +307,10 @@ export default function RecruitingDashboard() {
                   </div>
                 </div>
                 
-                <div className="p-4 bg-gray-50 border-t border-gray-100 grid grid-cols-2 gap-3 mt-auto">
+                <div className="p-4 bg-gray-50 border-t border-gray-100 flex gap-2 mt-auto">
                     <button 
                       onClick={() => setSelectedApplicant(app)}
-                      className="py-2.5 bg-white border border-gray-200 text-gray-700 font-bold text-sm rounded-xl hover:bg-gray-100 transition-colors"
+                      className="flex-1 py-2.5 bg-white border border-gray-200 text-gray-700 font-bold text-sm rounded-xl hover:bg-gray-100 transition-colors"
                     >
                       Ver Detalhes
                     </button>
@@ -296,10 +318,17 @@ export default function RecruitingDashboard() {
                       href={getWaLink(app.phone)} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="py-2.5 bg-[#25D366] text-white font-bold text-sm rounded-xl hover:bg-[#1ebd5a] transition-colors flex items-center justify-center gap-2 shadow-sm shadow-green-600/20"
+                      className="flex-1 py-2.5 bg-[#25D366] text-white font-bold text-sm rounded-xl hover:bg-[#1ebd5a] transition-colors flex items-center justify-center gap-2 shadow-sm shadow-green-600/20"
                     >
                       <i className="fab fa-whatsapp text-lg"></i> Chamar
                     </a>
+                    <button 
+                      onClick={() => handleDeleteApplicant(app.id)}
+                      className="px-3 bg-red-50 text-red-600 font-bold text-sm rounded-xl hover:bg-red-100 transition-colors border border-red-100 flex items-center justify-center shrink-0"
+                      title="Apagar Candidato"
+                    >
+                      <i className="fas fa-trash-alt"></i>
+                    </button>
                 </div>
               </div>
             ))}
@@ -380,13 +409,26 @@ export default function RecruitingDashboard() {
             </div>
             
             <div className="p-6 bg-gray-50 border-t border-gray-100 flex gap-4 sticky bottom-0">
+               <button 
+                  onClick={() => handleDeleteApplicant(selectedApplicant.id)}
+                  className="px-6 py-3 bg-red-50 text-red-600 font-bold rounded-xl hover:bg-red-100 transition-colors border border-red-100 flex items-center justify-center gap-2 shrink-0 hidden sm:flex"
+                >
+                  <i className="fas fa-trash-alt"></i> Apagar
+                </button>
+               <button 
+                  onClick={() => handleDeleteApplicant(selectedApplicant.id)}
+                  className="w-12 h-12 bg-red-50 text-red-600 font-bold rounded-xl hover:bg-red-100 transition-colors border border-red-100 flex items-center justify-center shrink-0 sm:hidden"
+                  title="Apagar Candidato"
+                >
+                  <i className="fas fa-trash-alt"></i>
+                </button>
                <a 
                   href={getWaLink(selectedApplicant.phone)} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex-1 py-3 bg-[#25D366] text-white font-bold text-center rounded-xl hover:bg-[#1ebd5a] transition-colors shadow-lg shadow-green-600/20"
+                  className="flex-1 py-3 bg-[#25D366] text-white font-bold text-center rounded-xl hover:bg-[#1ebd5a] transition-colors shadow-lg shadow-green-600/20 flex items-center justify-center"
                 >
-                  <i className="fab fa-whatsapp text-xl mr-2 align-middle"></i> Abrir Conversa no WhatsApp
+                  <i className="fab fa-whatsapp text-xl mr-2"></i> Chamar
                 </a>
             </div>
           </div>

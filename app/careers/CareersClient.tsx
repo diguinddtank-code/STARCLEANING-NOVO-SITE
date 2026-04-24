@@ -71,8 +71,7 @@ export default function CareersClient() {
   return (
     <main className="min-h-screen bg-white font-sans selection:bg-yellow-200 selection:text-star-blue">
       {/* Meta Pixel Code */}
-      <Script id="meta-pixel" strategy="afterInteractive">
-        {`
+      <Script id="meta-pixel" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
         n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -83,8 +82,7 @@ export default function CareersClient() {
         'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '2259353031142127');
         fbq('track', 'PageView');
-        `}
-      </Script>
+      ` }} />
       <noscript>
         <img height="1" width="1" style={{display: 'none'}} src="https://www.facebook.com/tr?id=2259353031142127&ev=PageView&noscript=1" alt="" />
       </noscript>
