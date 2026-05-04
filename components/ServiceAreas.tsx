@@ -33,67 +33,78 @@ const ServiceAreas: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             
             {/* Map Column */}
-            <div className="w-full h-[300px] lg:h-[400px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white relative z-10 group bg-gray-100 cursor-crosshair">
+            <div className="w-full h-[300px] lg:h-[400px] rounded-3xl overflow-hidden shadow-2xl relative z-10 group bg-gray-100">
                 <iframe 
-                    src="https://maps.google.com/maps?q=Star%20Cleaning%20SC,%20Charleston,%20SC&t=&z=10&ie=UTF8&iwloc=&output=embed" 
+                    src="https://maps.google.com/maps?q=32.94,-80.04&t=&z=10&ie=UTF8&iwloc=&output=embed" 
                     width="100%" 
                     height="100%" 
                     style={{ border: 0 }} 
                     allowFullScreen={true} 
                     loading="lazy" 
                     referrerPolicy="no-referrer-when-downgrade"
-                    className="grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out pointer-events-none w-full h-full"
+                    className="w-full h-full"
                     title="Star Cleaning Service Area Map"
                 ></iframe>
                 
                 {/* Fake Client Pins Overlay */}
                 <div className="absolute inset-0 pointer-events-none">
-                    {/* Client 1 */}
-                    <div className="absolute top-[35%] left-[30%] flex flex-col items-center">
-                        <div className="bg-white px-2 py-1 rounded-md shadow-md text-[8px] font-bold text-gray-600 mb-1 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-                            Cleaning now...
+                    {/* Client 1 Review */}
+                    <div className="absolute top-[25%] left-[20%] flex flex-col items-center">
+                        <div className="bg-white px-3 py-2 rounded-xl shadow-xl border border-gray-100 text-[10px] text-gray-700 mb-1.5 transition-all duration-300 max-w-[140px] animate-fade-in-up">
+                            <div className="flex gap-0.5 text-yellow-400 mb-0.5">
+                                <i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i>
+                            </div>
+                            <span className="font-bold block">"Impeccable!"</span>
+                            <span className="text-[9px] text-gray-500">- Sarah, Summerville</span>
                         </div>
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-blue-400 rounded-full animate-ping opacity-75"></div>
-                            <div className="relative w-4 h-4 bg-blue-500 border-2 border-white rounded-full shadow-md"></div>
+                        <div className="relative flex justify-center items-center">
+                            <div className="absolute w-8 h-8 bg-blue-400 rounded-full animate-ping opacity-40"></div>
+                            <div className="relative w-5 h-5 bg-blue-600 border-2 border-white rounded-full shadow-md flex items-center justify-center">
+                              <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                            </div>
                         </div>
                     </div>
 
-                    {/* Client 2 */}
-                    <div className="absolute top-[50%] right-[25%] flex flex-col items-center">
-                        <div className="bg-white px-2 py-1 rounded-md shadow-md text-[8px] font-bold text-gray-600 mb-1 opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100 translate-y-2 group-hover:translate-y-0">
-                            Scheduled
+                    {/* Client 2 Area */}
+                    <div className="absolute top-[45%] right-[15%] flex flex-col items-center">
+                        <div className="bg-white px-3 py-1.5 rounded-lg shadow-xl border border-gray-100 text-[10px] font-bold text-gray-700 mb-1 flex items-center gap-1.5 whitespace-nowrap animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+                            <i className="fas fa-map-pin text-green-500 text-[9px]"></i> Cliente Star Cleaning
                         </div>
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-green-400 rounded-full animate-ping opacity-75" style={{ animationDelay: '0.5s' }}></div>
-                            <div className="relative w-3 h-3 bg-green-500 border-2 border-white rounded-full shadow-md"></div>
+                        <div className="relative flex justify-center items-center">
+                            <div className="absolute w-6 h-6 bg-green-400 rounded-full animate-ping opacity-40" style={{ animationDelay: '0.5s' }}></div>
+                            <div className="relative w-4 h-4 bg-green-500 border-2 border-white rounded-full shadow-md flex items-center justify-center"></div>
                         </div>
                     </div>
 
                     {/* Client 3 */}
-                    <div className="absolute bottom-[30%] left-[45%] flex flex-col items-center">
-                        <div className="bg-white px-2 py-1 rounded-md shadow-md text-[8px] font-bold text-gray-600 mb-1 opacity-0 group-hover:opacity-100 transition-all duration-300 delay-200 translate-y-2 group-hover:translate-y-0">
-                            Finished
+                    <div className="absolute bottom-[35%] left-[35%] flex flex-col items-center">
+                        <div className="bg-white px-3 py-1.5 rounded-lg shadow-xl border border-gray-100 text-[10px] font-bold text-gray-700 mb-1 flex items-center gap-2 whitespace-nowrap animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+                            <div className="flex -space-x-1">
+                                <div className="w-4 h-4 rounded-full bg-blue-100 border border-white flex items-center justify-center"><i className="fas fa-user text-[7px] text-blue-600"></i></div>
+                            </div>
+                            <span>Área de Cobertura</span>
                         </div>
-                        <div className="relative">
-                            <div className="relative w-3.5 h-3.5 bg-gray-400 border-2 border-white rounded-full shadow-md"></div>
-                        </div>
-                    </div>
-                    
-                    {/* Client 4 */}
-                    <div className="absolute top-[20%] right-[40%] flex flex-col items-center">
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-blue-400 rounded-full animate-ping opacity-75" style={{ animationDelay: '1.2s' }}></div>
-                            <div className="relative w-3 h-3 bg-blue-500 border-2 border-white rounded-full shadow-md"></div>
+                        <div className="relative flex justify-center items-center">
+                            <div className="relative w-3.5 h-3.5 bg-star-blue border-2 border-white rounded-full shadow-md"></div>
                         </div>
                     </div>
                 </div>
 
                 {/* Overlay Badge */}
-                <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-lg border border-gray-100 pointer-events-none">
-                    <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                        <span className="text-xs font-bold text-gray-800">Live Coverage Area</span>
+                <div className="absolute bottom-4 left-4 right-4 sm:right-auto bg-white/95 backdrop-blur-md px-4 py-3 rounded-2xl shadow-xl border border-gray-100 pointer-events-none flex items-center justify-between sm:justify-start gap-4 transition-transform duration-300 group-hover:-translate-y-1">
+                    <div className="flex items-center gap-3">
+                        <div className="relative flex h-3 w-3">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-xs font-black text-gray-900 leading-none">Live Coverage Area</span>
+                          <span className="text-[10px] text-gray-500 font-medium mt-0.5">Charleston & Summerville</span>
+                        </div>
+                    </div>
+                    <div className="flex -space-x-2">
+                      <div className="w-6 h-6 rounded-full border-2 border-white bg-blue-100 flex items-center justify-center z-20 shadow-sm"><i className="fas fa-truck text-[8px] text-blue-600"></i></div>
+                      <div className="w-6 h-6 rounded-full border-2 border-white bg-green-100 flex items-center justify-center z-10 shadow-sm"><i className="fas fa-broom text-[8px] text-green-600"></i></div>
                     </div>
                 </div>
             </div>
