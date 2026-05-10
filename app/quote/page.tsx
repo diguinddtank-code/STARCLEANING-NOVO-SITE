@@ -48,12 +48,13 @@ const QuoteLanding = () => {
             <div className="w-full flex justify-between items-center mb-6 mt-2 px-2 sm:px-0">
                 <Link href="/" className="inline-block hover:opacity-90 transition-opacity relative h-10 md:h-14 w-36 md:w-48">
                     <Image 
-                        src="/images/logo.png" 
+                        src="https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95" 
                         alt="Star Cleaning" 
                         fill
                         priority
                         sizes="(max-width: 768px) 144px, 192px"
                         className="object-contain brightness-0 invert" 
+                        referrerPolicy="no-referrer"
                     />
                 </Link>
                 <a href="tel:8432979935" className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors shadow-lg backdrop-blur-sm">
@@ -84,7 +85,7 @@ const QuoteLanding = () => {
 
             {/* The Form Component - Wider, Less Margin, Slide Up */}
             <div className="w-full animate-slide-up-fade" style={{ animationDuration: '0.8s' }}>
-                <BookingForm hideSidebar={true} variant="glass" />
+                <BookingForm hideSidebar={true} variant="glass" showPricing={false} showScheduling={false} />
                 
                 {/* Trust Badges Below Form */}
                 <div className="flex flex-col items-center justify-center gap-2 mt-6">

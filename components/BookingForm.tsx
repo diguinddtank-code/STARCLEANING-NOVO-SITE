@@ -8,6 +8,8 @@ interface BookingFormProps {
   initialData?: any;
   variant?: 'default' | 'full' | 'glass';
   hideSidebar?: boolean;
+  showPricing?: boolean;
+  showScheduling?: boolean;
 }
 
 // STANDARD OPERATING HOURS
@@ -48,7 +50,13 @@ const ServiceOption = ({ selected, onClick, icon, title, subtitle, badge, badgeC
     </div>
 );
 
-const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'default', hideSidebar = false }) => {
+const BookingForm: React.FC<BookingFormProps> = ({ 
+  initialData, 
+  variant = 'default', 
+  hideSidebar = false,
+  showPricing = true,
+  showScheduling = true
+}) => {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -401,7 +409,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
     if (window.fbq) {
         window.fbq('track', 'Lead', {
             content_name: 'Quote Generated',
-            value: recurringMin, // Using the minimum recurring price as value
+            value: showPricing ? parseFloat(recurringMin) : 0, 
             currency: 'USD'
         });
     }
@@ -413,7 +421,12 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
     setShowLockPopup(true);
     setTimeout(() => {
         setShowLockPopup(false);
-        setStep(4); 
+        if (showScheduling) {
+            setStep(4);
+        } else {
+            // If no scheduling, go to a final "Thank You" or stay on 4 but with "Form Submitted"
+            setStep(4);
+        }
     }, 1500);
   };
 
@@ -529,7 +542,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                       
                       {/* Step Indicator */}
                       <div className="bg-blue-950/40 px-2 py-1 rounded text-[9px] font-bold uppercase tracking-widest text-white">
-                          Step {step}/4
+                          Step {step}/{showScheduling ? 5 : 4}
                       </div>
                   </div>
 
@@ -541,7 +554,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                       <motion.div 
                           className="h-full bg-yellow-400 rounded-full shadow-[0_0_10px_rgba(250,204,21,0.5)]"
                           initial={{ width: 0 }}
-                          animate={{ width: `${(step / 4) * 100}%` }}
+                          animate={{ width: `${(step / (showScheduling ? 5 : 4)) * 100}%` }}
                           transition={{ duration: 0.5, ease: "easeInOut" }}
                       />
                   </div>
@@ -558,7 +571,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                     {step === 1 && "Let's get in touch"}
                     {step === 2 && "Tell us about your home"}
                     {step === 3 && "Choose your service"}
-                    {step === 4 && "Your estimated price"}
+                    {step === 4 && (showPricing ? "Your estimated price" : "Quote Request Received")}
                     {step === 5 && "Schedule your walkthrough"}
                 </h3>
             </div>
@@ -787,7 +800,11 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                                           <p className="text-[10px] text-gray-500 mt-0.5">Thorough top-to-bottom detail.</p>
                                       </div>
                                       <div className="text-left sm:text-right mt-1 sm:mt-0">
-                                          <div className="text-lg sm:text-xl font-black text-gray-900 whitespace-nowrap">${initialMin} - ${initialMax}</div>
+                                          {showPricing ? (
+                                              <div className="text-lg sm:text-xl font-black text-gray-900 whitespace-nowrap">${initialMin} - ${initialMax}</div>
+                                          ) : (
+                                              <div className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">Quote Reserved</div>
+                                          )}
                                       </div>
                                   </div>
 
@@ -804,8 +821,14 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                                                   <p className="text-[10px] text-gray-500 mt-0.5">Keep your home fresh & clean.</p>
                                               </div>
                                               <div className="text-left sm:text-right mt-1 sm:mt-0">
-                                                  <div className="text-lg sm:text-xl font-black text-blue-900 whitespace-nowrap">${recurringMin} - ${recurringMax}</div>
-                                                  <div className="text-[9px] font-bold text-green-600">Save ${recurringSavings}/visit</div>
+                                                  {showPricing ? (
+                                                      <>
+                                                          <div className="text-lg sm:text-xl font-black text-blue-900 whitespace-nowrap">${recurringMin} - ${recurringMax}</div>
+                                                          <div className="text-[9px] font-bold text-green-600">Save ${recurringSavings}/visit</div>
+                                                      </>
+                                                  ) : (
+                                                      <div className="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded">Discount Applied</div>
+                                                  )}
                                               </div>
                                           </div>
                                       </>
@@ -828,35 +851,55 @@ const BookingForm: React.FC<BookingFormProps> = ({ initialData, variant = 'defau
                               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-500 text-3xl mx-auto mb-4 animate-bounce">
                                   <i className="fas fa-file-invoice-dollar"></i>
                               </div>
-                              <h3 className="text-xl font-black text-gray-900 mb-1">Quote Saved!</h3>
+                              <h3 className="text-xl font-black text-gray-900 mb-1">{showPricing ? "Quote Saved!" : "Request Received!"}</h3>
                               <div className="text-sm text-gray-600">
-                                 <span className="block font-bold">Range: ${initialMin} - ${initialMax}</span>
+                                 {showPricing && <span className="block font-bold">Range: ${initialMin} - ${initialMax}</span>}
+                                 {!showPricing && <span className="block font-bold text-green-600">Our team will contact you shortly.</span>}
                               </div>
                           </div>
 
                           <div className="text-center">
-                              <p className="text-sm text-gray-500 mb-6 max-w-sm mx-auto">
-                                  Schedule a quick 15-min walkthrough to lock in your exact price.
-                              </p>
-                              
-                              <div className="flex flex-col gap-3">
-                                  <button 
-                                    type="button"
-                                    onClick={() => setStep(5)}
-                                    className="w-full bg-gradient-to-r from-[#00b4db] to-[#0083b0] text-white font-black py-4 rounded-xl shadow-lg shadow-blue-200 transform hover:-translate-y-0.5 active:scale-95 transition-all duration-200 flex justify-center items-center gap-3 text-lg group touch-manipulation"
-                                  >
-                                      <span>See Availability</span>
-                                      <i className="fas fa-calendar-alt group-hover:rotate-12 transition-transform"></i>
-                                  </button>
+                              {showScheduling && (
+                                  <>
+                                      <p className="text-sm text-gray-500 mb-6 max-w-sm mx-auto">
+                                          Schedule a quick 15-min walkthrough to lock in your exact price.
+                                      </p>
+                                      
+                                      <div className="flex flex-col gap-3">
+                                          <button 
+                                            type="button"
+                                            onClick={() => setStep(5)}
+                                            className="w-full bg-gradient-to-r from-[#00b4db] to-[#0083b0] text-white font-black py-4 rounded-xl shadow-lg shadow-blue-200 transform hover:-translate-y-0.5 active:scale-95 transition-all duration-200 flex justify-center items-center gap-3 text-lg group touch-manipulation"
+                                          >
+                                              <span>See Availability</span>
+                                              <i className="fas fa-calendar-alt group-hover:rotate-12 transition-transform"></i>
+                                          </button>
 
-                                  <button 
-                                    type="button"
-                                    onClick={handleSkipScheduling}
-                                    className="text-gray-400 hover:text-gray-600 font-bold text-xs py-2 underline decoration-gray-300 hover:decoration-gray-500 transition-all touch-manipulation"
-                                  >
-                                      No thanks, just email me the quote
-                                  </button>
-                              </div>
+                                          <button 
+                                            type="button"
+                                            onClick={handleSkipScheduling}
+                                            className="text-gray-400 hover:text-gray-600 font-bold text-xs py-2 underline decoration-gray-300 hover:decoration-gray-500 transition-all touch-manipulation"
+                                          >
+                                              No thanks, just email me the quote
+                                          </button>
+                                      </div>
+                                  </>
+                              )}
+                              
+                              {!showScheduling && (
+                                  <div className="flex flex-col gap-4">
+                                      <p className="text-sm font-medium text-gray-600">
+                                          Your request has been saved. We'll be in touch with you at <span className="text-blue-600 font-bold">{formData.phone}</span> within the next business hour.
+                                      </p>
+                                      <button 
+                                          type="button"
+                                          onClick={resetForm}
+                                          className="w-full bg-blue-900 text-white font-bold py-4 rounded-xl shadow-lg active:scale-95 transition-all"
+                                      >
+                                          Go Back to Home
+                                      </button>
+                                  </div>
+                              )}
                           </div>
                       </div>
                   )}
