@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "How Much Does Move-Out Cleaning Cost in Summerville, SC?",
   description: "Wondering about move out cleaning cost in Summerville, SC? Get an honest breakdown of pricing, what's included, and why hiring professionals saves you money.",
   alternates: {
-    canonical: "https://starcleaningsc.com/blog/move-out-cleaning-cost-summerville-sc/",
+    canonical: "https://www.starcleaningsc.com/blog/move-out-cleaning-cost-summerville-sc/",
   }
 };
 
@@ -26,14 +26,14 @@ const BlogPost2 = () => {
       "name": "Star Cleaning SC",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://starcleaningsc.com/images/logo.png"
+        "url": "https://www.starcleaningsc.com/images/logo.png"
       }
     },
     "datePublished": "2026-02-10",
     "dateModified": "2026-02-10",
     "description": "Wondering about move out cleaning cost in Summerville, SC? Get an honest breakdown of pricing, what's included, and why hiring professionals saves you money.",
-    "url": "https://starcleaningsc.com/blog/move-out-cleaning-cost-summerville-sc/",
-    "mainEntityOfPage": "https://starcleaningsc.com/blog/move-out-cleaning-cost-summerville-sc/",
+    "url": "https://www.starcleaningsc.com/blog/move-out-cleaning-cost-summerville-sc/",
+    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/move-out-cleaning-cost-summerville-sc/",
     "keywords": "move out cleaning cost summerville sc, move out cleaning prices, apartment move out cleaning cost, end of lease cleaning summerville",
     "articleSection": "Cleaning Tips"
   };

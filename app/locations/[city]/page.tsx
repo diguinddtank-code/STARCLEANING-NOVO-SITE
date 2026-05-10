@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
     title: data.metaTitle,
     description: data.metaDescription,
     alternates: {
-      canonical: `https://starcleaningsc.com/locations/${data.slug}`,
+      canonical: `https://www.starcleaningsc.com/locations/${data.slug}`,
     },
   };
 }
@@ -404,9 +404,9 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
             "@context": "https://schema.org",
             "@type": "HouseCleaning",
             "name": "Star Cleaning SC",
-            "image": "https://starcleaningsc.com/star-cleaning-sc.jpg",
-            "@id": `https://starcleaningsc.com/locations/${data.slug}`,
-            "url": `https://starcleaningsc.com/locations/${data.slug}`,
+            "image": "https://www.starcleaningsc.com/star-cleaning-sc.jpg",
+            "@id": `https://www.starcleaningsc.com/locations/${data.slug}`,
+            "url": `https://www.starcleaningsc.com/locations/${data.slug}`,
             "telephone": "+18432979935",
             "priceRange": "$$",
             "areaServed": {

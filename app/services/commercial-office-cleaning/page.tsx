@@ -7,7 +7,7 @@ export const metadata = {
   title: 'Commercial & Office Cleaning Services in Charleston, SC | Star Cleaning SC',
   description: 'Professional commercial and office cleaning in Charleston, SC. Veteran-owned, reliable, and thorough cleaning for your business. Get a free quote today!',
   alternates: {
-    canonical: 'https://starcleaningsc.com/services/commercial-office-cleaning',
+    canonical: 'https://www.starcleaningsc.com/services/commercial-office-cleaning',
   }
 };
 
@@ -23,7 +23,7 @@ export default function CommercialCleaningPage() {
             "@type": "LocalBusiness",
             "name": "Star Cleaning SC",
             "telephone": "(843) 297-9935",
-            "url": "https://starcleaningsc.com"
+            "url": "https://www.starcleaningsc.com"
           },
           "areaServed": ["Charleston, SC", "North Charleston, SC", "Summerville, SC"],
           "description": "Expert commercial and office cleaning services in Charleston, SC.",

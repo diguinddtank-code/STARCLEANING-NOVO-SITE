@@ -22,7 +22,7 @@ const dancingScript = Dancing_Script({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://starcleaningsc.com"),
+  metadataBase: new URL("https://www.starcleaningsc.com"),
   title: "Star Cleaning SC - Charleston's #1 Rated Cleaning Service",
   description: "Reclaim your weekends with Star Cleaning SC. 5-star rated, 100% guaranteed house cleaning services in Charleston, SC and surrounding areas.",
   keywords: "house cleaning Charleston, maid service Charleston SC, deep cleaning, move in cleaning, move out cleaning, Star Cleaning SC, professional cleaners",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Star Cleaning SC - Charleston's Premier Cleaning Service",
     description: "5-star rated, 100% guaranteed house cleaning services in Charleston, SC. Book your clean today and reclaim your weekends!",
-    url: "https://starcleaningsc.com",
+    url: "https://www.starcleaningsc.com",
     siteName: "Star Cleaning SC",
     locale: "en_US",
     type: "website",
@@ -55,15 +55,15 @@ export default function RootLayout({
     "@graph": [
       {
         "@type": "WebSite",
-        "@id": "https://starcleaningsc.com/#website",
-        "url": "https://starcleaningsc.com",
+        "@id": "https://www.starcleaningsc.com/#website",
+        "url": "https://www.starcleaningsc.com",
         "name": "Star Cleaning SC",
         "alternateName": "Star Cleaning LLC",
         "description": "Charleston's #1 Rated Cleaning Service"
       },
       {
         "@type": "LocalBusiness",
-        "@id": "https://starcleaningsc.com/#localbusiness",
+        "@id": "https://www.starcleaningsc.com/#localbusiness",
         "name": "Star Cleaning SC",
         "image": "https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95",
         "description": "Professional house cleaning services in Charleston, SC.",
@@ -78,7 +78,7 @@ export default function RootLayout({
           "latitude": 32.7765,
           "longitude": -79.9311
         },
-        "url": "https://starcleaningsc.com",
+        "url": "https://www.starcleaningsc.com",
         "telephone": "+18432979935",
         "priceRange": "$$"
       }

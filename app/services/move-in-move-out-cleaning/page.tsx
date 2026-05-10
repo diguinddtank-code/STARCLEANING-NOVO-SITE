@@ -339,7 +339,7 @@ export default function MoveInMoveOutCleaning() {
               "@type": "LocalBusiness",
               "name": "Star Cleaning SC",
               "telephone": "(843) 297-9935",
-              "url": "https://starcleaningsc.com"
+              "url": "https://www.starcleaningsc.com"
             },
             "areaServed": [
               {"@type": "City", "name": "Charleston"},

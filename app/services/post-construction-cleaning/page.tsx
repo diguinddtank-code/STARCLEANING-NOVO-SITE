@@ -7,7 +7,7 @@ export const metadata = {
   title: 'Post-Construction Cleaning Services in Charleston, SC | Star Cleaning SC',
   description: 'Expert post-construction cleaning in Charleston, SC. We remove dust, debris, and prep your newly built or renovated space for move-in. Veteran-owned.',
   alternates: {
-    canonical: 'https://starcleaningsc.com/services/post-construction-cleaning',
+    canonical: 'https://www.starcleaningsc.com/services/post-construction-cleaning',
   }
 };
 
@@ -23,7 +23,7 @@ export default function PostConstructionCleaningPage() {
             "@type": "LocalBusiness",
             "name": "Star Cleaning SC",
             "telephone": "(843) 297-9935",
-            "url": "https://starcleaningsc.com"
+            "url": "https://www.starcleaningsc.com"
           },
           "areaServed": ["Charleston, SC", "North Charleston, SC", "Summerville, SC"],
           "description": "Expert post-construction cleaning in Charleston, SC. We remove dust, debris, and prep your newly built or renovated space for move-in.",
