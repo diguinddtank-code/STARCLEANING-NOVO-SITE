@@ -20,22 +20,15 @@ const QuoteLanding = () => {
       <section className="relative min-h-screen flex flex-col items-center pt-2 pb-12 overflow-hidden">
           {/* Video Background */}
           <div className="absolute inset-0 w-full h-full">
-            <Image
-              src="/images/hero-bg.jpg"
-              alt="Cleaning Background"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover object-center"
-            />
             <video 
                 autoPlay 
                 loop 
                 muted 
                 playsInline 
-                className="absolute inset-0 w-full h-full object-cover"
+                poster="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
+                className="absolute inset-0 w-full h-full object-cover object-center"
             >
-                <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" media="(min-width: 1024px)" />
+                <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
             </video>
           </div>
           
