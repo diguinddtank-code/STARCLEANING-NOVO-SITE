@@ -59,6 +59,12 @@ const Footer: React.FC = () => {
               <li><Link href="/locations/james-island/" className="hover:text-white transition-colors">James Island</Link></li>
               <li><Link href="/locations/daniel-island/" className="hover:text-white transition-colors">Daniel Island</Link></li>
             </ul>
+            <h4 className="text-white font-bold uppercase tracking-wider mt-6 mb-3 text-[10px] font-heading border-b border-white/10 pb-1 inline-block">Deep Clean SC</h4>
+            <ul className="space-y-2 text-xs font-light text-gray-400">
+              <li><Link href="/deep-cleaning-charleston-sc" className="hover:text-white transition-colors">✦ Charleston Deep Clean</Link></li>
+              <li><Link href="/deep-cleaning-summerville-sc" className="hover:text-white transition-colors">✦ Summerville Deep Clean</Link></li>
+              <li><Link href="/deep-cleaning-ladson-sc" className="hover:text-white transition-colors">✦ Ladson Deep Clean</Link></li>
+            </ul>
           </div>
 
           {/* COLUMN 4 — Contact & Info */}

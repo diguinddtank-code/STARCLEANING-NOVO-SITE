@@ -121,16 +121,23 @@ const ServiceAreas: React.FC = () => {
                     </p>
 
                     <div className="flex flex-wrap gap-2">
-                        {locations.map((city, idx) => (
-                            <a 
-                                key={idx} 
-                                href="#quote"
-                                className="px-3 py-1.5 bg-white text-gray-600 rounded-lg text-xs font-bold border border-gray-200 shadow-sm hover:border-star-blue hover:text-star-blue hover:shadow-md transition-all duration-200"
-                            >
-                                <i className="fas fa-map-pin text-[10px] mr-1 opacity-50"></i>
-                                {city}
-                            </a>
-                        ))}
+                        {locations.map((city, idx) => {
+                            let linkHref = "#quote";
+                            if (city === "Charleston") linkHref = "/deep-cleaning-charleston-sc";
+                            else if (city === "Summerville") linkHref = "/deep-cleaning-summerville-sc";
+                            else if (city === "Ladson") linkHref = "/deep-cleaning-ladson-sc";
+
+                            return (
+                                <a 
+                                    key={idx} 
+                                    href={linkHref}
+                                    className="px-3 py-1.5 bg-white text-gray-650 rounded-lg text-xs font-bold border border-gray-200 shadow-sm hover:border-star-blue hover:text-star-blue hover:shadow-md transition-all duration-200"
+                                >
+                                    <i className="fas fa-map-pin text-[10px] mr-1 opacity-50 text-blue-500"></i>
+                                    {city}
+                                </a>
+                            );
+                        })}
                     </div>
 
                     <div className="mt-8 pt-6 border-t border-blue-100 flex items-center justify-between">

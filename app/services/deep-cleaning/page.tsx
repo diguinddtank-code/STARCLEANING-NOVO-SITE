@@ -18,7 +18,7 @@ export default function DeepCleaning() {
       <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-900">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/95 to-slate-900/80 z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-[url('https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-overlay" />
+          <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-[url('https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80')] bg-cover bg-center opacity-40 mix-blend-overlay" />
         </div>
         
         <div className="container mx-auto px-4 relative z-20">
@@ -36,12 +36,12 @@ export default function DeepCleaning() {
                 Top-to-Bottom <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Deep Cleaning</span>
               </h1>
               
-              <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-sans">
                 Hit the reset button on your home's hygiene. Our veteran-owned team tackles grime, baseboards, and hidden dust with military precision.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start mb-10">
-                <Link href="/#quote" className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all duration-300 transform hover:-translate-y-1 shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2">
+                <Link href="/#quote" className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-50 text-white font-bold rounded-xl transition-all duration-300 transform hover:-translate-y-1 shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2">
                   Get a Free Estimate <ArrowRight className="w-5 h-5" />
                 </Link>
                 <a href="tel:8432979935" className="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-xl transition-all duration-300 border border-white/10 backdrop-blur-sm flex items-center justify-center">
@@ -81,7 +81,7 @@ export default function DeepCleaning() {
               <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-[2rem] blur-xl opacity-20 animate-pulse"></div>
               <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden transform lg:rotate-2 hover:rotate-0 transition-all duration-700 shadow-2xl border border-white/10">
                 <Image 
-                  src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=2070&auto=format&fit=crop" 
+                  src="https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80" 
                   alt="Sparkling clean bathroom after a deep clean" 
                   fill 
                   className="object-cover scale-105 hover:scale-100 transition-transform duration-700"
@@ -256,15 +256,46 @@ export default function DeepCleaning() {
         </div>
 
         {/* SERVICE AREA CALLOUT */}
-        <h2 className="text-3xl font-bold text-slate-900 mb-6">Serving All of Charleston & The Lowcountry</h2>
-        <p className="text-slate-600 mb-6 text-lg">We bring our meticulous deep cleaning services to neighborhoods across the entire Charleston metro area. No matter where you are, we are ready to serve.</p>
-        <div className="flex flex-wrap gap-3 mb-16">
-          <Link href="/locations/charleston" className="px-4 py-2 bg-white border border-slate-200 rounded-full text-blue-600 font-medium hover:bg-blue-50 transition-colors">Charleston</Link>
-          <Link href="/locations/north-charleston" className="px-4 py-2 bg-white border border-slate-200 rounded-full text-blue-600 font-medium hover:bg-blue-50 transition-colors">North Charleston</Link>
-          <Link href="/locations/ladson" className="px-4 py-2 bg-white border border-slate-200 rounded-full text-blue-600 font-medium hover:bg-blue-50 transition-colors">Ladson</Link>
-          <Link href="/locations/summerville" className="px-4 py-2 bg-white border border-slate-200 rounded-full text-blue-600 font-medium hover:bg-blue-50 transition-colors">Summerville</Link>
-          <Link href="/locations/james-island" className="px-4 py-2 bg-white border border-slate-200 rounded-full text-blue-600 font-medium hover:bg-blue-50 transition-colors">James Island</Link>
-          <Link href="/locations/daniel-island" className="px-4 py-2 bg-white border border-slate-200 rounded-full text-blue-600 font-medium hover:bg-blue-50 transition-colors">Daniel Island</Link>
+        <div className="my-20 p-8 md:p-12 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 text-white relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+          
+          <div className="relative z-10 max-w-3xl mb-12">
+            <span className="text-blue-400 font-bold uppercase tracking-wider text-xs mb-3 block flex items-center gap-2">
+              <MapPin className="w-4 h-4 shrink-0" /> Service Coverage Map
+            </span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4 font-heading">
+              Serving All of Charleston & The Lowcountry
+            </h2>
+            <p className="text-slate-300 text-base md:text-lg leading-relaxed">
+              We proudly bring our elite, veteran-owned deep cleaning services directly to your doorstep. Choose your neighborhood below to connect with our local precision teams:
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 relative z-10 mb-6">
+            {[
+              { name: "Charleston Deep Clean", url: "/deep-cleaning-charleston-sc", hover: "Historic Peninsula & Downtown Reset", zip: "29401" },
+              { name: "North Charleston", url: "/locations/north-charleston", hover: "Boeing, Tanger & Park Circle", zip: "29405" },
+              { name: "Summerville Deep Clean", url: "/deep-cleaning-summerville-sc", hover: "Flowertown & Nexton total reset", zip: "29483" },
+              { name: "Ladson Deep Clean", url: "/deep-cleaning-ladson-sc", hover: "Military PCS & Suburban deep scrub", zip: "29456" },
+              { name: "James Island", url: "/locations/james-island", hover: "Beachside & Marshland retreats", zip: "29412" },
+              { name: "Daniel Island", url: "/locations/daniel-island", hover: "Wando River Waterfront estate care", zip: "29492" }
+            ].map((loc, i) => (
+              <Link 
+                key={i} 
+                href={loc.url} 
+                className="group p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-blue-500/50 hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-1 block relative overflow-hidden"
+              >
+                <div className="relative z-10 flex flex-col justify-between h-full">
+                  <div>
+                    <span className="text-[10px] uppercase font-bold text-blue-400 tracking-wider mb-1 block">Zip {loc.zip}</span>
+                    <h3 className="font-extrabold text-white text-base md:text-lg group-hover:text-blue-300 transition-colors">{loc.name}</h3>
+                  </div>
+                  <p className="text-slate-400 text-xs mt-3 leading-snug group-hover:text-slate-300 transition-colors font-light">{loc.hover}</p>
+                </div>
+                <div className="absolute bottom-0 right-0 w-16 h-16 bg-blue-500/10 rounded-full blur-xl transform translate-x-4 translate-y-4 group-hover:scale-150 transition-transform duration-500"></div>
+              </Link>
+            ))}
+          </div>
         </div>
 
         {/* FAQ SECTION */}

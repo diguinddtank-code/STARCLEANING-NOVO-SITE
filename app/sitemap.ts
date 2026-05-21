@@ -51,5 +51,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  return [...routes, ...serviceRoutes, ...locationRoutes];
+  // Specialist City Pages (SEO GOLD)
+  const cityPages = [
+    'deep-cleaning-charleston-sc',
+    'deep-cleaning-summerville-sc',
+    'deep-cleaning-ladson-sc'
+  ];
+
+  const cityRoutes = cityPages.map((city) => ({
+    url: `${baseUrl}/${city}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.95,
+  }));
+
+  return [...routes, ...serviceRoutes, ...locationRoutes, ...cityRoutes];
 }

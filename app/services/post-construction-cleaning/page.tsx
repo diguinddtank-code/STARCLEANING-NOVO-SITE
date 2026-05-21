@@ -303,19 +303,48 @@ export default function PostConstructionCleaningPage() {
       </section>
 
       {/* Service Area Callout */}
-      <section className="py-16 bg-white border-y border-slate-100">
-        <div className="container mx-auto px-4 text-center max-w-3xl">
-          <MapPin className="w-12 h-12 text-blue-600 mx-auto mb-6" />
-          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">Serving Builders & Homeowners in the Lowcountry</h2>
-          <p className="text-slate-600 text-lg mb-8">
-            Star Cleaning SC provides expert post-construction cleaning services to residential and commercial sites throughout the greater Charleston area.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            {['Charleston', 'North Charleston', 'Mount Pleasant', 'Summerville', 'James Island', 'Daniel Island'].map((city) => (
-              <span key={city} className="px-4 py-2 bg-slate-100 text-slate-700 rounded-full text-sm font-medium">
-                {city}, SC
+      <section className="py-20 bg-slate-50 border-y border-slate-100">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="my-10 p-8 md:p-12 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 text-white relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div className="relative z-10 max-w-3xl mb-12 text-left">
+              <span className="text-blue-400 font-bold uppercase tracking-wider text-xs mb-3 block flex items-center gap-2">
+                <MapPin className="w-4 h-4 shrink-0" /> Service Coverage Map
               </span>
-            ))}
+              <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4 font-heading">
+                Serving All of Charleston & The Lowcountry
+              </h2>
+              <p className="text-slate-300 text-base md:text-lg leading-relaxed">
+                We proudly bring our elite, veteran-owned post-construction cleaning services directly to your project site. Choose your neighborhood below to connect with our local precision teams:
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 relative z-10 mb-6 text-left">
+              {[
+                { name: "Charleston", url: "/locations/charleston", hover: "Historic Peninsula & Downtown Restores", zip: "29401" },
+                { name: "North Charleston", url: "/locations/north-charleston", hover: "Industrial & Park Circle builds", zip: "29405" },
+                { name: "Summerville", url: "/locations/summerville", hover: "Flowertown & Nexton developments", zip: "29483" },
+                { name: "Ladson", url: "/locations/ladson", hover: "Military base housing & Suburban remodels", zip: "29456" },
+                { name: "James Island", url: "/locations/james-island", hover: "Beachside & Marshland restorations", zip: "29412" },
+                { name: "Daniel Island", url: "/locations/daniel-island", hover: "Wando River Waterfront estate preps", zip: "29492" }
+              ].map((loc, i) => (
+                <Link 
+                  key={i} 
+                  href={loc.url} 
+                  className="group p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-blue-500/50 hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-1 block relative overflow-hidden"
+                >
+                  <div className="relative z-10 flex flex-col justify-between h-full">
+                    <div>
+                      <span className="text-[10px] uppercase font-bold text-blue-400 tracking-wider mb-1 block">Zip {loc.zip}</span>
+                      <h3 className="font-extrabold text-white text-base md:text-lg group-hover:text-blue-300 transition-colors">{loc.name}</h3>
+                    </div>
+                    <p className="text-slate-400 text-xs mt-3 leading-snug group-hover:text-slate-300 transition-colors font-light">{loc.hover}</p>
+                  </div>
+                  <div className="absolute bottom-0 right-0 w-16 h-16 bg-blue-500/10 rounded-full blur-xl transform translate-x-4 translate-y-4 group-hover:scale-150 transition-transform duration-500"></div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
