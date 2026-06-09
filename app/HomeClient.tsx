@@ -76,7 +76,7 @@ const Home = () => {
         </ScrollReveal>
         
         <ScrollReveal direction="up" id="quote">
-          <BookingForm initialData={prefilledData} />
+          <BookingForm initialData={prefilledData} showPricing={false} />
         </ScrollReveal>
       </main>
       
