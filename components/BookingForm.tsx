@@ -10,6 +10,7 @@ interface BookingFormProps {
   hideSidebar?: boolean;
   showPricing?: boolean;
   showScheduling?: boolean;
+  isPromo?: boolean;
 }
 
 // STANDARD OPERATING HOURS
@@ -55,7 +56,8 @@ const BookingForm: React.FC<BookingFormProps> = ({
   variant = 'default', 
   hideSidebar = false,
   showPricing = true,
-  showScheduling = true
+  showScheduling = true,
+  isPromo = false
 }) => {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -230,7 +232,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
 
       // Logic: Only send to specific webhooks on specific stages
       if (stage === "Quote Range Generated") {
-          url = "https://webhook.infra-remakingautomacoes.cloud/webhook/scsite";
+          url = isPromo ? "https://webhook.infra-remakingautomacoes.cloud/webhook/scpromo" : "https://webhook.infra-remakingautomacoes.cloud/webhook/scsite";
       } else if (stage === "Walkthrough Scheduled") {
           url = "https://webhook.infra-remakingautomacoes.cloud/webhook/scsiteagenda";
       } else {
@@ -527,6 +529,12 @@ const BookingForm: React.FC<BookingFormProps> = ({
         }`}>
           
           {/* CLASSIC BLUE HEADER */}
+          {isPromo && (
+              <div className="bg-yellow-500 text-slate-900 text-center py-2 px-4 text-xs sm:text-sm font-bold flex items-center justify-center gap-2">
+                  <i className="fas fa-ticket-alt"></i>
+                  Promo Code <span className="bg-white px-2 py-0.5 rounded tracking-widest uppercase shadow-sm">SUMMER20</span> auto-applied!
+              </div>
+          )}
           <div className={`bg-gradient-to-br from-blue-900 to-blue-800 ${isGlass ? 'p-4 sm:p-6' : 'p-6'} text-white relative overflow-hidden`}>
               {/* Decorative Elements */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
