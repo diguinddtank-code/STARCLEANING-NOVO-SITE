@@ -11,20 +11,20 @@ const BookingForm = dynamic(() => import('../../components/BookingForm'));
 export default function PromoClient() {
   // Configuração Sazonal - Fácil de alterar para Black Friday, Natal, Spring, etc.
   const seasonalPromo = {
-    badge: "SUMMER SALE",
-    title: "Reclaim Your Summer.",
-    subtitle: "Let us handle the dust. Claim your 20% discount on your first cleaning.",
-    code: "SUMMER20",
+    badge: "SUMMER SPARKLE SPECIAL",
+    title: "Keep the Beach Sand Outside.",
+    subtitle: "Enjoy 10% off your initial deep clean and 15% off your first regular cleaning.",
+    code: "SUMMER SPARKLE",
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-950 font-sans text-gray-100 selection:bg-yellow-200 selection:text-slate-900">
       
       {/* Minimal Sticky Promo Bar */}
-      <div className="bg-yellow-500 text-slate-950 px-4 py-2.5 text-center text-xs sm:text-sm font-bold tracking-widest uppercase z-50 shadow-md">
+      <div className="bg-yellow-500 text-slate-950 px-4 py-2.5 text-center text-xs sm:text-sm font-bold tracking-widest uppercase z-50 shadow-md relative">
         <span className="flex items-center justify-center gap-2">
           <i className="fas fa-sun"></i>
-          {seasonalPromo.badge} — 20% OFF FIRST CLEANING
+          {seasonalPromo.badge} — LIMITED TIME OFFER
         </span>
       </div>
 
@@ -91,7 +91,7 @@ export default function PromoClient() {
             className="w-full relative max-w-3xl"
           >
               <div className="w-full">
-                  <BookingForm hideSidebar={true} variant="glass" showPricing={false} showScheduling={false} isPromo={true} />
+                  <BookingForm hideSidebar={true} variant="glass" showPricing={false} showScheduling={false} isPromo={true} promoCode={seasonalPromo.code} />
               </div>
               
               {/* Trust Badge Below Form */}
@@ -101,6 +101,7 @@ export default function PromoClient() {
                       <span className="opacity-30">•</span>
                       <span className="flex items-center gap-1.5"><i className="fas fa-lock"></i> No Credit Card Required</span>
                   </div>
+                  <div className="text-[10px] text-slate-500 mt-2">*Terms and conditions apply. Mention "{seasonalPromo.code}" when you contact us if not using the form.</div>
               </div>
           </motion.div>
 

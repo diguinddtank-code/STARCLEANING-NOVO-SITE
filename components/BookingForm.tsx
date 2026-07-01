@@ -11,6 +11,7 @@ interface BookingFormProps {
   showPricing?: boolean;
   showScheduling?: boolean;
   isPromo?: boolean;
+  promoCode?: string;
 }
 
 // STANDARD OPERATING HOURS
@@ -57,7 +58,8 @@ const BookingForm: React.FC<BookingFormProps> = ({
   hideSidebar = false,
   showPricing = true,
   showScheduling = true,
-  isPromo = false
+  isPromo = false,
+  promoCode = "SUMMER SPARKLE"
 }) => {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -532,7 +534,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
           {isPromo && (
               <div className="bg-yellow-500 text-slate-900 text-center py-2 px-4 text-xs sm:text-sm font-bold flex items-center justify-center gap-2">
                   <i className="fas fa-ticket-alt"></i>
-                  Promo Code <span className="bg-white px-2 py-0.5 rounded tracking-widest uppercase shadow-sm">SUMMER20</span> auto-applied!
+                  Promo Code <span className="bg-white px-2 py-0.5 rounded tracking-widest uppercase shadow-sm">{promoCode}</span> auto-applied!
               </div>
           )}
           <div className={`bg-gradient-to-br from-blue-900 to-blue-800 ${isGlass ? 'p-4 sm:p-6' : 'p-6'} text-white relative overflow-hidden`}>
