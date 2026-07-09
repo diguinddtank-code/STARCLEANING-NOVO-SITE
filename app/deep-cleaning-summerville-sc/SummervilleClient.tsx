@@ -24,29 +24,6 @@ import {
 export default function SummervilleClient() {
   const [activeTab, setActiveTab] = useState<'deep' | 'standard'>('deep');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [sliderPosition, setSliderPosition] = useState(50);
-  const [isDragging, setIsDragging] = useState(false);
-
-  // Before/After Slider Handler
-  const handleMove = (clientX: number, containerRect: DOMRect) => {
-    const x = clientX - containerRect.left;
-    const percentage = Math.max(0, Math.min(100, (x / containerRect.width) * 100));
-    setSliderPosition(percentage);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    const container = e.currentTarget.getBoundingClientRect();
-    if (e.touches[0]) {
-      handleMove(e.touches[0].clientX, container);
-    }
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (e.buttons === 1 || isDragging) {
-      const container = e.currentTarget.getBoundingClientRect();
-      handleMove(e.clientX, container);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 font-sans selection:bg-yellow-400 selection:text-slate-900">
@@ -57,8 +34,8 @@ export default function SummervilleClient() {
         {/* Ambient Visual Backing */}
         <div className="absolute inset-0 z-0">
           <Image 
-            src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop"
-            alt="Pristine Summerville SC Living Space"
+            src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=2070&auto=format&fit=crop"
+            alt="Pristine Summerville SC Living Space Deep Clean"
             fill
             priority
             className="object-cover opacity-20 filter grayscale contrast-125"
@@ -157,7 +134,7 @@ export default function SummervilleClient() {
                 <div className="absolute inset-0 bg-blue-600/10 rounded-[3rem] blur-2xl animate-pulse" />
                 <div className="relative h-full w-full rounded-[2.5rem] overflow-hidden border-4 border-slate-700 shadow-2xl">
                   <Image 
-                    src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=2070&auto=format&fit=crop" 
+                    src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format&fit=crop" 
                     alt="Sparkling Clean Kitchen in Summerville"
                     fill
                     className="object-cover"
@@ -182,7 +159,7 @@ export default function SummervilleClient() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-slate-800 shadow-2xl">
               <Image 
-                src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=2070&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1563453392212-326f5e854473?q=80&w=2070&auto=format&fit=crop"
                 alt="Summerville Residential Kitchen Restored"
                 fill
                 className="object-cover"
@@ -206,72 +183,6 @@ export default function SummervilleClient() {
                 <p>
                   Our deep cleaning process is specifically developed to target these local challenges. We don't just dust; we wash the pollen film off your blinds, scrub the clay tracking off door thresholds, and vacuum vents deep enough to purge micro-allergens completely, allowing your family to breathe fresh, clean indoor air.
                 </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Before/After Interactive Comparison Section */}
-      <section className="py-24 bg-slate-900 border-b border-slate-800/50">
-        <div className="container mx-auto px-4 max-w-4xl text-center">
-          <span className="text-yellow-400 font-bold uppercase tracking-widest text-xs">Elite Restoration results</span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-4 font-heading tracking-tight">
-            Before vs. After Deep Polish Standards
-          </h2>
-          <p className="text-slate-400 max-w-2xl mx-auto mb-12 font-light">
-            Slide the handle to view how we lift dark grease residue, yellow pollen, and ground-in clay tracks from household fixtures.
-          </p>
-
-          {/* Interactive Slider Container */}
-          <div 
-            className="relative w-full aspect-[16/10] rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-800 select-none cursor-ew-resize"
-            onMouseMove={handleMouseMove}
-            onTouchMove={handleTouchMove}
-            onMouseDown={() => setIsDragging(true)}
-            onMouseUp={() => setIsDragging(false)}
-            onMouseLeave={() => setIsDragging(false)}
-          >
-            {/* Before Layer */}
-            <div className="absolute inset-0">
-              <Image 
-                src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=2080&auto=format&fit=crop" 
-                alt="Before intensive deep house cleaning dust"
-                fill
-                className="object-cover filter contrast-75 brightness-75 sepia-[0.1]"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute top-4 left-4 bg-slate-950/80 backdrop-blur-md px-4 py-2 rounded-xl text-xs font-black text-white/70 tracking-wider">
-                BEFORE (PINE DUST COATING)
-              </div>
-            </div>
-
-            {/* After Layer */}
-            <div 
-              className="absolute inset-0 h-full overflow-hidden transition-all pointer-events-none"
-              style={{ width: `${sliderPosition}%` }}
-            >
-              <div className="absolute inset-0 w-[100vw] h-full" style={{ width: '100%', minWidth: '800px' }}>
-                <Image 
-                  src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=2070&auto=format&fit=crop" 
-                  alt="After military deep clean immaculate home"
-                  fill
-                  className="object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <div className="absolute top-4 right-4 bg-emerald-600/80 backdrop-blur-md px-4 py-2 rounded-xl text-xs font-black text-white tracking-wider">
-                AFTER STAR MILITARY CLEAN
-              </div>
-            </div>
-
-            {/* Slider bar */}
-            <div 
-              className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize z-30" 
-              style={{ left: `${sliderPosition}%` }}
-            >
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-2xl flex items-center justify-center border-2 border-emerald-600 text-slate-900 font-bold">
-                ↔
               </div>
             </div>
           </div>
