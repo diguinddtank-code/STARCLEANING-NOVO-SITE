@@ -244,11 +244,17 @@ const BookingForm: React.FC<BookingFormProps> = ({
       if (!url) return false;
 
       try {
-        await fetch(url, {
+        const response = await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         });
+
+        if (response.ok) {
+            (window as any).dataLayer = (window as any).dataLayer || [];
+            (window as any).dataLayer.push({ event: 'form_submit_success' });
+        }
+
         return true;
       } catch (error) {
         console.error("Error submitting webhook", error);
