@@ -93,6 +93,10 @@ const Navbar: React.FC = () => {
                 </div>
               </div>
 
+              <Link href="/about-us/" className="hover:text-star-blue transition-colors duration-300 relative group py-2">
+                About Us
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-star-blue transition-all duration-300 ease-out group-hover:w-full"></span>
+              </Link>
               <Link href="/blog/" className="hover:text-star-blue transition-colors duration-300 relative group py-2">
                 Blog
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-star-blue transition-all duration-300 ease-out group-hover:w-full"></span>
@@ -185,6 +189,7 @@ const Navbar: React.FC = () => {
               </div>
             </div>
 
+            <Link href="/about-us/" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-gray-100 hover:text-star-blue transition-colors">About Us</Link>
             <Link href="/blog/" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-gray-100 hover:text-star-blue transition-colors">Blog</Link>
             <Link href="/#faq" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-gray-100 hover:text-star-blue transition-colors">FAQ</Link>
             
