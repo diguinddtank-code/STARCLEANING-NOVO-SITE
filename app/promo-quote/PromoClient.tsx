@@ -11,10 +11,10 @@ const BookingForm = dynamic(() => import('../../components/BookingForm'));
 export default function PromoClient() {
   // Configuração Sazonal - Fácil de alterar para Black Friday, Natal, Spring, etc.
   const seasonalPromo = {
-    badge: "SUMMER SPARKLE SPECIAL",
-    title: "Keep the Beach Sand Outside.",
+    badge: "BACK TO SCHOOL SPECIAL",
+    title: "A Fresh Start for the School Year.",
     subtitle: "Enjoy 10% off your initial deep clean and 15% off your first regular cleaning.",
-    code: "SUMMER SPARKLE",
+    code: "BACK TO SCHOOL",
   };
 
   return (
@@ -23,7 +23,7 @@ export default function PromoClient() {
       {/* Minimal Sticky Promo Bar */}
       <div className="bg-yellow-500 text-slate-950 px-4 py-2.5 text-center text-xs sm:text-sm font-bold tracking-widest uppercase z-50 shadow-md relative">
         <span className="flex items-center justify-center gap-2">
-          <i className="fas fa-sun"></i>
+          <i className="fas fa-school"></i>
           {seasonalPromo.badge} — LIMITED TIME OFFER
         </span>
       </div>
