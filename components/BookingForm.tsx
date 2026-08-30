@@ -57,7 +57,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
   variant = 'default', 
   hideSidebar = false,
   showPricing = true,
-  showScheduling = true,
+  showScheduling = false, // Disabled per user request
   isPromo = false,
   promoCode = "SUMMER SPARKLE"
 }) => {
@@ -264,30 +264,29 @@ const BookingForm: React.FC<BookingFormProps> = ({
 
   // --- VERIFICAÇÃO DE DISPONIBILIDADE EM TEMPO REAL (SUPABASE) ---
   const fetchBookedSlotsFromBackend = async () => {
-      console.log("Iniciando busca de horários agendados via Supabase...");
       try {
           const { data, error } = await supabase
               .from('bookings')
               .select('slot_id');
 
           if (error) {
-              console.error("Erro ao buscar do Supabase:", error);
+              // Silently ignore network errors like "Failed to fetch" to prevent app crash overlay
+              // console.warn("Supabase fetch failed, defaulting to all available slots.");
               return;
           }
 
           if (data) {
               // Extrai apenas os IDs dos slots (ex: ["Fri Feb 27 2026_08:30 AM"])
               const bookedIds = data.map(item => item.slot_id);
-              console.log("Horários ocupados recebidos:", bookedIds);
               setBookedSlots(prev => [...prev, ...bookedIds]);
           }
       } catch (error) {
-          console.error("Falha inesperada ao buscar horários", error);
+          // Silently ignore
       }
   };
 
   useEffect(() => {
-      fetchBookedSlotsFromBackend();
+      // fetchBookedSlotsFromBackend(); // Disabled temporarily per user request
   }, []);
 
   // --- AVAILABILITY CHECKER ---
@@ -479,27 +478,27 @@ const BookingForm: React.FC<BookingFormProps> = ({
     
     const slotKey = `${selectedDate}_${selectedTime}`;
 
-    // 1. Save to Supabase (Source of Truth)
-    try {
-        const { error } = await supabase
-            .from('bookings')
-            .insert([
-                { 
-                    slot_id: slotKey,
-                    customer_name: formData.fullName,
-                    customer_email: formData.email,
-                    customer_phone: formData.phone
-                }
-            ]);
-
-        if (error) {
-            console.error("Supabase insert error:", error);
-        } else {
-            console.log("Supabase insert success");
-        }
-    } catch (err) {
-        console.error("Unexpected Supabase error:", err);
-    }
+    // 1. Save to Supabase (Source of Truth) - DISABLED PER USER REQUEST
+    // try {
+    //     const { error } = await supabase
+    //         .from('bookings')
+    //         .insert([
+    //             { 
+    //                 slot_id: slotKey,
+    //                 customer_name: formData.fullName,
+    //                 customer_email: formData.email,
+    //                 customer_phone: formData.phone
+    //             }
+    //         ]);
+    //
+    //     if (error) {
+    //         console.error("Supabase insert error:", error);
+    //     } else {
+    //         console.log("Supabase insert success");
+    //     }
+    // } catch (err) {
+    //     console.error("Unexpected Supabase error:", err);
+    // }
 
     // 2. Fires AGENDA Webhook (Step 5 confirmed) - Keep for notifications
     await submitWebhook("Walkthrough Scheduled", { visitDate: selectedDate, visitTime: selectedTime });

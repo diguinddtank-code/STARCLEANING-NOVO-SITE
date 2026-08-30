@@ -101,6 +101,10 @@ const Navbar: React.FC = () => {
                 Blog
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-star-blue transition-all duration-300 ease-out group-hover:w-full"></span>
               </Link>
+              <Link href="/contact/" className="hover:text-star-blue transition-colors duration-300 relative group py-2">
+                Contact
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-star-blue transition-all duration-300 ease-out group-hover:w-full"></span>
+              </Link>
               <Link href="/#faq" className="hover:text-star-blue transition-colors duration-300 relative group py-2">
                 FAQ
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-star-blue transition-all duration-300 ease-out group-hover:w-full"></span>
@@ -191,6 +195,7 @@ const Navbar: React.FC = () => {
 
             <Link href="/about-us/" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-gray-100 hover:text-star-blue transition-colors">About Us</Link>
             <Link href="/blog/" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-gray-100 hover:text-star-blue transition-colors">Blog</Link>
+            <Link href="/contact/" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-gray-100 hover:text-star-blue transition-colors">Contact</Link>
             <Link href="/#faq" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-gray-100 hover:text-star-blue transition-colors">FAQ</Link>
             
             <div className="mt-6">

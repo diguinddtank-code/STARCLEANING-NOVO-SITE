@@ -26,10 +26,6 @@ export const metadata: Metadata = {
   title: "Star Cleaning SC - Charleston's #1 Rated Cleaning Service",
   description: "Reclaim your weekends with Star Cleaning SC. 5-star rated, 100% guaranteed house cleaning services in Charleston, SC and surrounding areas.",
   keywords: "house cleaning Charleston, maid service Charleston SC, deep cleaning, move in cleaning, move out cleaning, Star Cleaning SC, professional cleaners",
-  icons: {
-    icon: 'https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95',
-    apple: 'https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95',
-  },
   openGraph: {
     title: "Star Cleaning SC - Charleston's Premier Cleaning Service",
     description: "5-star rated, 100% guaranteed house cleaning services in Charleston, SC. Book your clean today and reclaim your weekends!",
@@ -90,6 +86,7 @@ export default function RootLayout({
       <head>
         {/* Google Tag Manager */}
         <script
+          key="gtm-script"
           dangerouslySetInnerHTML={{
             __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -101,8 +98,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* End Google Tag Manager */}
 
         {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17191412064"></script>
+        <script key="gtag-js" async src="https://www.googletagmanager.com/gtag/js?id=AW-17191412064"></script>
         <script
+          key="gtag-config"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -113,12 +111,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           }}
         />
         {/* End Google tag (gtag.js) */}
-        <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        <link key="fa-preconnect" rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
+        <link key="fa-style" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
       </head>
       <body className="antialiased font-sans">
         {/* Google Tag Manager (noscript) */}
-        <noscript>
+        <noscript key="gtm-noscript">
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-5DSS84QS"
             height="0"
@@ -128,7 +126,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         {/* Meta Pixel Code */}
-        <Script id="meta-pixel" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `
+        <Script key="meta-pixel-script" id="meta-pixel" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `
           !function(f,b,e,v,n,t,s)
           {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
           n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -140,12 +138,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           fbq('init', '743691638778789');
           fbq('track', 'PageView');
         ` }} />
-        <noscript>
+        <noscript key="meta-pixel-noscript">
           <img height="1" width="1" style={{display: 'none'}} src="https://www.facebook.com/tr?id=743691638778789&ev=PageView&noscript=1" alt="" />
         </noscript>
         {/* End Meta Pixel Code */}
 
         <script
+          key="json-ld-script"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />

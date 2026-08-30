@@ -18,7 +18,7 @@ const Services: React.FC = () => {
       slug: "residential-cleaning",
       icon: "fa-spray-can",
       description: "Keep your home consistently fresh with our weekly or bi-weekly plans.",
-      image: "https://mistyclean.com/wp-content/uploads/2024/07/Banner-img-Professional-cleaning-Services-in-Maryland-scaled.webp",
+      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1470&auto=format&fit=crop",
       tag: "MOST POPULAR",
       details: ["Dusting all surfaces", "Vacuuming carpets", "Mopping floors", "Sanitizing bathrooms", "Kitchen detailing", "Making beds"]
     },

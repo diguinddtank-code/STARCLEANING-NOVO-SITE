@@ -22,7 +22,6 @@ const nextConfig: NextConfig = {
       { source: '/m/login', destination: '/', permanent: true },
       { source: '/airbnb-cleaning', destination: '/', permanent: true },
       { source: '/privacy-policy', destination: '/', permanent: true },
-      { source: '/contact', destination: '/', permanent: true },
       { source: '/residential-services', destination: '/', permanent: true },
       { source: '/commercial-services', destination: '/', permanent: true },
     ];
