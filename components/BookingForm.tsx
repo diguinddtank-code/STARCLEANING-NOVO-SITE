@@ -794,31 +794,30 @@ const BookingForm: React.FC<BookingFormProps> = ({
                           </div>
 
                           {/* Pricing Presentation */}
-                          <div id="quote-summary-box" className="bg-white rounded-2xl border-2 border-blue-100 shadow-sm overflow-hidden">
-                              <div className="bg-gradient-to-r from-blue-50 to-white px-4 py-3 border-b border-blue-100 flex justify-between items-center">
-                                  <h4 className="font-black text-sm text-blue-900">Your Custom Estimate</h4>
-                                  <div className="flex gap-1 text-yellow-400 text-xs">
-                                      <i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i>
+                          <div id="quote-summary-box" className="bg-white rounded-xl border border-blue-100 shadow-sm overflow-hidden mt-4">
+                              <div className="bg-blue-50/50 px-3 py-3 border-b border-blue-50 flex justify-between items-center gap-2">
+                                  <h4 className="font-bold text-[13px] sm:text-sm text-blue-900 leading-none whitespace-nowrap">Your Estimated Price</h4>
+                                  <div className="flex gap-1.5 text-green-600 font-bold text-[9px] sm:text-[10px] items-center uppercase tracking-wider leading-none whitespace-nowrap">
+                                      <i className="fas fa-check-circle"></i> <span>No Commitment</span>
                                   </div>
                               </div>
                               
-                              <div className="p-4 space-y-4">
+                              <div className="p-0">
                                   {/* First Visit / One Time */}
-                                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-4">
-                                      <div>
-                                          <div className="flex items-center gap-2">
-                                              <h5 className="font-bold text-gray-900 text-sm">
-                                                  {isOneTime ? 'Deep Clean Reset' : 'Initial Deep Clean'}
-                                              </h5>
-                                              {!isOneTime && <span className="bg-blue-100 text-blue-800 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase shrink-0">Required</span>}
+                                  <div className="flex justify-between items-center px-3 sm:px-4 py-3 gap-2">
+                                      <div className="flex items-center gap-2 sm:gap-3 overflow-hidden">
+                                          <div className="w-6 h-6 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center shrink-0">
+                                              <i className="fas fa-broom text-[10px]"></i>
                                           </div>
-                                          <p className="text-[10px] text-gray-500 mt-0.5">Thorough top-to-bottom detail.</p>
+                                          <span className="font-bold text-gray-800 text-[13px] sm:text-sm truncate">
+                                              {isOneTime ? 'Deep Clean Reset' : 'Initial Deep Clean'}
+                                          </span>
                                       </div>
-                                      <div className="text-left sm:text-right mt-1 sm:mt-0">
+                                      <div className="text-right shrink-0">
                                           {showPricing ? (
-                                              <div className="text-lg sm:text-xl font-black text-gray-900 whitespace-nowrap">${initialMin} - ${initialMax}</div>
+                                              <span className="text-sm sm:text-base font-black text-gray-900 whitespace-nowrap">${initialMin} - ${initialMax}</span>
                                           ) : (
-                                              <div className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">Quote Reserved</div>
+                                              <span className="text-[10px] sm:text-[11px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-md whitespace-nowrap">Quote Saved</span>
                                           )}
                                       </div>
                                   </div>
@@ -827,22 +826,18 @@ const BookingForm: React.FC<BookingFormProps> = ({
                                   {!isOneTime && (
                                       <>
                                           <div className="h-px w-full bg-gray-100"></div>
-                                          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-4">
-                                              <div>
-                                                  <div className="flex items-center gap-2">
-                                                      <h5 className="font-bold text-blue-900 text-sm">Ongoing {formData.frequency}</h5>
-                                                      <span className="bg-green-100 text-green-800 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase shrink-0">Discounted</span>
+                                          <div className="flex justify-between items-center px-3 sm:px-4 py-3 bg-gray-50/50 gap-2">
+                                              <div className="flex items-center gap-2 sm:gap-3 overflow-hidden">
+                                                  <div className="w-6 h-6 rounded-full bg-green-50 text-green-500 flex items-center justify-center shrink-0">
+                                                      <i className="fas fa-redo-alt text-[10px]"></i>
                                                   </div>
-                                                  <p className="text-[10px] text-gray-500 mt-0.5">Keep your home fresh & clean.</p>
+                                                  <span className="font-bold text-gray-800 text-[13px] sm:text-sm truncate">Ongoing {formData.frequency}</span>
                                               </div>
-                                              <div className="text-left sm:text-right mt-1 sm:mt-0">
+                                              <div className="text-right shrink-0">
                                                   {showPricing ? (
-                                                      <>
-                                                          <div className="text-lg sm:text-xl font-black text-blue-900 whitespace-nowrap">${recurringMin} - ${recurringMax}</div>
-                                                          <div className="text-[9px] font-bold text-green-600">Save ${recurringSavings}/visit</div>
-                                                      </>
+                                                      <span className="text-sm sm:text-base font-black text-blue-900 whitespace-nowrap">${recurringMin} - ${recurringMax}</span>
                                                   ) : (
-                                                      <div className="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded">Discount Applied</div>
+                                                      <span className="text-[10px] sm:text-[11px] font-bold text-green-600 bg-green-50 px-2 py-1 rounded-md whitespace-nowrap">Discount Applied</span>
                                                   )}
                                               </div>
                                           </div>
@@ -850,9 +845,9 @@ const BookingForm: React.FC<BookingFormProps> = ({
                                   )}
                               </div>
                               
-                              <div className="bg-gray-50 px-4 py-2.5 border-t border-gray-100 flex justify-between items-center text-[10px] font-bold text-gray-500">
-                                  <span className="flex items-center gap-1.5"><i className="fas fa-shield-alt text-green-500"></i> 100% Guaranteed</span>
-                                  <span className="flex items-center gap-1.5"><i className="fas fa-calendar-check text-blue-500"></i> No Contracts</span>
+                              <div className="bg-gray-50 px-2 py-2 border-t border-gray-100 flex justify-center gap-4 sm:gap-6 items-center text-[9px] sm:text-[10px] font-medium text-gray-500 whitespace-nowrap">
+                                  <span className="flex items-center gap-1.5"><i className="fas fa-shield-alt text-green-500"></i> Transparent Pricing</span>
+                                  <span className="flex items-center gap-1.5"><i className="fas fa-calendar-check text-blue-400"></i> Cancel Anytime</span>
                               </div>
                           </div>
                       </div>
@@ -1043,8 +1038,8 @@ const BookingForm: React.FC<BookingFormProps> = ({
                             <i className="fas fa-spinner fa-spin relative z-10"></i>
                         ) : (
                             <div className="relative z-10 flex items-center gap-2">
-                                <span>Lock In This Quote</span>
-                                <i className="fas fa-lock group-hover:scale-110 transition-transform"></i>
+                                <span>Claim This Offer</span>
+                                <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                             </div>
                         )}
                     </button>

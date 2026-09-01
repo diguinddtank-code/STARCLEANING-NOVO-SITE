@@ -15,7 +15,6 @@ import ScrollReveal from '../components/ScrollReveal';
 import ExitIntentPopup from '../components/ExitIntentPopup';
 import ServiceAreas from '../components/ServiceAreas';
 import MobileAppNav from '../components/MobileAppNav';
-import FloatingAssistant from '../components/FloatingAssistant';
 
 const Home = () => {
   const [prefilledData, setPrefilledData] = useState<any>(null);
@@ -82,7 +81,6 @@ const Home = () => {
       
       <MobileAppNav />
       <ExitIntentPopup />
-      <FloatingAssistant />
       <Footer />
     </div>
   );
