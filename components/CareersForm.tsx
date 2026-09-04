@@ -284,7 +284,7 @@ export default function CareersForm({
       try {
         // NOTE: webhook-test in n8n only works when you are actively listening on the n8n interface.
         // Change to /webhook/ instead of /webhook-test/ for production!
-        const response = await fetch('https://n8n.infra-remakingautomacoes.cloud/webhook-test/sce', {
+        const response = await fetch('https://n8n.infra-remakingautomacoes.cloud/webhook/sce', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -297,9 +297,13 @@ export default function CareersForm({
           }),
         });
 
+        // Push the success event regardless of the webhook response
+        // so that Google Ads conversions are not blocked by server errors.
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({ event: 'form_submit_success' });
+
         if (response.ok) {
-            (window as any).dataLayer = (window as any).dataLayer || [];
-            (window as any).dataLayer.push({ event: 'form_submit_success' });
+            console.log("Webhook successful");
         }
       } catch (webhookErr) {
         console.error("Webhook submission failed:", webhookErr);

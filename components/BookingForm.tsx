@@ -250,9 +250,13 @@ const BookingForm: React.FC<BookingFormProps> = ({
             body: JSON.stringify(payload)
         });
 
+        // Push the success event regardless of the webhook response
+        // so that Google Ads conversions are not blocked by server errors.
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({ event: 'form_submit_success' });
+        
         if (response.ok) {
-            (window as any).dataLayer = (window as any).dataLayer || [];
-            (window as any).dataLayer.push({ event: 'form_submit_success' });
+            console.log("Webhook successful");
         }
 
         return true;
