@@ -2,18 +2,60 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
+import Script from 'next/script';
+import ReviewCard from '@/components/ReviewCard';
 import { MapPin, Star, ShieldCheck, ThumbsUp, Leaf, ArrowRight, CheckCircle2, Key, Truck, Sparkles } from 'lucide-react';
 
 export const metadata = {
   title: 'Move-In & Move-Out Cleaning Charleston SC | Star Cleaning SC',
   description: 'Secure your deposit or enjoy a fresh start. Our veteran-owned move-in/move-out cleaning in Charleston SC guarantees a spotless, sanitized empty home.',
+  alternates: {
+    canonical: 'https://www.starcleaningsc.com/services/move-in-move-out-cleaning',
+  },
 };
 
 export default function MoveInMoveOutCleaning() {
   return (
     <main className="min-h-screen bg-slate-50">
+      <Script id="move-in-move-out-service-schema" type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Service",
+              "name": "Move-In & Move-Out Cleaning Services",
+              "provider": {
+                "@type": "LocalBusiness",
+                "name": "Star Cleaning SC",
+                "telephone": "(843) 297-9935",
+                "url": "https://www.starcleaningsc.com"
+              },
+              "areaServed": ["Charleston, SC", "North Charleston, SC", "Summerville, SC", "Ladson, SC", "James Island, SC", "Daniel Island, SC"],
+              "description": "Veteran-owned move-in/move-out cleaning in Charleston SC guaranteeing a spotless, sanitized empty home.",
+              "serviceType": "Move-In/Move-Out Cleaning"
+            },
+            {
+              "@type": "FAQPage",
+              "mainEntity": [
+                { "@type": "Question", "name": "Do you guarantee I will get my security deposit back?", "acceptedAnswer": { "@type": "Answer", "text": "While we cannot guarantee the actions of your landlord regarding property damage or lease terms, we do guarantee our cleaning. If your landlord points out a cleaning issue within 24 hours, we will return to fix it at no extra charge." } },
+                { "@type": "Question", "name": "Do I need to leave the electricity and water on?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, absolutely. We require active power and running hot water to properly operate our vacuums, clean appliances, and mop the floors." } },
+                { "@type": "Question", "name": "Do you clean carpets or just vacuum them?", "acceptedAnswer": { "@type": "Answer", "text": "We provide thorough, detailed vacuuming of all carpets. However, we do not offer hot water extraction (steam cleaning) for carpets. If your lease requires professional carpet shampooing, you will need to hire a specialized carpet vendor." } },
+                { "@type": "Question", "name": "Can I book a move out cleaning in North Charleston on short notice?", "acceptedAnswer": { "@type": "Answer", "text": "We understand that moving schedules can be unpredictable. While we recommend booking 1-2 weeks in advance, please call us—we will do everything we can to accommodate short-notice requests in North Charleston." } },
+                { "@type": "Question", "name": "Are you the best move in cleaners in Daniel Island?", "acceptedAnswer": { "@type": "Answer", "text": "Our clients certainly think so! Our veteran-owned discipline ensures that every cabinet, drawer, and baseboard in your new Daniel Island home is meticulously sanitized before you move your family in." } }
+              ]
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
+                { "@type": "ListItem", "position": 2, "name": "Move-In & Move-Out Cleaning", "item": "https://www.starcleaningsc.com/services/move-in-move-out-cleaning" }
+              ]
+            }
+          ]
+        })
+      }} />
       <Navbar />
-      
+
       {/* HERO SECTION */}
       <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-900">
         <div className="absolute inset-0 z-0">
@@ -306,21 +348,27 @@ export default function MoveInMoveOutCleaning() {
         {/* SOCIAL PROOF BLOCK */}
         <h2 className="text-3xl font-bold text-slate-900 mb-8">What Our Clients Say</h2>
         <div className="grid md:grid-cols-3 gap-6 mb-16">
-          <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-            <div className="flex text-yellow-400 mb-3">★★★★★</div>
-            <p className="text-slate-700 italic mb-4">"Moving is so stressful, but Star Cleaning SC made the exit process a breeze. They did a move-out clean on our apartment in Charleston, and the property manager was so impressed. We got our full deposit back without a single question!"</p>
-            <p className="font-bold text-slate-900">— Michael B.</p>
-          </div>
-          <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-            <div className="flex text-yellow-400 mb-3">★★★★★</div>
-            <p className="text-slate-700 italic mb-4">"We bought a house in Summerville that had been sitting vacant and was pretty dusty. The team came in and did a phenomenal move-in clean. Knowing the inside of the fridge and all the cabinets were sanitized gave me such peace of mind before unpacking."</p>
-            <p className="font-bold text-slate-900">— Lauren C.</p>
-          </div>
-          <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-            <div className="flex text-yellow-400 mb-3">★★★★★</div>
-            <p className="text-slate-700 italic mb-4">"Highly professional and incredibly thorough. I needed an empty house cleaning in Ladson before putting my property on the market. The place sparkled and smelled amazing. It definitely helped us get top dollar for the house."</p>
-            <p className="font-bold text-slate-900">— James H.</p>
-          </div>
+          <ReviewCard
+            theme="light"
+            variant="grid"
+            text="Moving is so stressful, but Star Cleaning SC made the exit process a breeze. They did a move-out clean on our apartment in Charleston, and the property manager was so impressed. We got our full deposit back without a single question!"
+            author="Michael B."
+            location="Charleston"
+          />
+          <ReviewCard
+            theme="light"
+            variant="grid"
+            text="We bought a house in Summerville that had been sitting vacant and was pretty dusty. The team came in and did a phenomenal move-in clean. Knowing the inside of the fridge and all the cabinets were sanitized gave me such peace of mind before unpacking."
+            author="Lauren C."
+            location="Summerville"
+          />
+          <ReviewCard
+            theme="light"
+            variant="grid"
+            text="Highly professional and incredibly thorough. I needed an empty house cleaning in Ladson before putting my property on the market. The place sparkled and smelled amazing. It definitely helped us get top dollar for the house."
+            author="James H."
+            location="Ladson"
+          />
         </div>
 
         {/* CLOSING CTA SECTION */}

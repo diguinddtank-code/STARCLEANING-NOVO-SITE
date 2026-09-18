@@ -2,18 +2,60 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
+import Script from 'next/script';
+import ReviewCard from '@/components/ReviewCard';
 import { MapPin, Star, ShieldCheck, ThumbsUp, Leaf, ArrowRight, CheckCircle2, Sparkles, Droplets, SprayCan } from 'lucide-react';
 
 export const metadata = {
   title: 'Deep Cleaning Services in Charleston SC | Star Cleaning SC',
   description: 'Need a total home reset? Our veteran-owned deep cleaning in Charleston SC tackles grime, baseboards, and hidden dust with military precision. Get a quote!',
+  alternates: {
+    canonical: 'https://www.starcleaningsc.com/services/deep-cleaning',
+  },
 };
 
 export default function DeepCleaning() {
   return (
     <main className="min-h-screen bg-slate-50">
+      <Script id="deep-cleaning-service-schema" type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Service",
+              "name": "Deep Cleaning Services",
+              "provider": {
+                "@type": "LocalBusiness",
+                "name": "Star Cleaning SC",
+                "telephone": "(843) 297-9935",
+                "url": "https://www.starcleaningsc.com"
+              },
+              "areaServed": ["Charleston, SC", "North Charleston, SC", "Summerville, SC", "Ladson, SC", "James Island, SC", "Daniel Island, SC"],
+              "description": "Veteran-owned deep cleaning in Charleston SC tackling grime, baseboards, and hidden dust with military precision.",
+              "serviceType": "Deep Cleaning"
+            },
+            {
+              "@type": "FAQPage",
+              "mainEntity": [
+                { "@type": "Question", "name": "What is the difference between a regular clean and a deep clean?", "acceptedAnswer": { "@type": "Answer", "text": "A regular clean focuses on surface-level maintenance (vacuuming, mopping, wiping counters). A deep clean involves hand-wiping baseboards, cleaning the exterior of cabinets, scrubbing grout, and dusting hard-to-reach areas like ceiling fans and blinds." } },
+                { "@type": "Question", "name": "How long does a deep cleaning usually take?", "acceptedAnswer": { "@type": "Answer", "text": "It varies greatly depending on the size and condition of the home. Generally, it takes 2 to 3 times longer than a standard maintenance cleaning. We will give you an estimated time frame when you book." } },
+                { "@type": "Question", "name": "Do you clean the inside of appliances during this service?", "acceptedAnswer": { "@type": "Answer", "text": "We clean the inside of the microwave as a standard. Cleaning the interior of the refrigerator or the inside of the oven can be added to your deep cleaning package upon request." } },
+                { "@type": "Question", "name": "Are you the best deep house cleaners in James Island?", "acceptedAnswer": { "@type": "Answer", "text": "We certainly strive to be! Our 18 years of experience, veteran-owned discipline, and 100% satisfaction guarantee have earned us a reputation for delivering the most thorough deep cleans in James Island and beyond." } },
+                { "@type": "Question", "name": "Can I book a deep cleaning in Ladson before starting a recurring service?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, in fact, we highly recommend it! Starting with a deep clean gets your Ladson home up to our high standards, making it much easier and more cost-effective to maintain with weekly or bi-weekly visits." } }
+              ]
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
+                { "@type": "ListItem", "position": 2, "name": "Deep Cleaning", "item": "https://www.starcleaningsc.com/services/deep-cleaning" }
+              ]
+            }
+          ]
+        })
+      }} />
       <Navbar />
-      
+
       {/* HERO SECTION */}
       <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-900">
         <div className="absolute inset-0 z-0">
@@ -326,21 +368,26 @@ export default function DeepCleaning() {
         {/* SOCIAL PROOF BLOCK */}
         <h2 className="text-3xl font-bold text-slate-900 mb-8">What Our Clients Say</h2>
         <div className="grid md:grid-cols-3 gap-6 mb-16">
-          <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-            <div className="flex text-yellow-400 mb-3">★★★★★</div>
-            <p className="text-slate-700 italic mb-4">"I hired Star Cleaning SC for a spring cleaning before hosting a baby shower. They completely transformed my house in North Charleston. The baseboards and ceiling fans look brand new. Worth every penny!"</p>
-            <p className="font-bold text-slate-900">— Jessica W.</p>
-          </div>
-          <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-            <div className="flex text-yellow-400 mb-3">★★★★★</div>
-            <p className="text-slate-700 italic mb-4">"As a veteran myself, I appreciate the military precision this team brings. Their detailed house cleaning is no joke. They found and removed dirt I didn't even know was there. Highly recommend their deep clean service."</p>
-            <p className="font-bold text-slate-900">— Robert K.</p>
-          </div>
-          <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-            <div className="flex text-yellow-400 mb-3">★★★★★</div>
-            <p className="text-slate-700 italic mb-4">"We just bought an older home in Daniel Island and wanted it sanitized before moving our furniture in. The deep cleaning they did was phenomenal. The bathrooms were sparkling and smelled so fresh, without any harsh chemical odors."</p>
-            <p className="font-bold text-slate-900">— Amanda L.</p>
-          </div>
+          <ReviewCard
+            theme="light"
+            variant="grid"
+            text="I hired Star Cleaning SC for a spring cleaning before hosting a baby shower. They completely transformed my house in North Charleston. The baseboards and ceiling fans look brand new. Worth every penny!"
+            author="Jessica W."
+            location="North Charleston"
+          />
+          <ReviewCard
+            theme="light"
+            variant="grid"
+            text="As a veteran myself, I appreciate the military precision this team brings. Their detailed house cleaning is no joke. They found and removed dirt I didn't even know was there. Highly recommend their deep clean service."
+            author="Robert K."
+          />
+          <ReviewCard
+            theme="light"
+            variant="grid"
+            text="We just bought an older home in Daniel Island and wanted it sanitized before moving our furniture in. The deep cleaning they did was phenomenal. The bathrooms were sparkling and smelled so fresh, without any harsh chemical odors."
+            author="Amanda L."
+            location="Daniel Island"
+          />
         </div>
 
         {/* CLOSING CTA SECTION */}

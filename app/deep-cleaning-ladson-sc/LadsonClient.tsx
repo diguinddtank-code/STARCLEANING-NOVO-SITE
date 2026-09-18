@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ReviewCard from '@/components/ReviewCard';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
@@ -24,29 +25,6 @@ import {
 export default function LadsonClient() {
   const [activeTab, setActiveTab] = useState<'deep' | 'standard'>('deep');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [sliderPosition, setSliderPosition] = useState(50);
-  const [isDragging, setIsDragging] = useState(false);
-
-  // Before/After Slider Handler
-  const handleMove = (clientX: number, containerRect: DOMRect) => {
-    const x = clientX - containerRect.left;
-    const percentage = Math.max(0, Math.min(100, (x / containerRect.width) * 100));
-    setSliderPosition(percentage);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    const container = e.currentTarget.getBoundingClientRect();
-    if (e.touches[0]) {
-      handleMove(e.touches[0].clientX, container);
-    }
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (e.buttons === 1 || isDragging) {
-      const container = e.currentTarget.getBoundingClientRect();
-      handleMove(e.clientX, container);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 font-sans selection:bg-yellow-400 selection:text-slate-900">
@@ -57,8 +35,8 @@ export default function LadsonClient() {
         {/* Ambient Visual Backing */}
         <div className="absolute inset-0 z-0">
           <Image 
-            src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=2069&auto=format&fit=crop"
-            alt="Immaculate Ladson SC Home interior"
+            src="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
+            alt="Cleaning supplies flatlay"
             fill
             priority
             className="object-cover opacity-20 filter grayscale contrast-125"
@@ -90,7 +68,7 @@ export default function LadsonClient() {
                 className="text-4xl sm:text-5xl md:text-6xl font-black mb-6 leading-[1.05] tracking-tight text-white font-heading"
               >
                 Veteran-Precision <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-yellow-300">
+                <span className="text-blue-400">
                   Deep Cleaning
                 </span> <br />
                 for Ladson Residences
@@ -113,7 +91,7 @@ export default function LadsonClient() {
               >
                 <Link 
                   href="/quote" 
-                  className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl font-black transition-all shadow-[0_0_25px_rgba(59,130,246,0.3)] hover:shadow-[0_0_35px_rgba(59,130,246,0.5)] flex items-center justify-center gap-2 transform hover:-translate-y-0.5"
+                  className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 transform hover:-translate-y-0.5"
                 >
                   Book Instant Deep Reset <ArrowRight className="w-5 h-5" />
                 </Link>
@@ -158,8 +136,8 @@ export default function LadsonClient() {
                 <div className="absolute inset-0 bg-blue-600/10 rounded-[3rem] blur-2xl animate-pulse" />
                 <div className="relative h-full w-full rounded-[2.5rem] overflow-hidden border-4 border-slate-700 shadow-2xl">
                   <Image 
-                    src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?q=80&w=2070&auto=format&fit=crop" 
-                    alt="Sanitized living area in Ladson"
+                    src="https://i.imgur.com/gpqI75Lh.jpg"
+                    alt="Pristine deep cleaning result"
                     fill
                     className="object-cover"
                     referrerPolicy="no-referrer"
@@ -183,8 +161,8 @@ export default function LadsonClient() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-slate-800 shadow-2xl">
               <Image 
-                src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop"
-                alt="Pristine Ladson Living Space Restored"
+                src="https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80"
+                alt="Deep cleaning in progress"
                 fill
                 className="object-cover"
                 referrerPolicy="no-referrer"
@@ -213,72 +191,6 @@ export default function LadsonClient() {
         </div>
       </section>
 
-      {/* Before/After Interactive Comparison Section */}
-      <section className="py-24 bg-slate-900 border-b border-slate-800/50">
-        <div className="container mx-auto px-4 max-w-4xl text-center">
-          <span className="text-yellow-400 font-bold uppercase tracking-widest text-xs">Unmatched Standards</span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-4 font-heading tracking-tight">
-            See the Military Standard Clean
-          </h2>
-          <p className="text-slate-400 max-w-2xl mx-auto mb-12 font-light">
-            Slide the handle to see how years of kitchen grease, oven residues, and heavy mold buildup vanish under our professional treatments.
-          </p>
-
-          {/* Interactive Slider Container */}
-          <div 
-            className="relative w-full aspect-[16/10] rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-800 select-none cursor-ew-resize"
-            onMouseMove={handleMouseMove}
-            onTouchMove={handleTouchMove}
-            onMouseDown={() => setIsDragging(true)}
-            onMouseUp={() => setIsDragging(false)}
-            onMouseLeave={() => setIsDragging(false)}
-          >
-            {/* Before Layer */}
-            <div className="absolute inset-0">
-              <Image 
-                src="https://images.unsplash.com/photo-1563453392212-326f5e854473?q=80&w=2070&auto=format&fit=crop" 
-                alt="Before deep kitchen grease cleaning"
-                fill
-                className="object-cover filter contrast-75 brightness-75 sepia-[0.1]"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute top-4 left-4 bg-slate-950/80 backdrop-blur-md px-4 py-2 rounded-xl text-xs font-black text-white/70 tracking-wider">
-                BEFORE (ACID & GREASE LAYER)
-              </div>
-            </div>
-
-            {/* After Layer */}
-            <div 
-              className="absolute inset-0 h-full overflow-hidden transition-all pointer-events-none"
-              style={{ width: `${sliderPosition}%` }}
-            >
-              <div className="absolute inset-0 w-[100vw] h-full" style={{ width: '100%', minWidth: '800px' }}>
-                <Image 
-                  src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?q=80&w=2070&auto=format&fit=crop" 
-                  alt="After immaculate home detailing"
-                  fill
-                  className="object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <div className="absolute top-4 right-4 bg-blue-600/80 backdrop-blur-md px-4 py-2 rounded-xl text-xs font-black text-white tracking-wider">
-                AFTER STAR MILITARY CLEAN
-              </div>
-            </div>
-
-            {/* Slider bar */}
-            <div 
-              className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize z-30" 
-              style={{ left: `${sliderPosition}%` }}
-            >
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-2xl flex items-center justify-center border-2 border-blue-600 text-slate-900 font-bold">
-                ↔
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Tabs Checklist Section */}
       <section className="py-24 bg-slate-950 border-b border-slate-800">
         <div className="container mx-auto px-4 max-w-5xl">
@@ -296,13 +208,13 @@ export default function LadsonClient() {
               <div className="bg-slate-900 border border-slate-850 p-1.5 rounded-2xl inline-flex gap-2">
                 <button 
                   onClick={() => setActiveTab('deep')}
-                  className={`px-6 py-3 rounded-xl font-bold text-sm transition-all ${activeTab === 'deep' ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-md' : 'text-slate-400 hover:text-white'}`}
+                  className={`px-6 py-3 rounded-xl font-bold text-sm transition-all ${activeTab === 'deep' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}`}
                 >
                   Ladson Deep Action List ✦
                 </button>
-                <button 
+                <button
                   onClick={() => setActiveTab('standard')}
-                  className={`px-6 py-3 rounded-xl font-bold text-sm transition-all ${activeTab === 'standard' ? 'bg-gradient-to-r from-blue-650 to-blue-500 text-white shadow-md' : 'text-slate-400 hover:text-white'}`}
+                  className={`px-6 py-3 rounded-xl font-bold text-sm transition-all ${activeTab === 'standard' ? 'bg-star-dark text-white shadow-md' : 'text-slate-400 hover:text-white'}`}
                 >
                   Suburban Maintenance Tasks
                 </button>
@@ -418,47 +330,27 @@ export default function LadsonClient() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-slate-950 p-8 rounded-3xl border border-slate-850 hover:border-slate-800 transition-all flex flex-col justify-between">
-              <div>
-                <div className="flex text-yellow-400 mb-4">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-3.5 h-3.5 fill-current" />
-                  ))}
-                </div>
-                <p className="text-slate-300 font-light italic text-sm leading-relaxed mb-6">
-                  "Relocating on military orders is stressful enough. We ordered their deep clean for PCS move-out housing and passed structural inspections first try without a single flag. Veteran standards are real!"
-                </p>
-              </div>
-              <p className="text-white text-xs font-bold">— Staff Sergeant Mike D., Joint Base Charleston</p>
-            </div>
-
-            <div className="bg-slate-950 p-8 rounded-3xl border border-slate-850 hover:border-slate-800 transition-all flex flex-col justify-between">
-              <div>
-                <div className="flex text-yellow-400 mb-4">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-3.5 h-3.5 fill-current" />
-                  ))}
-                </div>
-                <p className="text-slate-300 font-light italic text-sm leading-relaxed mb-6">
-                  "Our house in Hunter's Bend had clay dust from nearby neighborhoods. They detailed our baseboards, blinds, and cleaned the vents perfectly. Smells amazing without heavy synthetic odors."
-                </p>
-              </div>
-              <p className="text-white text-xs font-bold">— Emily T., Hunter's Bend</p>
-            </div>
-
-            <div className="bg-slate-950 p-8 rounded-3xl border border-slate-850 hover:border-slate-800 transition-all flex flex-col justify-between">
-              <div>
-                <div className="flex text-yellow-400 mb-4">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-3.5 h-3.5 fill-current" />
-                  ))}
-                </div>
-                <p className="text-slate-300 font-light italic text-sm leading-relaxed mb-6">
-                  "I hire them annually to deep clean my grandmother's home in Ladson. They are always professional, respect her belongings, and work with incredible attention to detail. Excellent team!"
-                </p>
-              </div>
-              <p className="text-white text-xs font-bold">— Daniel R., Suburban Ladson</p>
-            </div>
+            <ReviewCard
+              theme="dark"
+              variant="grid"
+              text="Relocating on military orders is stressful enough. We ordered their deep clean for PCS move-out housing and passed structural inspections first try without a single flag. Veteran standards are real!"
+              author="Staff Sergeant Mike D."
+              location="Joint Base Charleston"
+            />
+            <ReviewCard
+              theme="dark"
+              variant="grid"
+              text="Our house in Hunter's Bend had clay dust from nearby neighborhoods. They detailed our baseboards, blinds, and cleaned the vents perfectly. Smells amazing without heavy synthetic odors."
+              author="Emily T."
+              location="Hunter's Bend"
+            />
+            <ReviewCard
+              theme="dark"
+              variant="grid"
+              text="I hire them annually to deep clean my grandmother's home in Ladson. They are always professional, respect her belongings, and work with incredible attention to detail. Excellent team!"
+              author="Daniel R."
+              location="Suburban Ladson"
+            />
           </div>
         </div>
       </section>
@@ -537,7 +429,7 @@ export default function LadsonClient() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link 
               href="/quote"
-              className="px-8 py-4 bg-gradient-to-r from-blue-650 to-cyan-500 hover:from-blue-600 hover:to-cyan-400 text-white font-black rounded-xl text-lg transition-all shadow-xl hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] flex items-center gap-2 transform hover:-translate-y-0.5 w-full sm:w-auto justify-center"
+              className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl text-lg transition-all shadow-xl hover:shadow-2xl flex items-center gap-2 transform hover:-translate-y-0.5 w-full sm:w-auto justify-center"
             >
               Configure Online Quote <ArrowRight className="w-5 h-5 animate-pulse" />
             </Link>
@@ -566,6 +458,11 @@ export default function LadsonClient() {
                 <li><Link href="/deep-cleaning-charleston-sc" className="hover:text-white transition-colors">✦ Deep Cleaning Charleston SC</Link></li>
                 <li><Link href="/deep-cleaning-summerville-sc" className="hover:text-white transition-colors">✦ Deep Cleaning Summerville SC</Link></li>
                 <li><Link href="/deep-cleaning-ladson-sc" className="hover:text-white transition-colors">✦ Deep Cleaning Ladson SC</Link></li>
+                <li><Link href="/deep-cleaning-north-charleston-sc" className="hover:text-white transition-colors">✦ Deep Cleaning North Charleston SC</Link></li>
+                <li><Link href="/deep-cleaning-james-island-sc" className="hover:text-white transition-colors">✦ Deep Cleaning James Island SC</Link></li>
+                <li><Link href="/deep-cleaning-daniel-island-sc" className="hover:text-white transition-colors">✦ Deep Cleaning Daniel Island SC</Link></li>
+                <li><Link href="/deep-cleaning-johns-island-sc" className="hover:text-white transition-colors">✦ Deep Cleaning Johns Island SC</Link></li>
+                <li><Link href="/deep-cleaning-mount-pleasant-sc" className="hover:text-white transition-colors">✦ Deep Cleaning Mount Pleasant SC</Link></li>
               </ul>
             </div>
             <div>

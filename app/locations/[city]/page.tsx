@@ -3,6 +3,7 @@ import { locationsData } from '@/lib/locationsData';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import BookingForm from '@/components/BookingForm';
+import ReviewCard from '@/components/ReviewCard';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CheckCircle2, Star, ShieldCheck, Clock, MapPin } from 'lucide-react';
@@ -186,6 +187,16 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
               </div>
               <div className="prose prose-lg prose-blue text-slate-600 leading-relaxed">
                 <p className="text-xl">{renderIntro(data.intro)}</p>
+                {data.localDetails && (
+                  <p className="text-xl">
+                    {data.localDetails}{' '}
+                    Need more than a routine visit? See our dedicated{' '}
+                    <Link href={`/deep-cleaning-${data.slug}-sc`} className="text-blue-600 font-semibold hover:text-blue-700">
+                      {data.name} deep cleaning page
+                    </Link>{' '}
+                    for baseboard-to-vent detailing built around this area's specific dirt and dust.
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -221,7 +232,7 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
                 </div>
                 <div className="p-8">
                   <h3 className="text-xl font-bold text-slate-900 mb-3">{service.title}</h3>
-                  <p className="text-slate-600 mb-4">{service.desc}</p>
+                  <p className="text-slate-600 mb-4">{data.serviceDescriptions?.[i] || service.desc}</p>
                   <Link href={service.href} className="text-blue-600 font-semibold hover:text-blue-700 inline-flex items-center gap-1">
                     Learn more <span aria-hidden="true">&rarr;</span>
                   </Link>
@@ -279,7 +290,8 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
                   "Clean and sanitize countertops",
                   "Scrub and sanitize toilets, sinks, and showers",
                   "Vacuum all carpets and rugs",
-                  "Sweep and mop all hard floors"
+                  "Sweep and mop all hard floors",
+                  ...(data.checklistExtra?.standard ? [data.checklistExtra.standard] : [])
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-slate-600">
                     <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
@@ -288,7 +300,7 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
                 ))}
               </ul>
             </div>
-            
+
             <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
               <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                 <Star className="w-6 h-6 text-blue-500" />
@@ -301,7 +313,8 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
                   "Deep scrub tile grout",
                   "Dust ceiling fans and light fixtures",
                   "Clean inside microwave and oven (upon request)",
-                  "Wipe down cabinet exteriors"
+                  "Wipe down cabinet exteriors",
+                  ...(data.checklistExtra?.deep ? [data.checklistExtra.deep] : [])
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-slate-600">
                     <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
@@ -328,15 +341,15 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
           
           <div className="grid md:grid-cols-3 gap-8">
             {data.reviews.map((review: any, i: number) => (
-              <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
-                <div className="flex gap-1 mb-4">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <Star key={star} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-slate-600 italic mb-6">"{review.text}"</p>
-                <p className="font-bold text-slate-900">— {review.author}</p>
-              </div>
+              <ReviewCard
+                key={i}
+                text={review.text}
+                author={review.author}
+                location={`${data.name}, SC`}
+                rating={5}
+                theme="light"
+                variant="grid"
+              />
             ))}
           </div>
         </div>
@@ -402,39 +415,71 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "HouseCleaning",
-            "name": "Star Cleaning SC",
-            "image": "https://www.starcleaningsc.com/star-cleaning-sc.jpg",
-            "@id": `https://www.starcleaningsc.com/locations/${data.slug}`,
-            "url": `https://www.starcleaningsc.com/locations/${data.slug}`,
-            "telephone": "+18432979935",
-            "priceRange": "$$",
-            "areaServed": {
-              "@type": "City",
-              "name": data.name,
-              "sameAs": `https://en.wikipedia.org/wiki/${data.name.replace(' ', '_')},_South_Carolina`
-            },
-            "serviceArea": {
-              "@type": "GeoCircle",
-              "geoMidpoint": {
-                "@type": "GeoCoordinates",
-                "latitude": data.coordinates.lat,
-                "longitude": data.coordinates.lng
+            "@graph": [
+              {
+                "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
+                "name": "Star Cleaning SC",
+                "image": "https://www.starcleaningsc.com/star-cleaning-sc.jpg",
+                "@id": `https://www.starcleaningsc.com/locations/${data.slug}`,
+                "url": `https://www.starcleaningsc.com/locations/${data.slug}`,
+                "telephone": "+18432979935",
+                "priceRange": "$$",
+                "areaServed": {
+                  "@type": "City",
+                  "name": data.name,
+                  "sameAs": `https://en.wikipedia.org/wiki/${data.name.replace(' ', '_')},_South_Carolina`
+                },
+                "serviceArea": {
+                  "@type": "GeoCircle",
+                  "geoMidpoint": {
+                    "@type": "GeoCoordinates",
+                    "latitude": data.coordinates.lat,
+                    "longitude": data.coordinates.lng
+                  },
+                  "geoRadius": "20000"
+                },
+                "hasOfferCatalog": {
+                  "@type": "OfferCatalog",
+                  "name": "Cleaning Services",
+                  "itemListElement": [
+                    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Residential Cleaning" } },
+                    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Deep Cleaning" } },
+                    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Move In/Out Cleaning" } },
+                    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Airbnb/Vacation Rental Cleaning" } },
+                    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Commercial Office Cleaning" } },
+                    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Post-Construction Cleaning" } }
+                  ]
+                },
+                "review": data.reviews.map((review: any) => ({
+                  "@type": "Review",
+                  "author": { "@type": "Person", "name": review.author },
+                  "reviewBody": review.text,
+                  "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+                })),
+                "aggregateRating": {
+                  "@type": "AggregateRating",
+                  "ratingValue": "5",
+                  "bestRating": "5",
+                  "reviewCount": data.reviews.length
+                }
               },
-              "geoRadius": "20000"
-            },
-            "hasOfferCatalog": {
-              "@type": "OfferCatalog",
-              "name": "Cleaning Services",
-              "itemListElement": [
-                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Residential Cleaning" } },
-                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Deep Cleaning" } },
-                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Move In/Out Cleaning" } },
-                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Airbnb/Vacation Rental Cleaning" } },
-                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Commercial Office Cleaning" } },
-                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Post-Construction Cleaning" } }
-              ]
-            }
+              {
+                "@type": "FAQPage",
+                "mainEntity": data.faqs.map((faq: any) => ({
+                  "@type": "Question",
+                  "name": faq.q,
+                  "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+                }))
+              },
+              {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
+                  { "@type": "ListItem", "position": 2, "name": "Service Areas", "item": "https://www.starcleaningsc.com/locations" },
+                  { "@type": "ListItem", "position": 3, "name": data.name, "item": `https://www.starcleaningsc.com/locations/${data.slug}` }
+                ]
+              }
+            ]
           })
         }}
       />

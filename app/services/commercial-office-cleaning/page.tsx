@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Script from 'next/script';
+import ReviewCard from '@/components/ReviewCard';
 import { CheckCircle2, MapPin, Star, ShieldCheck, ThumbsUp, Leaf, ArrowRight, Building2, Briefcase, Store } from 'lucide-react';
 
 export const metadata = {
@@ -17,17 +18,38 @@ export default function CommercialCleaningPage() {
       <Script id="commercial-cleaning-schema" type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Service",
-          "name": "Commercial & Office Cleaning Services",
-          "provider": {
-            "@type": "LocalBusiness",
-            "name": "Star Cleaning SC",
-            "telephone": "(843) 297-9935",
-            "url": "https://www.starcleaningsc.com"
-          },
-          "areaServed": ["Charleston, SC", "North Charleston, SC", "Summerville, SC"],
-          "description": "Expert commercial and office cleaning services in Charleston, SC.",
-          "serviceType": "Commercial Cleaning"
+          "@graph": [
+            {
+              "@type": "Service",
+              "name": "Commercial & Office Cleaning Services",
+              "provider": {
+                "@type": "LocalBusiness",
+                "name": "Star Cleaning SC",
+                "telephone": "(843) 297-9935",
+                "url": "https://www.starcleaningsc.com"
+              },
+              "areaServed": ["Charleston, SC", "North Charleston, SC", "Summerville, SC"],
+              "description": "Expert commercial and office cleaning services in Charleston, SC.",
+              "serviceType": "Commercial Cleaning"
+            },
+            {
+              "@type": "FAQPage",
+              "mainEntity": [
+                { "@type": "Question", "name": "Do you offer after-hours commercial cleaning in Charleston?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. We understand that cleaning during business hours can disrupt your operations. We offer flexible scheduling, including evenings and weekends, to ensure your workspace is cleaned without interfering with your staff or clients." } },
+                { "@type": "Question", "name": "Is your commercial cleaning staff insured and background-checked?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Security and trust are paramount, especially in commercial environments. As a veteran-owned business, we maintain strict standards. Every team member undergoes a comprehensive background check, and our company is fully licensed, bonded, and insured for your complete peace of mind." } },
+                { "@type": "Question", "name": "Do we need to provide our own cleaning supplies or equipment?", "acceptedAnswer": { "@type": "Answer", "text": "No, you do not need to supply anything. Star Cleaning SC brings all necessary commercial-grade equipment and our own eco-friendly, highly effective cleaning products. If your facility requires specific specialized chemicals, we can accommodate those requests during our initial consultation." } },
+                { "@type": "Question", "name": "Do you require long-term commercial cleaning contracts?", "acceptedAnswer": { "@type": "Answer", "text": "We believe in earning your business through consistent, high-quality service, not locking you into rigid long-term contracts. We offer flexible month-to-month agreements that can be adjusted as your business needs change." } },
+                { "@type": "Question", "name": "How do you handle building security and keys?", "acceptedAnswer": { "@type": "Answer", "text": "We take facility security very seriously. We have strict key-handling protocols and alarm management procedures in place. Only authorized, background-checked team members assigned to your specific facility will have access to your building credentials." } }
+              ]
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
+                { "@type": "ListItem", "position": 2, "name": "Commercial & Office Cleaning", "item": "https://www.starcleaningsc.com/services/commercial-office-cleaning" }
+              ]
+            }
+          ]
         })
       }} />
 
@@ -407,16 +429,14 @@ export default function CommercialCleaningPage() {
                 text: "First impressions are everything in retail. Star Cleaning ensures our floors shine and our fitting rooms are spotless every single morning. Their communication is excellent, and they truly care about the quality of their work."
               }
             ].map((review, i) => (
-              <div key={i} className="bg-slate-50 p-8 rounded-2xl border border-slate-100 relative">
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, j) => <Star key={j} className="w-5 h-5 text-yellow-400 fill-yellow-400" />)}
-                </div>
-                <p className="text-slate-700 italic mb-6">"{review.text}"</p>
-                <div>
-                  <p className="font-bold text-slate-900">{review.name}</p>
-                  <p className="text-sm text-slate-500">{review.role}</p>
-                </div>
-              </div>
+              <ReviewCard
+                key={i}
+                theme="light"
+                variant="grid"
+                text={review.text}
+                author={review.name}
+                location={review.role}
+              />
             ))}
           </div>
         </div>

@@ -62,7 +62,7 @@ export default function RootLayout({
         "@id": "https://www.starcleaningsc.com/#localbusiness",
         "name": "Star Cleaning SC",
         "image": "https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95",
-        "description": "Professional house cleaning services in Charleston, SC.",
+        "description": "Veteran-owned residential and commercial cleaning company serving the Charleston, SC Lowcountry with military-precision, 100%-guaranteed cleaning.",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Charleston",
@@ -76,7 +76,25 @@ export default function RootLayout({
         },
         "url": "https://www.starcleaningsc.com",
         "telephone": "+18432979935",
-        "priceRange": "$$"
+        "email": "admin@starcleaningsc.com",
+        "priceRange": "$$",
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        },
+        "areaServed": [
+          { "@type": "City", "name": "Charleston" },
+          { "@type": "City", "name": "North Charleston" },
+          { "@type": "City", "name": "Ladson" },
+          { "@type": "City", "name": "Summerville" },
+          { "@type": "City", "name": "James Island" },
+          { "@type": "City", "name": "Daniel Island" }
+        ],
+        "sameAs": [
+          "https://instagram.com/star.cleaningsc"
+        ]
       }
     ]
   };

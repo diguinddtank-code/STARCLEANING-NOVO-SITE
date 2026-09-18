@@ -35,37 +35,63 @@ export default function SummervilleDeepCleaningPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Service",
-            "name": "Flowertown Professional Deep House Cleaning Service",
-            "serviceType": "Deep House Cleaning",
-            "provider": {
-              "@type": "LocalBusiness",
-              "name": "Star Cleaning SC",
-              "telephone": "(843) 297-9935",
-              "url": "https://www.starcleaningsc.com",
-              "logo": "https://www.starcleaningsc.com/logo-clean.png",
-              "priceRange": "$$",
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Summerville",
-                "addressRegion": "SC",
-                "postalCode": "29483",
-                "addressCountry": "US"
+            "@graph": [
+              {
+                "@type": "Service",
+                "name": "Flowertown Professional Deep House Cleaning Service",
+                "serviceType": "Deep House Cleaning",
+                "provider": {
+                  "@type": "LocalBusiness",
+                  "name": "Star Cleaning SC",
+                  "telephone": "(843) 297-9935",
+                  "url": "https://www.starcleaningsc.com",
+                  "logo": "https://www.starcleaningsc.com/logo-clean.png",
+                  "priceRange": "$$",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Summerville",
+                    "addressRegion": "SC",
+                    "postalCode": "29483",
+                    "addressCountry": "US"
+                  }
+                },
+                "areaServed": [
+                  { "@type": "City", "name": "Summerville" },
+                  { "@type": "City", "name": "Nexton" },
+                  { "@type": "City", "name": "Cane Bay" },
+                  { "@type": "City", "name": "Carnes Crossroads" }
+                ],
+                "description": "Deep house cleaning in Summerville, SC targeting clay-dust residue and sticky yellow pine pollen buildup. Veteran-owned, fully insured.",
+                "offers": {
+                  "@type": "Offer",
+                  "price": "180.00",
+                  "priceCurrency": "USD",
+                  "url": "https://www.starcleaningsc.com/deep-cleaning-summerville-sc"
+                },
+                "review": [
+                  { "@type": "Review", "author": { "@type": "Person", "name": "Marcus V." }, "reviewBody": "Our new home in Nexton felt dusty even after the builders finished. We hired Star Cleaning SC for a top-to-bottom deep clean and they completely eliminated the fine drywall and clay residue. They are incredible!", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
+                  { "@type": "Review", "author": { "@type": "Person", "name": "Diana K." }, "reviewBody": "As an asthma sufferer, springtime in Summerville is brutal. Star Cleans hand washed every speck of yellow pollen off my window sills and thoroughly scrubbed our air vent covers. I am finally breathing easy.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
+                  { "@type": "Review", "author": { "@type": "Person", "name": "Linda P." }, "reviewBody": "With three kids and constant sports mud, my tile grout gets black. Their deep cleaning scrubbed the grout lines to their original beige color in just a few hours. Military precision indeed!", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } }
+                ],
+                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "bestRating": "5", "reviewCount": 3 }
+              },
+              {
+                "@type": "FAQPage",
+                "mainEntity": [
+                  { "@type": "Question", "name": "What makes your cleaning service 'military-precision'?", "acceptedAnswer": { "@type": "Answer", "text": "Our roots are veteran-owned. We train our teams with strict protocols and high-efficiency checklists. Every corner is inspected including ceiling fans, vents, threshold panels, and plumbing hardware, ensuring zero oversight." } },
+                  { "@type": "Question", "name": "How frequently should a home in Summerville receive a deep clean?", "acceptedAnswer": { "@type": "Answer", "text": "To combat the local pollen and microclimate dust, we recommend an initial Deep Clean, followed by standard maintenance (weekly or bi-weekly), and a detailed Deep Reset at least once or twice a year." } },
+                  { "@type": "Question", "name": "Do you supply your own eco-friendly products?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Our team arrives fully equipped with safe, professional solutions, HEPA-equipped vacuums, steam machines, and fresh microfiber rags. You don't have to provide clean sponges or chemicals." } },
+                  { "@type": "Question", "name": "Can I schedule a deep clean specifically before moving furniture in?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. Our empty-home deep clean (often aligned with Move-In/Move-Out Turnkeys) is perfect to sanitize every cabinet interior and floorboard before your personal belongings are unpacked." } }
+                ]
+              },
+              {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
+                  { "@type": "ListItem", "position": 2, "name": "Deep Cleaning Summerville SC", "item": "https://www.starcleaningsc.com/deep-cleaning-summerville-sc" }
+                ]
               }
-            },
-            "areaServed": [
-              { "@type": "City", "name": "Summerville" },
-              { "@type": "City", "name": "Nexton" },
-              { "@type": "City", "name": "Cane Bay" },
-              { "@type": "City", "name": "Carnes Crossroads" }
-            ],
-            "description": "Deep house cleaning in Summerville, SC targeting clay-dust residue and sticky yellow pine pollen buildup. Veteran-owned, fully insured.",
-            "offers": {
-              "@type": "Offer",
-              "price": "180.00",
-              "priceCurrency": "USD",
-              "url": "https://www.starcleaningsc.com/deep-cleaning-summerville-sc"
-            }
+            ]
           })
         }}
       />

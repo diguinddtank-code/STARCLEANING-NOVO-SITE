@@ -2,16 +2,58 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
+import Script from 'next/script';
+import ReviewCard from '@/components/ReviewCard';
 import { MapPin, Star, ShieldCheck, ThumbsUp, Leaf, ArrowRight, CheckCircle2, Calendar, BedDouble, Sparkles } from 'lucide-react';
 
 export const metadata = {
   title: 'Airbnb & Vacation Rental Cleaning Charleston SC | Free Quote',
   description: 'Protect your 5-star host rating with our reliable vacation rental cleaning in Charleston SC. Fast turnovers, staging, and military precision.',
+  alternates: {
+    canonical: 'https://www.starcleaningsc.com/services/vacation-rental-airbnb-cleaning',
+  },
 };
 
 export default function VacationRentalCleaning() {
   return (
     <main className="min-h-screen bg-slate-50">
+      <Script id="vacation-rental-service-schema" type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Service",
+              "name": "Airbnb & Vacation Rental Cleaning Services",
+              "provider": {
+                "@type": "LocalBusiness",
+                "name": "Star Cleaning SC",
+                "telephone": "(843) 297-9935",
+                "url": "https://www.starcleaningsc.com"
+              },
+              "areaServed": ["Charleston, SC", "North Charleston, SC", "Summerville, SC", "Ladson, SC", "James Island, SC", "Daniel Island, SC"],
+              "description": "Reliable vacation rental and Airbnb turnover cleaning in Charleston SC protecting your 5-star host rating.",
+              "serviceType": "Vacation Rental Cleaning"
+            },
+            {
+              "@type": "FAQPage",
+              "mainEntity": [
+                { "@type": "Question", "name": "Do you accommodate same-day turnovers?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! We know that the window between an 11:00 AM checkout and a 4:00 PM check-in is tight. Our teams are trained to perform efficient, high-quality same-day turnovers to maximize your booking calendar." } },
+                { "@type": "Question", "name": "Do you wash linens on-site or take them off-site?", "acceptedAnswer": { "@type": "Answer", "text": "We typically wash linens on-site using your property's washer and dryer. If your property does not have laundry facilities, or if you have a rapid turnover that requires off-site laundering, we can discuss custom arrangements." } },
+                { "@type": "Question", "name": "Will you notify me if a guest damages the property?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. Part of our military-precision process involves a visual inspection. If we notice broken items, stained carpets, or missing inventory, we will immediately take photos and notify you so you can file a claim." } },
+                { "@type": "Question", "name": "Do you provide Airbnb cleaning in downtown Charleston?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, we service many historic properties and condos in downtown Charleston. We are familiar with the unique parking and access challenges of the peninsula." } },
+                { "@type": "Question", "name": "Can you handle vacation rental cleaning in James Island?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! James Island is a highly popular area for short-term rentals, and our team is frequently in the area providing top-tier turnover services for local hosts." } }
+              ]
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
+                { "@type": "ListItem", "position": 2, "name": "Vacation Rental & Airbnb Cleaning", "item": "https://www.starcleaningsc.com/services/vacation-rental-airbnb-cleaning" }
+              ]
+            }
+          ]
+        })
+      }} />
       <Navbar />
       
       {/* HERO SECTION */}
@@ -306,21 +348,27 @@ export default function VacationRentalCleaning() {
         {/* SOCIAL PROOF BLOCK */}
         <h2 className="text-3xl font-bold text-slate-900 mb-8">What Our Clients Say</h2>
         <div className="grid md:grid-cols-3 gap-6 mb-16">
-          <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-            <div className="flex text-yellow-400 mb-3">★★★★★</div>
-            <p className="text-slate-700 italic mb-4">"Since switching to Star Cleaning SC, my Airbnb reviews have consistently mentioned how sparkling clean the house is. Their vacation rental cleaning in Charleston is unmatched. They even fold the toilet paper into a little triangle!"</p>
-            <p className="font-bold text-slate-900">— Mark D.</p>
-          </div>
-          <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-            <div className="flex text-yellow-400 mb-3">★★★★★</div>
-            <p className="text-slate-700 italic mb-4">"I manage a property in James Island from three states away. This veteran-owned team is my absolute lifeline. They handle the turnovers flawlessly, restock the coffee station, and always send me pictures if a guest leaves a mess. 10/10."</p>
-            <p className="font-bold text-slate-900">— Sarah P.</p>
-          </div>
-          <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-            <div className="flex text-yellow-400 mb-3">★★★★★</div>
-            <p className="text-slate-700 italic mb-4">"Fast, reliable, and thorough. Finding good short-term rental cleaners in North Charleston was a struggle until I found them. They never miss a same-day turnover, and the pet-safe products are a huge selling point for my pet-friendly listing."</p>
-            <p className="font-bold text-slate-900">— Kevin T.</p>
-          </div>
+          <ReviewCard
+            theme="light"
+            variant="grid"
+            text="Since switching to Star Cleaning SC, my Airbnb reviews have consistently mentioned how sparkling clean the house is. Their vacation rental cleaning in Charleston is unmatched. They even fold the toilet paper into a little triangle!"
+            author="Mark D."
+            location="Charleston"
+          />
+          <ReviewCard
+            theme="light"
+            variant="grid"
+            text="I manage a property in James Island from three states away. This veteran-owned team is my absolute lifeline. They handle the turnovers flawlessly, restock the coffee station, and always send me pictures if a guest leaves a mess. 10/10."
+            author="Sarah P."
+            location="James Island"
+          />
+          <ReviewCard
+            theme="light"
+            variant="grid"
+            text="Fast, reliable, and thorough. Finding good short-term rental cleaners in North Charleston was a struggle until I found them. They never miss a same-day turnover, and the pet-safe products are a huge selling point for my pet-friendly listing."
+            author="Kevin T."
+            location="North Charleston"
+          />
         </div>
 
         {/* CLOSING CTA SECTION */}

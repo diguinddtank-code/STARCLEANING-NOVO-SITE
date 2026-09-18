@@ -4,19 +4,20 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ReviewCard from '@/components/ReviewCard';
 import Link from 'next/link';
 import Image from 'next/image';
-import { 
-  Sparkles, 
-  MapPin, 
-  Star, 
-  ShieldCheck, 
-  ThumbsUp, 
-  CheckCircle2, 
-  Flame, 
-  Droplets, 
-  Clock, 
-  ChevronDown, 
+import {
+  Sparkles,
+  MapPin,
+  Star,
+  ShieldCheck,
+  ThumbsUp,
+  CheckCircle2,
+  Flame,
+  Droplets,
+  Clock,
+  ChevronDown,
   ArrowRight,
   Home,
   Check
@@ -25,29 +26,6 @@ import {
 export default function CharlestonClient() {
   const [activeTab, setActiveTab] = useState<'deep' | 'standard'>('deep');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [sliderPosition, setSliderPosition] = useState(50);
-  const [isDragging, setIsDragging] = useState(false);
-
-  // Before/After Slider Handler
-  const handleMove = (clientX: number, containerRect: DOMRect) => {
-    const x = clientX - containerRect.left;
-    const percentage = Math.max(0, Math.min(100, (x / containerRect.width) * 100));
-    setSliderPosition(percentage);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    const container = e.currentTarget.getBoundingClientRect();
-    if (e.touches[0]) {
-      handleMove(e.touches[0].clientX, container);
-    }
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (e.buttons === 1 || isDragging) {
-      const container = e.currentTarget.getBoundingClientRect();
-      handleMove(e.clientX, container);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 font-sans selection:bg-yellow-400 selection:text-slate-900">
@@ -57,9 +35,9 @@ export default function CharlestonClient() {
       <section className="relative pt-32 pb-24 lg:pt-44 lg:pb-36 overflow-hidden">
         {/* Ambient Visual Backing */}
         <div className="absolute inset-0 z-0">
-          <Image 
-            src="https://images.unsplash.com/photo-1513584684374-8bab748fbf90?q=80&w=2065&auto=format&fit=crop"
-            alt="Luxury Charleston Residence"
+          <Image
+            src="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
+            alt="Cleaning supplies flatlay"
             fill
             priority
             className="object-cover opacity-20 filter grayscale contrast-125"
@@ -74,7 +52,7 @@ export default function CharlestonClient() {
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             {/* Left Column */}
             <div className="lg:col-span-7 text-center lg:text-left">
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
@@ -84,20 +62,20 @@ export default function CharlestonClient() {
                 <span className="text-xs font-bold text-blue-200 uppercase tracking-widest">Lowcountry Hub: Charleston, SC</span>
               </motion.div>
 
-              <motion.h1 
+              <motion.h1
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
                 className="text-4xl sm:text-5xl md:text-6xl font-black mb-6 leading-[1.05] tracking-tight text-white font-heading"
               >
                 Military-Precision <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-yellow-300">
+                <span className="text-blue-400">
                   Deep Cleaning
                 </span> <br />
                 for Charleston Homes
               </motion.h1>
 
-              <motion.p 
+              <motion.p
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
@@ -106,20 +84,20 @@ export default function CharlestonClient() {
                 From historic Antebellum estates downtown to modern coastal builds in West Ashley. We hunt down humidity-born mold, stubborn pollen, and deep salt-air dust with unmatched discipline.
               </motion.p>
 
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
               >
-                <Link 
-                  href="/quote" 
-                  className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl font-black transition-all shadow-[0_0_25px_rgba(59,130,246,0.3)] hover:shadow-[0_0_35px_rgba(59,130,246,0.5)] flex items-center justify-center gap-2 transform hover:-translate-y-0.5"
+                <Link
+                  href="/quote"
+                  className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 transform hover:-translate-y-0.5"
                 >
                   Book Instant Deep Clean <ArrowRight className="w-5 h-5" />
                 </Link>
-                <a 
-                  href="tel:8432979935" 
+                <a
+                  href="tel:8432979935"
                   className="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-bold transition-all backdrop-blur-sm flex items-center justify-center gap-2"
                 >
                   <Clock className="w-5 h-5 text-yellow-400" /> (843) 297-9935
@@ -127,7 +105,7 @@ export default function CharlestonClient() {
               </motion.div>
 
               {/* Credibility Anchors */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 0.5 }}
@@ -150,7 +128,7 @@ export default function CharlestonClient() {
 
             {/* Right Column */}
             <div className="lg:col-span-5 relative hidden lg:block">
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
@@ -158,9 +136,9 @@ export default function CharlestonClient() {
               >
                 <div className="absolute inset-0 bg-blue-600/10 rounded-[3rem] blur-2xl animate-pulse" />
                 <div className="relative h-full w-full rounded-[2.5rem] overflow-hidden border-4 border-slate-700 shadow-2xl">
-                  <Image 
-                    src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=2070&auto=format&fit=crop" 
-                    alt="Pristine Deep Cleaning Bathroom"
+                  <Image
+                    src="https://i.imgur.com/gpqI75Lh.jpg"
+                    alt="Pristine deep cleaning result"
                     fill
                     className="object-cover"
                     referrerPolicy="no-referrer"
@@ -183,9 +161,9 @@ export default function CharlestonClient() {
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-slate-800 shadow-2xl">
-              <Image 
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop"
-                alt="Charleston Historic Kitchen Restored"
+              <Image
+                src="https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80"
+                alt="Deep cleaning in progress"
                 fill
                 className="object-cover"
                 referrerPolicy="no-referrer"
@@ -200,7 +178,7 @@ export default function CharlestonClient() {
               </h2>
               <div className="space-y-6 text-slate-300 font-light leading-relaxed">
                 <p>
-                  Living in the <span className="text-white font-semibold">Lowcountry</span> means dealing with a beautiful but challenging environment. High year-round humidity works like glue, turning microscopic salt residue, heavy azalea pollen, and pet dander into sticky grime that clings to baseboards, ceiling fans, and vintage moldings. 
+                  Living in the <span className="text-white font-semibold">Lowcountry</span> means dealing with a beautiful but challenging environment. High year-round humidity works like glue, turning microscopic salt residue, heavy azalea pollen, and pet dander into sticky grime that clings to baseboards, ceiling fans, and vintage moldings.
                 </p>
                 <p>
                   Standard maid services simply wipe over the surfaces, pushing dirt into the corners. At <span className="text-white font-semibold">Star Cleaning SC</span>, we address Charleston’s unique environmental factors. We utilize deep HEPA-filtered vacuuming to pull humidity-bound allergens from delicate carpets, scrub coastal mildew from bathroom grout line by line, and remove greasy salt residue from kitchen panels.
@@ -208,73 +186,6 @@ export default function CharlestonClient() {
                 <p>
                   Whether your home sits South of Broad, in West Ashley, or near Daniel Island, we tailor our equipment to your building materials—protecting old heart-pine flooring, original brass fixtures, and modern quartz finishes with equal master-precision.
                 </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Before/After Interactive Comparison Section */}
-      <section className="py-24 bg-slate-900 border-b border-slate-800/50">
-        <div className="container mx-auto px-4 max-w-4xl text-center">
-          <span className="text-yellow-400 font-bold uppercase tracking-widest text-xs">Results Speak Volumes</span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-4 font-heading tracking-tight">
-            See the Military-Precision Impact
-          </h2>
-          <p className="text-slate-400 max-w-2xl mx-auto mb-12 font-light">
-            Slide the handle to inspect how our deep chemical treatment and scrubbing wipe away years of grease, hard-water crust, and dark mildew.
-          </p>
-
-          {/* Interactive Slider Container */}
-          <div 
-            className="relative w-full aspect-[16/10] rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-800 select-none cursor-ew-resize"
-            onMouseMove={handleMouseMove}
-            onTouchMove={handleTouchMove}
-            onMouseDown={() => setIsDragging(true)}
-            onMouseUp={() => setIsDragging(false)}
-            onMouseLeave={() => setIsDragging(false)}
-          >
-            {/* Before Layer (Underneath / Left part visible usually) */}
-            <div className="absolute inset-0">
-              <Image 
-                src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format&fit=crop" 
-                alt="Before standard bathroom cleaning dirty details"
-                fill
-                className="object-cover filter contrast-75 brightness-75 sepia-[0.1]"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute top-4 left-4 bg-slate-950/80 backdrop-blur-md px-4 py-2 rounded-xl text-xs font-black text-white/70 tracking-wider">
-                BEFORE (ACID BUILDUP & DUST)
-              </div>
-            </div>
-
-            {/* After Layer (Sliding / Clipped) */}
-            <div 
-              className="absolute inset-0 h-full overflow-hidden transition-all pointer-events-none"
-              style={{ width: `${sliderPosition}%` }}
-            >
-              {/* Force image to remain container width */}
-              <div className="absolute inset-0 w-[100vw] h-full" style={{ width: '100%', minWidth: '800px' }}>
-                <Image 
-                  src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=2070&auto=format&fit=crop" 
-                  alt="After military deep clean immaculate result"
-                  fill
-                  className="object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <div className="absolute top-4 right-4 bg-blue-600/80 backdrop-blur-md px-4 py-2 rounded-xl text-xs font-black text-white tracking-wider">
-                AFTER STAR DEEP CLEAN
-              </div>
-            </div>
-
-            {/* Slider bar */}
-            <div 
-              className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize z-30" 
-              style={{ left: `${sliderPosition}%` }}
-            >
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-2xl flex items-center justify-center border-2 border-blue-600 text-slate-900 font-bold">
-                ↔
               </div>
             </div>
           </div>
@@ -296,15 +207,15 @@ export default function CharlestonClient() {
             {/* Tabs Selector */}
             <div className="flex justify-center mt-8">
               <div className="bg-slate-900 border border-slate-850 p-1.5 rounded-2xl inline-flex gap-2">
-                <button 
+                <button
                   onClick={() => setActiveTab('deep')}
-                  className={`px-6 py-3 rounded-xl font-bold text-sm transition-all ${activeTab === 'deep' ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-md' : 'text-slate-400 hover:text-white'}`}
+                  className={`px-6 py-3 rounded-xl font-bold text-sm transition-all ${activeTab === 'deep' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}`}
                 >
                   Deep Clean Task List ✦
                 </button>
-                <button 
+                <button
                   onClick={() => setActiveTab('standard')}
-                  className={`px-6 py-3 rounded-xl font-bold text-sm transition-all ${activeTab === 'standard' ? 'bg-gradient-to-r from-blue-650 to-blue-500 text-white shadow-md' : 'text-slate-400 hover:text-white'}`}
+                  className={`px-6 py-3 rounded-xl font-bold text-sm transition-all ${activeTab === 'standard' ? 'bg-star-dark text-white shadow-md' : 'text-slate-400 hover:text-white'}`}
                 >
                   Standard Maintenance List
                 </button>
@@ -403,7 +314,7 @@ export default function CharlestonClient() {
           </div>
 
           <div className="text-center mt-12">
-            <Link 
+            <Link
               href="/quote"
               className="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-yellow-300 font-bold rounded-xl border border-slate-750 inline-flex items-center gap-2 text-sm transition-all"
             >
@@ -429,47 +340,27 @@ export default function CharlestonClient() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-slate-950 p-8 rounded-3xl border border-slate-850 hover:border-slate-800 transition-all flex flex-col justify-between">
-              <div>
-                <div className="flex text-yellow-400 mb-4">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-3.5 h-3.5 fill-current" />
-                  ))}
-                </div>
-                <p className="text-slate-300 font-light italic text-sm leading-relaxed mb-6">
-                  "Scheduling a deep clean for our pre-listing marketing South of Broad was a lifesaver. The baseboards were spotless and they managed to scrub the pollen layer completely off our historic window framings. Our buyer was incredibly pleased!"
-                </p>
-              </div>
-              <p className="text-white text-xs font-bold">— Christopher M., Historic District</p>
-            </div>
-
-            <div className="bg-slate-950 p-8 rounded-3xl border border-slate-850 hover:border-slate-800 transition-all flex flex-col justify-between">
-              <div>
-                <div className="flex text-yellow-400 mb-4">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-3.5 h-3.5 fill-current" />
-                  ))}
-                </div>
-                <p className="text-slate-300 font-light italic text-sm leading-relaxed mb-6">
-                  "Coming home to our house in West Ashley after Star Cleaning SC did their deep clean was amazing. With two black labs, the hair and dander were out of control, but they used pet-safe chemical formulas and literally zero dust was left behind!"
-                </p>
-              </div>
-              <p className="text-white text-xs font-bold">— Jessica T., West Ashley</p>
-            </div>
-
-            <div className="bg-slate-950 p-8 rounded-3xl border border-slate-850 hover:border-slate-800 transition-all flex flex-col justify-between">
-              <div>
-                <div className="flex text-yellow-400 mb-4">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-3.5 h-3.5 fill-current" />
-                  ))}
-                </div>
-                <p className="text-slate-300 font-light italic text-sm leading-relaxed mb-6">
-                  "I hire them for turnover deep cleaning of our vacation properties downtown. Excellent attention, clean baseboards, prompt veteran timing, and zero issues with property owners. 10/10 cleaning discipline."
-                </p>
-              </div>
-              <p className="text-white text-xs font-bold">— Ronald D., Short-Term Rental Manager</p>
-            </div>
+            <ReviewCard
+              theme="dark"
+              variant="grid"
+              text="Scheduling a deep clean for our pre-listing marketing South of Broad was a lifesaver. The baseboards were spotless and they managed to scrub the pollen layer completely off our historic window framings. Our buyer was incredibly pleased!"
+              author="Christopher M."
+              location="Historic District"
+            />
+            <ReviewCard
+              theme="dark"
+              variant="grid"
+              text="Coming home to our house in West Ashley after Star Cleaning SC did their deep clean was amazing. With two black labs, the hair and dander were out of control, but they used pet-safe chemical formulas and literally zero dust was left behind!"
+              author="Jessica T."
+              location="West Ashley"
+            />
+            <ReviewCard
+              theme="dark"
+              variant="grid"
+              text="I hire them for turnover deep cleaning of our vacation properties downtown. Excellent attention, clean baseboards, prompt veteran timing, and zero issues with property owners. 10/10 cleaning discipline."
+              author="Ronald D."
+              location="Short-Term Rental Manager"
+            />
           </div>
         </div>
       </section>
@@ -504,11 +395,11 @@ export default function CharlestonClient() {
                 a: "Pricing is calculated via our dynamic Quote Builder starting from basic configurations. The price reflects the exact size (sq ft), quantity of bathrooms, pet hair burden, and local cleaning density requests. There are absolutely no hidden fees."
               }
             ].map((faq, idx) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-300"
               >
-                <button 
+                <button
                   onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
                   className="w-full text-left px-6 py-5 flex justify-between items-center bg-slate-900 hover:bg-slate-850 transition-colors"
                 >
@@ -529,9 +420,9 @@ export default function CharlestonClient() {
       {/* CTA Conversion Block */}
       <section className="py-24 bg-gradient-to-br from-blue-900 via-slate-900 to-slate-950 border-t border-slate-800 text-center relative overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-15">
-          <Image 
+          <Image
             src="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
-            alt="Felt background layout"
+            alt="Cleaning supplies background"
             fill
             className="object-cover"
           />
@@ -546,14 +437,14 @@ export default function CharlestonClient() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link 
+            <Link
               href="/quote"
-              className="px-8 py-4 bg-gradient-to-r from-blue-650 to-cyan-500 hover:from-blue-600 hover:to-cyan-400 text-white font-black rounded-xl text-lg transition-all shadow-xl hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] flex items-center gap-2 transform hover:-translate-y-0.5 w-full sm:w-auto justify-center"
+              className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl text-lg transition-all shadow-xl hover:shadow-2xl flex items-center gap-2 transform hover:-translate-y-0.5 w-full sm:w-auto justify-center"
             >
               Get Your Instant Quote <ArrowRight className="w-5 h-5 animate-pulse" />
             </Link>
-            <a 
-              href="tel:8432979935" 
+            <a
+              href="tel:8432979935"
               className="px-8 py-4 bg-slate-900/80 hover:bg-slate-800/85 border border-slate-700 text-white font-bold rounded-xl text-lg transition-all backdrop-blur-md w-full sm:w-auto"
             >
               Call (843) 297-9935
@@ -580,19 +471,21 @@ export default function CharlestonClient() {
               </ul>
             </div>
             <div>
+              <p className="text-white font-bold mb-3 uppercase tracking-wider text-xs text-blue-400">More Service Areas</p>
+              <ul className="space-y-2">
+                <li><Link href="/deep-cleaning-north-charleston-sc" className="hover:text-white transition-colors">✦ Deep Cleaning North Charleston SC</Link></li>
+                <li><Link href="/deep-cleaning-james-island-sc" className="hover:text-white transition-colors">✦ Deep Cleaning James Island SC</Link></li>
+                <li><Link href="/deep-cleaning-daniel-island-sc" className="hover:text-white transition-colors">✦ Deep Cleaning Daniel Island SC</Link></li>
+                <li><Link href="/deep-cleaning-johns-island-sc" className="hover:text-white transition-colors">✦ Deep Cleaning Johns Island SC</Link></li>
+                <li><Link href="/deep-cleaning-mount-pleasant-sc" className="hover:text-white transition-colors">✦ Deep Cleaning Mount Pleasant SC</Link></li>
+              </ul>
+            </div>
+            <div>
               <p className="text-white font-bold mb-3 uppercase tracking-wider text-xs text-blue-400">Other Local Services</p>
               <ul className="space-y-2">
                 <li><Link href="/services/residential-cleaning" className="hover:text-white transition-colors">Residential Home Cleaning</Link></li>
                 <li><Link href="/services/move-in-move-out-cleaning" className="hover:text-white transition-colors">Move-In/Out Turnkeys</Link></li>
                 <li><Link href="/services/vacation-rental-airbnb-cleaning" className="hover:text-white transition-colors">Vacation & Airbnb Cleanings</Link></li>
-              </ul>
-            </div>
-            <div>
-              <p className="text-white font-bold mb-3 uppercase tracking-wider text-xs text-blue-400">Service Area Standard</p>
-              <ul className="space-y-2">
-                <li><Link href="/locations/charleston" className="hover:text-white transition-colors">Charleston SC Areas</Link></li>
-                <li><Link href="/locations/summerville" className="hover:text-white transition-colors">Summerville SC Areas</Link></li>
-                <li><Link href="/locations/ladson" className="hover:text-white transition-colors">Ladson SC Areas</Link></li>
               </ul>
             </div>
           </div>

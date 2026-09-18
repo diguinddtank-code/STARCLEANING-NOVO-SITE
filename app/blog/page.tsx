@@ -2,8 +2,25 @@ import React from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import Link from 'next/link';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Cleaning Tips & Local Guides Blog | Star Cleaning SC',
+  description: 'Expert cleaning tips, local guides, and pricing breakdowns for homeowners and property managers in Charleston, Summerville, North Charleston, and the Lowcountry.',
+  alternates: {
+    canonical: 'https://www.starcleaningsc.com/blog',
+  },
+};
 
 const BlogIndex = () => {
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.starcleaningsc.com/blog" }
+    ]
+  };
   const posts = [
     {
       title: "The Ultimate Guide to Charleston Airbnb Cleaning for Hosts",
@@ -30,6 +47,10 @@ const BlogIndex = () => {
 
   return (
     <div className="font-sans text-gray-800 bg-slate-50 min-h-screen flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Navbar />
       
       <main className="flex-grow pt-24 pb-20">

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Script from 'next/script';
+import ReviewCard from '@/components/ReviewCard';
 import { CheckCircle2, MapPin, Star, ShieldCheck, ThumbsUp, Leaf, ArrowRight, HardHat, Hammer, Home, Building2 } from 'lucide-react';
 
 export const metadata = {
@@ -17,17 +18,38 @@ export default function PostConstructionCleaningPage() {
       <Script id="post-construction-schema" type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Service",
-          "name": "Post-Construction Cleaning Services",
-          "provider": {
-            "@type": "LocalBusiness",
-            "name": "Star Cleaning SC",
-            "telephone": "(843) 297-9935",
-            "url": "https://www.starcleaningsc.com"
-          },
-          "areaServed": ["Charleston, SC", "North Charleston, SC", "Summerville, SC"],
-          "description": "Expert post-construction cleaning in Charleston, SC. We remove dust, debris, and prep your newly built or renovated space for move-in.",
-          "serviceType": "Post-Construction Cleaning"
+          "@graph": [
+            {
+              "@type": "Service",
+              "name": "Post-Construction Cleaning Services",
+              "provider": {
+                "@type": "LocalBusiness",
+                "name": "Star Cleaning SC",
+                "telephone": "(843) 297-9935",
+                "url": "https://www.starcleaningsc.com"
+              },
+              "areaServed": ["Charleston, SC", "North Charleston, SC", "Summerville, SC"],
+              "description": "Expert post-construction cleaning in Charleston, SC. We remove dust, debris, and prep your newly built or renovated space for move-in.",
+              "serviceType": "Post-Construction Cleaning"
+            },
+            {
+              "@type": "FAQPage",
+              "mainEntity": [
+                { "@type": "Question", "name": "Do you remove large construction debris like wood or drywall scraps?", "acceptedAnswer": { "@type": "Answer", "text": "No, we do not haul away heavy construction materials, large debris, or hazardous waste. Our service is focused on the detailed cleaning phase—removing fine dust, paint splatters, and prepping the space for immediate occupancy after the heavy debris has been cleared." } },
+                { "@type": "Question", "name": "How long does post-construction cleaning take?", "acceptedAnswer": { "@type": "Answer", "text": "It depends entirely on the size of the project and the level of dust. A small kitchen remodel might take a few hours, while a newly constructed home could take a full day or require multiple phases over a few days. We will give you a clear timeline during your estimate." } },
+                { "@type": "Question", "name": "Are your cleaning products safe for brand new hardwood floors and marble?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. We are highly trained in handling delicate, newly installed surfaces. We use specific, pH-neutral, and eco-friendly products that clean effectively without scratching, dulling, or damaging your expensive new finishes." } },
+                { "@type": "Question", "name": "Do you clean inside the HVAC vents?", "acceptedAnswer": { "@type": "Answer", "text": "We clean the exterior of the vent covers and the immediate surrounding area where dust settles. However, for deep cleaning inside the actual ductwork, we recommend hiring a specialized HVAC duct cleaning service." } },
+                { "@type": "Question", "name": "Can you work alongside contractors who are still finishing up?", "acceptedAnswer": { "@type": "Answer", "text": "For the best results, we highly recommend scheduling our final detail clean after all contractors have completely finished their work and left the site. If we clean while tradesmen are still working, new dust will inevitably settle." } }
+              ]
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
+                { "@type": "ListItem", "position": 2, "name": "Post-Construction Cleaning", "item": "https://www.starcleaningsc.com/services/post-construction-cleaning" }
+              ]
+            }
+          ]
         })
       }} />
 
@@ -407,16 +429,14 @@ export default function PostConstructionCleaningPage() {
                 text: "Reliable, thorough, and professional. They handled the post-construction cleaning for a 4-unit townhome project we just finished. Every unit was spotless and ready for staging. Highly recommend their services."
               }
             ].map((review, i) => (
-              <div key={i} className="bg-slate-50 p-8 rounded-2xl border border-slate-100 relative">
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, j) => <Star key={j} className="w-5 h-5 text-yellow-400 fill-yellow-400" />)}
-                </div>
-                <p className="text-slate-700 italic mb-6">"{review.text}"</p>
-                <div>
-                  <p className="font-bold text-slate-900">{review.name}</p>
-                  <p className="text-sm text-slate-500">{review.role}</p>
-                </div>
-              </div>
+              <ReviewCard
+                key={i}
+                theme="light"
+                variant="grid"
+                text={review.text}
+                author={review.name}
+                location={review.role}
+              />
             ))}
           </div>
         </div>

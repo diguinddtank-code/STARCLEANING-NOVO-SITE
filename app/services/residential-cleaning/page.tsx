@@ -2,18 +2,60 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
+import Script from 'next/script';
+import ReviewCard from '@/components/ReviewCard';
 import { MapPin, Star, ShieldCheck, ThumbsUp, Leaf, ArrowRight, CheckCircle2, Sparkles, Home, BedDouble } from 'lucide-react';
 
 export const metadata = {
   title: 'Top-Rated Residential Cleaning in Charleston SC | Free Quote',
   description: 'Reclaim your weekends with our veteran-owned residential cleaning in Charleston, SC. We deliver military-precision house cleaning with pet-safe products.',
+  alternates: {
+    canonical: 'https://www.starcleaningsc.com/services/residential-cleaning',
+  },
 };
 
 export default function ResidentialCleaning() {
   return (
     <main className="min-h-screen bg-slate-50">
+      <Script id="residential-cleaning-service-schema" type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Service",
+              "name": "Residential Cleaning Services",
+              "provider": {
+                "@type": "LocalBusiness",
+                "name": "Star Cleaning SC",
+                "telephone": "(843) 297-9935",
+                "url": "https://www.starcleaningsc.com"
+              },
+              "areaServed": ["Charleston, SC", "North Charleston, SC", "Summerville, SC", "Ladson, SC", "James Island, SC", "Daniel Island, SC"],
+              "description": "Veteran-owned residential house cleaning in Charleston, SC delivering military-precision cleaning with pet-safe products.",
+              "serviceType": "Residential Cleaning"
+            },
+            {
+              "@type": "FAQPage",
+              "mainEntity": [
+                { "@type": "Question", "name": "Do I need to be home during the residential cleaning?", "acceptedAnswer": { "@type": "Answer", "text": "Not at all! Most of our clients provide us with a spare key, garage code, or lockbox access. You can go to work or run errands and return to a beautifully clean house." } },
+                { "@type": "Question", "name": "Do you bring your own cleaning supplies and equipment?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, we arrive fully equipped with our own high-quality vacuums, microfiber cloths, and eco-friendly, pet-safe cleaning solutions. You don't need to provide a thing." } },
+                { "@type": "Question", "name": "What if I have dogs or cats in the house?", "acceptedAnswer": { "@type": "Answer", "text": "We are very pet-friendly! Just let us know in advance if you have pets and if they will be roaming free or crated. We always use non-toxic products that are completely safe for animals." } },
+                { "@type": "Question", "name": "How do I find the best residential cleaning in Summerville?", "acceptedAnswer": { "@type": "Answer", "text": "Look for a company with verified reviews, background-checked employees, and a satisfaction guarantee. As a veteran-owned business, Star Cleaning SC brings unmatched discipline and reliability to every Summerville home we clean." } },
+                { "@type": "Question", "name": "Can I request specific tasks for my house cleaning in James Island?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. While we have a comprehensive standard checklist, we are happy to customize your service. Just communicate your priorities when booking your James Island cleaning, and we will accommodate them." } }
+              ]
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
+                { "@type": "ListItem", "position": 2, "name": "Residential Cleaning", "item": "https://www.starcleaningsc.com/services/residential-cleaning" }
+              ]
+            }
+          ]
+        })
+      }} />
       <Navbar />
-      
+
       {/* HERO SECTION */}
       <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-900">
         <div className="absolute inset-0 z-0">
@@ -124,6 +166,9 @@ export default function ResidentialCleaning() {
         <div className="prose prose-lg max-w-none mb-16 text-slate-700">
           <p>
             Finding reliable <strong>residential cleaning in Charleston SC</strong> shouldn't feel like a second job. Between commuting, managing family schedules, and trying to enjoy the beautiful Lowcountry weekends, keeping up with household chores often falls by the wayside. That is exactly where Star Cleaning SC steps in. As a veteran-owned business with 18 years of experience, we bring military precision to every room we touch. Whether you live in a historic downtown Charleston home, a bustling family house in Summerville, or a modern apartment in North Charleston, our background-checked team delivers consistent, meticulous results. We handle the dusting, scrubbing, and mopping so you can spend your free time doing what you actually love. Plus, you can breathe easy knowing we exclusively use pet-safe and eco-friendly supplies.
+          </p>
+          <p>
+            Not every home needs the same level of attention every visit. Our <strong>residential home cleaning services in Charleston, SC</strong> flex from light housekeeping — a quicker tidy-up focused on kitchens, bathrooms, and high-traffic rooms — to a full top-to-bottom clean on whatever schedule fits your household. Many clients simply call this a maid service, and that's exactly the role we're glad to fill, week after week.
           </p>
         </div>
 
@@ -326,21 +371,27 @@ export default function ResidentialCleaning() {
         {/* SOCIAL PROOF BLOCK */}
         <h2 className="text-3xl font-bold text-slate-900 mb-8">What Our Clients Say</h2>
         <div className="grid md:grid-cols-3 gap-6 mb-16">
-          <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-            <div className="flex text-yellow-400 mb-3">★★★★★</div>
-            <p className="text-slate-700 italic mb-4">"Star Cleaning SC has been a lifesaver for our family. With two toddlers and a golden retriever, our house in Summerville was always chaotic. Their residential cleaning service is incredibly thorough, and I love that they use pet-safe products. Highly recommend!"</p>
-            <p className="font-bold text-slate-900">— Sarah M.</p>
-          </div>
-          <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-            <div className="flex text-yellow-400 mb-3">★★★★★</div>
-            <p className="text-slate-700 italic mb-4">"I've hired several maid services in Charleston over the years, but none compare to the military precision of this veteran-owned team. They show up exactly when they say they will and leave my apartment spotless every single time."</p>
-            <p className="font-bold text-slate-900">— David T.</p>
-          </div>
-          <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-            <div className="flex text-yellow-400 mb-3">★★★★★</div>
-            <p className="text-slate-700 italic mb-4">"The best house cleaning I've ever had. They pay attention to the little details that other companies miss. Coming home to a clean house in James Island after a long week at work is the best feeling in the world."</p>
-            <p className="font-bold text-slate-900">— Emily R.</p>
-          </div>
+          <ReviewCard
+            theme="light"
+            variant="grid"
+            text="Star Cleaning SC has been a lifesaver for our family. With two toddlers and a golden retriever, our house in Summerville was always chaotic. Their residential cleaning service is incredibly thorough, and I love that they use pet-safe products. Highly recommend!"
+            author="Sarah M."
+            location="Summerville"
+          />
+          <ReviewCard
+            theme="light"
+            variant="grid"
+            text="I've hired several maid services in Charleston over the years, but none compare to the military precision of this veteran-owned team. They show up exactly when they say they will and leave my apartment spotless every single time."
+            author="David T."
+            location="Charleston"
+          />
+          <ReviewCard
+            theme="light"
+            variant="grid"
+            text="The best house cleaning I've ever had. They pay attention to the little details that other companies miss. Coming home to a clean house in James Island after a long week at work is the best feeling in the world."
+            author="Emily R."
+            location="James Island"
+          />
         </div>
 
         {/* CLOSING CTA SECTION */}

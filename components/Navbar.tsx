@@ -86,6 +86,8 @@ const Navbar: React.FC = () => {
                     <Link href="/locations/summerville/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Summerville</Link>
                     <Link href="/locations/james-island/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">James Island</Link>
                     <Link href="/locations/daniel-island/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Daniel Island</Link>
+                    <Link href="/locations/johns-island/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Johns Island</Link>
+                    <Link href="/locations/mount-pleasant/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Mount Pleasant</Link>
                     <div className="border-t border-gray-100 mt-2 pt-2">
                       <Link href="/locations/" className="block px-4 py-2 text-xs font-black text-star-blue hover:bg-blue-50">ALL SERVICE AREAS &rarr;</Link>
                     </div>
@@ -189,6 +191,8 @@ const Navbar: React.FC = () => {
                 <Link href="/locations/summerville/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Summerville</Link>
                 <Link href="/locations/james-island/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">James Island</Link>
                 <Link href="/locations/daniel-island/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Daniel Island</Link>
+                <Link href="/locations/johns-island/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Johns Island</Link>
+                <Link href="/locations/mount-pleasant/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Mount Pleasant</Link>
                 <Link href="/locations/" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-black text-star-blue mt-2">ALL SERVICE AREAS &rarr;</Link>
               </div>
             </div>

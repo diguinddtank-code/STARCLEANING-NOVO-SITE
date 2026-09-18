@@ -38,11 +38,25 @@ const BlogPost3 = () => {
     "articleSection": "Cleaning Tips"
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.starcleaningsc.com/blog" },
+      { "@type": "ListItem", "position": 3, "name": "Deep Cleaning vs. Standard Cleaning", "item": "https://www.starcleaningsc.com/blog/deep-cleaning-vs-standard-cleaning-north-charleston/" }
+    ]
+  };
+
   return (
     <div className="font-sans text-slate-800 bg-white min-h-screen flex flex-col">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <Navbar />
       

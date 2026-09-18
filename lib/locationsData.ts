@@ -26,8 +26,23 @@ export const locationsData: Record<string, any> = {
       { q: "Are your cleaning products safe for my pets?", a: "Absolutely. We know Charleston is a very dog-friendly city! We use high-quality, eco-friendly, and pet-safe products to ensure your furry friends are completely safe after we finish our work." },
       { q: "Do I need to be at my Charleston home while you clean?", a: "No, you do not need to be present. Many of our local clients provide us with a door code or lockbox while they are at work or out enjoying the city. Our team is fully background-checked and insured for your peace of mind." },
       { q: "How much does house cleaning cost in Charleston, SC?", a: "Pricing depends on the square footage of your home, the number of bedrooms and bathrooms, and the type of service you select. We offer transparent, upfront pricing when you request a free quote through our website." },
-      { q: "How quickly can I schedule a deep cleaning in Charleston?", a: "We strive to accommodate your schedule as quickly as possible. While we recommend booking a few days in advance, we sometimes have next-day availability for deep cleaning services in the Charleston area." }
+      { q: "How quickly can I schedule a deep cleaning in Charleston?", a: "We strive to accommodate your schedule as quickly as possible. While we recommend booking a few days in advance, we sometimes have next-day availability for deep cleaning services in the Charleston area." },
+      { q: "Can you clean historic homes downtown without damaging original materials?", a: "Yes. We use pH-neutral, non-abrasive products on heart-pine floors, original plaster, and antique brass fixtures, and we hand-wipe delicate trim instead of using harsh scrubbing tools that could strip finishes." },
+      { q: "Do you handle parking and access for cleanings on the peninsula?", a: "Yes, our teams are used to downtown Charleston's limited parking and narrow alleys. Just let us know about permit requirements or gate codes when you book, and we will plan around them." }
     ],
+    localDetails: "We regularly clean homes in South of Broad, West Ashley, Mount Pleasant-adjacent neighborhoods, and the historic peninsula. Charleston's year-round humidity and salt air speed up mildew growth in bathrooms and mold on window sills, so our checklists put extra time into grout lines, exhaust vents, and wood trim that standard cleanings skip.",
+    serviceDescriptions: [
+      "Weekly or bi-weekly upkeep for peninsula condos, South of Broad singles, and West Ashley family homes.",
+      "Baseboard-to-ceiling-fan resets that cut through Lowcountry humidity, salt air, and historic dust.",
+      "Full move-in/move-out cleans for Charleston's fast-turning rental and resale market, deposit-ready.",
+      "Same-day turnover cleaning for downtown and peninsula Airbnbs, timed to your guest checkout.",
+      "Office and retail cleaning for King Street and Meeting Street businesses, scheduled after hours.",
+      "Post-renovation dust removal for historic home restorations and new builds alike."
+    ],
+    checklistExtra: {
+      standard: "Extra attention to humidity-prone bathroom vents common in older Charleston homes",
+      deep: "Hand-detailing of historic trim, moldings, and heart-pine floors"
+    },
     coordinates: { lat: 32.7765, lng: -79.9311 }
   },
   "north-charleston": {
@@ -57,8 +72,23 @@ export const locationsData: Record<string, any> = {
       { q: "Are your cleaners background-checked?", a: "Absolutely. Security and trust are our top priorities. Every member of our veteran-owned team undergoes a strict background check and rigorous training before entering your home." },
       { q: "Do I need to provide the cleaning supplies for my North Charleston home?", a: "No, you do not need to provide anything. We bring all of our own professional-grade, pet-safe cleaning supplies and equipment to every job." },
       { q: "How do I get a quote for house cleaning in North Charleston, SC?", a: "Getting a quote is easy! Simply visit our contact page, fill out the quick form with your home's details, and we will provide a transparent, customized estimate." },
-      { q: "What happens if I am not happy with the service?", a: "We offer a 100% Satisfaction Guarantee. If any part of our cleaning does not meet your expectations, call us within 24 hours and we will return to re-clean the specific area for free." }
+      { q: "What happens if I am not happy with the service?", a: "We offer a 100% Satisfaction Guarantee. If any part of our cleaning does not meet your expectations, call us within 24 hours and we will return to re-clean the specific area for free." },
+      { q: "Can you clean apartments and rentals near Park Circle on a tight turnaround?", a: "Yes, North Charleston has one of our highest volumes of apartment and rental turnovers. We keep flexible crews available for quick-turn move-out cleans between tenants." },
+      { q: "Do you offer early-morning or evening appointments for shift workers?", a: "Yes. Many of our North Charleston clients work non-traditional hours at Boeing or the Air Base, so we offer early and late appointment slots in addition to our standard Tuesday–Saturday schedule." }
     ],
+    localDetails: "Our North Charleston clients are concentrated around Park Circle, the Tanger Outlets corridor, and neighborhoods near Boeing and Joint Base Charleston. Because so many residents work shift schedules, we offer early-morning and evening booking slots, and we know the area's mix of apartments, townhomes, and older single-family homes well enough to price and staff each job accurately.",
+    serviceDescriptions: [
+      "Regular cleanings built around shift schedules for Boeing, the Air Base, and Park Circle families.",
+      "Deep resets that clear construction dust and everyday grime from apartments and single-family homes alike.",
+      "Move-in/move-out cleaning for the area's high volume of apartment and rental turnovers.",
+      "Turnover cleaning for short-term rentals near the Tanger Outlets and North Charleston Coliseum.",
+      "Commercial cleaning for offices and warehouses along the Rivers Ave and I-26 corridor.",
+      "Post-construction cleanup for the area's steady pace of new residential and industrial builds."
+    ],
+    checklistExtra: {
+      standard: "Quick-turn scheduling options for shift workers and apartment turnovers",
+      deep: "Extra vacuuming pass for homes near Boeing/the Air Base dealing with heavier everyday dust"
+    },
     coordinates: { lat: 32.8546, lng: -79.9748 }
   },
   ladson: {
@@ -88,8 +118,23 @@ export const locationsData: Record<string, any> = {
       { q: "Are you insured and bonded to work in Ladson?", a: "Absolutely. Star Cleaning SC is fully licensed, insured, and bonded. You can have complete peace of mind when our team is working inside your home." },
       { q: "What is included in a standard house cleaning in Ladson, SC?", a: "Our standard cleaning includes dusting all surfaces, vacuuming, mopping, full bathroom sanitation, wiping down kitchen counters and appliance exteriors, and making the beds." },
       { q: "Do I need to be home during the cleaning service?", a: "No, it is not necessary for you to be home. Most of our Ladson clients provide us with a garage code or hidden key so we can clean while they are at work or running errands." },
-      { q: "How do I pay for my cleaning service?", a: "We make payment easy and secure. We accept all major credit cards, Venmo, and checks. Payment is only processed after your cleaning is completed to your satisfaction." }
+      { q: "How do I pay for my cleaning service?", a: "We make payment easy and secure. We accept all major credit cards, Venmo, and checks. Payment is only processed after your cleaning is completed to your satisfaction." },
+      { q: "Do you offer discounts or flexible scheduling for military families in Ladson?", a: "Yes, we work with many military families near Joint Base Charleston and can accommodate PCS move timelines. Mention your military affiliation when you request a quote." },
+      { q: "Does deep cleaning remove red clay stains from floors and entryways?", a: "In most cases, yes. Ladson's clay soil tracks in easily, and our deep clean includes hand-scrubbing entryway tile and hallway floors to lift ground-in clay residue that regular mopping leaves behind." }
     ],
+    localDetails: "We serve Ladson's family neighborhoods around Exchange Park, Wescott, and the areas near Joint Base Charleston, where many clients are active-duty or military families. Ladson's clay soil tracks easily into entryways and hallways, so our teams give floors and baseboards extra attention compared to a typical suburban route.",
+    serviceDescriptions: [
+      "Family-friendly recurring cleaning for the growing neighborhoods around Ladson and Exchange Park.",
+      "Deep cleaning that clears the clay dust and yard debris tracked in from Ladson's newer subdivisions.",
+      "Move-in/move-out cleaning for Ladson's steady mix of new-build sales and rental turnovers.",
+      "Turnover cleaning for Airbnb and short-term rentals near Exchange Park and the Coastal Carolina Fairgrounds.",
+      "Commercial cleaning for small offices and retail spaces along Dorchester Road.",
+      "Post-construction cleanup for Ladson's new-build subdivisions and additions."
+    ],
+    checklistExtra: {
+      standard: "Extra floor pass for red clay dust tracked in from yards and driveways",
+      deep: "Deep vent and window-sill cleaning for homes near Exchange Park's seasonal events"
+    },
     coordinates: { lat: 33.0107, lng: -80.1101 }
   },
   summerville: {
@@ -119,8 +164,23 @@ export const locationsData: Record<string, any> = {
       { q: "Are your cleaning products safe for children and pets?", a: "Absolutely. We use high-quality, eco-friendly, and pet-safe cleaning products. Your family's health and safety are our top priorities during every service." },
       { q: "How much does house cleaning cost in Summerville, SC?", a: "The cost depends on the size of your home and the specific type of cleaning you need. We offer free, transparent quotes through our website so you know exactly what to expect." },
       { q: "Do I need to provide a vacuum or mop?", a: "No, you don't need to provide a thing! Our professional cleaning teams arrive fully equipped with all the necessary tools, vacuums, and supplies to clean your home." },
-      { q: "What if I need to reschedule my Summerville cleaning appointment?", a: "We understand that life happens. Simply contact us at least 48 hours in advance, and we will happily reschedule your cleaning to a more convenient time." }
+      { q: "What if I need to reschedule my Summerville cleaning appointment?", a: "We understand that life happens. Simply contact us at least 48 hours in advance, and we will happily reschedule your cleaning to a more convenient time." },
+      { q: "How bad is pollen season for homes in Summerville, and can cleaning help?", a: "Pine and azalea pollen coats Summerville homes heavily each spring, settling into vents, blinds, and carpets. Regular dusting and a seasonal deep clean before and after peak pollen season keeps indoor air and surfaces noticeably cleaner." },
+      { q: "Do you clean newly built homes in Nexton or Cane Bay before move-in?", a: "Yes, we regularly clean new construction in Nexton and Cane Bay to remove fine drywall dust and construction residue from cabinets, floors, and vents before families move in." }
     ],
+    localDetails: "We clean homes throughout Nexton, Cane Bay, Carnes Crossroads, and Summerville's historic downtown district. Heavy pine and azalea pollen each spring coats window sills, vents, and blinds faster than in most Lowcountry towns, which is why our checklists include extra dusting and HEPA vacuuming passes during pollen season.",
+    serviceDescriptions: [
+      "Recurring cleaning for Summerville's historic downtown homes and newer Nexton and Cane Bay builds.",
+      "Deep cleaning focused on pollen and dust buildup from Flowertown's pine and azalea season.",
+      "Move-in/move-out cleaning for Summerville's fast-growing new-construction neighborhoods.",
+      "Turnover cleaning for vacation and short-term rentals near Azalea Park and downtown Summerville.",
+      "Commercial cleaning for offices and shops along Main Street and around Nexton.",
+      "Post-construction cleanup for new builds in Nexton, Cane Bay, and Carnes Crossroads."
+    ],
+    checklistExtra: {
+      standard: "Window sill and vent wipe-down to clear seasonal pine pollen buildup",
+      deep: "Extra HEPA vacuuming pass to pull pollen and dust out of carpets and rugs"
+    },
     coordinates: { lat: 33.0185, lng: -80.1756 }
   },
   "james-island": {
@@ -150,8 +210,23 @@ export const locationsData: Record<string, any> = {
       { q: "Are your cleaners insured and background-checked?", a: "Absolutely. Every member of our veteran-owned team is fully background-checked, licensed, and insured to give you complete peace of mind while we are in your home." },
       { q: "How much does house cleaning cost in James Island, SC?", a: "Pricing is based on the square footage of your home, the number of rooms, and the type of service requested. You can easily get a free, customized quote through our website." },
       { q: "Do I need to be home while you clean my James Island house?", a: "No, you do not need to be home. Many of our clients leave a key or provide a door code so we can clean while they are at work or out enjoying the island." },
-      { q: "What if I am not happy with the cleaning service?", a: "We offer a 100% Satisfaction Guarantee. If we miss a spot or you are unhappy with any area, call us within 24 hours and we will return to re-clean it at no additional cost." }
+      { q: "What if I am not happy with the cleaning service?", a: "We offer a 100% Satisfaction Guarantee. If we miss a spot or you are unhappy with any area, call us within 24 hours and we will return to re-clean it at no additional cost." },
+      { q: "Can you clean up sand and salt residue from beach trips near Folly Beach?", a: "Yes, this is one of the most common requests on James Island. We give entryway floors, window tracks, and bathroom fixtures extra attention to clear tracked-in sand and salt-air film." },
+      { q: "Do you clean Airbnbs near Folly Beach between guest stays?", a: "Yes, we offer same-day turnover cleaning for vacation rentals near Folly Beach and James Island County Park, timed around your checkout and check-in windows." }
     ],
+    localDetails: "James Island clients are concentrated near Folly Beach, James Island County Park, and the marsh-front neighborhoods along Riverland Drive. Tracked-in sand and salt-air residue build up faster here than inland, so we pay extra attention to entryway floors, window tracks, and bathroom fixtures on every visit.",
+    serviceDescriptions: [
+      "Recurring cleaning for James Island homes dealing with sand, salt air, and coastal humidity.",
+      "Deep cleaning that tackles salt residue and sand buildup near Folly Beach and the marsh.",
+      "Move-in/move-out cleaning for James Island's mix of rentals, condos, and single-family homes.",
+      "Turnover cleaning for Folly Beach-area Airbnbs and vacation rentals between guests.",
+      "Commercial cleaning for offices and shops along Folly Road and Maybank Highway.",
+      "Post-construction cleanup for renovations and new builds near the county park and marsh."
+    ],
+    checklistExtra: {
+      standard: "Extra floor and entryway pass to clear tracked-in sand",
+      deep: "Salt-residue treatment for bathroom fixtures and window tracks"
+    },
     coordinates: { lat: 32.7302, lng: -79.9540 }
   },
   "daniel-island": {
@@ -181,8 +256,115 @@ export const locationsData: Record<string, any> = {
       { q: "How do I know I can trust your cleaners in my home?", a: "Trust is our foundation. As a veteran-owned business, we operate with strict integrity. Every cleaner is thoroughly background-checked, trained, and fully insured before stepping foot in your home." },
       { q: "What is included in a deep cleaning service?", a: "Our deep cleaning goes beyond the surface. It includes hand-wiping baseboards, cleaning interior windows, deep scrubbing tile grout, and dusting ceiling fans and light fixtures." },
       { q: "How much does house cleaning cost in Daniel Island, SC?", a: "Our pricing is customized based on your home's square footage, the number of rooms, and the specific service you need. You can request a free, no-obligation quote directly on our website." },
-      { q: "Do I need to provide any cleaning equipment?", a: "Not at all. Our team arrives fully equipped with professional-grade vacuums, mops, and eco-friendly, pet-safe cleaning supplies to complete the job." }
+      { q: "Do I need to provide any cleaning equipment?", a: "Not at all. Our team arrives fully equipped with professional-grade vacuums, mops, and eco-friendly, pet-safe cleaning supplies to complete the job." },
+      { q: "Can your team access gated communities and HOA properties on Daniel Island?", a: "Yes, we regularly coordinate with HOA offices and gate attendants for access. Just provide any required visitor registration details or codes when you book." },
+      { q: "Are your products safe for natural stone countertops and custom hardwood floors?", a: "Yes. We use pH-neutral, non-abrasive products on natural stone, quartz, and hardwood, and avoid any acidic or abrasive cleaners that could dull or etch high-end finishes." }
     ],
+    localDetails: "We clean homes throughout Daniel Island's master-planned neighborhoods, including properties near the golf courses, the Wando River walking trails, and Credit One Stadium. Because so many homes feature custom cabinetry, natural stone, and high-end hardwood, our teams use non-abrasive, pH-neutral products and hand-detailing instead of one-size-fits-all cleaning methods.",
+    serviceDescriptions: [
+      "Recurring cleaning for Daniel Island's master-planned neighborhoods and golf-course homes.",
+      "Deep cleaning tailored to high-end finishes, custom cabinetry, and delicate flooring.",
+      "Move-in/move-out cleaning for Daniel Island's luxury home and condo turnovers.",
+      "Turnover cleaning for furnished rentals and guest homes near Credit One Stadium.",
+      "Commercial cleaning for offices and retail spaces in the Daniel Island town center.",
+      "Post-construction cleanup for new luxury builds and remodels on the island."
+    ],
+    checklistExtra: {
+      standard: "Careful, non-abrasive polish of high-end countertops and cabinetry hardware",
+      deep: "Detailed care for custom millwork, hardwood, and natural stone finishes"
+    },
     coordinates: { lat: 32.8605, lng: -79.9016 }
+  },
+  "johns-island": {
+    name: "Johns Island",
+    slug: "johns-island",
+    metaTitle: "House Cleaning Johns Island SC | Star Cleaning SC",
+    metaDescription: "Reliable house cleaning on Johns Island, SC for farmhouse-style homes, new construction, and waterfront estates. Veteran-owned, pet-safe, 100% satisfaction guaranteed.",
+    primaryKeyword: "House Cleaning Johns Island SC",
+    hero: {
+      h1: "House Cleaning Services on Johns Island, SC",
+      subtitle: "From Maybank Highway farmhouses to new builds off River Road, get the most trusted house cleaning Johns Island SC has to offer."
+    },
+    intro: "If you're looking for dependable **house cleaning Johns Island SC** homeowners actually recommend, Star Cleaning SC is ready to help. Johns Island is unlike anywhere else in the Charleston area — a mix of centuries-old farmland, the famous Angel Oak, and a wave of new neighborhoods branching off Maybank Highway and River Road. Whether you're in a rural property with acreage, a new build in a growing subdivision, or a waterfront home along the Stono River, your time is better spent enjoying the space than cleaning it. As a veteran-owned business with 18 years of experience, we bring military precision to every home we service. We use pet-safe, eco-friendly products so your family and animals stay protected, and our background-checked team understands the specific upkeep that comes with larger lots and rural roads. Let us handle the cleaning so you can enjoy the quieter, greener side of the Lowcountry.",
+    whyChooseUs: [
+      { title: "Rural & Large-Lot Experience", desc: "Many Johns Island homes sit on larger lots with long driveways and more square footage than a typical suburban house. We staff and price jobs accordingly instead of applying a one-size-fits-all visit." },
+      { title: "Veteran-Owned Discipline", desc: "With 18 years of experience, our veteran-owned company operates with unmatched military precision, whether we're cleaning a historic farmhouse or a brand-new build." },
+      { title: "New Construction Ready", desc: "With ongoing development off River Road and Maybank Highway, we regularly handle post-construction and move-in cleans for Johns Island's newest neighborhoods." },
+      { title: "100% Satisfaction Guarantee", desc: "We stand behind our work. If you aren't completely thrilled with your Johns Island house cleaning, let us know within 24 hours and we will re-clean the area for free." }
+    ],
+    reviews: [
+      { text: "We live on a few acres off River Road and most cleaners don't want to make the drive. Star Cleaning SC never blinks, and our farmhouse has never looked better.", author: "Caroline B." },
+      { text: "Our new build near the Angel Oak still had construction dust in the vents a year after we moved in. They finally got it all out during a deep clean. Wish we'd called sooner.", author: "Patrick M." },
+      { text: "We have a waterfront property on the Stono River and needed a team we could trust with the place while we're away. They're reliable, thorough, and always lock up properly.", author: "Diane R." }
+    ],
+    faqs: [
+      { q: "Do you offer move-out cleaning on Johns Island, SC?", a: "Yes, we provide detailed move-in and move-out cleaning for homes and farmhouses across Johns Island. We clean inside appliances, cabinets, and closets so the property is ready for its next chapter." },
+      { q: "Are your cleaning products safe for my pets and farm animals?", a: "Our products are eco-friendly and pet-safe for household pets like dogs and cats. We use non-toxic solutions throughout your home so your family and animals are never exposed to harsh chemical residue." },
+      { q: "Do you clean homes on larger rural properties or just standard subdivisions?", a: "Both. Many of our Johns Island clients have larger homes on multi-acre lots, and we scope the visit and pricing around the actual square footage rather than assuming a standard suburban layout." },
+      { q: "How much does house cleaning cost on Johns Island, SC?", a: "Pricing depends on square footage, number of bedrooms and bathrooms, and the type of service you choose. Request a free, transparent quote through our website and we'll build a price around your specific property." },
+      { q: "Do I need to be home while you clean my Johns Island property?", a: "No, you don't need to be present. Many of our rural and waterfront clients provide a gate code or lockbox. Our team is fully background-checked and insured for your peace of mind." },
+      { q: "Can you handle post-construction cleaning for new Johns Island developments?", a: "Yes, with the ongoing growth off River Road and Maybank Highway, post-construction and first move-in cleans are one of our most requested services on Johns Island. We clear fine drywall dust from cabinets, vents, and floors before you settle in." },
+      { q: "Do you clean waterfront homes along the Stono River?", a: "Yes, we service waterfront properties along the Stono River and regularly work with owners who are away for extended periods, coordinating access and securing the home properly after each visit." }
+    ],
+    localDetails: "We regularly clean homes along River Road, Maybank Highway, and the newer neighborhoods near the Angel Oak and Charleston Executive Airport. Johns Island's mix of unpaved rural roads, farmland, and active new construction means more dust and debris tracked indoors than a typical in-town home sees, so our teams spend extra time on entryway floors, window sills, and air vents on every visit.",
+    serviceDescriptions: [
+      "Recurring cleaning for Johns Island farmhouses, new builds, and larger rural properties.",
+      "Deep cleaning that clears construction and farm-road dust from vents, sills, and floors.",
+      "Move-in/move-out cleaning for Johns Island's growing new-construction neighborhoods.",
+      "Turnover cleaning for guest cottages and short-term rentals near the Kiawah/Seabrook corridor.",
+      "Commercial cleaning for offices and shops along Maybank Highway.",
+      "Post-construction cleanup for new builds off River Road and near the Angel Oak."
+    ],
+    checklistExtra: {
+      standard: "Extra entryway floor pass for dust tracked in from unpaved roads and farmland",
+      deep: "Deep vent and window-sill cleaning for homes near active construction zones"
+    },
+    coordinates: { lat: 32.7247, lng: -80.0398 }
+  },
+  "mount-pleasant": {
+    name: "Mount Pleasant",
+    slug: "mount-pleasant",
+    metaTitle: "House Cleaning Mount Pleasant SC | Star Cleaning SC",
+    metaDescription: "Trusted house cleaning in Mount Pleasant, SC, from Old Village historic homes to Carolina Park and Park West subdivisions. Veteran-owned, pet-safe, 100% guaranteed.",
+    primaryKeyword: "House Cleaning Mount Pleasant SC",
+    hero: {
+      h1: "House Cleaning Services in Mount Pleasant, SC",
+      subtitle: "From the Old Village to Carolina Park, get the most trusted house cleaning Mount Pleasant SC families rely on."
+    },
+    intro: "If you're looking for dependable **house cleaning Mount Pleasant SC** homeowners actually trust, Star Cleaning SC is ready to help. Mount Pleasant is Charleston's largest suburb, and one of its most varied — historic homes near Shem Creek and the Old Village, established neighborhoods like Snee Farm, and fast-growing family subdivisions like Carolina Park, Park West, and Dunes West. Whatever stage of life your neighborhood represents, your weekends are better spent at Patriots Point or grabbing dinner on Shem Creek than scrubbing floors. As a veteran-owned business with 18 years of experience, we bring military precision to every home we service. We use pet-safe, eco-friendly products so your family and pets stay protected, and our background-checked team understands the coastal humidity and marsh-side conditions that come with living this close to the water. Let us handle the cleaning so you can enjoy everything Mount Pleasant has to offer.",
+    whyChooseUs: [
+      { title: "Old Village to New Subdivisions", desc: "Whether it's a historic home near Pitt Street or a new build in Carolina Park, we adjust our approach to the age and finish of your specific home instead of a one-size-fits-all visit." },
+      { title: "Veteran-Owned Discipline", desc: "With 18 years of experience, our veteran-owned company operates with unmatched military precision in every Mount Pleasant neighborhood we serve." },
+      { title: "Marsh & Creek Humidity Experts", desc: "Living near Shem Creek and the marsh means fighting humidity year-round. We use techniques that keep mildew and moisture damage from building up between visits." },
+      { title: "100% Satisfaction Guarantee", desc: "We stand behind our work. If you aren't completely thrilled with your Mount Pleasant house cleaning, let us know within 24 hours and we will re-clean the area for free." }
+    ],
+    reviews: [
+      { text: "We live in the Old Village and our 1940s home needs a gentler touch than a new build. They understood that immediately and never used anything too harsh on our original floors.", author: "Nancy P." },
+      { text: "Our house in Carolina Park backs up to a pond and the humidity is no joke. Since switching to biweekly cleanings, the musty smell we used to get in the closets is completely gone.", author: "Brian K." },
+      { text: "I run a short-term rental near Shem Creek and their turnover cleaning has been flawless for over a year. My guests always comment on how clean the place smells.", author: "Samantha T." }
+    ],
+    faqs: [
+      { q: "Do you offer move-out cleaning in Mount Pleasant, SC?", a: "Yes, we provide detailed move-in and move-out cleaning across Mount Pleasant, from the Old Village to Carolina Park and Park West. We clean inside all appliances and cabinets to ensure the home is ready for its next chapter." },
+      { q: "Are your cleaning products safe for my pets?", a: "Absolutely. We use eco-friendly, pet-safe products throughout every home, which matters to us given how many Mount Pleasant families have dogs that use the local dog parks and beaches." },
+      { q: "How do you handle older, historic homes in the Old Village?", a: "We use gentler, pH-neutral products and hand-cleaning methods on original hardwood floors, vintage fixtures, and older surfaces instead of harsh chemicals that could damage historic finishes." },
+      { q: "How much does house cleaning cost in Mount Pleasant, SC?", a: "Pricing depends on your home's square footage, number of bedrooms and bathrooms, and the type of service selected. Request a free, transparent quote through our website for an exact price." },
+      { q: "Do I need to be home while you clean my Mount Pleasant house?", a: "No, you don't need to be present. Many of our clients provide a door code or lockbox while they're at work or enjoying the area. Our team is fully background-checked and insured." },
+      { q: "Can you help with humidity and mildew issues near Shem Creek and the marsh?", a: "Yes, homes closer to the marsh and creek deal with more humidity-driven mildew than homes further inland. We pay extra attention to bathroom grout, closets, and window sills in these areas to keep moisture buildup under control." },
+      { q: "Do you service new subdivisions like Carolina Park and Park West?", a: "Yes, these are some of our fastest-growing service areas. We handle everything from post-construction cleans for new builds to ongoing recurring service for established households there." }
+    ],
+    localDetails: "We regularly clean homes in the Old Village, Snee Farm, Carolina Park, Park West, and Dunes West. Mount Pleasant's mix of decades-old homes near Shem Creek and brand-new construction further from the water means every visit is a little different — older homes need gentler products on original finishes, while newer subdivisions need extra attention to construction dust and marsh-driven humidity.",
+    serviceDescriptions: [
+      "Recurring cleaning for Mount Pleasant's Old Village homes and family subdivisions alike.",
+      "Deep cleaning that addresses marsh humidity and mildew buildup near Shem Creek.",
+      "Move-in/move-out cleaning for Mount Pleasant's active resale and new-construction markets.",
+      "Turnover cleaning for vacation rentals near Shem Creek and the Isle of Palms connector.",
+      "Commercial cleaning for offices and shops along Coleman Boulevard and Johnnie Dodds.",
+      "Post-construction cleanup for new builds in Carolina Park, Park West, and Dunes West."
+    ],
+    checklistExtra: {
+      standard: "Extra dusting pass for homes near Shem Creek dealing with marsh humidity",
+      deep: "Mildew and moisture treatment for closets, window sills, and bathroom grout"
+    },
+    coordinates: { lat: 32.8323, lng: -79.8284 }
   }
 };
