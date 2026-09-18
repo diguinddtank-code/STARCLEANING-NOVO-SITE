@@ -454,7 +454,7 @@ export default function CommercialCleaningPage() {
               Get Your Free Custom Quote
             </Link>
             <a href="tel:+18432979935" className="px-8 py-4 bg-blue-700 text-white font-bold rounded-lg hover:bg-blue-800 transition-colors border border-blue-500 text-lg">
-              Call (843) 297-9935
+              Call or Text (843) 297-9935
             </a>
           </div>
         </div>

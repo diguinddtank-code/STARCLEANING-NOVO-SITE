@@ -415,7 +415,7 @@ export default function RegionalDeepCleanPage({
                 href="tel:+18432979935"
                 className="px-8 py-4 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-bold rounded-full transition-all w-full sm:w-auto"
               >
-                Call (843) 297-9935
+                Call or Text (843) 297-9935
               </a>
             </div>
             <p className="text-blue-200 text-xs mt-6">★ 100% Satisfaction Checked • 18 Years Lowcountry Experience ★</p>

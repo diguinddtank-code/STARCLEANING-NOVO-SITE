@@ -401,7 +401,7 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
               href="tel:+18432979935" 
               className="px-8 py-4 bg-transparent border-2 border-white/20 hover:bg-white/10 text-white rounded-xl font-semibold transition-all"
             >
-              Call (843) 297-9935
+              Call or Text (843) 297-9935
             </a>
           </div>
         </div>

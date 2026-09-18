@@ -405,7 +405,7 @@ export default function ResidentialCleaning() {
               Get Your Free Quote
             </Link>
             <a href="tel:+18432979935" className="px-8 py-4 bg-blue-700 hover:bg-blue-800 text-white font-bold rounded-lg transition-colors text-lg border border-blue-500">
-              Call Now: (843) 297-9935
+              Call or Text: (843) 297-9935
             </a>
           </div>
         </div>
