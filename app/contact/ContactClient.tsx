@@ -96,7 +96,7 @@ export default function ContactClient() {
                       </div>
                       <div>
                         <div className="text-sm text-slate-400 font-medium mb-1 uppercase tracking-wider">Call or Text Us</div>
-                        <a href="tel:8434802442" className="text-xl font-bold hover:text-yellow-400 transition-colors">(843) 480-2442</a>
+                        <a href="tel:+18432979935" className="text-xl font-bold hover:text-yellow-400 transition-colors">(843) 297-9935</a>
                       </div>
                     </div>
 
@@ -106,7 +106,7 @@ export default function ContactClient() {
                       </div>
                       <div>
                         <div className="text-sm text-slate-400 font-medium mb-1 uppercase tracking-wider">Email Us</div>
-                        <a href="mailto:info@starcleaningsc.com" className="text-lg font-bold hover:text-yellow-400 transition-colors">info@starcleaningsc.com</a>
+                        <a href="mailto:admin@starcleaningsc.com" className="text-lg font-bold hover:text-yellow-400 transition-colors">admin@starcleaningsc.com</a>
                       </div>
                     </div>
 
@@ -116,7 +116,7 @@ export default function ContactClient() {
                       </div>
                       <div>
                         <div className="text-sm text-slate-400 font-medium mb-1 uppercase tracking-wider">Business Hours</div>
-                        <div className="text-lg font-medium text-slate-200">Mon - Fri: 8:00 AM - 5:00 PM<br/>Sat & Sun: Closed</div>
+                        <div className="text-lg font-medium text-slate-200">Tuesday - Saturday: 9:00 AM - 6:00 PM<br/>Sunday & Monday: Closed</div>
                       </div>
                     </div>
 
@@ -126,7 +126,7 @@ export default function ContactClient() {
                       </div>
                       <div>
                         <div className="text-sm text-slate-400 font-medium mb-1 uppercase tracking-wider">Service Areas</div>
-                        <div className="text-lg font-medium text-slate-200">Charleston, Summerville, Mt Pleasant, Ladson, Goose Creek</div>
+                        <div className="text-lg font-medium text-slate-200">Charleston, North Charleston, Summerville, Ladson, James Island, Daniel Island, Johns Island, Mount Pleasant, Goose Creek, SC</div>
                       </div>
                     </div>
                   </div>

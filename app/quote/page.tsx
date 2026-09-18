@@ -50,7 +50,7 @@ const QuoteLanding = () => {
                         referrerPolicy="no-referrer"
                     />
                 </Link>
-                <a href="tel:8432979935" className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors shadow-lg backdrop-blur-sm">
+                <a href="tel:+18432979935" className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors shadow-lg backdrop-blur-sm">
                     <i className="fas fa-phone-alt text-sm md:text-base"></i>
                 </a>
             </div>

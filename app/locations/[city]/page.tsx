@@ -94,7 +94,7 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
                   Get a Free Quote
                 </Link>
                 <a 
-                  href="tel:8432979935" 
+                  href="tel:+18432979935" 
                   className="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-bold transition-all backdrop-blur-sm flex items-center justify-center gap-2"
                 >
                   (843) 297-9935
@@ -398,7 +398,7 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
               Book Now
             </Link>
             <a 
-              href="tel:8432979935" 
+              href="tel:+18432979935" 
               className="px-8 py-4 bg-transparent border-2 border-white/20 hover:bg-white/10 text-white rounded-xl font-semibold transition-all"
             >
               Call (843) 297-9935
@@ -423,7 +423,17 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
                 "@id": `https://www.starcleaningsc.com/locations/${data.slug}`,
                 "url": `https://www.starcleaningsc.com/locations/${data.slug}`,
                 "telephone": "+18432979935",
+                "email": "admin@starcleaningsc.com",
                 "priceRange": "$$",
+                "openingHoursSpecification": {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                  "opens": "09:00",
+                  "closes": "18:00"
+                },
+                "sameAs": [
+                  "https://instagram.com/star.cleaningsc"
+                ],
                 "areaServed": {
                   "@type": "City",
                   "name": data.name,

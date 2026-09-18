@@ -283,7 +283,7 @@ export default function EstimateApprovedPage() {
             </div>
             <div>
               <p className="text-[9px] uppercase font-bold tracking-wider text-slate-400">Need help?</p>
-              <a href="tel:8432979935" className="text-xs font-black text-slate-900 hover:text-blue-600 transition-colors">
+              <a href="tel:+18432979935" className="text-xs font-black text-slate-900 hover:text-blue-600 transition-colors">
                 (843) 297-9935
               </a>
             </div>

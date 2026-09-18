@@ -104,7 +104,7 @@ const OwnerMessage: React.FC = () => {
                             <span>Get Your Free Quote</span>
                             <i className="fas fa-arrow-right"></i>
                         </Link>
-                        <a href="tel:8432979935" className="group flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white/10 transition">
+                        <a href="tel:+18432979935" className="group flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white/10 transition">
                              <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition">
                                 <i className="fas fa-phone text-yellow-300 text-sm lg:text-base"></i>
                              </div>

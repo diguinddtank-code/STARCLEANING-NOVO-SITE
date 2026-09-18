@@ -142,7 +142,7 @@ const ServiceAreas: React.FC = () => {
 
                     <div className="mt-8 pt-6 border-t border-blue-100 flex items-center justify-between">
                          <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">Don't see your area?</span>
-                         <a href="tel:8432979935" className="text-sm font-bold text-star-blue hover:underline">
+                         <a href="tel:+18432979935" className="text-sm font-bold text-star-blue hover:underline">
                             Call us to ask: (843) 297-9935
                          </a>
                     </div>

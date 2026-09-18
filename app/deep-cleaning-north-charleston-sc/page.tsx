@@ -37,24 +37,39 @@ export default function NorthCharlestonDeepCleaningPage() {
             "@context": "https://schema.org",
             "@graph": [
               {
+                "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
+                "@id": "https://www.starcleaningsc.com/deep-cleaning-north-charleston-sc#localbusiness",
+                "name": "Star Cleaning SC",
+                "url": "https://www.starcleaningsc.com/deep-cleaning-north-charleston-sc",
+                "telephone": "+18432979935",
+                "email": "admin@starcleaningsc.com",
+                "priceRange": "$$",
+                "openingHoursSpecification": {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                  "opens": "09:00",
+                  "closes": "18:00"
+                },
+                "areaServed": [
+                  { "@type": "City", "name": "North Charleston" },
+                  { "@type": "City", "name": "Park Circle" },
+                  { "@type": "City", "name": "North Rhett" }
+                ],
+                "sameAs": [
+                  "https://instagram.com/star.cleaningsc"
+                ],
+                "review": [
+                  { "@type": "Review", "author": { "@type": "Person", "name": "Angela F." }, "reviewBody": "I manage six units off Ashley Phosphate and used to lose two or three days between tenants waiting on cleaning. Star Cleaning turns a unit around same-day now, including the oven and cabinet interiors.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
+                  { "@type": "Review", "author": { "@type": "Person", "name": "Derek W." }, "reviewBody": "I work rotating 12-hour shifts near the base and could never get anyone to clean before 7am. They started showing up at 6:30 and I come home off a night shift to a spotless house. Small thing, huge difference.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
+                  { "@type": "Review", "author": { "@type": "Person", "name": "Priya N." }, "reviewBody": "Our old townhome near the Tanger Outlets had years of grime built into the vents from being a rental. They pulled the covers off, washed them separately, and the airflow noticeably improved.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } }
+                ],
+                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "bestRating": "5", "reviewCount": 3 }
+              },
+              {
                 "@type": "Service",
                 "name": "Apartment Turnover & Shift-Friendly Deep House Cleaning",
                 "serviceType": "Deep House Cleaning",
-                "provider": {
-                  "@type": "LocalBusiness",
-                  "name": "Star Cleaning SC",
-                  "telephone": "(843) 297-9935",
-                  "url": "https://www.starcleaningsc.com",
-                  "logo": "https://www.starcleaningsc.com/logo-clean.png",
-                  "priceRange": "$$",
-                  "address": {
-                    "@type": "PostalAddress",
-                    "addressLocality": "North Charleston",
-                    "addressRegion": "SC",
-                    "postalCode": "29405",
-                    "addressCountry": "US"
-                  }
-                },
+                "provider": { "@id": "https://www.starcleaningsc.com/deep-cleaning-north-charleston-sc#localbusiness" },
                 "areaServed": [
                   { "@type": "City", "name": "North Charleston" },
                   { "@type": "City", "name": "Park Circle" },
@@ -66,13 +81,7 @@ export default function NorthCharlestonDeepCleaningPage() {
                   "price": "180.00",
                   "priceCurrency": "USD",
                   "url": "https://www.starcleaningsc.com/deep-cleaning-north-charleston-sc"
-                },
-                "review": [
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Angela F." }, "reviewBody": "I manage six units off Ashley Phosphate and used to lose two or three days between tenants waiting on cleaning. Star Cleaning turns a unit around same-day now, including the oven and cabinet interiors.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Derek W." }, "reviewBody": "I work rotating 12-hour shifts near the base and could never get anyone to clean before 7am. They started showing up at 6:30 and I come home off a night shift to a spotless house. Small thing, huge difference.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Priya N." }, "reviewBody": "Our old townhome near the Tanger Outlets had years of grime built into the vents from being a rental. They pulled the covers off, washed them separately, and the airflow noticeably improved.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } }
-                ],
-                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "bestRating": "5", "reviewCount": 3 }
+                }
               },
               {
                 "@type": "FAQPage",

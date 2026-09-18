@@ -186,7 +186,7 @@ export default function RegionalDeepCleanPage({
                   {heroPrimaryCta} <ArrowRight className="w-5 h-5" />
                 </Link>
                 <a
-                  href="tel:8432979935"
+                  href="tel:+18432979935"
                   className="px-8 py-4 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-900 rounded-full font-bold transition-all flex items-center justify-center gap-2"
                 >
                   <Clock className="w-5 h-5 text-star-blue" /> (843) 297-9935
@@ -412,7 +412,7 @@ export default function RegionalDeepCleanPage({
                 {ctaButtonText} <ArrowRight className="w-5 h-5" />
               </Link>
               <a
-                href="tel:8432979935"
+                href="tel:+18432979935"
                 className="px-8 py-4 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-bold rounded-full transition-all w-full sm:w-auto"
               >
                 Call (843) 297-9935

@@ -179,7 +179,7 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
                         </div>
                       </Link>
                       
-                      <a href="tel:8432979935" className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-blue-900 rounded-xl font-bold text-sm shadow-md text-center flex items-center justify-center gap-2 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 transition-all py-3">
+                      <a href="tel:+18432979935" className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-blue-900 rounded-xl font-bold text-sm shadow-md text-center flex items-center justify-center gap-2 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 transition-all py-3">
                         <i className="fas fa-phone-alt text-lg"></i>
                         <span>Call Now</span>
                       </a>

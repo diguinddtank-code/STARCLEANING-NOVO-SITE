@@ -94,7 +94,7 @@ const Footer: React.FC = () => {
               </span>
               <span className="location flex items-start gap-3">
                 <i className="fas fa-map-marker-alt mt-1 text-yellow-500"></i> 
-                <span>Serving Charleston, SC & Surrounding Areas</span>
+                <span>Serving Charleston, North Charleston & Summerville, SC</span>
               </span>
             </div>
           </div>

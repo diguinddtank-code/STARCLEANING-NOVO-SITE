@@ -116,7 +116,7 @@ const Navbar: React.FC = () => {
             <div className="flex items-center gap-6 pl-6 border-l border-gray-200">
               <div className="text-right hidden xl:block">
                 <p className="text-[10px] uppercase text-gray-400 font-bold tracking-widest mb-0.5">Call Us Today</p>
-                <a href="tel:8432979935" className="text-xl font-black text-gray-900 hover:text-star-blue transition-colors leading-none tracking-tight">
+                <a href="tel:+18432979935" className="text-xl font-black text-gray-900 hover:text-star-blue transition-colors leading-none tracking-tight">
                   (843) 297-9935
                 </a>
               </div>
@@ -204,7 +204,7 @@ const Navbar: React.FC = () => {
             
             <div className="mt-6">
               <p className="text-xs text-gray-500 uppercase tracking-widest mb-2">Call Now:</p>
-              <a href="tel:8432979935" className="text-3xl font-black text-star-blue flex items-center gap-3">
+              <a href="tel:+18432979935" className="text-3xl font-black text-star-blue flex items-center gap-3">
                 <i className="fas fa-phone-alt text-xl"></i> (843) 297-9935
               </a>
             </div>

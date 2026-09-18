@@ -37,24 +37,39 @@ export default function JamesIslandDeepCleaningPage() {
             "@context": "https://schema.org",
             "@graph": [
               {
+                "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
+                "@id": "https://www.starcleaningsc.com/deep-cleaning-james-island-sc#localbusiness",
+                "name": "Star Cleaning SC",
+                "url": "https://www.starcleaningsc.com/deep-cleaning-james-island-sc",
+                "telephone": "+18432979935",
+                "email": "admin@starcleaningsc.com",
+                "priceRange": "$$",
+                "openingHoursSpecification": {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                  "opens": "09:00",
+                  "closes": "18:00"
+                },
+                "areaServed": [
+                  { "@type": "City", "name": "James Island" },
+                  { "@type": "City", "name": "Folly Beach" },
+                  { "@type": "City", "name": "Riverland Terrace" }
+                ],
+                "sameAs": [
+                  "https://instagram.com/star.cleaningsc"
+                ],
+                "review": [
+                  { "@type": "Review", "author": { "@type": "Person", "name": "Bethany R." }, "reviewBody": "We're two blocks off Riverland Terrace and sand gets everywhere no matter how careful the kids are. They got sand out of grout lines I didn't think would ever come clean.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
+                  { "@type": "Review", "author": { "@type": "Person", "name": "Todd S." }, "reviewBody": "I run a rental two minutes from Folly Beach and salt film was building up on the shower glass no matter what I sprayed on it. Their crew knew exactly what to use and it hasn't come back.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
+                  { "@type": "Review", "author": { "@type": "Person", "name": "Nicole A." }, "reviewBody": "Our house backs up to the marsh and the grout was going gray within months of a normal clean. Since switching to their deep clean every quarter, it's stayed the right color.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } }
+                ],
+                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "bestRating": "5", "reviewCount": 3 }
+              },
+              {
                 "@type": "Service",
                 "name": "Coastal Deep House Cleaning for Sand, Salt Air & Marsh Humidity",
                 "serviceType": "Deep House Cleaning",
-                "provider": {
-                  "@type": "LocalBusiness",
-                  "name": "Star Cleaning SC",
-                  "telephone": "(843) 297-9935",
-                  "url": "https://www.starcleaningsc.com",
-                  "logo": "https://www.starcleaningsc.com/logo-clean.png",
-                  "priceRange": "$$",
-                  "address": {
-                    "@type": "PostalAddress",
-                    "addressLocality": "James Island",
-                    "addressRegion": "SC",
-                    "postalCode": "29412",
-                    "addressCountry": "US"
-                  }
-                },
+                "provider": { "@id": "https://www.starcleaningsc.com/deep-cleaning-james-island-sc#localbusiness" },
                 "areaServed": [
                   { "@type": "City", "name": "James Island" },
                   { "@type": "City", "name": "Folly Beach" },
@@ -66,13 +81,7 @@ export default function JamesIslandDeepCleaningPage() {
                   "price": "180.00",
                   "priceCurrency": "USD",
                   "url": "https://www.starcleaningsc.com/deep-cleaning-james-island-sc"
-                },
-                "review": [
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Bethany R." }, "reviewBody": "We're two blocks off Riverland Terrace and sand gets everywhere no matter how careful the kids are. They got sand out of grout lines I didn't think would ever come clean.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Todd S." }, "reviewBody": "I run a rental two minutes from Folly Beach and salt film was building up on the shower glass no matter what I sprayed on it. Their crew knew exactly what to use and it hasn't come back.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Nicole A." }, "reviewBody": "Our house backs up to the marsh and the grout was going gray within months of a normal clean. Since switching to their deep clean every quarter, it's stayed the right color.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } }
-                ],
-                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "bestRating": "5", "reviewCount": 3 }
+                }
               },
               {
                 "@type": "FAQPage",

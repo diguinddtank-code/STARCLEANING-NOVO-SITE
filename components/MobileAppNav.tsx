@@ -70,7 +70,7 @@ const MobileAppNav: React.FC = () => {
         />
 
         <a 
-          href="tel:8432979935"
+          href="tel:+18432979935"
           className="flex flex-col items-center justify-center w-12 gap-0.5 text-gray-400 hover:text-green-600 transition-colors"
         >
           <i className={`fas fa-phone text-base mb-0.5`}></i>

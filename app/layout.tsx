@@ -58,7 +58,7 @@ export default function RootLayout({
         "description": "Charleston's #1 Rated Cleaning Service"
       },
       {
-        "@type": "LocalBusiness",
+        "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
         "@id": "https://www.starcleaningsc.com/#localbusiness",
         "name": "Star Cleaning SC",
         "image": "https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95",
@@ -90,11 +90,20 @@ export default function RootLayout({
           { "@type": "City", "name": "Ladson" },
           { "@type": "City", "name": "Summerville" },
           { "@type": "City", "name": "James Island" },
-          { "@type": "City", "name": "Daniel Island" }
+          { "@type": "City", "name": "Daniel Island" },
+          { "@type": "City", "name": "Johns Island" },
+          { "@type": "City", "name": "Mount Pleasant" },
+          { "@type": "City", "name": "Goose Creek" }
         ],
         "sameAs": [
           "https://instagram.com/star.cleaningsc"
-        ]
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "bestRating": "5",
+          "reviewCount": 8
+        }
       }
     ]
   };
