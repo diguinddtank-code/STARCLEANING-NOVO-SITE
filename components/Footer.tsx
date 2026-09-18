@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
             <div className="flex gap-4">
               <SocialIcon icon="fab fa-facebook-f" href="https://facebook.com" />
               <SocialIcon icon="fab fa-instagram" href="https://instagram.com/star.cleaningsc" />
-              <SocialIcon icon="fab fa-google" href="https://www.google.com/search?q=Star+Cleaning+SC" />
+              <SocialIcon icon="fab fa-google" href="https://www.google.com/search?kgmid=/g/11wqhvvy11&hl=en" />
             </div>
           </div>
 

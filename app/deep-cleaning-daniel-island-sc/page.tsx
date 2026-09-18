@@ -56,7 +56,8 @@ export default function DanielIslandDeepCleaningPage() {
                   { "@type": "City", "name": "Island Park" }
                 ],
                 "sameAs": [
-                  "https://instagram.com/star.cleaningsc"
+                  "https://instagram.com/star.cleaningsc",
+                  "https://www.google.com/search?kgmid=/g/11wqhvvy11&hl=en"
                 ],
                 "review": [
                   { "@type": "Review", "author": { "@type": "Person", "name": "Margaret W." }, "reviewBody": "We just had quartzite installed and were nervous about who we let clean it. They treated our counters exactly the way our stone installer told us to and even asked about the sealant before starting.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },

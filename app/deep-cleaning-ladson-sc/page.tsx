@@ -56,7 +56,8 @@ export default function LadsonDeepCleaningPage() {
                   { "@type": "City", "name": "Hunter's Bend" }
                 ],
                 "sameAs": [
-                  "https://instagram.com/star.cleaningsc"
+                  "https://instagram.com/star.cleaningsc",
+                  "https://www.google.com/search?kgmid=/g/11wqhvvy11&hl=en"
                 ],
                 "review": [
                   { "@type": "Review", "author": { "@type": "Person", "name": "Staff Sergeant Mike D." }, "reviewBody": "Relocating on military orders is stressful enough. We ordered their deep clean for PCS move-out housing and passed structural inspections first try without a single flag. Veteran standards are real!", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },

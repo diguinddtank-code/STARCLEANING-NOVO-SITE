@@ -432,7 +432,8 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
                   "closes": "18:00"
                 },
                 "sameAs": [
-                  "https://instagram.com/star.cleaningsc"
+                  "https://instagram.com/star.cleaningsc",
+                  "https://www.google.com/search?kgmid=/g/11wqhvvy11&hl=en"
                 ],
                 "areaServed": {
                   "@type": "City",

@@ -96,7 +96,8 @@ export default function RootLayout({
           { "@type": "City", "name": "Goose Creek" }
         ],
         "sameAs": [
-          "https://instagram.com/star.cleaningsc"
+          "https://instagram.com/star.cleaningsc",
+          "https://www.google.com/search?kgmid=/g/11wqhvvy11&hl=en"
         ],
         "aggregateRating": {
           "@type": "AggregateRating",

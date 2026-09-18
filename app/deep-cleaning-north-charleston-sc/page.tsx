@@ -56,7 +56,8 @@ export default function NorthCharlestonDeepCleaningPage() {
                   { "@type": "City", "name": "North Rhett" }
                 ],
                 "sameAs": [
-                  "https://instagram.com/star.cleaningsc"
+                  "https://instagram.com/star.cleaningsc",
+                  "https://www.google.com/search?kgmid=/g/11wqhvvy11&hl=en"
                 ],
                 "review": [
                   { "@type": "Review", "author": { "@type": "Person", "name": "Angela F." }, "reviewBody": "I manage six units off Ashley Phosphate and used to lose two or three days between tenants waiting on cleaning. Star Cleaning turns a unit around same-day now, including the oven and cabinet interiors.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },

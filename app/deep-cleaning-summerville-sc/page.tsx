@@ -57,7 +57,8 @@ export default function SummervilleDeepCleaningPage() {
                   { "@type": "City", "name": "Carnes Crossroads" }
                 ],
                 "sameAs": [
-                  "https://instagram.com/star.cleaningsc"
+                  "https://instagram.com/star.cleaningsc",
+                  "https://www.google.com/search?kgmid=/g/11wqhvvy11&hl=en"
                 ],
                 "review": [
                   { "@type": "Review", "author": { "@type": "Person", "name": "Marcus V." }, "reviewBody": "Our new home in Nexton felt dusty even after the builders finished. We hired Star Cleaning SC for a top-to-bottom deep clean and they completely eliminated the fine drywall and clay residue. They are incredible!", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },

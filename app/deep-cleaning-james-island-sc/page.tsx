@@ -56,7 +56,8 @@ export default function JamesIslandDeepCleaningPage() {
                   { "@type": "City", "name": "Riverland Terrace" }
                 ],
                 "sameAs": [
-                  "https://instagram.com/star.cleaningsc"
+                  "https://instagram.com/star.cleaningsc",
+                  "https://www.google.com/search?kgmid=/g/11wqhvvy11&hl=en"
                 ],
                 "review": [
                   { "@type": "Review", "author": { "@type": "Person", "name": "Bethany R." }, "reviewBody": "We're two blocks off Riverland Terrace and sand gets everywhere no matter how careful the kids are. They got sand out of grout lines I didn't think would ever come clean.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },

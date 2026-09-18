@@ -58,7 +58,8 @@ export default function CharlestonDeepCleaningPage() {
                   { "@type": "City", "name": "North Charleston" }
                 ],
                 "sameAs": [
-                  "https://instagram.com/star.cleaningsc"
+                  "https://instagram.com/star.cleaningsc",
+                  "https://www.google.com/search?kgmid=/g/11wqhvvy11&hl=en"
                 ],
                 "review": [
                   { "@type": "Review", "author": { "@type": "Person", "name": "Christopher M." }, "reviewBody": "Scheduling a deep clean for our pre-listing marketing South of Broad was a lifesaver. The baseboards were spotless and they managed to scrub the pollen layer completely off our historic window framings. Our buyer was incredibly pleased!", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },

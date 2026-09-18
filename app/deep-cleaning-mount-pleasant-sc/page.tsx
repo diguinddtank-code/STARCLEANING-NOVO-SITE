@@ -56,7 +56,8 @@ export default function MountPleasantDeepCleaningPage() {
                   { "@type": "City", "name": "Carolina Park" }
                 ],
                 "sameAs": [
-                  "https://instagram.com/star.cleaningsc"
+                  "https://instagram.com/star.cleaningsc",
+                  "https://www.google.com/search?kgmid=/g/11wqhvvy11&hl=en"
                 ],
                 "review": [
                   { "@type": "Review", "author": { "@type": "Person", "name": "Nancy P." }, "reviewBody": "We live in the Old Village and our 1940s home needs a gentler touch than a new build. They understood that immediately and never used anything too harsh on our original floors.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },

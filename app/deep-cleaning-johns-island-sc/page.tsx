@@ -56,7 +56,8 @@ export default function JohnsIslandDeepCleaningPage() {
                   { "@type": "City", "name": "Maybank Highway Corridor" }
                 ],
                 "sameAs": [
-                  "https://instagram.com/star.cleaningsc"
+                  "https://instagram.com/star.cleaningsc",
+                  "https://www.google.com/search?kgmid=/g/11wqhvvy11&hl=en"
                 ],
                 "review": [
                   { "@type": "Review", "author": { "@type": "Person", "name": "Caroline B." }, "reviewBody": "We live on a few acres off River Road and most cleaners don't want to make the drive or deal with the size of the place. Star Cleaning SC never blinks, and our farmhouse has never looked better.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
