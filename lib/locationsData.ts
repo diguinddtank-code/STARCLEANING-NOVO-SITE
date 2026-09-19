@@ -31,6 +31,7 @@ export const locationsData: Record<string, any> = {
       { q: "Do you handle parking and access for cleanings on the peninsula?", a: "Yes, our teams are used to downtown Charleston's limited parking and narrow alleys. Just let us know about permit requirements or gate codes when you book, and we will plan around them." }
     ],
     localDetails: "We regularly clean homes in South of Broad, West Ashley, Mount Pleasant-adjacent neighborhoods, and the historic peninsula. Charleston's year-round humidity and salt air speed up mildew growth in bathrooms and mold on window sills, so our checklists put extra time into grout lines, exhaust vents, and wood trim that standard cleanings skip.",
+    landmarks: ["South of Broad", "West Ashley", "The Historic Peninsula"],
     serviceDescriptions: [
       "Weekly or bi-weekly upkeep for peninsula condos, South of Broad singles, and West Ashley family homes.",
       "Baseboard-to-ceiling-fan resets that cut through Lowcountry humidity, salt air, and historic dust.",
@@ -77,6 +78,7 @@ export const locationsData: Record<string, any> = {
       { q: "Do you offer early-morning or evening appointments for shift workers?", a: "Yes. Many of our North Charleston clients work non-traditional hours at Boeing or the Air Base, so we offer early and late appointment slots in addition to our standard Tuesday–Saturday schedule." }
     ],
     localDetails: "Our North Charleston clients are concentrated around Park Circle, the Tanger Outlets corridor, and neighborhoods near Boeing and Joint Base Charleston. Because so many residents work shift schedules, we offer early-morning and evening booking slots, and we know the area's mix of apartments, townhomes, and older single-family homes well enough to price and staff each job accurately.",
+    landmarks: ["Park Circle", "Tanger Outlets", "Boeing", "Joint Base Charleston"],
     serviceDescriptions: [
       "Regular cleanings built around shift schedules for Boeing, the Air Base, and Park Circle families.",
       "Deep resets that clear construction dust and everyday grime from apartments and single-family homes alike.",
@@ -123,6 +125,7 @@ export const locationsData: Record<string, any> = {
       { q: "Does deep cleaning remove red clay stains from floors and entryways?", a: "In most cases, yes. Ladson's clay soil tracks in easily, and our deep clean includes hand-scrubbing entryway tile and hallway floors to lift ground-in clay residue that regular mopping leaves behind." }
     ],
     localDetails: "We serve Ladson's family neighborhoods around Exchange Park, Wescott, and the areas near Joint Base Charleston, where many clients are active-duty or military families. Ladson's clay soil tracks easily into entryways and hallways, so our teams give floors and baseboards extra attention compared to a typical suburban route.",
+    landmarks: ["Exchange Park", "Wescott", "Joint Base Charleston"],
     serviceDescriptions: [
       "Family-friendly recurring cleaning for the growing neighborhoods around Ladson and Exchange Park.",
       "Deep cleaning that clears the clay dust and yard debris tracked in from Ladson's newer subdivisions.",
@@ -169,6 +172,7 @@ export const locationsData: Record<string, any> = {
       { q: "Do you clean newly built homes in Nexton or Cane Bay before move-in?", a: "Yes, we regularly clean new construction in Nexton and Cane Bay to remove fine drywall dust and construction residue from cabinets, floors, and vents before families move in." }
     ],
     localDetails: "We clean homes throughout Nexton, Cane Bay, Carnes Crossroads, and Summerville's historic downtown district. Heavy pine and azalea pollen each spring coats window sills, vents, and blinds faster than in most Lowcountry towns, which is why our checklists include extra dusting and HEPA vacuuming passes during pollen season.",
+    landmarks: ["Nexton", "Cane Bay", "Carnes Crossroads", "Historic Downtown"],
     serviceDescriptions: [
       "Recurring cleaning for Summerville's historic downtown homes and newer Nexton and Cane Bay builds.",
       "Deep cleaning focused on pollen and dust buildup from Flowertown's pine and azalea season.",
@@ -215,6 +219,7 @@ export const locationsData: Record<string, any> = {
       { q: "Do you clean Airbnbs near Folly Beach between guest stays?", a: "Yes, we offer same-day turnover cleaning for vacation rentals near Folly Beach and James Island County Park, timed around your checkout and check-in windows." }
     ],
     localDetails: "James Island clients are concentrated near Folly Beach, James Island County Park, and the marsh-front neighborhoods along Riverland Drive. Tracked-in sand and salt-air residue build up faster here than inland, so we pay extra attention to entryway floors, window tracks, and bathroom fixtures on every visit.",
+    landmarks: ["Folly Beach", "James Island County Park", "Riverland Drive"],
     serviceDescriptions: [
       "Recurring cleaning for James Island homes dealing with sand, salt air, and coastal humidity.",
       "Deep cleaning that tackles salt residue and sand buildup near Folly Beach and the marsh.",
@@ -261,6 +266,7 @@ export const locationsData: Record<string, any> = {
       { q: "Are your products safe for natural stone countertops and custom hardwood floors?", a: "Yes. We use pH-neutral, non-abrasive products on natural stone, quartz, and hardwood, and avoid any acidic or abrasive cleaners that could dull or etch high-end finishes." }
     ],
     localDetails: "We clean homes throughout Daniel Island's master-planned neighborhoods, including properties near the golf courses, the Wando River walking trails, and Credit One Stadium. Because so many homes feature custom cabinetry, natural stone, and high-end hardwood, our teams use non-abrasive, pH-neutral products and hand-detailing instead of one-size-fits-all cleaning methods.",
+    landmarks: ["Credit One Stadium", "Smythe Park", "Wando River Trails"],
     serviceDescriptions: [
       "Recurring cleaning for Daniel Island's master-planned neighborhoods and golf-course homes.",
       "Deep cleaning tailored to high-end finishes, custom cabinetry, and delicate flooring.",
@@ -307,6 +313,7 @@ export const locationsData: Record<string, any> = {
       { q: "Do you clean waterfront homes along the Stono River?", a: "Yes, we service waterfront properties along the Stono River and regularly work with owners who are away for extended periods, coordinating access and securing the home properly after each visit." }
     ],
     localDetails: "We regularly clean homes along River Road, Maybank Highway, and the newer neighborhoods near the Angel Oak and Charleston Executive Airport. Johns Island's mix of unpaved rural roads, farmland, and active new construction means more dust and debris tracked indoors than a typical in-town home sees, so our teams spend extra time on entryway floors, window sills, and air vents on every visit.",
+    landmarks: ["River Road", "Maybank Highway", "The Angel Oak"],
     serviceDescriptions: [
       "Recurring cleaning for Johns Island farmhouses, new builds, and larger rural properties.",
       "Deep cleaning that clears construction and farm-road dust from vents, sills, and floors.",
@@ -353,6 +360,7 @@ export const locationsData: Record<string, any> = {
       { q: "Do you service new subdivisions like Carolina Park and Park West?", a: "Yes, these are some of our fastest-growing service areas. We handle everything from post-construction cleans for new builds to ongoing recurring service for established households there." }
     ],
     localDetails: "We regularly clean homes in the Old Village, Snee Farm, Carolina Park, Park West, and Dunes West. Mount Pleasant's mix of decades-old homes near Shem Creek and brand-new construction further from the water means every visit is a little different — older homes need gentler products on original finishes, while newer subdivisions need extra attention to construction dust and marsh-driven humidity.",
+    landmarks: ["Old Village", "Shem Creek", "Carolina Park"],
     serviceDescriptions: [
       "Recurring cleaning for Mount Pleasant's Old Village homes and family subdivisions alike.",
       "Deep cleaning that addresses marsh humidity and mildew buildup near Shem Creek.",

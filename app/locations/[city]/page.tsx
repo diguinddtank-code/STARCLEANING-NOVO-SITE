@@ -8,7 +8,7 @@ import OwnerMessage from '@/components/OwnerMessage';
 import CleaningForAReason from '@/components/CleaningForAReason';
 import Link from 'next/link';
 import Image from 'next/image';
-import { CheckCircle2, Star, ShieldCheck, Clock, MapPin } from 'lucide-react';
+import { CheckCircle2, Star, ShieldCheck, Clock, MapPin, Leaf, Home as HomeIcon } from 'lucide-react';
 
 export function generateStaticParams() {
   return Object.keys(locationsData).map((city) => ({
@@ -170,41 +170,98 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
       <CleaningForAReason />
 
       {/* Intro Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            <div className="lg:w-1/2">
-              <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
-                <Image 
-                  src="/images/clean-living-room.jpg"
-                  alt={`Bright, tidy living room after a Star Cleaning SC deep clean in ${data.name}`}
-                  fill
-                  className="object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
+      <section className="bg-white">
+        <div className="grid lg:grid-cols-2">
+          {/* Image with overlay caption */}
+          <div className="relative h-72 sm:h-96 lg:h-auto">
+            <Image
+              src="/images/clean-living-room.jpg"
+              alt={`Bright, tidy living room after a Star Cleaning SC deep clean in ${data.name}`}
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/0 to-black/0" />
+            <div className="absolute bottom-6 left-6 sm:bottom-10 sm:left-10 text-white">
+              <p className="uppercase tracking-[0.2em] text-sm sm:text-base font-bold">Clean Spaces</p>
+              <p className="uppercase tracking-[0.2em] text-sm sm:text-base font-bold">Happier Days</p>
+              <div className="w-10 h-0.5 bg-white/80 mt-3"></div>
             </div>
-            <div className="lg:w-1/2">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-blue-700 mb-6 font-medium text-sm">
-                <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+          </div>
+
+          {/* Content */}
+          <div className="flex items-center py-14 lg:py-20 px-4 sm:px-8 lg:px-16">
+            <div className="max-w-xl">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 border border-gray-200 text-gray-600 mb-6 font-bold text-xs uppercase tracking-widest">
+                <Star className="w-4 h-4 text-star-blue fill-star-blue" />
                 Top-Rated in {data.name}
               </div>
-              <div className="prose prose-lg prose-blue text-slate-600 leading-relaxed">
-                <p className="text-xl">{renderIntro(data.intro)}</p>
+
+              <h2 className="text-3xl sm:text-4xl font-black text-gray-900 font-heading leading-tight">
+                Trusted House Cleaning<br />
+                in <span className="text-star-blue">{data.name}, SC</span>
+              </h2>
+              <div className="w-14 h-1 bg-star-blue rounded-full my-6"></div>
+
+              <div className="text-gray-600 leading-relaxed space-y-4">
+                <p>
+                  <strong className="text-gray-900 font-bold">Life gets busy. Let us handle the cleaning.</strong>{' '}
+                  {renderIntro(data.intro)}
+                </p>
                 {data.localDetails && (
-                  <p className="text-xl">
-                    {data.localDetails}{' '}
-                    Need more than a routine visit? See our dedicated{' '}
-                    <Link href={`/deep-cleaning-${data.slug}-sc`} className="text-blue-600 font-semibold hover:text-blue-700">
-                      {data.name} deep cleaning page
-                    </Link>{' '}
-                    for baseboard-to-vent detailing built around this area's specific dirt and dust.
+                  <p>
+                    {data.localDetails}
                   </p>
                 )}
+              </div>
+
+              {/* Trust icons row */}
+              <div className="flex items-center justify-between sm:justify-start sm:gap-8 mt-8 pt-8 border-t border-gray-100">
+                <div className="flex flex-col items-center text-center gap-2 sm:flex-1">
+                  <ShieldCheck className="w-7 h-7 text-star-blue" />
+                  <span className="text-[11px] font-bold uppercase tracking-wide text-gray-500 leading-tight">Background-<br />Checked Team</span>
+                </div>
+                <div className="w-px h-12 bg-gray-100 hidden sm:block"></div>
+                <div className="flex flex-col items-center text-center gap-2 sm:flex-1">
+                  <Leaf className="w-7 h-7 text-star-blue" />
+                  <span className="text-[11px] font-bold uppercase tracking-wide text-gray-500 leading-tight">Pet-Safe &<br />Eco-Friendly</span>
+                </div>
+                <div className="w-px h-12 bg-gray-100 hidden sm:block"></div>
+                <div className="flex flex-col items-center text-center gap-2 sm:flex-1">
+                  <HomeIcon className="w-7 h-7 text-star-blue" />
+                  <span className="text-[11px] font-bold uppercase tracking-wide text-gray-500 leading-tight">18+ Years<br />of Experience</span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-x-8 gap-y-4 mt-8">
+                <Link
+                  href="#book-now"
+                  className="inline-flex items-center gap-2 bg-star-blue hover:bg-star-dark text-white px-7 py-3.5 rounded-full font-bold shadow-lg shadow-blue-200 transition-all transform hover:-translate-y-0.5"
+                >
+                  Get a Free Estimate <span aria-hidden="true">&rarr;</span>
+                </Link>
+                <Link
+                  href={`/deep-cleaning-${data.slug}-sc`}
+                  className="text-gray-700 font-bold text-sm border-b-2 border-star-blue hover:text-star-blue transition-colors inline-flex items-center gap-1.5"
+                >
+                  View Our Deep Cleaning Services <span aria-hidden="true">&rarr;</span>
+                </Link>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Proudly serving strip */}
+        {data.landmarks && (
+          <div className="bg-slate-50 border-t border-slate-100 py-5">
+            <div className="container mx-auto px-4 max-w-6xl flex flex-col sm:flex-row items-center gap-2 sm:gap-3 text-center sm:text-left">
+              <MapPin className="w-4 h-4 text-star-blue shrink-0" />
+              <span className="text-star-blue font-bold text-xs uppercase tracking-widest shrink-0">Proudly Serving</span>
+              <span className="text-gray-500 text-xs sm:text-sm uppercase tracking-wide">
+                {data.landmarks.join(' • ')} • And Surrounding Areas
+              </span>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Services Section */}
