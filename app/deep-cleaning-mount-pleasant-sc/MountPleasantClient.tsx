@@ -27,7 +27,7 @@ export default function MountPleasantClient() {
         "Then there's the water. Homes closer to Shem Creek and the marsh deal with humidity that pushes mildew into bathroom grout and closets faster than homes further inland in Snee Farm or Dunes West. We adjust products and attention area by area instead of running the same generic checklist.",
         "Whether your home is decades old or brand new, we scope the visit around your specific finishes, square footage, and how close you sit to the water.",
       ]}
-      seoImage={{ src: 'https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80', alt: 'Deep cleaning in progress' }}
+      seoImage={{ src: '/images/deep-cleaning.webp', alt: 'Gloved hands deep cleaning a kitchen countertop and stovetop with cleaning spray' }}
       deepChecklistColumns={[
         {
           title: 'Humidity & Mildew Treatment (Deep)',

@@ -159,8 +159,8 @@ export default function EstimateApprovedPage() {
         <div className="flex justify-center mb-4">
           <div className="relative h-11 w-[90px] md:h-13 md:w-[110px]">
             <Image 
-              src="https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95" 
-              alt="Star Cleaning SC Logo" 
+              src="/images/logo-mark.png"
+              alt="Star Cleaning SC logo"
               fill
               sizes="(max-width: 768px) 90px, 110px"
               className="object-contain"

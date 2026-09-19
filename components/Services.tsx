@@ -18,7 +18,8 @@ const Services: React.FC = () => {
       slug: "residential-cleaning",
       icon: "fa-spray-can",
       description: "Keep your home consistently fresh with our weekly or bi-weekly plans.",
-      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1470&auto=format&fit=crop",
+      image: "/images/residential.png",
+      alt: "Star Cleaning SC team members wiping down a glass table in a client's living room",
       tag: "MOST POPULAR",
       details: ["Dusting all surfaces", "Vacuuming carpets", "Mopping floors", "Sanitizing bathrooms", "Kitchen detailing", "Making beds"]
     },
@@ -27,7 +28,8 @@ const Services: React.FC = () => {
       slug: "deep-cleaning",
       icon: "fa-hand-sparkles",
       description: "Perfect for spring cleaning or first-time service. We touch every surface.",
-      image: "https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80",
+      image: "/images/deep-cleaning.webp",
+      alt: "Gloved hands deep cleaning a kitchen countertop and stovetop with cleaning spray",
       details: ["Baseboards & doors", "Inside windows", "Deep scrub tiles", "Cabinet exteriors", "Light fixtures", "Vents & fans"]
     },
     {
@@ -35,7 +37,8 @@ const Services: React.FC = () => {
       slug: "move-in-move-out-cleaning",
       icon: "fa-box-open",
       description: "Secure your deposit or prepare your new home. Empty home specialist.",
-      image: "https://jjccservices.com/wp-content/uploads/2025/03/Move-In-Move-Out-Cleaning-Checklist-Latest-2021-Update.jpg",
+      image: "/images/move-in-out.webp",
+      alt: "Moving boxes packed in a living room ready for a move-in or move-out clean",
       details: ["Inside cabinets", "Inside appliances", "Deep bathroom clean", "Spot clean walls", "Window tracks", "Garage sweep"]
     },
     {
@@ -43,7 +46,8 @@ const Services: React.FC = () => {
       slug: "vacation-rental-airbnb-cleaning",
       icon: "fa-suitcase-rolling",
       description: "Fast turnovers for 5-star host ratings. Linen service included.",
-      image: "https://prohousekeepers.com/wp-content/uploads/2020/03/airbnb_pixabay-e1584981299557-1.jpg",
+      image: "/images/airbnb.webp",
+      alt: "Hand holding a phone with the Airbnb app open in a rental apartment kitchen",
       details: ["Same-day turnover", "Linen changing", "Restocking essentials", "Damage reporting", "Key management", "Welcome setups"]
     },
     {
@@ -51,7 +55,8 @@ const Services: React.FC = () => {
       slug: "commercial-office-cleaning",
       icon: "fa-building",
       description: "Office spaces, retail stores, and medical facilities. Flexible hours.",
-      image: "https://nextdaycleaning.com/wp-content/uploads/2020/12/What-are-the-Benefits-of-Commercial-Office-Cleaning-1024x683.jpg",
+      image: "/images/commercial.webp",
+      alt: "Wiping down an office desk near a computer monitor",
       details: ["Reception areas", "Cubicles/Offices", "Breakrooms", "Restrooms", "Trash removal", "Floor maintenance"]
     },
     {
@@ -59,7 +64,8 @@ const Services: React.FC = () => {
       slug: "post-construction-cleaning",
       icon: "fa-hard-hat",
       description: "Removing dust and debris after renovation or new builds.",
-      image: "https://imperialcleaning.com/wp-content/uploads/2019/03/Post-Construction-Cleaning-Services.jpg",
+      image: "/images/post-construction.webp",
+      alt: "Room mid-renovation with construction dust and debris on the floor",
       details: ["Drywall dust removal", "Sticker removal", "Fixture polishing", "Vent vacuuming", "Cabinet interiors", "Final detail"]
     }
   ];
@@ -109,13 +115,14 @@ interface ServiceCardProps {
   icon: string;
   description: string;
   image: string;
+  alt: string;
   tag?: string;
   details: string[];
   isOpen: boolean;
   onClick: () => void;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ title, slug, icon, description, image, tag, details, isOpen, onClick }) => {
+const ServiceCard: React.FC<ServiceCardProps> = ({ title, slug, icon, description, image, alt, tag, details, isOpen, onClick }) => {
   return (
     <div 
       onClick={onClick}
@@ -124,9 +131,9 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, slug, icon, descriptio
       {/* Reduced height on mobile for compactness */}
       <div className={`relative overflow-hidden transition-all duration-500 ${isOpen ? 'h-24 lg:h-32' : 'h-48 lg:h-56'}`}>
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity"></div>
-        <Image 
-          src={image} 
-          alt={`${title} Service Charleston & Summerville`} 
+        <Image
+          src={image}
+          alt={alt}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transform group-hover:scale-110 transition duration-700 ease-out" 

@@ -26,7 +26,7 @@ const BlogPost2 = () => {
       "name": "Star Cleaning SC",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.starcleaningsc.com/images/logo.png"
+        "url": "https://www.starcleaningsc.com/images/logo-mark.png"
       }
     },
     "datePublished": "2026-02-10",

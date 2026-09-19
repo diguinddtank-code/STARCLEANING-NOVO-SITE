@@ -427,6 +427,12 @@ export default function RegionalDeepCleanPage({
       <section className="py-14 bg-star-dark border-t border-white/10 text-blue-100 text-sm">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <h3 className="text-white font-extrabold text-base mb-6 font-heading">Localized Deep-Cleaning Services in South Carolina</h3>
+          <p className="mb-8">
+            Looking for our full range of services in {cityName}? Visit the{' '}
+            <Link href={`/locations/${citySlug}`} className="text-yellow-300 font-semibold hover:text-white transition-colors">
+              {cityName} service area page
+            </Link>.
+          </p>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
             <div>
               <p className="text-yellow-300 font-bold mb-3 uppercase tracking-wider text-xs">Lowcountry Hubs</p>

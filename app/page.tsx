@@ -2,10 +2,23 @@ import { Metadata } from 'next';
 import HomeClient from './HomeClient';
 
 export const metadata: Metadata = {
-  title: "Star Cleaning SC | Charleston's #1 Rated House Cleaning Services",
-  description: "Reclaim your weekends with Star Cleaning SC's house cleaning and maid services. 5-star rated, 100% guaranteed cleaning in Charleston, SC and surrounding areas.",
+  title: "Star Cleaning SC | House Cleaning in Charleston & Summerville, SC",
+  description: "Reclaim your weekends with Star Cleaning SC's house cleaning and maid services. Veteran-owned, background-checked, and 100% guaranteed cleaning in Charleston, SC and surrounding areas.",
   alternates: {
     canonical: 'https://www.starcleaningsc.com/',
+  },
+  openGraph: {
+    title: "Star Cleaning SC | House Cleaning in Charleston & Summerville, SC",
+    description: "Veteran-owned, background-checked, 100% guaranteed house cleaning services in Charleston, SC. Book your clean today and reclaim your weekends!",
+    url: 'https://www.starcleaningsc.com/',
+    siteName: 'Star Cleaning SC',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Star Cleaning SC | House Cleaning in Charleston & Summerville, SC",
+    description: "Veteran-owned, background-checked, 100% guaranteed house cleaning services in Charleston, SC.",
   },
 };
 

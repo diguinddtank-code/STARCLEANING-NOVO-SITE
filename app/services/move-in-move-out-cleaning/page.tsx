@@ -60,7 +60,7 @@ export default function MoveInMoveOutCleaning() {
       <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-900">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/95 to-slate-900/80 z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-[url('https://jjccservices.com/wp-content/uploads/2025/03/Move-In-Move-Out-Cleaning-Checklist-Latest-2021-Update.jpg')] bg-cover bg-center opacity-40 mix-blend-overlay" />
+          <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-[url('/images/move-in-out.webp')] bg-cover bg-center opacity-40 mix-blend-overlay" />
         </div>
         
         <div className="container mx-auto px-4 relative z-20">
@@ -123,8 +123,8 @@ export default function MoveInMoveOutCleaning() {
               <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-[2rem] blur-xl opacity-20 animate-pulse"></div>
               <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden transform lg:rotate-2 hover:rotate-0 transition-all duration-700 shadow-2xl border border-white/10">
                 <Image 
-                  src="https://jjccservices.com/wp-content/uploads/2025/03/Move-In-Move-Out-Cleaning-Checklist-Latest-2021-Update.jpg" 
-                  alt="Spotless empty living room ready for move-in" 
+                  src="/images/move-in-out.webp"
+                  alt="Moving boxes packed in a living room ready for a move-in or move-out clean"
                   fill 
                   className="object-cover scale-105 hover:scale-100 transition-transform duration-700"
                   priority

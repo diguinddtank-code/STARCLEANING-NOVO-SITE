@@ -81,21 +81,21 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
       {/* Background Video/Image */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {/* Desktop Video */}
-        <video 
-          autoPlay 
-          loop 
-          muted 
+        <video
+          autoPlay
+          loop
+          muted
           playsInline
-          poster="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
+          poster="/images/hero-background.jpg"
           className="w-full h-full object-cover object-center"
         >
-          <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
+          <source src="/videos/hero.mp4" type="video/mp4" />
         </video>
-        
+
         {/* Mobile Image */}
-        <div 
+        <div
           className="hidden w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: "url('https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg')" }}
+          style={{ backgroundImage: "url('/images/hero-background.jpg')" }}
         ></div>
         <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
         <div className="block lg:hidden absolute inset-0 bg-gradient-to-b from-white/80 via-transparent to-transparent"></div>
@@ -119,7 +119,7 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
                 </div>
                 <div className="w-px h-3 bg-gray-300"></div>
                 <span className="text-xs font-bold text-gray-700 uppercase tracking-wide">
-                    #1 Rated & Veteran Owned
+                    Veteran Owned & 18 Years Strong
                 </span>
             </div>
             

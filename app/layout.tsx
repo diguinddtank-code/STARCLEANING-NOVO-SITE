@@ -23,12 +23,12 @@ const dancingScript = Dancing_Script({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.starcleaningsc.com"),
-  title: "Star Cleaning SC - Charleston's #1 Rated Cleaning Service",
-  description: "Reclaim your weekends with Star Cleaning SC. 5-star rated, 100% guaranteed house cleaning services in Charleston, SC and surrounding areas.",
+  title: "Star Cleaning SC | House Cleaning in Charleston & Summerville, SC",
+  description: "Reclaim your weekends with Star Cleaning SC. Veteran-owned, background-checked, 100% guaranteed house cleaning services in Charleston, SC and surrounding areas.",
   keywords: "house cleaning Charleston, maid service Charleston SC, deep cleaning, move in cleaning, move out cleaning, Star Cleaning SC, professional cleaners",
   openGraph: {
-    title: "Star Cleaning SC - Charleston's Premier Cleaning Service",
-    description: "5-star rated, 100% guaranteed house cleaning services in Charleston, SC. Book your clean today and reclaim your weekends!",
+    title: "Star Cleaning SC | House Cleaning in Charleston & Summerville, SC",
+    description: "Veteran-owned, background-checked, 100% guaranteed house cleaning services in Charleston, SC. Book your clean today and reclaim your weekends!",
     url: "https://www.starcleaningsc.com",
     siteName: "Star Cleaning SC",
     locale: "en_US",
@@ -36,8 +36,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Star Cleaning SC - Charleston's #1 Rated Cleaning Service",
-    description: "5-star rated, 100% guaranteed house cleaning services in Charleston, SC.",
+    title: "Star Cleaning SC | House Cleaning in Charleston & Summerville, SC",
+    description: "Veteran-owned, background-checked, 100% guaranteed house cleaning services in Charleston, SC.",
   },
 };
 
@@ -55,13 +55,13 @@ export default function RootLayout({
         "url": "https://www.starcleaningsc.com",
         "name": "Star Cleaning SC",
         "alternateName": "Star Cleaning LLC",
-        "description": "Charleston's #1 Rated Cleaning Service"
+        "description": "Veteran-owned house cleaning company serving Charleston, SC and the Lowcountry"
       },
       {
         "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
         "@id": "https://www.starcleaningsc.com/#localbusiness",
         "name": "Star Cleaning SC",
-        "image": "https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95",
+        "image": "https://www.starcleaningsc.com/images/logo-mark.png",
         "description": "Veteran-owned residential and commercial cleaning company serving the Charleston, SC Lowcountry with military-precision, 100%-guaranteed cleaning.",
         "address": {
           "@type": "PostalAddress",

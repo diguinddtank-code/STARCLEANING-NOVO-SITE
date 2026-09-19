@@ -22,6 +22,9 @@ out
 .env.*
 !.env.example
 
+# Original, uncompressed image backups (not for deployment)
+/_originals
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

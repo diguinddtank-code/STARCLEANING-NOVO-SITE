@@ -21,7 +21,6 @@ const nextConfig: NextConfig = {
       { source: '/m/create-account', destination: '/', permanent: true },
       { source: '/m/login', destination: '/', permanent: true },
       { source: '/airbnb-cleaning', destination: '/', permanent: true },
-      { source: '/privacy-policy', destination: '/', permanent: true },
       { source: '/residential-services', destination: '/', permanent: true },
       { source: '/commercial-services', destination: '/', permanent: true },
     ];
@@ -30,55 +29,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "img1.wsimg.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "image-cdn.carrot.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
         hostname: "i.imgur.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "mistyclean.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "img.freepik.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "jjccservices.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "prohousekeepers.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "nextdaycleaning.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "imperialcleaning.com",
         port: "",
         pathname: "/**",
       },

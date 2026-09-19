@@ -27,7 +27,7 @@ export default function JohnsIslandClient() {
         "New construction adds a second problem. With subdivisions still going up near the **Angel Oak** and along the Kiawah/Seabrook corridor, plenty of finished homes still have drywall dust hiding in vents, light fixtures, and cabinet interiors a year after closing.",
         "Because so many properties here sit on multiple acres instead of a quarter-acre lot, we scope your visit around actual square footage and layout — a farmhouse with three times the floor space of a townhome needs more than a townhome-sized crew and timeline.",
       ]}
-      seoImage={{ src: 'https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80', alt: 'Deep cleaning in progress' }}
+      seoImage={{ src: '/images/deep-cleaning.webp', alt: 'Gloved hands deep cleaning a kitchen countertop and stovetop with cleaning spray' }}
       deepChecklistColumns={[
         {
           title: 'Entryway & Farm-Dust Treatment (Deep)',

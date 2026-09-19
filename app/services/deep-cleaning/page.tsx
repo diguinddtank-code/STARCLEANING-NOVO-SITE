@@ -60,7 +60,7 @@ export default function DeepCleaning() {
       <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-900">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/95 to-slate-900/80 z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-[url('https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80')] bg-cover bg-center opacity-40 mix-blend-overlay" />
+          <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-[url('/images/deep-cleaning.webp')] bg-cover bg-center opacity-40 mix-blend-overlay" />
         </div>
         
         <div className="container mx-auto px-4 relative z-20">
@@ -123,8 +123,8 @@ export default function DeepCleaning() {
               <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-[2rem] blur-xl opacity-20 animate-pulse"></div>
               <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden transform lg:rotate-2 hover:rotate-0 transition-all duration-700 shadow-2xl border border-white/10">
                 <Image 
-                  src="https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80" 
-                  alt="Sparkling clean bathroom after a deep clean" 
+                  src="/images/deep-cleaning.webp"
+                  alt="Gloved hands deep cleaning a kitchen countertop and stovetop with cleaning spray"
                   fill 
                   className="object-cover scale-105 hover:scale-100 transition-transform duration-700"
                   priority

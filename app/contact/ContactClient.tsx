@@ -134,7 +134,7 @@ export default function ContactClient() {
 
                 <div className="relative z-10 mt-16 pt-8 border-t border-slate-800">
                   <div className="flex items-center gap-4">
-                     <Image src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" alt="Veteran Owned" width={48} height={24} className="object-contain brightness-0 invert opacity-70" />
+                     <Image src="/images/veteran-owned-badge.png" alt="Veteran Owned" width={48} height={24} className="object-contain brightness-0 invert opacity-70" />
                      <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Veteran Owned & Operated</span>
                   </div>
                 </div>

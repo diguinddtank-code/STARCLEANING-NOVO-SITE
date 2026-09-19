@@ -68,7 +68,7 @@ const ServiceAreas: React.FC = () => {
                     {/* Client 2 Area */}
                     <div className="absolute top-[45%] right-[15%] flex flex-col items-center">
                         <div className="bg-white px-3 py-1.5 rounded-lg shadow-xl border border-gray-100 text-[10px] font-bold text-gray-700 mb-1 flex items-center gap-1.5 whitespace-nowrap animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-                            <i className="fas fa-map-pin text-green-500 text-[9px]"></i> Cliente Star Cleaning
+                            <i className="fas fa-map-pin text-green-500 text-[9px]"></i> Star Cleaning client
                         </div>
                         <div className="relative flex justify-center items-center">
                             <div className="absolute w-6 h-6 bg-green-400 rounded-full animate-ping opacity-40" style={{ animationDelay: '0.5s' }}></div>
@@ -82,7 +82,7 @@ const ServiceAreas: React.FC = () => {
                             <div className="flex -space-x-1">
                                 <div className="w-4 h-4 rounded-full bg-blue-100 border border-white flex items-center justify-center"><i className="fas fa-user text-[7px] text-blue-600"></i></div>
                             </div>
-                            <span>Área de Cobertura</span>
+                            <span>Coverage Area</span>
                         </div>
                         <div className="relative flex justify-center items-center">
                             <div className="relative w-3.5 h-3.5 bg-star-blue border-2 border-white rounded-full shadow-md"></div>
@@ -122,10 +122,19 @@ const ServiceAreas: React.FC = () => {
 
                     <div className="flex flex-wrap gap-2">
                         {locations.map((city, idx) => {
-                            let linkHref = "#quote";
-                            if (city === "Charleston") linkHref = "/deep-cleaning-charleston-sc";
-                            else if (city === "Summerville") linkHref = "/deep-cleaning-summerville-sc";
-                            else if (city === "Ladson") linkHref = "/deep-cleaning-ladson-sc";
+                            const citySlugs: Record<string, string> = {
+                                "Charleston": "charleston",
+                                "Summerville": "summerville",
+                                "Mount Pleasant": "mount-pleasant",
+                                "James Island": "james-island",
+                                "North Charleston": "north-charleston",
+                                "Daniel Island": "daniel-island",
+                                "Ladson": "ladson",
+                                "Johns Island": "johns-island",
+                            };
+                            // West Ashley, Goose Creek, Hanahan, and Moncks Corner don't have a
+                            // /locations/ page yet, so they fall back to the quote form.
+                            const linkHref = citySlugs[city] ? `/locations/${citySlugs[city]}` : "#quote";
 
                             return (
                                 <a 

@@ -27,7 +27,7 @@ export default function JamesIslandClient() {
         "Salt air adds a second layer most inland cleaning crews never deal with. It leaves a faint film on bathroom fixtures, window tracks, and stainless appliances that looks like water spots until you try to wipe it off with a dry cloth. We use a mineral-cutting solution on those surfaces instead.",
         "Add in the marsh-side humidity along **Riverland Drive** and near **James Island County Park**, and bathroom grout darkens faster here than it would three miles inland. Our deep clean treats that grout on every visit, not as an upsell.",
       ]}
-      seoImage={{ src: 'https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80', alt: 'Deep cleaning in progress' }}
+      seoImage={{ src: '/images/deep-cleaning.webp', alt: 'Gloved hands deep cleaning a kitchen countertop and stovetop with cleaning spray' }}
       deepChecklistColumns={[
         {
           title: 'Sand & Salt Treatment (Deep)',

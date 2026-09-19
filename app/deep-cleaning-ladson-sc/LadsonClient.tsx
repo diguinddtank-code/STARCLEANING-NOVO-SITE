@@ -27,7 +27,7 @@ export default function LadsonClient() {
         "With military PCS reassignment shifts, families face immense pressure to pass rigorous visual deep-cleaning inspections to secure security deposits and maintain housing standing.",
         "At **Star Cleaning SC**, we bring military veteran discipline directly to civilian and military housing. We understand that a basic surface wipe is insufficient. Our deep cleaning targets dried stains, baseboard scuffs, ceiling fan grease, and range-hood build-up with meticulous, professional-grade execution.",
       ]}
-      seoImage={{ src: 'https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80', alt: 'Deep cleaning in progress' }}
+      seoImage={{ src: '/images/deep-cleaning.webp', alt: 'Gloved hands deep cleaning a kitchen countertop and stovetop with cleaning spray' }}
       deepChecklistColumns={[
         {
           title: 'Kitchen & Wet Resets (Deep)',

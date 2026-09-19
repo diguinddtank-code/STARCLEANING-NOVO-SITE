@@ -39,10 +39,10 @@ export default function PromoClient() {
                  loop 
                  muted 
                  playsInline 
-                 poster="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
+                 poster="/images/hero-background.jpg"
                 className="absolute inset-0 w-full h-full object-cover object-center scale-105"
             >
-                <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
+                <source src="/videos/hero.mp4" type="video/mp4" />
             </video>
           </div>
           
@@ -55,8 +55,8 @@ export default function PromoClient() {
             <div className="w-full flex justify-between items-center mb-6 mt-6 px-2 sm:px-0">
                 <Link href="/" className="inline-block hover:opacity-90 transition-opacity relative h-10 md:h-14 w-36 md:w-48">
                     <Image 
-                         src="https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95" 
-                         alt="Star Cleaning" 
+                         src="/images/logo-mark.png"
+                         alt="Star Cleaning SC logo"
                          fill
                         priority
                         sizes="(max-width: 768px) 144px, 192px"

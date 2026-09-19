@@ -27,7 +27,7 @@ export default function NorthCharlestonClient() {
         "That pace punishes standard cleaning. Carpet in a two-year rental holds more ground-in grit than a homeowner's floor holds in five, and a quick wipe-down before a new tenant's walkthrough leaves exactly the marks a leasing agent is trained to spot. We run the full deep-clean pass so the unit passes inspection the first time.",
         "For homeowners in **Park Circle** and the neighborhoods off **Dorchester Road**, the issue is usually timing: rotating shifts mean the house is empty at odd hours and full during ours. We schedule early-morning and evening slots because a 9-to-5 cleaning window doesn't fit a Boeing swing shift.",
       ]}
-      seoImage={{ src: 'https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80', alt: 'Deep cleaning in progress' }}
+      seoImage={{ src: '/images/deep-cleaning.webp', alt: 'Gloved hands deep cleaning a kitchen countertop and stovetop with cleaning spray' }}
       deepChecklistColumns={[
         {
           title: 'Kitchen & Appliances (Deep)',

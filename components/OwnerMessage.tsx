@@ -35,8 +35,8 @@ const OwnerMessage: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-tr from-yellow-300 to-yellow-400 rounded-[2rem] lg:rounded-[3rem] transform rotate-3 scale-[1.03] shadow-lg group-hover:rotate-2 transition-transform duration-500"></div>
               
               <Image
-                src="https://i.imgur.com/Nv15wCN.png"
-                alt="Star Cleaning Team Member"
+                src="/images/owner-photo.jpg"
+                alt="Mariana, owner of Star Cleaning SC, holding a Cleaning for a Reason charity card"
                 fill
                 sizes="(max-width: 1024px) 280px, 380px"
                 className="rounded-[2rem] lg:rounded-[3rem] shadow-2xl border-4 lg:border-[6px] border-white relative z-10 object-cover"
@@ -67,7 +67,7 @@ const OwnerMessage: React.FC = () => {
                     <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full mb-4 lg:mb-6 border border-white/10 shadow-sm">
                         <div className="relative h-8 w-16">
                           <Image 
-                              src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" 
+                              src="/images/veteran-owned-badge.png"
                               alt="Veteran Owned" 
                               fill
                               sizes="64px"

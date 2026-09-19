@@ -14,9 +14,9 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://i.imgur.com/Nv15wCN.png',
-        width: 1200,
-        height: 630,
+        url: 'https://www.starcleaningsc.com/images/owner-photo.jpg',
+        width: 800,
+        height: 1200,
         alt: 'Mariana - Owner of Star Cleaning Service SC',
       }
     ]

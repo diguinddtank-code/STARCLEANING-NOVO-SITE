@@ -15,7 +15,7 @@ const translations = {
     applyTwoMins: "Aplica en 2 minutos",
     exp: "18 Años de Experiencia",
     veteran: "Negocio de Veteranos",
-    rated: "#1 en Lowcountry",
+    rated: "Equipo Local en Crecimiento",
     whyWork: "¿Por qué trabajar con nosotros?",
     schedTitle: "Horario consistente",
     schedDesc: "Disfruta de un horario estable. Sin sobrecarga, sin agotamiento.",
@@ -33,7 +33,7 @@ const translations = {
     applyTwoMins: "Aplique em 2 minutos",
     exp: "18 Anos de Experiência",
     veteran: "Empresa de Veteranos",
-    rated: "A Melhor da Região",
+    rated: "Equipe Local em Crescimento",
     whyWork: "Por que trabalhar conosco?",
     schedTitle: "Horário 100% fixo",
     schedDesc: "Aproveite um cronograma estável. Sem surpresas ou esgotamentos.",
@@ -51,7 +51,7 @@ const translations = {
     applyTwoMins: "Apply in 2 minutes",
     exp: "18 Years Experience",
     veteran: "Veteran Owned",
-    rated: "Lowcountry's #1 Rated",
+    rated: "Growing Local Team",
     whyWork: "Why Work With Us?",
     schedTitle: "Consistent schedule",
     schedDesc: "Enjoy a stable and reliable schedule. No overload, no burnout.",
@@ -80,10 +80,10 @@ export default function CareersClient() {
             loop 
             muted 
             playsInline
-            poster="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
+            poster="/images/hero-background.jpg"
             className="w-full h-full object-cover object-center opacity-40"
           >
-            <source src="https://i.imgur.com/Q7QVFW7.mp4" type="video/mp4" />
+            <source src="/videos/hero.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-gradient-to-b from-slate-900/30 via-slate-900/50 to-slate-900" />
         </div>
@@ -147,7 +147,7 @@ export default function CareersClient() {
               </div>
               <div className="hidden sm:block text-blue-300">|</div>
               <div className="flex items-center gap-1.5 md:gap-2 flex-grow sm:flex-grow-0 justify-center w-full sm:w-auto">
-                  <i className="fas fa-trophy text-yellow-400 text-base md:text-lg"></i>
+                  <i className="fas fa-users text-yellow-400 text-base md:text-lg"></i>
                   <span>{t.rated}</span>
               </div>
           </div>

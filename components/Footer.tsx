@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Medal } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
@@ -15,8 +16,8 @@ const Footer: React.FC = () => {
           <div className="lg:col-span-4">
             <div className="relative h-14 w-32 mb-6 brightness-0 invert opacity-90">
               <Image 
-                src="https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95" 
-                alt="Star Cleaning SC Logo"
+                src="/images/logo-mark.png"
+                alt="Star Cleaning SC logo"
                 fill
                 sizes="128px"
                 className="object-contain"
@@ -104,11 +105,11 @@ const Footer: React.FC = () => {
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 font-medium">
           <p>&copy; {new Date().getFullYear()} Star Cleaning SC. All Rights Reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
-            <Link href="/#" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/#" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
             <Link href="/sitemap.xml" className="hover:text-white transition-colors">Sitemap</Link>
           </div>
-          <p className="mt-4 md:mt-0 text-yellow-500 font-bold tracking-wider">Veteran-Owned & Operated 🎖️</p>
+          <p className="mt-4 md:mt-0 text-yellow-500 font-bold tracking-wider flex items-center gap-1.5">Veteran-Owned & Operated <Medal className="w-4 h-4" aria-hidden="true" /></p>
         </div>
       </div>
     </footer>

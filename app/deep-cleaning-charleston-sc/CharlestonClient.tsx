@@ -27,7 +27,7 @@ export default function CharlestonClient() {
         "Standard maid services simply wipe over the surfaces, pushing dirt into the corners. At **Star Cleaning SC**, we address Charleston's unique environmental factors. We utilize deep HEPA-filtered vacuuming to pull humidity-bound allergens from delicate carpets, scrub coastal mildew from bathroom grout line by line, and remove greasy salt residue from kitchen panels.",
         "Whether your home sits South of Broad, in West Ashley, or near Daniel Island, we tailor our equipment to your building materials—protecting old heart-pine flooring, original brass fixtures, and modern quartz finishes with equal master-precision.",
       ]}
-      seoImage={{ src: 'https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80', alt: 'Deep cleaning in progress' }}
+      seoImage={{ src: '/images/deep-cleaning.webp', alt: 'Gloved hands deep cleaning a kitchen countertop and stovetop with cleaning spray' }}
       deepChecklistColumns={[
         {
           title: 'Kitchen & Wet Areas (Deep)',

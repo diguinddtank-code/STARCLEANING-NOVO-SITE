@@ -27,7 +27,7 @@ export default function SummervilleClient() {
         "Additionally, with immense residential growth in neighborhoods like **Nexton, Cane Bay, and Carnes Crossroads**, ongoing construction projects disperse extremely fine silica-rich clay dust that settles continuously inside nearby homes.",
         "Our deep cleaning process is specifically developed to target these local challenges. We don't just dust; we wash the pollen film off your blinds, scrub the clay tracking off door thresholds, and vacuum vents deep enough to purge micro-allergens completely.",
       ]}
-      seoImage={{ src: 'https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80', alt: 'Deep cleaning in progress' }}
+      seoImage={{ src: '/images/deep-cleaning.webp', alt: 'Gloved hands deep cleaning a kitchen countertop and stovetop with cleaning spray' }}
       deepChecklistColumns={[
         {
           title: 'Kitchen & Wet Sanitization',

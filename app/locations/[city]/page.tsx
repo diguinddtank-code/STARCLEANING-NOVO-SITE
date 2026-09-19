@@ -59,12 +59,11 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
       <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-900 text-white">
         {/* Background elements */}
         <div className="absolute inset-0 z-0">
-          <Image 
-            src="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
-            alt="Cleaning products background"
+          <Image
+            src="/images/hero-background.jpg"
+            alt="Cleaning products laid out on a wooden surface"
             fill
             className="object-cover opacity-10"
-            referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/95 to-slate-900/40" />
         </div>
@@ -213,18 +212,18 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { title: "Residential Cleaning", desc: "Regular upkeep to keep your home consistently fresh and welcoming.", img: "https://mistyclean.com/wp-content/uploads/2024/07/Banner-img-Professional-cleaning-Services-in-Maryland-scaled.webp", href: "/services/residential-cleaning" },
-              { title: "Deep Cleaning", desc: "Intensive, top-to-bottom cleaning targeting hidden dirt and grime.", img: "https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80", href: "/services/deep-cleaning" },
-              { title: "Move In/Out Cleaning", desc: "Detailed cleaning to ensure you get your deposit back or start fresh.", img: "https://jjccservices.com/wp-content/uploads/2025/03/Move-In-Move-Out-Cleaning-Checklist-Latest-2021-Update.jpg", href: "/services/move-in-move-out-cleaning" },
-              { title: "Airbnb/Vacation Rental", desc: "Fast, reliable turnover cleaning to guarantee 5-star guest reviews.", img: "https://prohousekeepers.com/wp-content/uploads/2020/03/airbnb_pixabay-e1584981299557-1.jpg", href: "/services/vacation-rental-airbnb-cleaning" },
-              { title: "Commercial Office", desc: "Professional cleaning for a healthier, more productive workspace.", img: "https://nextdaycleaning.com/wp-content/uploads/2020/12/What-are-the-Benefits-of-Commercial-Office-Cleaning-1024x683.jpg", href: "/services/commercial-office-cleaning" },
-              { title: "Post-Construction", desc: "Thorough removal of drywall dust and debris after renovations.", img: "https://imperialcleaning.com/wp-content/uploads/2019/03/Post-Construction-Cleaning-Services.jpg", href: "/services/post-construction-cleaning" }
+              { title: "Residential Cleaning", desc: "Regular upkeep to keep your home consistently fresh and welcoming.", img: "/images/residential.png", alt: "Star Cleaning SC team members wiping down a glass table in a client's living room", href: "/services/residential-cleaning" },
+              { title: "Deep Cleaning", desc: "Intensive, top-to-bottom cleaning targeting hidden dirt and grime.", img: "/images/deep-cleaning.webp", alt: "Gloved hands deep cleaning a kitchen countertop and stovetop with cleaning spray", href: "/services/deep-cleaning" },
+              { title: "Move In/Out Cleaning", desc: "Detailed cleaning to ensure you get your deposit back or start fresh.", img: "/images/move-in-out.webp", alt: "Moving boxes packed in a living room ready for a move-in or move-out clean", href: "/services/move-in-move-out-cleaning" },
+              { title: "Airbnb/Vacation Rental", desc: "Fast, reliable turnover cleaning to guarantee 5-star guest reviews.", img: "/images/airbnb.webp", alt: "Hand holding a phone with the Airbnb app open in a rental apartment kitchen", href: "/services/vacation-rental-airbnb-cleaning" },
+              { title: "Commercial Office", desc: "Professional cleaning for a healthier, more productive workspace.", img: "/images/commercial.webp", alt: "Wiping down an office desk near a computer monitor", href: "/services/commercial-office-cleaning" },
+              { title: "Post-Construction", desc: "Thorough removal of drywall dust and debris after renovations.", img: "/images/post-construction.webp", alt: "Room mid-renovation with construction dust and debris on the floor", href: "/services/post-construction-cleaning" }
             ].map((service, i) => (
               <div key={i} className="bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow overflow-hidden group">
                 <div className="relative h-48 w-full overflow-hidden">
-                  <Image 
-                    src={service.img} 
-                    alt={service.title}
+                  <Image
+                    src={service.img}
+                    alt={service.alt}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                     referrerPolicy="no-referrer"
@@ -246,7 +245,7 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
 
       {/* Why Choose Us */}
       <section className="py-20 bg-blue-900 text-white relative overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-10 bg-[url('https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80')] bg-cover bg-center" />
+        <div className="absolute inset-0 z-0 opacity-10 bg-[url('/images/deep-cleaning.webp')] bg-cover bg-center" />
         <div className="container mx-auto px-4 max-w-6xl relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Star Cleaning SC in {data.name}?</h2>

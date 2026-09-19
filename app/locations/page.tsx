@@ -21,11 +21,10 @@ export default function LocationsHub() {
         {/* Background elements */}
         <div className="absolute inset-0 z-0">
           <Image 
-            src="https://img.freepik.com/free-photo/top-view-frame-with-cleaning-products-wooden-background_23-2148357412.jpg"
-            alt="Cleaning products background"
+            src="/images/hero-background.jpg"
+            alt="Cleaning products laid out on a wooden surface"
             fill
             className="object-cover opacity-10"
-            referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-slate-900/80 to-slate-900" />
         </div>

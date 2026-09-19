@@ -27,7 +27,7 @@ export default function DanielIslandClient() {
         "We use pH-neutral, stone-safe solutions and hand-detail custom cabinetry instead of running a spray bottle across every surface the same way. Grass clippings and pine straw tracked in from golf-course-adjacent yards get swept and vacuumed before they scratch finished floors.",
         "We also handle the logistics that come with island living: coordinating with your **HOA office** or gate attendant for access, and working discreetly around a schedule if you're often away near **Credit One Stadium** or traveling for work.",
       ]}
-      seoImage={{ src: 'https://img.freepik.com/free-photo/woman-holding-rag-detergent-cleaning-cooker_651396-2881.jpg?semt=ais_user_personalization&w=740&q=80', alt: 'Deep cleaning in progress' }}
+      seoImage={{ src: '/images/deep-cleaning.webp', alt: 'Gloved hands deep cleaning a kitchen countertop and stovetop with cleaning spray' }}
       deepChecklistColumns={[
         {
           title: 'Stone & Custom Surfaces (Deep)',

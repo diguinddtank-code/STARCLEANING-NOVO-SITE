@@ -66,7 +66,7 @@ export default function AboutUsClient() {
                   <div className="absolute inset-0 bg-gradient-to-tr from-yellow-300 to-yellow-400 rounded-[2.5rem] transform rotate-3 scale-105 shadow-2xl"></div>
                   
                   <Image
-                    src="https://i.imgur.com/Nv15wCN.png"
+                    src="/images/owner-photo.jpg"
                     alt="Mariana, Owner of Star Cleaning SC"
                     fill
                     sizes="(max-width: 1024px) 400px, 460px"
@@ -99,7 +99,7 @@ export default function AboutUsClient() {
                     className="absolute -top-6 -right-6 lg:-top-8 lg:-right-8 z-30"
                   >
                     <div className="bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3">
-                       <Image src="https://image-cdn.carrot.com/uploads/sites/6069/2012/01/veteran-owned.png" alt="Veteran Owned" width={32} height={16} className="object-contain brightness-0 invert" />
+                       <Image src="/images/veteran-owned-badge.png" alt="Veteran Owned" width={32} height={16} className="object-contain brightness-0 invert" />
                        <span className="text-[10px] font-black uppercase tracking-widest">Veteran Owned</span>
                     </div>
                   </motion.div>

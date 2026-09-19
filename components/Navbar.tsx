@@ -38,8 +38,8 @@ const Navbar: React.FC = () => {
           <Link href="/" className="flex items-center group relative z-50">
             <div className={`relative transition-all duration-500 ${scrolled ? 'h-10 w-[76px]' : 'h-12 w-[91px] md:h-20 md:w-[152px]'}`}>
               <Image 
-                src="https://img1.wsimg.com/isteam/ip/97a5d835-7b16-4991-b3c6-3d6956b6b82b/ESBOC%CC%A7O-STAR-CLEANING_full.png/:/rs=w:143,h:75,cg:true,m/cr=w:143,h:75/qt=q:95" 
-                alt="Star Cleaning" 
+                src="/images/logo-mark.png"
+                alt="Star Cleaning SC logo"
                 fill
                 sizes="(max-width: 768px) 122px, 152px"
                 className="object-contain"
