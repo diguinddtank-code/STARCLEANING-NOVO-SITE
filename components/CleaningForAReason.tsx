@@ -3,38 +3,40 @@ import Image from 'next/image';
 
 const CleaningForAReason: React.FC = () => {
   return (
-    <section className="py-16 lg:py-24 bg-gradient-to-br from-pink-600 via-pink-500 to-rose-500 relative overflow-hidden">
-      {/* Decorative texture, matching the site's other bold CTA sections */}
-      <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
-      <div className="absolute -top-24 -left-24 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-      <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
+    <section className="py-10 lg:py-14 bg-white">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-gradient-to-br from-pink-500 to-rose-500 rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl relative overflow-hidden">
+          {/* Texture, contained within the card */}
+          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
+          <div className="absolute -bottom-16 -right-16 w-56 h-56 bg-white/10 rounded-full blur-3xl" />
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <div className="relative z-10 flex flex-col md:flex-row items-center gap-5 md:gap-8 text-center md:text-left">
 
-        {/* Big centered badge */}
-        <div className="relative w-32 h-32 sm:w-40 sm:h-40 mx-auto mb-8 drop-shadow-2xl">
-          <div className="absolute inset-0 bg-white rounded-full shadow-2xl"></div>
-          <Image
-            src="/images/cleaning-for-a-reason-badge.png"
-            alt="Cleaning for a Reason - Proud Partner - Clean Homes for Cancer Patients"
-            fill
-            sizes="160px"
-            className="object-contain p-4 relative z-10"
-          />
+            {/* Badge */}
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0">
+              <div className="absolute inset-0 bg-white rounded-full shadow-lg"></div>
+              <Image
+                src="/images/cleaning-for-a-reason-badge.png"
+                alt="Cleaning for a Reason - Proud Partner - Clean Homes for Cancer Patients"
+                fill
+                sizes="96px"
+                className="object-contain p-2.5 relative z-10"
+              />
+            </div>
+
+            <div>
+              <span className="inline-flex items-center gap-1.5 bg-white/15 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-2.5 border border-white/20">
+                <i className="fas fa-ribbon"></i> Cleaning With a Purpose
+              </span>
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-black text-white font-heading leading-tight mb-1.5">
+                Proud Partner of Cleaning for a Reason
+              </h2>
+              <p className="text-pink-50 text-sm leading-relaxed">
+                We donate free house cleanings to women undergoing treatment for cancer, right here in the Lowcountry.
+              </p>
+            </div>
+          </div>
         </div>
-
-        <span className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-5 border border-white/20">
-          <i className="fas fa-ribbon"></i>
-          Cleaning With a Purpose
-        </span>
-
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white font-heading leading-tight mb-6">
-          Proud Partner of<br className="hidden sm:block" /> Cleaning for a Reason
-        </h2>
-
-        <p className="text-pink-50 text-base sm:text-lg lg:text-xl leading-relaxed max-w-xl mx-auto font-medium">
-          We donate free house cleanings to women undergoing treatment for cancer, right here in the Lowcountry — because fighting for your life shouldn't mean fighting your house too.
-        </p>
       </div>
     </section>
   );
