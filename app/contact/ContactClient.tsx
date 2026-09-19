@@ -26,6 +26,13 @@ export default function ContactClient() {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // Fire the conversion event immediately, before attempting the webhook call,
+    // so a slow/unreachable webhook can never suppress the Google Ads conversion.
+    if (typeof window !== 'undefined') {
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      (window as any).dataLayer.push({ event: 'form_submit_success' });
+    }
+
     try {
       // Mimicking a webhook submission
       const response = await fetch('https://n8n.infra-remakingautomacoes.cloud/webhook/sccontact', {
@@ -39,9 +46,7 @@ export default function ContactClient() {
       });
 
       if (response.ok) {
-        if (typeof window !== 'undefined' && (window as any).dataLayer) {
-            (window as any).dataLayer.push({ event: 'form_submit_success' });
-        }
+        console.log("Webhook successful");
       }
     } catch (err) {
       console.error("Submission error:", err);

@@ -280,6 +280,11 @@ export default function CareersForm({
         // Continue even if Supabase fails so n8n can still try
       }
 
+      // Fire the conversion event immediately, before attempting the webhook call,
+      // so a slow/unreachable webhook can never suppress the Google Ads conversion.
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      (window as any).dataLayer.push({ event: 'form_submit_success' });
+
       // Send to n8n Webhook
       try {
         // NOTE: webhook-test in n8n only works when you are actively listening on the n8n interface.
@@ -296,11 +301,6 @@ export default function CareersForm({
             source: 'careers_page'
           }),
         });
-
-        // Push the success event regardless of the webhook response
-        // so that Google Ads conversions are not blocked by server errors.
-        (window as any).dataLayer = (window as any).dataLayer || [];
-        (window as any).dataLayer.push({ event: 'form_submit_success' });
 
         if (response.ok) {
             console.log("Webhook successful");
