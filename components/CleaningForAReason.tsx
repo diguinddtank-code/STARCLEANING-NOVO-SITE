@@ -31,10 +31,10 @@ const CleaningForAReason: React.FC = () => {
           {/* Right: Copy */}
           <div className="lg:w-3/5 space-y-4 text-gray-600 text-sm sm:text-base leading-relaxed">
             <p>
-              Cleaning for a Reason is a national nonprofit that provides free house cleanings to women undergoing treatment for cancer. Star Cleaning SC is honored to be a local partner, donating our time to families across the Lowcountry facing one of the hardest fights of their lives.
+              Cleaning for a Reason is a national nonprofit that sends free house cleanings to women going through cancer treatment. We're proud to be their local partner here in the Lowcountry.
             </p>
             <p>
-              When you're battling cancer, a clean home shouldn't be one more thing to worry about — so for our neighbors going through treatment, we show up free of charge, with the same care and precision we bring to every job.
+              If you're fighting cancer, the last thing you need is a messy house on top of it. So for our neighbors in treatment, we show up and clean for free. No catch, no strings attached.
             </p>
           </div>
         </div>

@@ -4,6 +4,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import BookingForm from '@/components/BookingForm';
 import ReviewCard from '@/components/ReviewCard';
+import OwnerMessage from '@/components/OwnerMessage';
+import CleaningForAReason from '@/components/CleaningForAReason';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CheckCircle2, Star, ShieldCheck, Clock, MapPin } from 'lucide-react';
@@ -162,6 +164,10 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
           </div>
         </div>
       </section>
+
+      <OwnerMessage quoteHref="#book-now" />
+
+      <CleaningForAReason />
 
       {/* Intro Section */}
       <section className="py-20 bg-white">
