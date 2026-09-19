@@ -2,7 +2,11 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const OwnerMessage: React.FC = () => {
+interface OwnerMessageProps {
+  quoteHref?: string;
+}
+
+const OwnerMessage: React.FC<OwnerMessageProps> = ({ quoteHref = '/#quote' }) => {
   return (
     <section className="py-16 lg:py-24 bg-white relative overflow-hidden">
       {/* Background Decor - Hidden on mobile for performance and cleaner look */}
@@ -100,7 +104,7 @@ const OwnerMessage: React.FC = () => {
                     </div>
 
                     <div className="mt-8 lg:mt-10 flex flex-col sm:flex-row gap-4 lg:gap-5 items-center">
-                        <Link href="/#quote" className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-300 text-blue-900 px-8 py-3.5 lg:py-4 rounded-xl font-black shadow-[0_10px_20px_rgba(250,204,21,0.3)] transform hover:-translate-y-1 transition-all duration-300 flex justify-center items-center gap-3">
+                        <Link href={quoteHref} className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-300 text-blue-900 px-8 py-3.5 lg:py-4 rounded-xl font-black shadow-[0_10px_20px_rgba(250,204,21,0.3)] transform hover:-translate-y-1 transition-all duration-300 flex justify-center items-center gap-3">
                             <span>Get Your Free Quote</span>
                             <i className="fas fa-arrow-right"></i>
                         </Link>

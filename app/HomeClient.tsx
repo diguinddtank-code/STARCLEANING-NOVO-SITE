@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import TrustBar from '../components/TrustBar';
 import OwnerMessage from '../components/OwnerMessage';
+import CleaningForAReason from '../components/CleaningForAReason';
 import Services from '../components/Services';
 import BeforeAfter from '../components/BeforeAfter';
 import Testimonials from '../components/Testimonials';
@@ -55,7 +56,11 @@ const Home = () => {
         <ScrollReveal direction="up">
           <OwnerMessage />
         </ScrollReveal>
-        
+
+        <ScrollReveal direction="up">
+          <CleaningForAReason />
+        </ScrollReveal>
+
         <Services />
         
         <ScrollReveal direction="left">

@@ -9,6 +9,8 @@ import ScrollReveal from '@/components/ScrollReveal';
 import ReviewCard from '@/components/ReviewCard';
 import ServiceAreas from '@/components/ServiceAreas';
 import BookingForm from '@/components/BookingForm';
+import OwnerMessage from '@/components/OwnerMessage';
+import CleaningForAReason from '@/components/CleaningForAReason';
 import {
   Star,
   ShieldCheck,
@@ -223,6 +225,16 @@ export default function RegionalDeepCleanPage({
           </div>
         </div>
       </section>
+
+      {/* Owner message */}
+      <ScrollReveal direction="up">
+        <OwnerMessage quoteHref="#quote" />
+      </ScrollReveal>
+
+      {/* Cleaning for a Reason */}
+      <ScrollReveal direction="up">
+        <CleaningForAReason />
+      </ScrollReveal>
 
       {/* SEO content */}
       <ScrollReveal direction="up">
