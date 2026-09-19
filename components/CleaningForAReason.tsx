@@ -3,39 +3,34 @@ import Image from 'next/image';
 
 const CleaningForAReason: React.FC = () => {
   return (
-    <section className="py-10 lg:py-14 bg-white">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-br from-pink-500 to-rose-500 rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl relative overflow-hidden">
-          {/* Texture, contained within the card */}
-          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
-          <div className="absolute -bottom-16 -right-16 w-56 h-56 bg-white/10 rounded-full blur-3xl" />
+    <section className="py-14 lg:py-20 bg-gradient-to-b from-white to-pink-50/50">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
-          <div className="relative z-10 flex flex-col md:flex-row items-center gap-5 md:gap-8 text-center md:text-left">
+        <div className="relative w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-5">
+          <Image
+            src="/images/cleaning-for-a-reason-badge.png"
+            alt="Cleaning for a Reason - Proud Partner - Clean Homes for Cancer Patients"
+            fill
+            sizes="80px"
+            className="object-contain"
+          />
+        </div>
 
-            {/* Badge */}
-            <div className="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0">
-              <div className="absolute inset-0 bg-white rounded-full shadow-lg"></div>
-              <Image
-                src="/images/cleaning-for-a-reason-badge.png"
-                alt="Cleaning for a Reason - Proud Partner - Clean Homes for Cancer Patients"
-                fill
-                sizes="96px"
-                className="object-contain p-2.5 relative z-10"
-              />
-            </div>
+        <span className="inline-flex items-center gap-1.5 text-pink-500 text-xs font-bold uppercase tracking-widest mb-3">
+          <i className="fas fa-ribbon"></i> Cleaning With a Purpose
+        </span>
 
-            <div>
-              <span className="inline-flex items-center gap-1.5 bg-white/15 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-2.5 border border-white/20">
-                <i className="fas fa-ribbon"></i> Cleaning With a Purpose
-              </span>
-              <h2 className="text-lg sm:text-xl lg:text-2xl font-black text-white font-heading leading-tight mb-1.5">
-                Proud Partner of Cleaning for a Reason
-              </h2>
-              <p className="text-pink-50 text-sm leading-relaxed">
-                We donate free house cleanings to women undergoing treatment for cancer, right here in the Lowcountry.
-              </p>
-            </div>
-          </div>
+        <h2 className="text-2xl sm:text-3xl font-black text-gray-900 font-heading leading-tight mb-5">
+          Proud Partner of <span className="text-pink-500">Cleaning for a Reason</span>
+        </h2>
+
+        <div className="space-y-4 text-gray-600 text-sm sm:text-base leading-relaxed">
+          <p>
+            Cleaning for a Reason is a national nonprofit that provides free house cleanings to women undergoing treatment for cancer. Star Cleaning SC is honored to be a local partner, donating our time to families across the Lowcountry facing one of the hardest fights of their lives.
+          </p>
+          <p>
+            When you're battling cancer, a clean home shouldn't be one more thing to worry about — so for our neighbors going through treatment, we show up free of charge, with the same care and precision we bring to every job.
+          </p>
         </div>
       </div>
     </section>
