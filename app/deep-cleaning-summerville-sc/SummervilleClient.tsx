@@ -15,7 +15,7 @@ export default function SummervilleClient() {
       headlineTail=""
       subheadline="Tackling heavy pine pollen crusts, clay residue, and deep construction dust across Nexton, Cane Bay Plantation, and historic Azalea Park neighborhoods with dedicated precision."
       heroPrimaryCta="Schedule Your Deep Clean"
-      heroImage={{ src: 'https://i.imgur.com/gpqI75Lh.jpg', alt: 'Pristine deep cleaning result' }}
+      heroImage={{ src: '/images/clean-living-room.jpg', alt: 'Bright, tidy living room after a Star Cleaning SC deep clean' }}
       heroCardBadge="Cane Bay Standards"
       heroCardQuote="The air vents and blinds had thick yellow pine pollen buildup. They meticulously sanitized everything!"
       heroCardAuthor="Robert L., Cane Bay Plantation"

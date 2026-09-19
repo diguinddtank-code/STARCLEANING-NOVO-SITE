@@ -57,7 +57,7 @@ const BeforeAfter: React.FC = () => {
                 {/* AFTER IMAGE (Bottom Layer) */}
                 <div 
                     className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-700 ease-out"
-                    style={{ backgroundImage: "url('https://i.imgur.com/gpqI75Lh.jpg')" }}
+                    style={{ backgroundImage: "url('/images/clean-living-room.jpg')" }}
                 ></div>
 
                 {/* BEFORE IMAGE (Top Layer) - Fades out when cleaned */}

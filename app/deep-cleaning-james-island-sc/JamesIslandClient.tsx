@@ -15,7 +15,7 @@ export default function JamesIslandClient() {
       headlineTail="on James Island"
       subheadline="From Riverland Drive to the Folly Beach corridor, we clear tracked-in sand, salt film, and marsh humidity out of floors, fixtures, and vents that a regular mop pass leaves behind."
       heroPrimaryCta="Book a Deep Clean"
-      heroImage={{ src: 'https://i.imgur.com/gpqI75Lh.jpg', alt: 'Pristine deep cleaning result' }}
+      heroImage={{ src: '/images/clean-living-room.jpg', alt: 'Bright, tidy living room after a Star Cleaning SC deep clean' }}
       heroCardBadge="Sand-Free Standard"
       heroCardQuote="They got sand out of grout lines I didn't think would ever come clean."
       heroCardAuthor="Bethany R., Riverland Terrace"

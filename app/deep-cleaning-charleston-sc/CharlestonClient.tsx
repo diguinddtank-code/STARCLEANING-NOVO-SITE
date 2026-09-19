@@ -15,7 +15,7 @@ export default function CharlestonClient() {
       headlineTail="for Charleston Homes"
       subheadline="From historic Antebellum estates downtown to modern coastal builds in West Ashley. We hunt down humidity-born mold, stubborn pollen, and deep salt-air dust with unmatched discipline."
       heroPrimaryCta="Book Instant Deep Clean"
-      heroImage={{ src: 'https://i.imgur.com/gpqI75Lh.jpg', alt: 'Pristine deep cleaning result' }}
+      heroImage={{ src: '/images/clean-living-room.jpg', alt: 'Bright, tidy living room after a Star Cleaning SC deep clean' }}
       heroCardBadge="Holy City Standard"
       heroCardQuote="Their deep cleaning made my original pine floors downtown look newly restored."
       heroCardAuthor="Sarah G., South of Broad"

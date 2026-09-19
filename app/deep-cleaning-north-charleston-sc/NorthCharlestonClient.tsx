@@ -15,7 +15,7 @@ export default function NorthCharlestonClient() {
       headlineTail="in North Charleston"
       subheadline="From Park Circle bungalows to the apartment corridors off Rivers Ave and Ashley Phosphate, we book around Boeing and Joint Base rotations and leave rental units ready for the next tenant to walk in."
       heroPrimaryCta="Book a Deep Clean"
-      heroImage={{ src: 'https://i.imgur.com/gpqI75Lh.jpg', alt: 'Pristine deep cleaning result' }}
+      heroImage={{ src: '/images/clean-living-room.jpg', alt: 'Bright, tidy living room after a Star Cleaning SC deep clean' }}
       heroCardBadge="Turnover Ready"
       heroCardQuote="They cleaned our unit same-day so we didn't lose a single day of rent between tenants."
       heroCardAuthor="Angela F., Property Manager, Park Circle"

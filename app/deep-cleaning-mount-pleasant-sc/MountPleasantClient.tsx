@@ -15,7 +15,7 @@ export default function MountPleasantClient() {
       headlineTail="Mount Pleasant Home"
       subheadline="From 1940s cottages in the Old Village to brand-new builds in Carolina Park and Park West, we treat marsh humidity and construction dust as two very different problems with two different fixes."
       heroPrimaryCta="Book a Deep Clean"
-      heroImage={{ src: 'https://i.imgur.com/gpqI75Lh.jpg', alt: 'Pristine deep cleaning result' }}
+      heroImage={{ src: '/images/clean-living-room.jpg', alt: 'Bright, tidy living room after a Star Cleaning SC deep clean' }}
       heroCardBadge="Old Village Standard"
       heroCardQuote="They understood our 1940s home needed a gentler touch than a new build right away."
       heroCardAuthor="Nancy P., Old Village"

@@ -15,7 +15,7 @@ export default function JohnsIslandClient() {
       headlineTail="Farms, Fields & New Builds"
       subheadline="From farmland dust off Maybank Highway to fresh drywall grit in the new neighborhoods near the Angel Oak, we clear what a regular mop pass leaves behind on Johns Island's larger properties."
       heroPrimaryCta="Book a Deep Clean"
-      heroImage={{ src: 'https://i.imgur.com/gpqI75Lh.jpg', alt: 'Pristine deep cleaning result' }}
+      heroImage={{ src: '/images/clean-living-room.jpg', alt: 'Bright, tidy living room after a Star Cleaning SC deep clean' }}
       heroCardBadge="Acreage-Ready Standard"
       heroCardQuote="They didn't blink at our long gravel driveway or the size of the house — just got to work."
       heroCardAuthor="Caroline B., River Road"

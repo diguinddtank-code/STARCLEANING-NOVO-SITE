@@ -15,7 +15,7 @@ export default function DanielIslandClient() {
       headlineTail="Finest Homes"
       subheadline="Custom cabinetry, natural stone, and wide-plank hardwood need a different touch than a standard maid service brings. We coordinate gate and HOA access and treat every surface the way a high-end home deserves."
       heroPrimaryCta="Book a Deep Clean"
-      heroImage={{ src: 'https://i.imgur.com/gpqI75Lh.jpg', alt: 'Pristine deep cleaning result' }}
+      heroImage={{ src: '/images/clean-living-room.jpg', alt: 'Bright, tidy living room after a Star Cleaning SC deep clean' }}
       heroCardBadge="White-Glove Standard"
       heroCardQuote="They treated our quartzite counters exactly the way our stone installer told us to."
       heroCardAuthor="Margaret W., Smythe Park"

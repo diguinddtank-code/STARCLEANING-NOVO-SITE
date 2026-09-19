@@ -130,11 +130,10 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
                 {/* Main Image */}
                 <div className="absolute inset-0 rounded-[2rem] overflow-hidden border-8 border-slate-900/50 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
                   <Image 
-                    src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=2070&auto=format&fit=crop" 
-                    alt={`Cleaning service in ${data.name}`}
+                    src="/images/residential.png"
+                    alt={`Star Cleaning SC team members cleaning a home in ${data.name}`}
                     fill
                     className="object-cover"
-                    referrerPolicy="no-referrer"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
                   <div className="absolute bottom-6 left-6 right-6">
@@ -171,8 +170,8 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
             <div className="lg:w-1/2">
               <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
                 <Image 
-                  src="https://i.imgur.com/gpqI75Lh.jpg" 
-                  alt={`Clean home in ${data.name}`}
+                  src="/images/clean-living-room.jpg"
+                  alt={`Bright, tidy living room after a Star Cleaning SC deep clean in ${data.name}`}
                   fill
                   className="object-cover"
                   referrerPolicy="no-referrer"

@@ -15,7 +15,7 @@ export default function LadsonClient() {
       headlineTail="for Ladson Residences"
       subheadline="The ultimate military-standard deep reset. Tailored for military families at Joint Base Charleston and gorgeous family homes in Hunter's Bend. No dust or grease survives."
       heroPrimaryCta="Book Instant Deep Reset"
-      heroImage={{ src: 'https://i.imgur.com/gpqI75Lh.jpg', alt: 'Pristine deep cleaning result' }}
+      heroImage={{ src: '/images/clean-living-room.jpg', alt: 'Bright, tidy living room after a Star Cleaning SC deep clean' }}
       heroCardBadge="Exchange Park Standard"
       heroCardQuote="Their military inspection level deep clean saved our relocation housing deposit. They scrubbed places others didn't touch."
       heroCardAuthor="SSG Andrew J., Joint Base Charleston"

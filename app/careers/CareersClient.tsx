@@ -104,12 +104,11 @@ export default function CareersClient() {
               <div className="hidden lg:block w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border border-white/10 mt-8 relative">
                   <div className="absolute inset-0 bg-blue-600/20 mix-blend-overlay z-10 pointer-events-none"></div>
                   <Image 
-                    src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=1080&q=80" 
-                    alt="Happy Cleaner Team" 
-                    width={600} 
-                    height={400} 
+                    src="/images/residential.png"
+                    alt="Star Cleaning SC team members wiping down a glass table in a client's living room"
+                    width={600}
+                    height={400}
                     className="w-full h-[280px] object-cover hover:scale-105 transition-transform duration-700"
-                    referrerPolicy="no-referrer"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent p-6 z-20">
                       <div className="flex items-center gap-3">
