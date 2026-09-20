@@ -6,6 +6,7 @@ import Hero from '../components/Hero';
 import TrustBar from '../components/TrustBar';
 import OwnerMessage from '../components/OwnerMessage';
 import CleaningForAReason from '../components/CleaningForAReason';
+import TeamPreview from '../components/TeamPreview';
 import Services from '../components/Services';
 import BeforeAfter from '../components/BeforeAfter';
 import Testimonials from '../components/Testimonials';
@@ -61,6 +62,10 @@ const Home = () => {
           <CleaningForAReason />
         </ScrollReveal>
 
+        <ScrollReveal direction="up">
+          <TeamPreview />
+        </ScrollReveal>
+
         <Services />
         
         <ScrollReveal direction="left">
@@ -80,7 +85,22 @@ const Home = () => {
         </ScrollReveal>
         
         <ScrollReveal direction="up" id="quote">
-          <BookingForm initialData={prefilledData} showPricing={false} />
+          <section className="py-20 lg:py-28 bg-slate-50">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-12">
+                <span className="inline-flex items-center gap-2 text-star-blue font-bold uppercase tracking-widest text-xs bg-white border border-blue-100 px-4 py-1.5 rounded-full shadow-sm">
+                  Free Instant Quote
+                </span>
+                <h2 className="text-3xl md:text-4xl font-black text-gray-900 mt-4 mb-4 font-heading">
+                  Ready to Get Your Time Back?
+                </h2>
+                <p className="text-gray-600 max-w-xl mx-auto">
+                  Answer a few quick questions and get your free, no-obligation quote in minutes.
+                </p>
+              </div>
+              <BookingForm initialData={prefilledData} showPricing={false} />
+            </div>
+          </section>
         </ScrollReveal>
       </main>
       
