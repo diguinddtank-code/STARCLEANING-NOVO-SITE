@@ -114,13 +114,10 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
           <div className="lg:hidden text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
 
             {/* Trust capsule */}
-            <div className="inline-flex items-center gap-3 bg-white/70 backdrop-blur-md border border-gray-200/50 px-4 py-2 rounded-full shadow-sm mb-6 mx-auto">
-                <div className="flex text-yellow-400 text-[10px] gap-0.5">
-                    <i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i>
-                </div>
-                <div className="w-px h-3 bg-gray-300"></div>
-                <span className="text-xs font-bold text-gray-700 uppercase tracking-wide">
-                    Veteran Owned & 18 Years Strong
+            <div className="inline-flex items-center gap-1.5 bg-white/70 backdrop-blur-md border border-gray-200/50 pl-2.5 pr-3.5 py-1.5 rounded-full shadow-sm mb-6 mx-auto">
+                <i className="fas fa-shield-alt text-star-blue text-xs"></i>
+                <span className="text-[11px] font-bold text-gray-700 uppercase tracking-wide whitespace-nowrap">
+                    Veteran Owned &bull; 18+ Years Strong
                 </span>
             </div>
 

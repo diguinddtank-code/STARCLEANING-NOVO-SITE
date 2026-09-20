@@ -16,7 +16,6 @@ import Footer from '../components/Footer';
 import ScrollReveal from '../components/ScrollReveal';
 import ExitIntentPopup from '../components/ExitIntentPopup';
 import ServiceAreas from '../components/ServiceAreas';
-import MobileAppNav from '../components/MobileAppNav';
 
 const Home = () => {
   const [prefilledData, setPrefilledData] = useState<any>(null);
@@ -49,7 +48,7 @@ const Home = () => {
 
       <Navbar />
       
-      <main className="w-full pb-20 lg:pb-0">
+      <main className="w-full">
         <Hero onStartQuote={handleStartQuote} />
         
         <TrustBar />
@@ -104,7 +103,6 @@ const Home = () => {
         </ScrollReveal>
       </main>
       
-      <MobileAppNav />
       <ExitIntentPopup />
       <Footer />
     </div>
