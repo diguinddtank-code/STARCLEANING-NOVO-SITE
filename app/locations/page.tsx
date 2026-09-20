@@ -8,6 +8,9 @@ import { MapPin } from 'lucide-react';
 export const metadata = {
   title: 'Service Areas | Star Cleaning SC',
   description: 'Star Cleaning SC provides top-rated house cleaning services across the Charleston Lowcountry, including Charleston, Summerville, and Mount Pleasant.',
+  alternates: {
+    canonical: 'https://www.starcleaningsc.com/locations',
+  },
 };
 
 export default function LocationsHub() {

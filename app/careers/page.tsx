@@ -4,6 +4,9 @@ import CareersClient from './CareersClient';
 export const metadata = {
   title: 'Join Our Team | Star Cleaning SC',
   description: 'Work with Star Cleaning SC. 18 years serving the Lowcountry. Stable schedule, competitive pay.',
+  alternates: {
+    canonical: 'https://www.starcleaningsc.com/careers',
+  },
 };
 
 export default function CareersPage() {

@@ -5,7 +5,7 @@ import { locationsData } from '@/lib/locationsData';
 // lastModified date sent to search engines. Using `new Date()` here would
 // tell crawlers every single page changed on every single build/request,
 // which trains them to stop trusting the freshness signal.
-const CONTENT_LAST_MODIFIED = new Date('2026-09-19');
+const CONTENT_LAST_MODIFIED = new Date('2026-09-20');
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.starcleaningsc.com';
@@ -31,6 +31,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/our-team`,
+      lastModified: CONTENT_LAST_MODIFIED,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    },
+    {
       url: `${baseUrl}/contact`,
       lastModified: CONTENT_LAST_MODIFIED,
       changeFrequency: 'monthly' as const,
@@ -47,6 +53,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: CONTENT_LAST_MODIFIED,
       changeFrequency: 'weekly' as const,
       priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/careers`,
+      lastModified: CONTENT_LAST_MODIFIED,
+      changeFrequency: 'monthly' as const,
+      priority: 0.5,
     },
     {
       url: `${baseUrl}/privacy-policy`,
