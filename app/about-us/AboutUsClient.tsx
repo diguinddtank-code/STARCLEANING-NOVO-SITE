@@ -1,178 +1,292 @@
-'use client';
-
-import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import * as motion from 'motion/react-client';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import TrustBar from '@/components/TrustBar';
+import ScrollReveal from '@/components/ScrollReveal';
+import CleaningForAReason from '@/components/CleaningForAReason';
+import ReviewCard from '@/components/ReviewCard';
+import { homeReviews } from '@/data/reviews';
+import { Key, Users, Leaf, ShieldCheck, BadgeCheck, RotateCcw, ArrowRight, Flag, MapPin } from 'lucide-react';
+
+const serviceAreas = [
+  { name: 'Summerville', href: '/locations/summerville' },
+  { name: 'Charleston', href: '/locations/charleston' },
+  { name: 'North Charleston', href: '/locations/north-charleston' },
+  { name: 'Ladson', href: '/locations/ladson' },
+  { name: 'James Island', href: '/locations/james-island' },
+  { name: 'Daniel Island', href: '/locations/daniel-island' },
+  { name: 'Johns Island', href: '/locations/johns-island' },
+  { name: 'Mount Pleasant', href: '/locations/mount-pleasant' },
+];
+
+// Real reviews from data/reviews.ts, prioritized for Summerville/Charleston relevance.
+const featuredReviews = homeReviews.filter((r) =>
+  ['Mariah E.', 'Janice O.', 'Sarah R.'].includes(r.author)
+);
 
 export default function AboutUsClient() {
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-yellow-200 selection:text-slate-900 flex flex-col">
       <Navbar />
-      
+
       <main className="flex-grow w-full pb-20 lg:pb-0">
-        {/* Hero Section */}
-        <section className="relative py-8 lg:py-28 overflow-hidden bg-white">
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-50/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
-          
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-              
-              {/* Text Content */}
-              <motion.div 
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="max-w-2xl"
-              >
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-900 text-xs font-bold tracking-widest uppercase mb-6">
-                  <i className="fas fa-star text-yellow-500"></i>
-                  Our Story
-                </div>
-                
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 font-heading leading-[1.1] mb-6">
-                  We Don't Just Clean. <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-500">We Restore Your Peace.</span>
+
+        {/* Hero */}
+        <section className="bg-white py-10 lg:py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+              <div className="order-2 lg:order-1">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-heading leading-tight mb-5">
+                  Meet Mariana. Her Team Cleans Homes All Over Summerville and Charleston.
                 </h1>
-                
-                <p className="text-lg md:text-xl text-slate-600 mb-8 leading-relaxed font-light">
-                  For over <strong className="font-bold text-slate-900">18 years</strong>, we've transformed thousands of homes in Charleston and the Lowcountry. What started as a small veteran-owned initiative has grown into the region's most trusted name in premium home care.
+                <p className="text-lg text-slate-600 leading-relaxed mb-8">
+                  Star Cleaning SC is veteran owned. Eighteen years in, we still show up on time, do the work right, and treat your house like it is ours.
                 </p>
-                
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/#quote" className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-yellow-400 hover:bg-yellow-300 text-slate-900 rounded-xl font-black transition-all duration-300 shadow-[0_10px_20px_rgba(250,204,21,0.2)] hover:-translate-y-1">
-                    Check Our Availability
-                    <i className="fas fa-arrow-right"></i>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                  <Link href="/quote" className="inline-flex items-center justify-center gap-2 bg-star-blue hover:bg-star-dark text-white px-8 py-4 rounded-full font-bold text-base shadow-lg shadow-blue-200 transition-all">
+                    Get a Free Quote
+                    <ArrowRight className="w-4 h-4" />
                   </Link>
-                  <div className="flex items-center gap-3 px-6 py-4 bg-slate-50 border border-slate-100 rounded-xl text-sm font-medium text-slate-600">
-                    <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
-                    Only 3 recurring spots left this month
-                  </div>
+                  <a href="tel:+18432979935" className="text-slate-700 font-bold text-sm border-b-2 border-star-blue hover:text-star-blue transition-colors">
+                    Or call or text (843) 297-9935
+                  </a>
                 </div>
-              </motion.div>
-
-              {/* Image Section */}
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                className="relative mx-auto lg:mx-0"
-              >
-                <div className="relative w-[320px] h-[400px] sm:w-[400px] sm:h-[500px] lg:w-[460px] lg:h-[580px]">
-                  {/* Decorative Backdrop */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-yellow-300 to-yellow-400 rounded-[2.5rem] transform rotate-3 scale-105 shadow-2xl"></div>
-                  
-                  <Image
-                    src="/images/owner-photo.jpg"
-                    alt="Mariana, Owner of Star Cleaning SC"
-                    fill
-                    sizes="(max-width: 1024px) 400px, 460px"
-                    className="rounded-[2.5rem] shadow-xl border-[6px] border-white relative z-10 object-cover"
-                    priority
-                  />
-
-                  {/* Floating Badges */}
-                  <motion.div 
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.8 }}
-                    className="absolute -bottom-6 -left-6 lg:-bottom-10 lg:-left-10 z-30"
-                  >
-                    <div className="bg-white p-4 lg:p-5 rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.12)] border border-slate-50 flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 text-xl">
-                        <i className="fas fa-medal"></i>
-                      </div>
-                      <div>
-                        <div className="text-2xl font-black text-slate-900">18+</div>
-                        <div className="text-xs font-bold text-slate-500 uppercase tracking-widest">Years of Excellence</div>
-                      </div>
-                    </div>
-                  </motion.div>
-                  
-                  <motion.div 
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 1 }}
-                    className="absolute -top-6 -right-6 lg:-top-8 lg:-right-8 z-30"
-                  >
-                    <div className="bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3">
-                       <Image src="/images/veteran-owned-badge.png" alt="Veteran Owned" width={32} height={16} className="object-contain brightness-0 invert" />
-                       <span className="text-[10px] font-black uppercase tracking-widest">Veteran Owned</span>
-                    </div>
-                  </motion.div>
-                </div>
-              </motion.div>
-
+              </div>
+              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-xl order-1 lg:order-2">
+                <Image
+                  src="/images/owner-photo.jpg"
+                  alt="Mariana, owner of Star Cleaning SC, holding a Cleaning for a Reason card"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                  priority
+                />
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Social Proof & Trust */}
-        <section className="py-12 border-y border-slate-100 bg-slate-50/50">
-           <TrustBar />
-        </section>
-
-        {/* Philosophy Section */}
-        <section className="py-20 lg:py-32">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
-              <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-heading mb-6 tracking-tight">The Standard We Set</h2>
-              <p className="text-lg text-slate-600 font-light">We don't believe in surface-level aesthetics. We believe in meticulous detail, military-grade discipline, and a customer experience so seamless it feels like magic.</p>
+        {/* Real Story */}
+        <section className="py-16 lg:py-20 bg-slate-50">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading mb-6">Why Mariana Started Star Cleaning</h2>
+            <div className="space-y-4 text-slate-700 leading-relaxed">
+              <p>
+                Mariana runs Star Cleaning SC right here in the Lowcountry. She started the company because she was tired of seeing cleaning services treat clients like a number and treat their own crews even worse. She wanted to build something better: a company people actually trust, with a team that sticks around because they are treated right.
+              </p>
+              <p>
+                Star Cleaning SC is veteran owned, and that background shows in how we work. Show up on time. Do the job right. Do not cut corners. Eighteen years later, that is still how we run things, and it is how we train every new person who joins the crew.
+              </p>
+              <p>
+                We are not part of a chain and we do not answer to a corporate office. It is Mariana, a small crew, and a lot of houses in Summerville and Charleston that we have come to know pretty well.
+              </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+            <div className="flex flex-wrap gap-2 mt-6">
+              <span className="inline-flex items-center gap-1.5 bg-white border border-slate-200 rounded-full px-3.5 py-1.5 text-xs font-bold text-slate-700">
+                <Flag className="w-3.5 h-3.5 text-star-blue" /> Veteran Owned
+              </span>
+              <span className="inline-flex items-center gap-1.5 bg-white border border-slate-200 rounded-full px-3.5 py-1.5 text-xs font-bold text-slate-700">
+                <MapPin className="w-3.5 h-3.5 text-star-blue" /> Locally Operated
+              </span>
+              <span className="inline-flex items-center gap-1.5 bg-white border border-slate-200 rounded-full px-3.5 py-1.5 text-xs font-bold text-slate-700">
+                <Users className="w-3.5 h-3.5 text-star-blue" /> Small, Steady Crew
+              </span>
+            </div>
+          </div>
+        </section>
+
+        {/* Our Mission */}
+        <section className="relative py-20 lg:py-28 bg-star-dark text-white overflow-hidden">
+          <div className="absolute inset-0 opacity-[0.07] bg-[radial-gradient(circle_at_2px_2px,white_1px,transparent_0)] bg-[size:32px_32px] pointer-events-none"></div>
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <ScrollReveal direction="up">
+              <span className="text-blue-300 font-bold uppercase tracking-widest text-xs">Our Mission</span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black font-heading mt-3 mb-8 leading-tight">
+                Why We Really Do This
+              </h2>
+              <p className="text-lg sm:text-xl text-blue-100 leading-relaxed">
+                A clean house means something after a long day. It means not thinking about the mess when you walk in the door. It means more time with your kids, more time to rest, more time for whatever you actually want to do with your evening. That is what we show up for, every single time.
+              </p>
+            </ScrollReveal>
+
+            <div className="grid sm:grid-cols-3 gap-6 mt-16">
               {[
                 {
-                  icon: "fa-shield-halved",
-                  title: "Military Precision",
-                  desc: "As a veteran-owned business, discipline isn't a buzzword; it's our operating system. We follow strict, standardized checklists ensuring zero corners are cut."
+                  title: 'We Show Up',
+                  desc: 'You can plan your day around us. If we say we are coming, we are coming.',
                 },
                 {
-                  icon: "fa-heart",
-                  title: "Treated Like Family",
-                  desc: "Your home is your sanctuary. We hand-select, rigorously vet, and train our staff to treat your property with the utmost respect and confidentiality."
+                  title: 'We Treat Your Home Like Ours',
+                  desc: 'Same care and same respect, whether it is a studio apartment or a five bedroom house.',
                 },
                 {
-                  icon: "fa-award",
-                  title: "100% Guaranteed",
-                  desc: "We stand by our work. If you aren't completely thrilled with the detailing of your home, we return to fix it at zero cost. Your satisfaction is non-negotiable."
-                }
-              ].map((feature, idx) => (
-                <motion.div 
-                  key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.6, delay: idx * 0.15 }}
-                  className="bg-white rounded-3xl p-8 lg:p-10 shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-slate-100 group hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-all duration-500"
-                >
-                  <div className="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-2xl mb-8 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-500">
-                    <i className={`fas ${feature.icon}`}></i>
+                  title: 'We Treat Our Team Right',
+                  desc: 'A crew that is treated well does better work for you. It is that simple.',
+                },
+              ].map((pillar, i) => (
+                <ScrollReveal key={pillar.title} direction="up" delay={i * 120}>
+                  <div className="bg-white/5 border border-white/10 rounded-2xl p-6 h-full">
+                    <h3 className="font-bold text-white mb-2">{pillar.title}</h3>
+                    <p className="text-blue-200 text-sm leading-relaxed">{pillar.desc}</p>
                   </div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-4">{feature.title}</h3>
-                  <p className="text-slate-600 leading-relaxed font-light">{feature.desc}</p>
-                </motion.div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Final CTA */}
-        <section className="py-20 lg:py-32 bg-slate-900 text-white relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_2px_2px,white_1px,transparent_0)] bg-[size:32px_32px]"></div>
-          <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
-            <h2 className="text-4xl md:text-6xl font-black font-heading mb-6">Experience the Difference.</h2>
-            <p className="text-xl text-slate-400 mb-10 font-light max-w-2xl mx-auto">
-              Stop settling for inconsistent cleaners. Join the hundreds of Charleston families who trust Star Cleaning SC.
+        {/* Our Team */}
+        <section className="py-20 lg:py-28 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+              <ScrollReveal direction="left">
+                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl">
+                  <Image
+                    src="/images/team-complete.png"
+                    alt="Mariana and the Star Cleaning SC team standing together in matching uniforms"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover object-top"
+                  />
+                </div>
+              </ScrollReveal>
+              <ScrollReveal direction="right" delay={100}>
+                <span className="text-star-blue font-bold uppercase tracking-widest text-xs">Our Team</span>
+                <h2 className="text-3xl sm:text-4xl font-black text-slate-900 font-heading mt-3 mb-5">
+                  The People Who Actually Clean Your House
+                </h2>
+                <p className="text-slate-600 leading-relaxed mb-6">
+                  This is not a random contractor sent by an app. This is Mariana and a small crew of women who show up, do the work, and go home knowing they did it right. Every person on the team is background checked, and most clients see the same face every visit.
+                </p>
+                <p className="text-xl font-heading text-slate-800 leading-relaxed mb-2">
+                  &ldquo;I do not send anyone to a house I would not trust in my own.&rdquo;
+                </p>
+                <p className="text-star-blue font-bold text-sm mb-6">Mariana, Owner</p>
+                <Link href="/our-team" className="inline-flex items-center gap-2 text-star-blue font-bold border-b-2 border-star-blue hover:text-star-dark hover:border-star-dark transition-colors">
+                  Meet the Full Team
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </ScrollReveal>
+            </div>
+          </div>
+        </section>
+
+        {/* How We Take Care of Your Home */}
+        <section className="py-16 lg:py-20 bg-white">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading mb-10 text-center">How We Take Care of Your Home</h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div>
+                <div className="w-12 h-12 rounded-xl bg-blue-50 text-star-blue flex items-center justify-center mb-4">
+                  <Key className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Key or Garage Code</h3>
+                <p className="text-slate-600 leading-relaxed text-sm">
+                  Most folks give us a key or a garage code so we can get in and get to work, even if nobody is home.
+                </p>
+              </div>
+              <div>
+                <div className="w-12 h-12 rounded-xl bg-blue-50 text-star-blue flex items-center justify-center mb-4">
+                  <Users className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">The Same Person Every Time</h3>
+                <p className="text-slate-600 leading-relaxed text-sm">
+                  We try to send the same cleaner to your house every visit. They learn how you like things done, so you are not opening the door for a stranger each time.
+                </p>
+              </div>
+              <div>
+                <div className="w-12 h-12 rounded-xl bg-blue-50 text-star-blue flex items-center justify-center mb-4">
+                  <Leaf className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Pet-Safe Products</h3>
+                <p className="text-slate-600 leading-relaxed text-sm">
+                  We bring our own supplies, and they are safe for kids and pets. If your dog likes to supervise the cleaning, that is fine by us.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Trust */}
+        <section className="py-16 lg:py-20 bg-slate-50">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading mb-10 text-center">
+              You Are Letting Us Into Your House. Here Is Why That Is Okay.
+            </h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                <ShieldCheck className="w-7 h-7 text-star-blue mb-3" />
+                <h3 className="font-bold text-slate-900 mb-2">Background-Checked Team</h3>
+                <p className="text-slate-600 leading-relaxed text-sm">Everyone on our team passes a background check before they ever clean a house. No exceptions.</p>
+              </div>
+              <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                <BadgeCheck className="w-7 h-7 text-star-blue mb-3" />
+                <h3 className="font-bold text-slate-900 mb-2">Bonded and Insured</h3>
+                <p className="text-slate-600 leading-relaxed text-sm">We are bonded and insured, so if something ever goes wrong, you are covered.</p>
+              </div>
+              <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                <RotateCcw className="w-7 h-7 text-star-blue mb-3" />
+                <h3 className="font-bold text-slate-900 mb-2">100% Satisfaction Guarantee</h3>
+                <p className="text-slate-600 leading-relaxed text-sm">If we miss something, call us within 24 hours and we will come back and fix it for free.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Cleaning for a Reason */}
+        <CleaningForAReason />
+
+        {/* Real Reviews */}
+        {featuredReviews.length > 0 && (
+          <section className="py-16 lg:py-20 bg-white">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading mb-10 text-center">What Neighbors Are Saying</h2>
+              <div className="grid md:grid-cols-3 gap-6">
+                {featuredReviews.map((review, i) => (
+                  <ReviewCard key={i} theme="light" variant="grid" {...review} />
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Areas We Serve */}
+        <section className="py-16 lg:py-20 bg-slate-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading mb-4">Summerville, Charleston, and Everywhere In Between</h2>
+            <p className="text-slate-600 leading-relaxed mb-8 max-w-2xl mx-auto">
+              We clean houses all over the Lowcountry. If your town is on this list, chances are we already clean a few houses on your street.
             </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              {serviceAreas.map((city) => (
+                <Link
+                  key={city.href}
+                  href={city.href}
+                  className="px-4 py-2 bg-white border border-slate-200 rounded-full text-sm font-semibold text-slate-700 hover:border-star-blue hover:text-star-blue transition-colors"
+                >
+                  {city.name}
+                </Link>
+              ))}
+            </div>
+            <p className="text-slate-500 text-sm mt-6">
+              Also serving Goose Creek and nearby areas. <Link href="/locations" className="text-star-blue font-semibold hover:underline">See all service areas</Link>.
+            </p>
+          </div>
+        </section>
+
+        {/* Final CTA */}
+        <section className="py-16 lg:py-20 bg-star-dark text-white text-center">
+          <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl md:text-4xl font-black font-heading mb-4">Ready to Get Your House on the Schedule?</h2>
+            <p className="text-blue-100 mb-8">Come on, let&apos;s get your house on the schedule, y&apos;all.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href="/#quote" className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-300 text-slate-900 px-10 py-5 rounded-2xl font-black text-lg transition-transform hover:-translate-y-1">
-                Get Your Custom Quote
+              <Link href="/quote" className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-300 text-slate-900 px-8 py-4 rounded-full font-black transition-all">
+                Get a Free Quote
               </Link>
-              <span className="text-slate-500 text-sm">Takes less than 60 seconds</span>
+              <a href="tel:+18432979935" className="text-blue-100 font-bold text-sm hover:text-white transition-colors">
+                Or call or text (843) 297-9935
+              </a>
             </div>
           </div>
         </section>
