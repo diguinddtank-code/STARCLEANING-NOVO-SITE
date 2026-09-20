@@ -165,16 +165,12 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
         </div>
       </section>
 
-      <OwnerMessage quoteHref="#book-now" />
-
-      <CleaningForAReason />
-
       {/* Intro Section */}
-      <section className="bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 items-stretch">
-            {/* Image with overlay caption */}
-            <div className="relative h-64 sm:h-80 lg:h-auto min-h-[320px]">
+      <section className="bg-white py-12 lg:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            {/* Image card */}
+            <div className="relative h-72 sm:h-96 lg:h-[520px] rounded-3xl overflow-hidden shadow-2xl">
               <Image
                 src="/images/clean-living-room.jpg"
                 alt={`Bright, tidy living room after a Star Cleaning SC deep clean in ${data.name}`}
@@ -182,7 +178,7 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/0 to-black/0" />
-              <div className="absolute bottom-5 left-5 sm:bottom-8 sm:left-8 text-white">
+              <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 text-white">
                 <p className="uppercase tracking-[0.2em] text-xs sm:text-sm font-bold">Clean Spaces</p>
                 <p className="uppercase tracking-[0.2em] text-xs sm:text-sm font-bold">Happier Days</p>
                 <div className="w-8 h-0.5 bg-white/80 mt-2"></div>
@@ -190,8 +186,7 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
             </div>
 
             {/* Content */}
-            <div className="flex items-center py-10 lg:py-12 px-5 sm:px-8 lg:px-10">
-              <div>
+            <div>
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gray-50 border border-gray-200 text-gray-600 mb-4 font-bold text-[11px] uppercase tracking-widest">
                   <Star className="w-3.5 h-3.5 text-star-blue fill-star-blue" />
                   Top-Rated in {data.name}
@@ -242,7 +237,6 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
                     View Our Deep Cleaning Services <span aria-hidden="true">&rarr;</span>
                   </Link>
                 </div>
-              </div>
             </div>
           </div>
         </div>
@@ -301,6 +295,10 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
           <p className="text-center mt-12 text-slate-500 font-medium">Proudly serving {data.name} and surrounding areas.</p>
         </div>
       </section>
+
+      <OwnerMessage quoteHref="#book-now" />
+
+      <CleaningForAReason />
 
       {/* Why Choose Us */}
       <section className="py-20 bg-blue-900 text-white relative overflow-hidden">
