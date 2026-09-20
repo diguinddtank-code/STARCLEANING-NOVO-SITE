@@ -4,6 +4,9 @@ import Footer from '@/components/Footer';
 import Image from 'next/image';
 import Script from 'next/script';
 import ReviewCard from '@/components/ReviewCard';
+import OwnerMessage from '@/components/OwnerMessage';
+import CleaningForAReason from '@/components/CleaningForAReason';
+import ServiceAreas from '@/components/ServiceAreas';
 import { MapPin, Star, ShieldCheck, ThumbsUp, Leaf, ArrowRight, CheckCircle2, Key, Truck, Sparkles } from 'lucide-react';
 
 export const metadata = {
@@ -57,115 +60,105 @@ export default function MoveInMoveOutCleaning() {
       <Navbar />
 
       {/* HERO SECTION */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-900">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/95 to-slate-900/80 z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-[url('/images/move-in-out.webp')] bg-cover bg-center opacity-40 mix-blend-overlay" />
-        </div>
-        
-        <div className="container mx-auto px-4 relative z-20">
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-            <div className="w-full lg:w-1/2 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300 font-medium text-sm mb-6 shadow-[0_0_15px_rgba(59,130,246,0.2)]">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-                </span>
-                Serving Charleston, SC & Surrounding Areas
-              </div>
-              
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight">
-                Flawless <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Move-In & Move-Out</span> Cleaning
-              </h1>
-              
-              <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                Secure your deposit or enjoy a fresh start. Our veteran-owned team guarantees a spotless, sanitized empty home so you can focus on the move.
-              </p>
-
-              <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start mb-10">
-                <Link href="/#quote" className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-50 text-white font-bold rounded-xl transition-all duration-300 transform hover:-translate-y-1 shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2">
-                  Get a Free Estimate <ArrowRight className="w-5 h-5" />
-                </Link>
-                <a href="tel:+18432979935" className="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-xl transition-all duration-300 border border-white/10 backdrop-blur-sm flex items-center justify-center">
-                  (843) 297-9935
-                </a>
-              </div>
-
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 border-t border-white/10">
-                <div className="flex flex-col items-center lg:items-start gap-2">
-                  <div className="w-10 h-10 rounded-full bg-yellow-500/10 flex items-center justify-center mb-1">
-                    <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-                  </div>
-                  <span className="text-sm text-slate-300 font-medium">5-Star Rated</span>
-                </div>
-                <div className="flex flex-col items-center lg:items-start gap-2">
-                  <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center mb-1">
-                    <ShieldCheck className="w-5 h-5 text-blue-400" />
-                  </div>
-                  <span className="text-sm text-slate-300 font-medium">Veteran-Owned</span>
-                </div>
-                <div className="flex flex-col items-center lg:items-start gap-2">
-                  <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center mb-1">
-                    <ThumbsUp className="w-5 h-5 text-green-400" />
-                  </div>
-                  <span className="text-sm text-slate-300 font-medium">Deposit Safe</span>
-                </div>
-                <div className="flex flex-col items-center lg:items-start gap-2">
-                  <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center mb-1">
-                    <Leaf className="w-5 h-5 text-emerald-400" />
-                  </div>
-                  <span className="text-sm text-slate-300 font-medium">Eco-Friendly</span>
-                </div>
+      <section className="bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            {/* Image card */}
+            <div className="relative h-72 sm:h-96 lg:h-[520px] rounded-3xl overflow-hidden shadow-2xl order-1 lg:order-2">
+              <Image
+                src="/images/move-in-out.webp"
+                alt="Moving boxes packed in a living room ready for a move-in or move-out clean"
+                fill
+                className="object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/0 to-black/0" />
+              <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 text-white">
+                <p className="uppercase tracking-[0.2em] text-xs sm:text-sm font-bold">Turnkey Ready</p>
+                <p className="uppercase tracking-[0.2em] text-xs sm:text-sm font-bold">Move Right In</p>
+                <div className="w-8 h-0.5 bg-white/80 mt-2"></div>
               </div>
             </div>
 
-            <div className="w-full lg:w-1/2 relative mt-12 lg:mt-0">
-              <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-[2rem] blur-xl opacity-20 animate-pulse"></div>
-              <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden transform lg:rotate-2 hover:rotate-0 transition-all duration-700 shadow-2xl border border-white/10">
-                <Image 
-                  src="/images/move-in-out.webp"
-                  alt="Moving boxes packed in a living room ready for a move-in or move-out clean"
-                  fill 
-                  className="object-cover scale-105 hover:scale-100 transition-transform duration-700"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent"></div>
-                
-                {/* Floating Badge 1 */}
-                <div className="absolute top-6 right-6 bg-white/10 backdrop-blur-md border border-white/20 p-3 rounded-2xl shadow-xl transform translate-y-4 hover:translate-y-0 transition-transform duration-500 hidden sm:block">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center shadow-inner">
-                      <Key className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-white font-bold text-sm">Turnkey Ready</p>
-                      <p className="text-blue-200 text-xs">Move right in</p>
-                    </div>
-                  </div>
-                </div>
+            {/* Content */}
+            <div className="order-2 lg:order-1">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gray-50 border border-gray-200 text-gray-600 mb-4 font-bold text-xs uppercase tracking-widest">
+                <Star className="w-3.5 h-3.5 text-star-blue fill-star-blue" />
+                Top-Rated Move-In/Move-Out Cleaning
+              </div>
 
-                {/* Floating Badge 2 */}
-                <div className="absolute bottom-6 left-6 right-6">
-                  <div className="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl shadow-xl transform hover:-translate-y-1 transition-transform duration-300">
-                    <p className="text-white font-medium flex items-center gap-3">
-                      <span className="flex items-center justify-center w-8 h-8 rounded-full bg-green-500/20 text-green-400 shrink-0">
-                        <CheckCircle2 className="w-5 h-5" />
-                      </span>
-                      "Got my full deposit back. The place looked better than when I moved in!"
-                    </p>
-                  </div>
+              <h1 className="text-3xl sm:text-4xl font-black text-gray-900 font-heading leading-tight">
+                Flawless Move-In &<br />
+                <span className="text-star-blue">Move-Out Cleaning</span>
+              </h1>
+              <div className="w-12 h-1 bg-star-blue rounded-full my-4"></div>
+
+              <div className="text-gray-600 text-base leading-relaxed space-y-3">
+                <p>
+                  <strong className="text-gray-900 font-bold">Secure your deposit or enjoy a fresh start.</strong>{' '}
+                  Our veteran-owned team guarantees a spotless, sanitized empty home so you can focus on the move, serving Charleston, SC and the surrounding Lowcountry.
+                </p>
+              </div>
+
+              {/* Trust badges row */}
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-5 gap-y-2.5 mt-6 pt-6 border-t border-gray-100">
+                <div className="flex items-center gap-1.5">
+                  <Star className="w-4 h-4 text-star-blue shrink-0" />
+                  <span className="text-xs font-bold uppercase tracking-wide text-gray-600">5-Star Rated</span>
                 </div>
+                <div className="flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-star-blue shrink-0" />
+                  <span className="text-xs font-bold uppercase tracking-wide text-gray-600">Veteran-Owned</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <ThumbsUp className="w-4 h-4 text-star-blue shrink-0" />
+                  <span className="text-xs font-bold uppercase tracking-wide text-gray-600">Deposit Safe</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Leaf className="w-4 h-4 text-star-blue shrink-0" />
+                  <span className="text-xs font-bold uppercase tracking-wide text-gray-600">Eco-Friendly</span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-6">
+                <Link
+                  href="/#quote"
+                  className="inline-flex items-center gap-2 bg-star-blue hover:bg-star-dark text-white px-6 py-3 rounded-full font-bold text-sm shadow-lg shadow-blue-200 transition-all transform hover:-translate-y-0.5"
+                >
+                  Get a Free Estimate <ArrowRight className="w-4 h-4" />
+                </Link>
+                <a
+                  href="tel:+18432979935"
+                  className="text-gray-700 font-bold text-sm border-b-2 border-star-blue hover:text-star-blue transition-colors inline-flex items-center gap-1.5"
+                >
+                  (843) 297-9935
+                </a>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Service area strip */}
+        <div className="bg-slate-50 border-t border-slate-100 py-4">
+          <div className="container mx-auto px-4 max-w-6xl flex flex-col sm:flex-row items-center gap-2 sm:gap-3 text-center sm:text-left">
+            <MapPin className="w-4 h-4 text-star-blue shrink-0" />
+            <span className="text-star-blue font-bold text-xs uppercase tracking-widest shrink-0">Proudly Serving</span>
+            <span className="text-gray-500 text-xs sm:text-sm uppercase tracking-wide">
+              Charleston • North Charleston • Summerville • Ladson • James Island • Daniel Island • And Surrounding Areas
+            </span>
+          </div>
+        </div>
       </section>
 
-      <div className="container mx-auto px-4 py-16 max-w-4xl">
+      <OwnerMessage />
+
+      <CleaningForAReason />
+
+      <div className="container mx-auto px-4 py-16 max-w-6xl">
         {/* INTRO PARAGRAPH */}
-        <div className="prose prose-lg max-w-none mb-16 text-slate-700">
+        <div className="prose prose-lg max-w-3xl mx-auto mb-16 text-slate-700">
           <p>
-            Packing boxes, coordinating movers, and changing addresses is exhausting enough without having to scrub an empty house. Whether you are trying to secure your security deposit or wanting a sanitized fresh start in a new place, our <strong>move-in move-out cleaning in Charleston SC</strong> is the answer. Star Cleaning SC is a veteran-owned business that brings 18 years of disciplined experience to every apartment turnover and empty house cleaning. We know exactly what landlords and property managers look for during final walk-throughs in North Charleston, and we know how to make a newly purchased home in Summerville feel truly yours. We clean inside cabinets, tackle appliance interiors, and scrub baseboards, all using eco-friendly, pet-safe products so your new chapter starts perfectly clean.
+            Packing boxes, coordinating movers, and changing addresses is exhausting enough without having to scrub an empty house. Whether you are trying to secure your security deposit or wanting a sanitized fresh start in a new place, our <Link href="/locations/charleston" className="text-star-blue font-semibold hover:underline">move-in move-out cleaning in Charleston SC</Link> is the answer. Star Cleaning SC is a veteran-owned business that brings 18 years of disciplined experience to every apartment turnover and empty house cleaning. We know exactly what landlords and property managers look for during final walk-throughs in North Charleston, and we know how to make a newly purchased home in Summerville feel truly yours. We clean inside cabinets, tackle appliance interiors, and scrub baseboards, all using eco-friendly, pet-safe products so your new chapter starts perfectly clean.
           </p>
         </div>
 
@@ -402,9 +395,11 @@ export default function MoveInMoveOutCleaning() {
           </p>
         </div>
       </div>
-      
+
+      <ServiceAreas />
+
       <Footer />
-      
+
       {/* SCHEMA MARKUP */}
       <script
         type="application/ld+json"

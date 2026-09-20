@@ -8,7 +8,7 @@ interface OwnerMessageProps {
 
 const OwnerMessage: React.FC<OwnerMessageProps> = ({ quoteHref = '/#quote' }) => {
   return (
-    <section className="py-16 lg:py-24 bg-white relative overflow-hidden">
+    <section className="py-16 lg:py-24 bg-white relative overflow-hidden isolate">
       {/* Background Decor - Hidden on mobile for performance and cleaner look */}
       <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none hidden lg:block">
           <div className="absolute top-20 left-10 w-64 h-64 bg-blue-50 rounded-full blur-3xl mix-blend-multiply animate-pulse-slow"></div>

@@ -1083,14 +1083,14 @@ const BookingForm: React.FC<BookingFormProps> = ({
 
         {/* Trust Badges Below Form */}
         {!isFull && (
-            <div className="flex justify-center gap-4 mt-6">
-                <div className="flex items-center gap-1.5 bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
-                    <i className="fas fa-check-circle text-green-400 text-xs"></i>
-                    <span className="text-[10px] font-bold text-white uppercase tracking-wider">Guaranteed</span>
+            <div className="flex justify-center gap-3 mt-6">
+                <div className="flex items-center gap-1.5 bg-white shadow-md border border-gray-100 px-3.5 py-1.5 rounded-full">
+                    <i className="fas fa-shield-alt text-green-500 text-xs"></i>
+                    <span className="text-[10px] font-bold text-gray-700 uppercase tracking-wider">100% Guaranteed</span>
                 </div>
-                <div className="flex items-center gap-1.5 bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
+                <div className="flex items-center gap-1.5 bg-white shadow-md border border-gray-100 px-3.5 py-1.5 rounded-full">
                     <i className="fas fa-star text-yellow-400 text-xs"></i>
-                    <span className="text-[10px] font-bold text-white uppercase tracking-wider">4.9/5 Rated</span>
+                    <span className="text-[10px] font-bold text-gray-700 uppercase tracking-wider">5.0 Rating</span>
                 </div>
             </div>
         )}
