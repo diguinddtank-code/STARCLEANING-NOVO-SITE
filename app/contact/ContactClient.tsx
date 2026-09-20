@@ -1,273 +1,204 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import * as motion from 'motion/react-client';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ServiceAreas from '@/components/ServiceAreas';
+import BookingForm from '@/components/BookingForm';
+import { Phone, Mail, Clock, MapPin, BadgeCheck, ShieldCheck, Award } from 'lucide-react';
+
+const serviceAreaLinks = [
+  { name: 'Charleston', href: '/locations/charleston' },
+  { name: 'North Charleston', href: '/locations/north-charleston' },
+  { name: 'Summerville', href: '/locations/summerville' },
+  { name: 'Ladson', href: '/locations/ladson' },
+  { name: 'James Island', href: '/locations/james-island' },
+  { name: 'Daniel Island', href: '/locations/daniel-island' },
+  { name: 'Johns Island', href: '/locations/johns-island' },
+  { name: 'Mount Pleasant', href: '/locations/mount-pleasant' },
+];
+
+const contactFaqs = [
+  {
+    q: 'How fast will you respond?',
+    a: 'We typically respond within 1 business day. For the fastest reply, call or text us directly at (843) 297-9935 during business hours.',
+  },
+  {
+    q: 'Is getting a quote free?',
+    a: 'Yes. Every quote is free and comes with no obligation to book.',
+  },
+  {
+    q: 'Is my information kept private?',
+    a: "Absolutely. We never sell or share your information — it's only used to get back to you about your cleaning.",
+  },
+];
 
 export default function ContactClient() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // Fire the conversion event immediately, before attempting the webhook call,
-    // so a slow/unreachable webhook can never suppress the Google Ads conversion.
-    if (typeof window !== 'undefined') {
-      (window as any).dataLayer = (window as any).dataLayer || [];
-      (window as any).dataLayer.push({ event: 'form_submit_success' });
-    }
-
-    try {
-      // Mimicking a webhook submission
-      const response = await fetch('https://n8n.infra-remakingautomacoes.cloud/webhook/sccontact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          source: 'contact_page',
-          submittedAt: new Date().toISOString()
-        })
-      });
-
-      if (response.ok) {
-        console.log("Webhook successful");
-      }
-    } catch (err) {
-      console.error("Submission error:", err);
-    } finally {
-      // Always show success to user even if webhook fails (optimistic UX)
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-yellow-200 selection:text-slate-900 flex flex-col">
       <Navbar />
-      
-      <main className="flex-grow w-full pb-20 lg:pb-0 pt-16 lg:pt-32">
-        <section className="relative py-12 lg:py-24 bg-white">
+
+      <main className="flex-grow w-full pb-20 lg:pb-0">
+        {/* Hero + Info + Form */}
+        <section className="bg-white py-10 lg:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-900 text-xs font-bold tracking-widest uppercase mb-6">
-                  <i className="fas fa-headset text-blue-600"></i>
-                  We're Here For You
-                </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 font-heading leading-tight mb-6">
-                  Let's Elevate Your <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-500">Living Standard.</span>
-                </h1>
-                <p className="text-lg md:text-xl text-slate-600 font-light">
-                  Whether you need a custom cleaning plan, have questions about our process, or want to join our team — reach out. We respond with military precision.
-                </p>
-              </motion.div>
+
+            <div className="text-center max-w-2xl mx-auto mb-12 lg:mb-16">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-900 text-xs font-bold tracking-widest uppercase mb-5">
+                <i className="fas fa-headset text-blue-600"></i>
+                Get In Touch
+              </div>
+              <h1 className="text-4xl md:text-5xl font-black text-slate-900 font-heading leading-tight mb-5">
+                Let&apos;s Get Your Home on the Schedule
+              </h1>
+              <p className="text-lg text-slate-600 leading-relaxed">
+                Call, text, or fill out the quick form below. Either way, you&apos;ll hear back from a real, background-checked local team &mdash; not a call center.
+              </p>
             </div>
 
-            <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 bg-white rounded-[2.5rem] shadow-[0_20px_80px_rgba(0,0,0,0.06)] border border-slate-100 overflow-hidden">
-              
-              {/* Left Info Pane */}
-              <div className="lg:col-span-2 bg-slate-900 p-10 lg:p-14 text-white relative overflow-hidden flex flex-col justify-between">
-                <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_2px_2px,white_1px,transparent_0)] bg-[size:32px_32px]"></div>
-                
-                <div className="relative z-10">
-                  <h3 className="text-3xl font-black mb-8 font-heading">Contact Information</h3>
-                  
-                  <div className="space-y-8">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center shrink-0 text-yellow-400">
-                        <i className="fas fa-phone text-lg"></i>
-                      </div>
-                      <div>
-                        <div className="text-sm text-slate-400 font-medium mb-1 uppercase tracking-wider">Call or Text Us</div>
-                        <a href="tel:+18432979935" className="text-xl font-bold hover:text-yellow-400 transition-colors">(843) 297-9935</a>
-                      </div>
-                    </div>
+            <div className="grid lg:grid-cols-5 gap-10 lg:gap-16 items-start">
 
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center shrink-0 text-yellow-400">
-                        <i className="fas fa-envelope text-lg"></i>
-                      </div>
-                      <div>
-                        <div className="text-sm text-slate-400 font-medium mb-1 uppercase tracking-wider">Email Us</div>
-                        <a href="mailto:admin@starcleaningsc.com" className="text-lg font-bold hover:text-yellow-400 transition-colors">admin@starcleaningsc.com</a>
-                      </div>
-                    </div>
+              {/* Left: Contact Info */}
+              <div className="lg:col-span-2 space-y-4">
+                <a href="tel:+18432979935" className="flex items-center gap-4 p-5 bg-slate-50 border border-slate-100 rounded-2xl hover:border-star-blue/30 hover:bg-blue-50/40 transition-colors">
+                  <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0 text-star-blue">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-slate-500 font-bold mb-0.5 uppercase tracking-wider">Call or Text Us</div>
+                    <div className="text-lg font-bold text-slate-900">(843) 297-9935</div>
+                  </div>
+                </a>
 
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center shrink-0 text-yellow-400">
-                        <i className="fas fa-clock text-lg"></i>
-                      </div>
-                      <div>
-                        <div className="text-sm text-slate-400 font-medium mb-1 uppercase tracking-wider">Business Hours</div>
-                        <div className="text-lg font-medium text-slate-200">Tuesday - Saturday: 9:00 AM - 6:00 PM<br/>Sunday & Monday: Closed</div>
-                      </div>
-                    </div>
+                <a href="mailto:admin@starcleaningsc.com" className="flex items-center gap-4 p-5 bg-slate-50 border border-slate-100 rounded-2xl hover:border-star-blue/30 hover:bg-blue-50/40 transition-colors">
+                  <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0 text-star-blue">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-slate-500 font-bold mb-0.5 uppercase tracking-wider">Email Us</div>
+                    <div className="text-base font-bold text-slate-900 break-all">admin@starcleaningsc.com</div>
+                  </div>
+                </a>
 
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center shrink-0 text-yellow-400">
-                        <i className="fas fa-map-location-dot text-lg"></i>
-                      </div>
-                      <div>
-                        <div className="text-sm text-slate-400 font-medium mb-1 uppercase tracking-wider">Service Areas</div>
-                        <div className="text-lg font-medium text-slate-200">Charleston, North Charleston, Summerville, Ladson, James Island, Daniel Island, Johns Island, Mount Pleasant, Goose Creek, SC</div>
-                      </div>
+                <div className="flex items-center gap-4 p-5 bg-slate-50 border border-slate-100 rounded-2xl">
+                  <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0 text-star-blue">
+                    <Clock className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-slate-500 font-bold mb-0.5 uppercase tracking-wider">Business Hours</div>
+                    <div className="text-sm font-semibold text-slate-700">Tue&ndash;Sat: 9:00 AM&ndash;6:00 PM<br />Sun &amp; Mon: Closed</div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-5 bg-slate-50 border border-slate-100 rounded-2xl">
+                  <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0 text-star-blue">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-slate-500 font-bold mb-1 uppercase tracking-wider">Service Areas</div>
+                    <div className="text-sm text-slate-700 leading-relaxed">
+                      {serviceAreaLinks.map((city, i) => (
+                        <span key={city.href}>
+                          <Link href={city.href} className="font-semibold text-star-blue hover:underline">
+                            {city.name}
+                          </Link>
+                          {i < serviceAreaLinks.length - 1 ? ', ' : ', and Goose Creek, SC'}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>
 
-                <div className="relative z-10 mt-16 pt-8 border-t border-slate-800">
-                  <div className="flex items-center gap-4">
-                     <Image src="/images/veteran-owned-badge.png" alt="Veteran Owned" width={48} height={24} className="object-contain brightness-0 invert opacity-70" />
-                     <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Veteran Owned & Operated</span>
+                {/* Trust badges */}
+                <div className="pt-4">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Image src="/images/veteran-owned-badge.png" alt="Veteran Owned" width={40} height={20} className="object-contain" />
+                    <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Veteran Owned &amp; Operated</span>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-slate-600 uppercase tracking-wide">
+                      <BadgeCheck className="w-4 h-4 text-star-blue shrink-0" /> Licensed &amp; Insured
+                    </div>
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-slate-600 uppercase tracking-wide">
+                      <ShieldCheck className="w-4 h-4 text-star-blue shrink-0" /> Background-Checked
+                    </div>
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-slate-600 uppercase tracking-wide">
+                      <Award className="w-4 h-4 text-star-blue shrink-0" /> 100% Guaranteed
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Right Form Pane */}
-              <div className="lg:col-span-3 p-10 lg:p-14">
-                {isSubmitted ? (
-                  <motion.div 
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="h-full flex flex-col items-center justify-center text-center py-12"
-                  >
-                    <div className="w-24 h-24 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-4xl mb-6">
-                      <i className="fas fa-check"></i>
-                    </div>
-                    <h3 className="text-3xl font-black text-slate-900 mb-4 font-heading">Message Received</h3>
-                    <p className="text-lg text-slate-600 font-light mb-8 max-w-md">
-                      Thank you for reaching out to Star Cleaning Service. We typically respond within 1 business day.
-                    </p>
-                    <button 
-                      onClick={() => setIsSubmitted(false)}
-                      className="text-blue-600 font-bold hover:text-blue-800 transition-colors"
-                    >
-                      Send another message
-                    </button>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <h3 className="text-2xl font-black text-slate-900 mb-8 font-heading">Send us a message</h3>
-                    
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label htmlFor="name" className="text-sm font-bold text-slate-700">Full Name *</label>
-                        <div className="relative">
-                          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                            <i className="fas fa-user"></i>
-                          </div>
-                          <input 
-                            type="text" 
-                            id="name" 
-                            name="name" 
-                            required
-                            value={formData.name}
-                            onChange={handleChange}
-                            className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-slate-900 font-medium placeholder:text-slate-400 placeholder:font-normal"
-                            placeholder="John Doe"
-                          />
-                        </div>
-                      </div>
+              {/* Right: Booking Form */}
+              <div className="lg:col-span-3">
+                <BookingForm showPricing={false} />
+              </div>
+            </div>
+          </div>
+        </section>
 
-                      <div className="space-y-2">
-                        <label htmlFor="phone" className="text-sm font-bold text-slate-700">Phone Number *</label>
-                        <div className="relative">
-                          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                            <i className="fas fa-phone"></i>
-                          </div>
-                          <input 
-                            type="tel" 
-                            id="phone" 
-                            name="phone" 
-                            required
-                            value={formData.phone}
-                            onChange={handleChange}
-                            className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-slate-900 font-medium placeholder:text-slate-400 placeholder:font-normal"
-                            placeholder="(843) 000-0000"
-                          />
-                        </div>
-                      </div>
-                    </div>
+        {/* FAQ */}
+        <section className="py-20 lg:py-24 bg-slate-50">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <span className="text-star-blue font-bold uppercase tracking-widest text-xs bg-white border border-blue-100 px-3 py-1 rounded-full shadow-sm">
+                Before You Reach Out
+              </span>
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 font-heading mt-4 mb-4">Quick Answers</h2>
+            </div>
 
-                    <div className="space-y-2">
-                      <label htmlFor="email" className="text-sm font-bold text-slate-700">Email Address *</label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                          <i className="fas fa-envelope"></i>
-                        </div>
-                        <input 
-                          type="email" 
-                          id="email" 
-                          name="email" 
-                          required
-                          value={formData.email}
-                          onChange={handleChange}
-                          className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-slate-900 font-medium placeholder:text-slate-400 placeholder:font-normal"
-                          placeholder="john@example.com"
-                        />
-                      </div>
-                    </div>
+            <div className="space-y-6">
+              {contactFaqs.map((faq, i) => (
+                <div key={i} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                  <h3 className="text-lg font-bold text-slate-900 mb-3">{faq.q}</h3>
+                  <p className="text-slate-600 leading-relaxed">{faq.a}</p>
+                </div>
+              ))}
+            </div>
 
-                    <div className="space-y-2">
-                      <label htmlFor="message" className="text-sm font-bold text-slate-700">How can we help you? *</label>
-                      <textarea 
-                        id="message" 
-                        name="message" 
-                        required
-                        rows={4}
-                        value={formData.message}
-                        onChange={handleChange}
-                        className="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-slate-900 font-medium placeholder:text-slate-400 placeholder:font-normal resize-none"
-                        placeholder="Tell us about your home, questions, or specific needs..."
-                      ></textarea>
-                    </div>
+            <p className="text-center text-slate-500 text-sm mt-8">
+              Have a different question? Check our full <Link href="/#faq" className="text-star-blue font-semibold hover:underline">FAQ page</Link>.
+            </p>
+          </div>
+        </section>
 
-                    <button 
-                      type="submit" 
-                      disabled={isSubmitting}
-                      className="w-full flex justify-center items-center gap-2 bg-yellow-400 hover:bg-yellow-300 text-slate-900 font-black py-4 px-8 rounded-xl transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed shadow-[0_10px_20px_rgba(250,204,21,0.2)] hover:-translate-y-1 mt-4"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <i className="fas fa-circle-notch fa-spin"></i>
-                          Sending...
-                        </>
-                      ) : (
-                        <>
-                          Send Message
-                          <i className="fas fa-paper-plane"></i>
-                        </>
-                      )}
-                    </button>
-                    
-                    <p className="text-center text-xs text-slate-500 mt-4 font-medium">
-                      By submitting this form, you agree to our privacy policy. <br className="hidden sm:block" />
-                      Looking for an instant estimate instead? <Link href="/#quote" className="text-blue-600 font-bold hover:underline">Get a Quote Here</Link>.
-                    </p>
-                  </form>
-                )}
+        {/* Service Areas Map */}
+        <ServiceAreas />
+
+        {/* Explore More / Internal Links */}
+        <section className="py-16 bg-white border-t border-slate-100">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+              <div>
+                <h3 className="text-slate-900 font-black text-sm uppercase tracking-widest mb-4">Our Services</h3>
+                <ul className="space-y-2.5 text-slate-600 text-sm">
+                  <li><Link href="/services/residential-cleaning" className="hover:text-star-blue transition-colors">Residential Cleaning</Link></li>
+                  <li><Link href="/services/deep-cleaning" className="hover:text-star-blue transition-colors">Deep Cleaning</Link></li>
+                  <li><Link href="/services/move-in-move-out-cleaning" className="hover:text-star-blue transition-colors">Move-In/Move-Out Cleaning</Link></li>
+                  <li><Link href="/services/vacation-rental-airbnb-cleaning" className="hover:text-star-blue transition-colors">Vacation Rental &amp; Airbnb Cleaning</Link></li>
+                  <li><Link href="/services/commercial-office-cleaning" className="hover:text-star-blue transition-colors">Commercial &amp; Office Cleaning</Link></li>
+                  <li><Link href="/services/post-construction-cleaning" className="hover:text-star-blue transition-colors">Post-Construction Cleaning</Link></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-slate-900 font-black text-sm uppercase tracking-widest mb-4">Service Areas</h3>
+                <ul className="space-y-2.5 text-slate-600 text-sm">
+                  {serviceAreaLinks.slice(0, 4).map((city) => (
+                    <li key={city.href}><Link href={city.href} className="hover:text-star-blue transition-colors">{city.name}, SC</Link></li>
+                  ))}
+                  <li><Link href="/locations" className="text-star-blue font-semibold hover:underline">View All Service Areas &rarr;</Link></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-slate-900 font-black text-sm uppercase tracking-widest mb-4">Company</h3>
+                <ul className="space-y-2.5 text-slate-600 text-sm">
+                  <li><Link href="/about-us" className="hover:text-star-blue transition-colors">About Us</Link></li>
+                  <li><Link href="/careers" className="hover:text-star-blue transition-colors">Careers &mdash; Join Our Team</Link></li>
+                  <li><Link href="/blog" className="hover:text-star-blue transition-colors">Cleaning Tips &amp; Local Guides</Link></li>
+                  <li><Link href="/quote" className="hover:text-star-blue transition-colors">Get a Free Quote</Link></li>
+                </ul>
               </div>
             </div>
           </div>
