@@ -44,12 +44,20 @@ export default function SummervilleDeepCleaningPage() {
                 "telephone": "+18432979935",
                 "email": "admin@starcleaningsc.com",
                 "priceRange": "$$",
-                "openingHoursSpecification": {
-                  "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-                  "opens": "09:00",
-                  "closes": "18:00"
-                },
+                "openingHoursSpecification": [
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday"],
+                    "opens": "09:00",
+                    "closes": "18:00"
+                  },
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Saturday"],
+                    "opens": "09:00",
+                    "closes": "15:00"
+                  }
+                ],
                 "areaServed": [
                   { "@type": "City", "name": "Summerville" },
                   { "@type": "City", "name": "Nexton" },
@@ -57,15 +65,16 @@ export default function SummervilleDeepCleaningPage() {
                   { "@type": "City", "name": "Carnes Crossroads" }
                 ],
                 "sameAs": [
+                  "https://www.facebook.com/profile.php?id=100068655907779",
                   "https://instagram.com/star.cleaningsc",
-                  "https://www.google.com/search?kgmid=/g/11wqhvvy11&hl=en"
+                  "https://share.google/udkA7cxV0VCC39Ag2"
                 ],
                 "review": [
                   { "@type": "Review", "author": { "@type": "Person", "name": "Marcus V." }, "reviewBody": "Our new home in Nexton felt dusty even after the builders finished. We hired Star Cleaning SC for a top-to-bottom deep clean and they completely eliminated the fine drywall and clay residue. They are incredible!", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
                   { "@type": "Review", "author": { "@type": "Person", "name": "Diana K." }, "reviewBody": "As an asthma sufferer, springtime in Summerville is brutal. Star Cleans hand washed every speck of yellow pollen off my window sills and thoroughly scrubbed our air vent covers. I am finally breathing easy.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
                   { "@type": "Review", "author": { "@type": "Person", "name": "Linda P." }, "reviewBody": "With three kids and constant sports mud, my tile grout gets black. Their deep cleaning scrubbed the grout lines to their original beige color in just a few hours. Military precision indeed!", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } }
                 ],
-                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "bestRating": "5", "reviewCount": 3 }
+                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5", "reviewCount": 3 }
               },
               {
                 "@type": "Service",

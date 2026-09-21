@@ -19,7 +19,7 @@ export default function SummervilleClient() {
       heroCardBadge="Cane Bay Standards"
       heroCardQuote="The air vents and blinds had thick yellow pine pollen buildup. They meticulously sanitized everything!"
       heroCardAuthor="Robert L., Cane Bay Plantation"
-      trustLine="Summerville Star Standard (5/5)"
+      trustLine="Summerville Star Standard (4.9/5)"
       seoEyebrow="Summerville Env Factor"
       seoHeadline="Combatting Fine Clay Dust & Pine Pollen in Flowertown"
       seoParagraphs={[

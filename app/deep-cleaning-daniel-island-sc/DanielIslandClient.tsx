@@ -19,7 +19,7 @@ export default function DanielIslandClient() {
       heroCardBadge="White-Glove Standard"
       heroCardQuote="They treated our quartzite counters exactly the way our stone installer told us to."
       heroCardAuthor="Margaret W., Smythe Park"
-      trustLine="5.0 Star Rated"
+      trustLine="4.9 Star Rated"
       seoEyebrow="Why Standard Products Fall Short"
       seoHeadline="Your Countertops Weren't Built for Bleach and All-Purpose Spray"
       seoParagraphs={[

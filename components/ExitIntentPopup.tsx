@@ -106,7 +106,7 @@ const ExitIntentPopup: React.FC = () => {
             </h3>
             
             <p className="text-gray-500 text-sm mb-6 leading-relaxed font-medium px-2 md:px-0">
-                Don't spend it scrubbing floors. Join <span className="text-star-blue font-bold">500+ neighbors</span> who trust Star Cleaning.
+                Don't spend it scrubbing floors. Join <span className="text-star-blue font-bold">44+ neighbors</span> who trust Star Cleaning with a 4.9-star rating.
             </p>
 
             <button 

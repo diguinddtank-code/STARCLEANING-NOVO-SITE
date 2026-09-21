@@ -44,27 +44,36 @@ export default function MountPleasantDeepCleaningPage() {
                 "telephone": "+18432979935",
                 "email": "admin@starcleaningsc.com",
                 "priceRange": "$$",
-                "openingHoursSpecification": {
-                  "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-                  "opens": "09:00",
-                  "closes": "18:00"
-                },
+                "openingHoursSpecification": [
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday"],
+                    "opens": "09:00",
+                    "closes": "18:00"
+                  },
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Saturday"],
+                    "opens": "09:00",
+                    "closes": "15:00"
+                  }
+                ],
                 "areaServed": [
                   { "@type": "City", "name": "Mount Pleasant" },
                   { "@type": "City", "name": "Old Village" },
                   { "@type": "City", "name": "Carolina Park" }
                 ],
                 "sameAs": [
+                  "https://www.facebook.com/profile.php?id=100068655907779",
                   "https://instagram.com/star.cleaningsc",
-                  "https://www.google.com/search?kgmid=/g/11wqhvvy11&hl=en"
+                  "https://share.google/udkA7cxV0VCC39Ag2"
                 ],
                 "review": [
                   { "@type": "Review", "author": { "@type": "Person", "name": "Nancy P." }, "reviewBody": "We live in the Old Village and our 1940s home needs a gentler touch than a new build. They understood that immediately and never used anything too harsh on our original floors.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
                   { "@type": "Review", "author": { "@type": "Person", "name": "Brian K." }, "reviewBody": "Our house in Carolina Park backs up to a pond and the humidity is no joke. Since switching to biweekly cleanings, the musty smell we used to get in the closets is completely gone.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
                   { "@type": "Review", "author": { "@type": "Person", "name": "Samantha T." }, "reviewBody": "I run a short-term rental near Shem Creek and their turnover cleaning has been flawless for over a year. My guests always comment on how clean the place smells.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } }
                 ],
-                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "bestRating": "5", "reviewCount": 3 }
+                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5", "reviewCount": 3 }
               },
               {
                 "@type": "Service",

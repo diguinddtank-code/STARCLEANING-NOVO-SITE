@@ -19,7 +19,7 @@ export default function MountPleasantClient() {
       heroCardBadge="Old Village Standard"
       heroCardQuote="They understood our 1940s home needed a gentler touch than a new build right away."
       heroCardAuthor="Nancy P., Old Village"
-      trustLine="5.0 Star Rated"
+      trustLine="4.9 Star Rated"
       seoEyebrow="A Suburb With Two Personalities"
       seoHeadline="One Cleaning Plan Doesn't Fit All of Mount Pleasant"
       seoParagraphs={[

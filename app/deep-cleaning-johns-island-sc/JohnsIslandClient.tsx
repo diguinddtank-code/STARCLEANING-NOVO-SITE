@@ -19,7 +19,7 @@ export default function JohnsIslandClient() {
       heroCardBadge="Acreage-Ready Standard"
       heroCardQuote="They didn't blink at our long gravel driveway or the size of the house — just got to work."
       heroCardAuthor="Caroline B., River Road"
-      trustLine="5.0 Star Rated"
+      trustLine="4.9 Star Rated"
       seoEyebrow="A Different Kind of Dirt"
       seoHeadline="Farm Roads and Fresh Construction Don't Mix Well With a Quick Mop"
       seoParagraphs={[

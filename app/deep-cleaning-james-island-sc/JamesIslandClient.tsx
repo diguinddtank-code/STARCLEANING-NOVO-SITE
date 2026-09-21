@@ -19,7 +19,7 @@ export default function JamesIslandClient() {
       heroCardBadge="Sand-Free Standard"
       heroCardQuote="They got sand out of grout lines I didn't think would ever come clean."
       heroCardAuthor="Bethany R., Riverland Terrace"
-      trustLine="5.0 Star Rated"
+      trustLine="4.9 Star Rated"
       seoEyebrow="Living This Close to the Water"
       seoHeadline="Regular Mopping Doesn't Beat Folly Beach Sand"
       seoParagraphs={[

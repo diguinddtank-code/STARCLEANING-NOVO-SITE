@@ -78,12 +78,20 @@ export default function RootLayout({
         "telephone": "+18432979935",
         "email": "admin@starcleaningsc.com",
         "priceRange": "$$",
-        "openingHoursSpecification": {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          "opens": "09:00",
-          "closes": "18:00"
-        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Saturday"],
+            "opens": "09:00",
+            "closes": "15:00"
+          }
+        ],
         "areaServed": [
           { "@type": "City", "name": "Charleston" },
           { "@type": "City", "name": "North Charleston" },
@@ -96,14 +104,15 @@ export default function RootLayout({
           { "@type": "City", "name": "Goose Creek" }
         ],
         "sameAs": [
+          "https://www.facebook.com/profile.php?id=100068655907779",
           "https://instagram.com/star.cleaningsc",
-          "https://www.google.com/search?kgmid=/g/11wqhvvy11&hl=en"
+          "https://share.google/udkA7cxV0VCC39Ag2"
         ],
         "aggregateRating": {
           "@type": "AggregateRating",
-          "ratingValue": "5.0",
+          "ratingValue": "4.9",
           "bestRating": "5",
-          "reviewCount": 8
+          "reviewCount": 44
         }
       }
     ]

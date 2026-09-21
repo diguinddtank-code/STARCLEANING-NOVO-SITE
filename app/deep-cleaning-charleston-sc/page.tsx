@@ -44,12 +44,20 @@ export default function CharlestonDeepCleaningPage() {
                 "telephone": "+18432979935",
                 "email": "admin@starcleaningsc.com",
                 "priceRange": "$$",
-                "openingHoursSpecification": {
-                  "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-                  "opens": "09:00",
-                  "closes": "18:00"
-                },
+                "openingHoursSpecification": [
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday"],
+                    "opens": "09:00",
+                    "closes": "18:00"
+                  },
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Saturday"],
+                    "opens": "09:00",
+                    "closes": "15:00"
+                  }
+                ],
                 "areaServed": [
                   { "@type": "City", "name": "Charleston" },
                   { "@type": "City", "name": "West Ashley" },
@@ -58,15 +66,16 @@ export default function CharlestonDeepCleaningPage() {
                   { "@type": "City", "name": "North Charleston" }
                 ],
                 "sameAs": [
+                  "https://www.facebook.com/profile.php?id=100068655907779",
                   "https://instagram.com/star.cleaningsc",
-                  "https://www.google.com/search?kgmid=/g/11wqhvvy11&hl=en"
+                  "https://share.google/udkA7cxV0VCC39Ag2"
                 ],
                 "review": [
                   { "@type": "Review", "author": { "@type": "Person", "name": "Christopher M." }, "reviewBody": "Scheduling a deep clean for our pre-listing marketing South of Broad was a lifesaver. The baseboards were spotless and they managed to scrub the pollen layer completely off our historic window framings. Our buyer was incredibly pleased!", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
                   { "@type": "Review", "author": { "@type": "Person", "name": "Jessica T." }, "reviewBody": "Coming home to our house in West Ashley after Star Cleaning SC did their deep clean was amazing. With two black labs, the hair and dander were out of control, but they used pet-safe chemical formulas and literally zero dust was left behind!", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
                   { "@type": "Review", "author": { "@type": "Person", "name": "Ronald D." }, "reviewBody": "I hire them for turnover deep cleaning of our vacation properties downtown. Excellent attention, clean baseboards, prompt veteran timing, and zero issues with property owners. 10/10 cleaning discipline.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } }
                 ],
-                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "bestRating": "5", "reviewCount": 3 }
+                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5", "reviewCount": 3 }
               },
               {
                 "@type": "Service",

@@ -30,9 +30,9 @@ const Footer: React.FC = () => {
               Veteran-owned and operated, providing top-tier residential and commercial cleaning to the Charleston Lowcountry. Fully insured, background-checked, and 100% guaranteed.
             </p>
             <div className="flex gap-4">
-              <SocialIcon icon="fab fa-facebook-f" href="https://facebook.com" />
+              <SocialIcon icon="fab fa-facebook-f" href="https://www.facebook.com/profile.php?id=100068655907779" />
               <SocialIcon icon="fab fa-instagram" href="https://instagram.com/star.cleaningsc" />
-              <SocialIcon icon="fab fa-google" href="https://www.google.com/search?kgmid=/g/11wqhvvy11&hl=en" />
+              <SocialIcon icon="fab fa-google" href="https://share.google/udkA7cxV0VCC39Ag2" />
             </div>
           </div>
 
@@ -91,7 +91,7 @@ const Footer: React.FC = () => {
               </span>
               <span className="hours flex items-start gap-3">
                 <i className="fas fa-clock mt-1 text-yellow-500"></i>
-                <span>Tue–Sat 9AM–6PM</span>
+                <span>Tue–Fri 9AM–6PM, Sat 9AM–3PM</span>
               </span>
               <span className="location flex items-start gap-3">
                 <i className="fas fa-map-marker-alt mt-1 text-yellow-500"></i> 

@@ -133,24 +133,20 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
                 </h2>
             </div>
 
-            {/* Two-button CTA row */}
-            <div className="flex w-full gap-3">
+            {/* Primary CTA + a lighter secondary call link */}
+            <div className="flex flex-col items-center gap-3 w-full">
                 <Link
                   href="/#quote"
-                  className="flex-1 bg-star-blue hover:bg-star-dark text-white rounded-xl shadow-md text-center flex flex-col items-center justify-center border-b-4 border-blue-900 active:border-b-0 active:translate-y-1 transition-all py-3"
+                  className="w-full bg-star-blue hover:bg-star-dark text-white rounded-xl shadow-md text-center flex items-center justify-center gap-2 border-b-4 border-blue-900 active:border-b-0 active:translate-y-1 transition-all py-3.5 font-bold text-base"
                 >
-                  <span className="font-bold text-sm leading-tight uppercase tracking-wide">Free Estimate</span>
-                  <div className="mt-0.5 bg-white/20 px-2 py-0.5 rounded text-[10px] font-bold text-yellow-300">
-                      SAVE 20%
-                  </div>
+                  Claim My Free Time Back
                 </Link>
 
                 <a
                   href="tel:+18432979935"
-                  className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-blue-900 rounded-xl font-bold text-sm shadow-md text-center flex items-center justify-center gap-2 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 transition-all py-3"
+                  className="inline-flex items-center gap-2 text-star-blue font-bold text-sm"
                 >
-                  <i className="fas fa-phone-alt text-lg"></i>
-                  <span>Call or Text</span>
+                  <i className="fas fa-phone-alt"></i> Call or Text
                 </a>
             </div>
 
@@ -177,7 +173,7 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
                         <div className="flex text-yellow-400 text-[10px] gap-0.5">
                             <i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i>
                         </div>
-                        <span className="text-[10px] font-bold text-gray-600">5.0 Rating</span>
+                        <span className="text-[10px] font-bold text-gray-600">4.9 Rating</span>
                     </div>
 
                     <div className="inline-flex items-center gap-1.5 bg-pink-50/90 backdrop-blur-md border border-pink-100 rounded-full pl-1 pr-3 py-1 shadow-sm">
@@ -234,7 +230,7 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
                         <div className="flex text-yellow-400 text-xs gap-0.5">
                             <i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i>
                         </div>
-                        <span className="text-sm font-bold text-gray-700">5.0</span>
+                        <span className="text-sm font-bold text-gray-700">4.9</span>
                         <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>

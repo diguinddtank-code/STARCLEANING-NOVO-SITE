@@ -44,27 +44,36 @@ export default function JohnsIslandDeepCleaningPage() {
                 "telephone": "+18432979935",
                 "email": "admin@starcleaningsc.com",
                 "priceRange": "$$",
-                "openingHoursSpecification": {
-                  "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-                  "opens": "09:00",
-                  "closes": "18:00"
-                },
+                "openingHoursSpecification": [
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday"],
+                    "opens": "09:00",
+                    "closes": "18:00"
+                  },
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Saturday"],
+                    "opens": "09:00",
+                    "closes": "15:00"
+                  }
+                ],
                 "areaServed": [
                   { "@type": "City", "name": "Johns Island" },
                   { "@type": "City", "name": "River Road" },
                   { "@type": "City", "name": "Maybank Highway Corridor" }
                 ],
                 "sameAs": [
+                  "https://www.facebook.com/profile.php?id=100068655907779",
                   "https://instagram.com/star.cleaningsc",
-                  "https://www.google.com/search?kgmid=/g/11wqhvvy11&hl=en"
+                  "https://share.google/udkA7cxV0VCC39Ag2"
                 ],
                 "review": [
                   { "@type": "Review", "author": { "@type": "Person", "name": "Caroline B." }, "reviewBody": "We live on a few acres off River Road and most cleaners don't want to make the drive or deal with the size of the place. Star Cleaning SC never blinks, and our farmhouse has never looked better.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
                   { "@type": "Review", "author": { "@type": "Person", "name": "Patrick M." }, "reviewBody": "Our new build near the Angel Oak still had construction dust in the vents a year after we moved in. They finally got it all out during a deep clean. Wish we'd called sooner.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
                   { "@type": "Review", "author": { "@type": "Person", "name": "Diane R." }, "reviewBody": "We have a waterfront property on the Stono River and needed a team we could trust with the place while we're away. They're reliable, thorough, and always lock up properly.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } }
                 ],
-                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "bestRating": "5", "reviewCount": 3 }
+                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5", "reviewCount": 3 }
               },
               {
                 "@type": "Service",

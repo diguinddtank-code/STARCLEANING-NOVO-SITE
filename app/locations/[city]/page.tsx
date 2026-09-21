@@ -127,7 +127,7 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
                     <div className="flex text-yellow-400 text-xs">
                       <Star className="w-3 h-3 fill-current" /><Star className="w-3 h-3 fill-current" /><Star className="w-3 h-3 fill-current" /><Star className="w-3 h-3 fill-current" /><Star className="w-3 h-3 fill-current" />
                     </div>
-                    <span className="font-medium text-white">5.0 Rated on Google</span>
+                    <span className="font-medium text-white">4.9 Rated on Google</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 text-sm font-medium text-slate-300">
@@ -494,15 +494,24 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
                 "telephone": "+18432979935",
                 "email": "admin@starcleaningsc.com",
                 "priceRange": "$$",
-                "openingHoursSpecification": {
-                  "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-                  "opens": "09:00",
-                  "closes": "18:00"
-                },
+                "openingHoursSpecification": [
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday"],
+                    "opens": "09:00",
+                    "closes": "18:00"
+                  },
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Saturday"],
+                    "opens": "09:00",
+                    "closes": "15:00"
+                  }
+                ],
                 "sameAs": [
+                  "https://www.facebook.com/profile.php?id=100068655907779",
                   "https://instagram.com/star.cleaningsc",
-                  "https://www.google.com/search?kgmid=/g/11wqhvvy11&hl=en"
+                  "https://share.google/udkA7cxV0VCC39Ag2"
                 ],
                 "areaServed": {
                   "@type": "City",
@@ -538,7 +547,7 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
                 })),
                 "aggregateRating": {
                   "@type": "AggregateRating",
-                  "ratingValue": "5",
+                  "ratingValue": "4.9",
                   "bestRating": "5",
                   "reviewCount": data.reviews.length
                 }

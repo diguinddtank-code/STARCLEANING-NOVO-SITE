@@ -88,7 +88,7 @@ export default function ContactClient() {
                   </div>
                   <div>
                     <div className="text-xs text-slate-500 font-bold mb-0.5 uppercase tracking-wider">Business Hours</div>
-                    <div className="text-sm font-semibold text-slate-700">Tue&ndash;Sat: 9:00 AM&ndash;6:00 PM<br />Sun &amp; Mon: Closed</div>
+                    <div className="text-sm font-semibold text-slate-700">Tue&ndash;Fri: 9:00 AM&ndash;6:00 PM<br />Sat: 9:00 AM&ndash;3:00 PM<br />Sun &amp; Mon: Closed</div>
                   </div>
                 </div>
 

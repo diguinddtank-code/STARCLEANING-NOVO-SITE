@@ -19,7 +19,7 @@ export default function NorthCharlestonClient() {
       heroCardBadge="Turnover Ready"
       heroCardQuote="They cleaned our unit same-day so we didn't lose a single day of rent between tenants."
       heroCardAuthor="Angela F., Property Manager, Park Circle"
-      trustLine="5.0 Star Rated"
+      trustLine="4.9 Star Rated"
       seoEyebrow="Why We Get Called Back Here"
       seoHeadline="North Charleston Runs on Turnover and Shift Work"
       seoParagraphs={[
