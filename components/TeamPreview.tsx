@@ -137,15 +137,14 @@ const TeamPreview = () => {
           </div>
         </div>
 
-        {/* Portrait team photo. The source frame includes a lot of blank ceiling/wall
-            above the group, so it's cropped to an aspect ratio that starts right where
-            the team stands instead of rendering that dead space at full height. */}
-        <div className="relative w-full aspect-[4/5] overflow-hidden">
+        {/* Portrait team photo, cropped to a head-to-waist band so it reads as a
+            group shot instead of a tall, leg-heavy strip. */}
+        <div className="relative w-full aspect-[933/523] overflow-hidden">
           <Image
             src="/images/teammobile.png"
             alt="Mariana and the Star Cleaning SC team standing together in matching uniforms"
             fill
-            className="object-cover object-bottom"
+            className="object-cover object-[center_64%]"
           />
         </div>
       </div>
