@@ -47,8 +47,11 @@ export default function OurTeamClient() {
                 </div>
               </ScrollReveal>
               <ScrollReveal direction="right" delay={100} className="lg:col-span-2">
-                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">The People Behind Every Clean</span>
-                <h2 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl text-slate-900 mt-4 mb-6 leading-[1.15]">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="w-8 h-px bg-star-blue"></span>
+                  <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">The People Behind Every Clean</span>
+                </div>
+                <h2 className="font-serif text-3xl sm:text-4xl font-medium text-slate-900 mb-6 leading-[1.15] tracking-tight">
                   Trusted. Trained. Committed.
                 </h2>
                 <p className="text-slate-600 leading-relaxed mb-7">
@@ -85,8 +88,11 @@ export default function OurTeamClient() {
           <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               <ScrollReveal direction="left" className="order-2 lg:order-1">
-                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">More Than Cleaning</span>
-                <h2 className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl text-slate-900 mt-4 mb-6 leading-[1.15]">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="w-8 h-px bg-star-blue"></span>
+                  <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">More Than Cleaning</span>
+                </div>
+                <h2 className="font-serif text-3xl sm:text-4xl font-medium text-slate-900 mb-6 leading-[1.15] tracking-tight">
                   A Team That Gives You Time Back
                 </h2>
                 <p className="text-slate-600 leading-relaxed mb-6">

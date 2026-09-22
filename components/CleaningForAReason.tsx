@@ -19,12 +19,15 @@ const CleaningForAReason: React.FC = () => {
               />
             </div>
 
-            <span className="inline-flex items-center gap-1.5 text-pink-500 text-xs font-bold uppercase tracking-widest mb-3">
-              <i className="fas fa-ribbon"></i> Cleaning With a Purpose
-            </span>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="w-8 h-px bg-pink-500"></span>
+              <span className="text-pink-600 font-bold uppercase tracking-[0.2em] text-xs">
+                Cleaning With a Purpose
+              </span>
+            </div>
 
-            <h2 className="text-2xl sm:text-3xl font-black text-gray-900 font-heading leading-tight">
-              Proud Partner of <span className="text-pink-500">Cleaning for a Reason</span>
+            <h2 className="font-serif text-3xl sm:text-4xl font-medium text-slate-900 tracking-tight leading-[1.15]">
+              Proud Partner of <span className="text-pink-600">Cleaning for a Reason.</span>
             </h2>
           </div>
 

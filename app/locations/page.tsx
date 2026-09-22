@@ -20,29 +20,33 @@ export default function LocationsHub() {
     <main className="min-h-screen bg-slate-50">
       <Navbar />
       
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-900 text-white">
-        {/* Background elements */}
-        <div className="absolute inset-0 z-0">
+      <section className="relative pt-14 sm:pt-16 pb-16 lg:pt-24 lg:pb-28 overflow-hidden bg-[#0A192F] text-white">
+        {/* Background elements with rich depth and ambient light */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
           <Image 
             src="/images/hero-background.jpg"
             alt="Cleaning products laid out on a wooden surface"
             fill
-            className="object-cover opacity-10"
+            priority
+            className="object-cover opacity-20 mix-blend-luminosity"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-slate-900/80 to-slate-900" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A192F]/85 via-[#0D2447]/80 to-[#0A192F]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(14,165,233,0.18),transparent_70%)]" />
+          <div className="absolute -top-32 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 left-0 w-96 h-96 bg-star-blue/10 rounded-full blur-3xl pointer-events-none" />
         </div>
         
         <div className="container mx-auto px-4 relative z-20 text-center max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-400/20 backdrop-blur-sm mb-6">
-            <MapPin className="w-4 h-4 text-blue-400" />
-            <span className="text-sm font-semibold text-blue-200 uppercase tracking-wider">Charleston Lowcountry</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-star-blue/15 border border-star-blue/30 backdrop-blur-md mb-6 shadow-sm">
+            <MapPin className="w-3.5 h-3.5 text-blue-300" />
+            <span className="text-xs font-bold text-blue-200 uppercase tracking-widest">Charleston Lowcountry</span>
           </div>
           
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold mb-6 leading-[1.1] tracking-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold mb-6 leading-[1.1] tracking-tight text-white drop-shadow-sm">
             Our Service Areas
           </h1>
           
-          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-slate-200/90 max-w-2xl mx-auto leading-relaxed">
             Providing military-precision house cleaning across the Charleston Lowcountry. Find your city below to learn more about our local services.
           </p>
         </div>

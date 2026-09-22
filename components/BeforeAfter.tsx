@@ -12,16 +12,16 @@ const BeforeAfter: React.FC = () => {
           
           {/* Content Side */}
           <div className="lg:w-1/2 order-2 lg:order-1">
-            <div className="inline-block bg-white border border-blue-100 text-star-blue font-bold px-4 py-1.5 rounded-full mb-6 text-xs uppercase tracking-wider shadow-sm">
-                <i className="fas fa-magic mr-2"></i>
-                The Star Difference
+            <div className="flex items-center gap-3 mb-6">
+              <span className="w-8 h-px bg-star-blue"></span>
+              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">The Star Difference</span>
             </div>
             
-            <h2 className="text-4xl font-black text-gray-900 mb-6 font-heading leading-tight">
-                Relax. We handle the dirty work.
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-slate-900 mb-6 tracking-tight leading-[1.15]">
+              Relax. We handle the <span className="text-star-blue">dirty work.</span>
             </h2>
             
-            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+            <p className="text-slate-600 text-base sm:text-lg mb-8 leading-relaxed">
               Imagine coming home to this. Our team is trained to spot details that others miss, using pet-safe products that leave your home smelling fresh, not like chemicals.
             </p>
             

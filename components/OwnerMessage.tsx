@@ -68,22 +68,25 @@ const OwnerMessage: React.FC<OwnerMessageProps> = ({ quoteHref = '/#quote' }) =>
                 <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-yellow-400/20 rounded-full blur-3xl"></div>
 
                 <div className="relative z-10">
-                    <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full mb-4 lg:mb-6 border border-white/10 shadow-sm">
-                        <div className="relative h-8 w-16">
-                          <Image 
-                              src="/images/veteran-owned-badge.png"
-                              alt="Veteran Owned" 
-                              fill
-                              sizes="64px"
-                              className="object-contain"
-                          />
+                    <div className="flex items-center gap-3 mb-4 lg:mb-6">
+                        <span className="w-8 h-px bg-yellow-400"></span>
+                        <div className="inline-flex items-center gap-2">
+                          <div className="relative h-6 w-12">
+                            <Image 
+                                src="/images/veteran-owned-badge.png"
+                                alt="Veteran Owned" 
+                                fill
+                                sizes="48px"
+                                className="object-contain"
+                            />
+                          </div>
+                          <span className="text-xs font-bold uppercase tracking-[0.2em] text-yellow-300">Veteran-Owned Care</span>
                         </div>
-                        <span className="text-[10px] lg:text-xs font-bold uppercase tracking-widest text-white">Veteran Owned Business</span>
                     </div>
 
-                    <h2 className="text-2xl md:text-5xl font-black mb-4 lg:mb-6 font-heading leading-tight">
+                    <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium mb-4 lg:mb-6 text-white tracking-tight leading-[1.15]">
                       A Clean Home <br/>
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-100">Starts Here!</span>
+                      <span className="text-yellow-300">Starts Here.</span>
                     </h2>
                     
                     <div className="space-y-4 lg:space-y-6 text-blue-50 text-sm md:text-lg leading-relaxed font-medium opacity-90">

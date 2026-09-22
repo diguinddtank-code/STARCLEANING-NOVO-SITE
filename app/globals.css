@@ -3,6 +3,7 @@
 @theme {
   --font-sans: var(--font-open-sans), sans-serif;
   --font-heading: var(--font-montserrat), sans-serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
   --font-handwriting: var(--font-dancing-script), cursive;
   --color-star-blue: #004aad;
   --color-star-dark: #002855;

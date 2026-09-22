@@ -56,10 +56,15 @@ const BlogIndex = () => {
       <main className="flex-grow pt-24 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4 font-montserrat">
-              Star Cleaning SC <span className="text-blue-600">Blog</span>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-px bg-star-blue"></span>
+              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Articles &amp; Guides</span>
+              <span className="w-8 h-px bg-star-blue"></span>
+            </div>
+            <h1 className="font-serif text-4xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">
+              Star Cleaning SC <span className="text-star-blue">Blog.</span>
             </h1>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
               Expert cleaning tips, local guides, and advice for homeowners and property managers in Charleston and the Lowcountry.
             </p>
           </div>

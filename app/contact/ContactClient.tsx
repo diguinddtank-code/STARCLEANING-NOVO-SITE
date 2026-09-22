@@ -46,14 +46,15 @@ export default function ContactClient() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div className="text-center max-w-2xl mx-auto mb-12 lg:mb-16">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-900 text-xs font-bold tracking-widest uppercase mb-5">
-                <i className="fas fa-headset text-blue-600"></i>
-                Get In Touch
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="w-8 h-px bg-star-blue"></span>
+                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Get In Touch</span>
+                <span className="w-8 h-px bg-star-blue"></span>
               </div>
-              <h1 className="text-4xl md:text-5xl font-black text-slate-900 font-heading leading-tight mb-5">
-                Let&apos;s Get Your Home on the Schedule
+              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-slate-900 tracking-tight leading-[1.15] mb-5">
+                Let&apos;s Get Your Home on <span className="text-star-blue">the Schedule.</span>
               </h1>
-              <p className="text-lg text-slate-600 leading-relaxed">
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
                 Call, text, or fill out the quick form below. Either way, you&apos;ll hear back from a real, background-checked local team &mdash; not a call center.
               </p>
             </div>
@@ -143,10 +144,14 @@ export default function ContactClient() {
         <section className="py-20 lg:py-24 bg-slate-50">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <span className="text-star-blue font-bold uppercase tracking-widest text-xs bg-white border border-blue-100 px-3 py-1 rounded-full shadow-sm">
-                Before You Reach Out
-              </span>
-              <h2 className="text-3xl md:text-4xl font-black text-slate-900 font-heading mt-4 mb-4">Quick Answers</h2>
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="w-8 h-px bg-star-blue"></span>
+                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">
+                  Before You Reach Out
+                </span>
+                <span className="w-8 h-px bg-star-blue"></span>
+              </div>
+              <h2 className="font-serif text-3xl md:text-5xl font-medium text-slate-900 mt-4 mb-4 tracking-tight leading-[1.15]">Quick <span className="text-star-blue">Answers.</span></h2>
             </div>
 
             <div className="space-y-6">

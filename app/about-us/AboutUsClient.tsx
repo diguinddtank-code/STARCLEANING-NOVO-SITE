@@ -36,8 +36,12 @@ export default function AboutUsClient() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
               <div className="order-2 lg:order-1">
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-heading leading-tight mb-5">
-                  Meet Mariana. Her Team Cleans Homes All Over Summerville and Charleston.
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="w-8 h-px bg-star-blue"></span>
+                  <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Our Story</span>
+                </div>
+                <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium text-slate-900 tracking-tight leading-[1.15] mb-5">
+                  Meet Mariana. Her Team Cleans Homes All Over <span className="text-star-blue">Summerville &amp; Charleston.</span>
                 </h1>
                 <p className="text-lg text-slate-600 leading-relaxed mb-8">
                   Star Cleaning SC is veteran owned. Eighteen years in, we still show up on time, do the work right, and treat your house like it is ours.
@@ -69,7 +73,13 @@ export default function AboutUsClient() {
         {/* Real Story */}
         <section className="py-16 lg:py-20 bg-slate-50">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading mb-6">Why Mariana Started Star Cleaning</h2>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="w-8 h-px bg-star-blue"></span>
+              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Origin</span>
+            </div>
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-medium text-slate-900 tracking-tight leading-[1.15] mb-6">
+              Why Mariana Started <span className="text-star-blue">Star Cleaning.</span>
+            </h2>
             <div className="space-y-4 text-slate-700 leading-relaxed">
               <p>
                 Mariana runs Star Cleaning SC right here in the Lowcountry. She started the company because she was tired of seeing cleaning services treat clients like a number and treat their own crews even worse. She wanted to build something better: a company people actually trust, with a team that sticks around because they are treated right.
@@ -101,9 +111,13 @@ export default function AboutUsClient() {
           <div className="absolute inset-0 opacity-[0.07] bg-[radial-gradient(circle_at_2px_2px,white_1px,transparent_0)] bg-[size:32px_32px] pointer-events-none"></div>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <ScrollReveal direction="up">
-              <span className="text-blue-300 font-bold uppercase tracking-widest text-xs">Our Mission</span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black font-heading mt-3 mb-8 leading-tight">
-                Why We Really Do This
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="w-8 h-px bg-yellow-400"></span>
+                <span className="text-yellow-300 font-bold uppercase tracking-[0.2em] text-xs">Our Mission</span>
+                <span className="w-8 h-px bg-yellow-400"></span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium mt-3 mb-8 text-white tracking-tight leading-[1.15]">
+                Why We Really <span className="text-yellow-300">Do This.</span>
               </h2>
               <p className="text-lg sm:text-xl text-blue-100 leading-relaxed">
                 A clean house means something after a long day. It means not thinking about the mess when you walk in the door. It means more time with your kids, more time to rest, more time for whatever you actually want to do with your evening. That is what we show up for, every single time.
@@ -152,9 +166,12 @@ export default function AboutUsClient() {
                 </div>
               </ScrollReveal>
               <ScrollReveal direction="right" delay={100}>
-                <span className="text-star-blue font-bold uppercase tracking-widest text-xs">Our Team</span>
-                <h2 className="text-3xl sm:text-4xl font-black text-slate-900 font-heading mt-3 mb-5">
-                  The People Who Actually Clean Your House
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="w-8 h-px bg-star-blue"></span>
+                  <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Our Team</span>
+                </div>
+                <h2 className="font-serif text-3xl sm:text-4xl font-medium text-slate-900 tracking-tight leading-[1.15] mb-5">
+                  The People Who Actually <span className="text-star-blue">Clean Your House.</span>
                 </h2>
                 <p className="text-slate-600 leading-relaxed mb-6">
                   This is not a random contractor sent by an app. This is Mariana and a small crew of women who show up, do the work, and go home knowing they did it right. Every person on the team is background checked, and most clients see the same face every visit.
@@ -175,7 +192,16 @@ export default function AboutUsClient() {
         {/* How We Take Care of Your Home */}
         <section className="py-16 lg:py-20 bg-white">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading mb-10 text-center">How We Take Care of Your Home</h2>
+            <div className="text-center mb-10">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="w-8 h-px bg-star-blue"></span>
+                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Standards of Care</span>
+                <span className="w-8 h-px bg-star-blue"></span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl font-medium text-slate-900 tracking-tight leading-[1.15]">
+                How We Take Care of <span className="text-star-blue">Your Home.</span>
+              </h2>
+            </div>
             <div className="grid md:grid-cols-3 gap-8">
               <div>
                 <div className="w-12 h-12 rounded-xl bg-blue-50 text-star-blue flex items-center justify-center mb-4">
@@ -211,9 +237,16 @@ export default function AboutUsClient() {
         {/* Trust */}
         <section className="py-16 lg:py-20 bg-slate-50">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading mb-10 text-center">
-              You Are Letting Us Into Your House. Here Is Why That Is Okay.
-            </h2>
+            <div className="text-center mb-10">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="w-8 h-px bg-star-blue"></span>
+                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Total Peace of Mind</span>
+                <span className="w-8 h-px bg-star-blue"></span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl font-medium text-slate-900 tracking-tight leading-[1.15]">
+                You Are Letting Us Into Your House. <span className="text-star-blue">Here Is Why That Is Safe.</span>
+              </h2>
+            </div>
             <div className="grid md:grid-cols-3 gap-8">
               <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
                 <ShieldCheck className="w-7 h-7 text-star-blue mb-3" />
@@ -241,7 +274,16 @@ export default function AboutUsClient() {
         {featuredReviews.length > 0 && (
           <section className="py-16 lg:py-20 bg-white">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading mb-10 text-center">What Neighbors Are Saying</h2>
+              <div className="text-center mb-10">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <span className="w-8 h-px bg-star-blue"></span>
+                  <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Verified Reviews</span>
+                  <span className="w-8 h-px bg-star-blue"></span>
+                </div>
+                <h2 className="font-serif text-3xl sm:text-4xl font-medium text-slate-900 tracking-tight leading-[1.15]">
+                  What Neighbors <span className="text-star-blue">Are Saying.</span>
+                </h2>
+              </div>
               <div className="grid md:grid-cols-3 gap-6">
                 {featuredReviews.map((review, i) => (
                   <ReviewCard key={i} theme="light" variant="grid" {...review} />
@@ -254,7 +296,14 @@ export default function AboutUsClient() {
         {/* Areas We Serve */}
         <section className="py-16 lg:py-20 bg-slate-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading mb-4">Summerville, Charleston, and Everywhere In Between</h2>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-px bg-star-blue"></span>
+              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Local Reach</span>
+              <span className="w-8 h-px bg-star-blue"></span>
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl font-medium text-slate-900 tracking-tight leading-[1.15] mb-4">
+              Summerville, Charleston, and <span className="text-star-blue">Everywhere In Between.</span>
+            </h2>
             <p className="text-slate-600 leading-relaxed mb-8 max-w-2xl mx-auto">
               We clean houses all over the Lowcountry. If your town is on this list, chances are we already clean a few houses on your street.
             </p>

@@ -142,20 +142,21 @@ export default function RegionalDeepCleanPage({
 
             {/* Content */}
             <div className="order-2 lg:order-1">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gray-50 border border-gray-200 text-gray-600 mb-4 font-bold text-xs uppercase tracking-widest">
-                <BadgeIcon className="w-3.5 h-3.5 text-star-blue" />
-                {badgeText}
+              <div className="flex items-center gap-3 mb-4">
+                <span className="w-8 h-px bg-star-blue"></span>
+                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">
+                  {badgeText}
+                </span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 font-heading leading-tight">
+              <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium text-slate-900 tracking-tight leading-[1.15]">
                 {headlineLead}
                 <br />
                 <span className="text-star-blue">{headlineAccent}</span>
                 {headlineTail ? <> {headlineTail}</> : null}
               </h1>
-              <div className="w-12 h-1 bg-star-blue rounded-full my-4"></div>
 
-              <div className="text-gray-600 text-base leading-relaxed space-y-3">
+              <div className="text-slate-600 text-base sm:text-lg leading-relaxed space-y-3 mt-4">
                 <p>{subheadline}</p>
               </div>
 
@@ -234,11 +235,14 @@ export default function RegionalDeepCleanPage({
                 <Image src={seoImage.src} alt={seoImage.alt} fill className="object-cover" referrerPolicy="no-referrer" />
               </div>
               <div className="order-1 lg:order-2">
-                <span className="text-star-blue font-bold uppercase tracking-widest text-xs">{seoEyebrow}</span>
-                <h2 className="text-3xl md:text-4xl font-black text-gray-900 mt-2 mb-6 font-heading leading-tight">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="w-8 h-px bg-star-blue"></span>
+                  <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">{seoEyebrow}</span>
+                </div>
+                <h2 className="font-serif text-3xl sm:text-4xl font-medium text-slate-900 mb-6 tracking-tight leading-[1.15]">
                   {seoHeadline}
                 </h2>
-                <div className="space-y-5 text-gray-600 leading-relaxed">
+                <div className="space-y-5 text-slate-600 leading-relaxed text-base">
                   {seoParagraphs.map((p, i) => (
                     <p key={i}>{renderWithBold(p)}</p>
                   ))}
@@ -254,13 +258,17 @@ export default function RegionalDeepCleanPage({
         <section className="py-20 bg-white">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <span className="text-star-blue font-bold uppercase tracking-widest text-xs bg-blue-50 border border-blue-100 px-3 py-1 rounded-full">
-                Full Transparency Checklist
-              </span>
-              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mt-4 mb-4 font-heading">
-                What&apos;s Included in Your {cityName} Deep Clean?
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="w-8 h-px bg-star-blue"></span>
+                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">
+                  Full Transparency Checklist
+                </span>
+                <span className="w-8 h-px bg-star-blue"></span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-slate-900 mt-4 mb-4 tracking-tight leading-[1.15]">
+                What&apos;s Included in Your <span className="text-star-blue">{cityName} Deep Clean?</span>
               </h2>
-              <p className="text-gray-600 max-w-xl mx-auto">
+              <p className="text-slate-600 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
                 Transparent checklists so you know exactly what to expect.
               </p>
             </div>
@@ -270,12 +278,12 @@ export default function RegionalDeepCleanPage({
                 const ColIcon = col.icon;
                 return (
                   <div key={idx} className={`p-8 rounded-3xl border ${idx === 0 ? 'bg-slate-50 border-slate-100' : 'bg-blue-50 border-blue-100'}`}>
-                    <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                    <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                       <ColIcon className="w-6 h-6 text-star-blue" /> {col.title}
                     </h3>
                     <ul className="space-y-4">
                       {col.items.map((item, i) => (
-                        <li key={i} className="flex items-start gap-3 text-gray-600">
+                        <li key={i} className="flex items-start gap-3 text-slate-600">
                           <span className="w-1.5 h-1.5 rounded-full bg-star-blue mt-2 flex-shrink-0" />
                           {item}
                         </li>
@@ -294,7 +302,14 @@ export default function RegionalDeepCleanPage({
         <section className="py-20 bg-slate-50">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-heading">Why {cityName} Trusts Star Cleaning SC</h2>
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="w-8 h-px bg-star-blue"></span>
+                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Verified Local Reviews</span>
+                <span className="w-8 h-px bg-star-blue"></span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">
+                Why {cityName} Trusts <span className="text-star-blue">Star Cleaning SC.</span>
+              </h2>
               <div className="flex justify-center gap-1">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <Star key={star} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
@@ -316,13 +331,17 @@ export default function RegionalDeepCleanPage({
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4 max-w-5xl">
             <div className="text-center mb-12">
-              <span className="text-star-blue font-bold uppercase tracking-widest text-xs bg-white border border-blue-100 px-3 py-1 rounded-full shadow-sm">
-                Free Instant Quote
-              </span>
-              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mt-4 mb-4 font-heading">
-                Book Your {cityName} Cleaning
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="w-8 h-px bg-star-blue"></span>
+                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">
+                  Free Instant Quote
+                </span>
+                <span className="w-8 h-px bg-star-blue"></span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-slate-900 mt-4 mb-4 tracking-tight leading-[1.15]">
+                Book Your <span className="text-star-blue">{cityName} Cleaning.</span>
               </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
                 Get a free, instant quote and schedule your cleaning online in under 60 seconds.
               </p>
             </div>
@@ -336,10 +355,16 @@ export default function RegionalDeepCleanPage({
         <section className="py-20 bg-slate-50">
           <div className="container mx-auto px-4 max-w-3xl">
             <div className="text-center mb-16">
-              <span className="text-star-blue font-bold uppercase tracking-widest text-xs bg-white border border-blue-100 px-3 py-1 rounded-full shadow-sm">
-                {faqEyebrow}
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-4 mb-4 font-heading">Frequently Asked Questions</h2>
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="w-8 h-px bg-star-blue"></span>
+                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">
+                  {faqEyebrow}
+                </span>
+                <span className="w-8 h-px bg-star-blue"></span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-slate-900 mt-4 mb-4 tracking-tight leading-[1.15]">
+                Frequently Asked <span className="text-star-blue">Questions.</span>
+              </h2>
             </div>
 
             <div className="space-y-6">
@@ -358,8 +383,8 @@ export default function RegionalDeepCleanPage({
       <ScrollReveal direction="up">
         <section className="py-20 bg-star-dark text-white text-center">
           <div className="container mx-auto px-4 max-w-3xl">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-heading">{ctaHeadline}</h2>
-            <p className="text-xl text-blue-100 mb-10">{ctaSubtext}</p>
+            <h2 className="font-serif text-3xl md:text-5xl font-medium mb-6 text-white tracking-tight leading-[1.15]">{ctaHeadline}</h2>
+            <p className="text-lg sm:text-xl text-blue-100 mb-10 leading-relaxed">{ctaSubtext}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="#quote"

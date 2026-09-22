@@ -15,16 +15,17 @@ const Testimonials: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 lg:mb-16 relative z-20">
         <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center justify-center gap-2 bg-white border border-yellow-200 px-4 py-1.5 rounded-full shadow-sm mb-6">
-                 <i className="fas fa-heart text-red-500 animate-pulse"></i>
-                 <span className="text-xs font-bold uppercase tracking-widest text-gray-600">4.9 Stars from 44+ Google Reviews</span>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-px bg-star-blue"></span>
+              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Real Feedback &bull; 4.9 Stars</span>
+              <span className="w-8 h-px bg-star-blue"></span>
             </div>
             
-            <h2 className="text-3xl md:text-5xl font-black font-heading text-gray-900 mb-6">
-              Don't just take our word for it.
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-slate-900 mb-5 tracking-tight leading-[1.15]">
+              Don&apos;t just take our word for it. <span className="text-star-blue">Read their stories.</span>
             </h2>
-            <p className="text-base lg:text-lg text-gray-600 leading-relaxed">
-              We believe trust is earned, one clean home at a time. Here is what your neighbors in Charleston & Summerville are saying.
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+              We believe trust is earned, one clean home at a time. Here is what your neighbors in Charleston &amp; Summerville are saying.
             </p>
         </div>
       </div>

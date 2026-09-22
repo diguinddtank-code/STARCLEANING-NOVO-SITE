@@ -35,9 +35,17 @@ const FAQ: React.FC = () => {
     <section id="faq" className="py-24 bg-blue-50">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="text-center mb-16">
-          <span className="text-star-blue font-bold uppercase tracking-widest text-xs bg-white border border-blue-100 px-3 py-1 rounded-full shadow-sm">Common Questions</span>
-          <h2 className="text-4xl font-black mt-4 mb-4 text-gray-900 font-heading">Frequently Asked Questions</h2>
-          <p className="text-gray-600">Everything you need to know about our premium cleaning services.</p>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <span className="w-8 h-px bg-star-blue"></span>
+            <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Clear Answers</span>
+            <span className="w-8 h-px bg-star-blue"></span>
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium mt-4 mb-4 text-slate-900 tracking-tight leading-[1.15]">
+            Frequently Asked <span className="text-star-blue">Questions.</span>
+          </h2>
+          <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+            Everything you need to know about our home cleaning visits, pet policies, and satisfaction guarantee.
+          </p>
         </div>
 
         <div className="space-y-4">

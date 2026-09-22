@@ -61,12 +61,14 @@ const QuoteLanding = () => {
             {/* Headlines */}
             <div className="text-center mb-8 max-w-3xl mx-auto px-2">
                 {/* Value Badge */}
-                <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 shadow-lg">
-                    <i className="fas fa-trophy text-yellow-400"></i> Voted #1 in Charleston
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <span className="w-8 h-px bg-yellow-400"></span>
+                  <span className="text-yellow-300 font-bold uppercase tracking-[0.2em] text-xs">Voted #1 in Charleston</span>
+                  <span className="w-8 h-px bg-yellow-400"></span>
                 </div>
 
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-4 font-heading tracking-tight leading-tight drop-shadow-lg">
-                    Reclaim Your <br className="sm:hidden" /><span className="text-[#89CFF0]">Weekends.</span>
+                <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-4 tracking-tight leading-[1.15] drop-shadow-lg">
+                    Reclaim Your <br className="sm:hidden" /><span className="text-yellow-300">Weekends.</span>
                 </h1>
                 
                 {/* Highlights */}
@@ -108,8 +110,13 @@ const QuoteLanding = () => {
       {/* About Us / Main Website Link */}
       <section className="bg-white py-16 border-b border-gray-100">
           <div className="container mx-auto px-4 max-w-4xl text-center">
-              <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-4 font-heading">Want to learn more about us?</h2>
-              <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="w-8 h-px bg-star-blue"></span>
+                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Explore Further</span>
+                <span className="w-8 h-px bg-star-blue"></span>
+              </div>
+              <h2 className="font-serif text-3xl md:text-4xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">Want to learn more about us?</h2>
+              <p className="text-base sm:text-lg text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
                   Discover our full range of services, read more customer reviews, and see why we are the top-rated cleaning company in Charleston and Summerville.
               </p>
               <Link href="/" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gray-50 hover:bg-gray-100 text-gray-900 font-bold rounded-xl border border-gray-200 transition-all hover:-translate-y-1 shadow-sm">

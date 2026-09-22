@@ -20,13 +20,14 @@ const ServiceAreas: React.FC = () => {
     <section className="py-16 lg:py-24 bg-white border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center mb-10">
-            <span className="text-star-blue font-bold uppercase tracking-widest text-[10px] lg:text-xs mb-2 block">
-                <i className="fas fa-map-marker-alt mr-2"></i>
-                Service Areas
-            </span>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 font-heading">
-                Proudly Serving Charleston, Summerville & The Lowcountry
+        <div className="text-center mb-10 lg:mb-14">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-px bg-star-blue"></span>
+              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Service Areas</span>
+              <span className="w-8 h-px bg-star-blue"></span>
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-slate-900 tracking-tight leading-[1.15]">
+                Proudly Serving <span className="text-star-blue">Charleston, Summerville &amp; The Lowcountry.</span>
             </h2>
         </div>
 

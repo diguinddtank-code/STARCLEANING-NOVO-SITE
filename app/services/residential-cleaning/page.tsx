@@ -82,20 +82,21 @@ export default function ResidentialCleaning() {
 
             {/* Content */}
             <div className="order-2 lg:order-1">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gray-50 border border-gray-200 text-gray-600 mb-4 font-bold text-xs uppercase tracking-widest">
-                <Star className="w-3.5 h-3.5 text-star-blue fill-star-blue" />
-                Top-Rated Residential Cleaning
+              <div className="flex items-center gap-3 mb-4">
+                <span className="w-8 h-px bg-star-blue"></span>
+                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">
+                  Top-Rated Residential Cleaning
+                </span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl font-black text-gray-900 font-heading leading-tight">
+              <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium text-slate-900 tracking-tight leading-[1.15]">
                 Top-Rated<br />
-                <span className="text-star-blue">Residential Cleaning</span>
+                <span className="text-star-blue">Residential Cleaning.</span>
               </h1>
-              <div className="w-12 h-1 bg-star-blue rounded-full my-4"></div>
 
-              <div className="text-gray-600 text-base leading-relaxed space-y-3">
+              <div className="text-slate-600 text-base sm:text-lg leading-relaxed space-y-3 mt-4">
                 <p>
-                  <strong className="text-gray-900 font-bold">Reclaim your weekends.</strong>{' '}
+                  <strong className="text-slate-900 font-bold">Reclaim your weekends.</strong>{' '}
                   Experience the relief of coming home to a spotless sanctuary. Our veteran-owned team delivers military-precision house cleaning with pet-safe products, serving Charleston, SC and the surrounding Lowcountry.
                 </p>
               </div>
@@ -168,8 +169,13 @@ export default function ResidentialCleaning() {
         {/* WHAT'S INCLUDED */}
         <div className="mb-20">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">What's Included in Our Residential Cleaning</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">Our standard house cleaning service is designed to maintain your home's hygiene and appearance on a regular basis. Here is exactly what our team tackles during a visit:</p>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-px bg-star-blue"></span>
+              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Full Transparency</span>
+              <span className="w-8 h-px bg-star-blue"></span>
+            </div>
+            <h2 className="font-serif text-3xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">What&apos;s Included in Our <span className="text-star-blue">Residential Cleaning.</span></h2>
+            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">Our standard house cleaning service is designed to maintain your home's hygiene and appearance on a regular basis. Here is exactly what our team tackles during a visit:</p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -226,27 +232,41 @@ export default function ResidentialCleaning() {
         </div>
 
         {/* WHO IS THIS SERVICE FOR? */}
-        <h2 className="text-3xl font-bold text-slate-900 mb-8">Who Benefits Most from Regular House Cleaning?</h2>
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-            <h3 className="font-bold text-lg text-slate-900 mb-3">The Overworked Professional or Busy Family</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">If you are juggling a demanding career, kids' sports practices, and social obligations, the last thing you want to do on a Saturday morning is scrub a shower. Our recurring residential cleaning service is designed to take the mental load of household chores completely off your plate. You get to come home to a pristine environment without lifting a finger.</p>
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-px bg-star-blue"></span>
+              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Tailored For You</span>
+              <span className="w-8 h-px bg-star-blue"></span>
+            </div>
+            <h2 className="font-serif text-3xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">Who Benefits Most from <span className="text-star-blue">Regular House Cleaning?</span></h2>
           </div>
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-            <h3 className="font-bold text-lg text-slate-900 mb-3">Seniors and Individuals with Limited Mobility</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">Maintaining a home requires a lot of bending, reaching, and heavy lifting that can become difficult or unsafe over time. We provide a trustworthy, compassionate service for elderly residents or those recovering from surgery. Our team ensures the home remains a safe, sanitary, and comfortable place to live, giving both the resident and their family total peace of mind.</p>
-          </div>
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-            <h3 className="font-bold text-lg text-slate-900 mb-3">The Pet Owner Fighting a Losing Battle Against Fur</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">We love our dogs and cats, but keeping up with the constant shedding, dander, and muddy paw prints is exhausting. Our team uses specialized vacuums and techniques to capture pet hair from floors and furniture. Because we strictly use pet-safe, non-toxic cleaning products, you never have to worry about harsh chemicals harming your furry best friends.</p>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+              <h3 className="font-bold text-lg text-slate-900 mb-3">The Overworked Professional or Busy Family</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">If you are juggling a demanding career, kids' sports practices, and social obligations, the last thing you want to do on a Saturday morning is scrub a shower. Our recurring residential cleaning service is designed to take the mental load of household chores completely off your plate. You get to come home to a pristine environment without lifting a finger.</p>
+            </div>
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+              <h3 className="font-bold text-lg text-slate-900 mb-3">Seniors and Individuals with Limited Mobility</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">Maintaining a home requires a lot of bending, reaching, and heavy lifting that can become difficult or unsafe over time. We provide a trustworthy, compassionate service for elderly residents or those recovering from surgery. Our team ensures the home remains a safe, sanitary, and comfortable place to live, giving both the resident and their family total peace of mind.</p>
+            </div>
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+              <h3 className="font-bold text-lg text-slate-900 mb-3">The Pet Owner Fighting a Losing Battle Against Fur</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">We love our dogs and cats, but keeping up with the constant shedding, dander, and muddy paw prints is exhausting. Our team uses specialized vacuums and techniques to capture pet hair from floors and furniture. Because we strictly use pet-safe, non-toxic cleaning products, you never have to worry about harsh chemicals harming your furry best friends.</p>
+            </div>
           </div>
         </div>
 
         {/* HOW IT WORKS */}
         <div className="mb-20">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Our Simple 3-Step Process</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">A simple, transparent process to get your home back to its best.</p>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-px bg-star-blue"></span>
+              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">How It Works</span>
+              <span className="w-8 h-px bg-star-blue"></span>
+            </div>
+            <h2 className="font-serif text-3xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">Our Simple <span className="text-star-blue">3-Step Process.</span></h2>
+            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">A simple, transparent process to get your home back to its best.</p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8 relative">
@@ -283,8 +303,12 @@ export default function ResidentialCleaning() {
         </div>
 
         {/* PRICING TRANSPARENCY BLOCK */}
-        <div className="bg-slate-900 text-white rounded-2xl p-8 md:p-10 mb-16">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">How Much Does Residential Cleaning Cost in Charleston, SC?</h2>
+        <div className="bg-slate-900 text-white rounded-3xl p-8 md:p-12 mb-16">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="w-8 h-px bg-yellow-400"></span>
+            <span className="text-yellow-300 font-bold uppercase tracking-[0.2em] text-xs">Transparent Pricing</span>
+          </div>
+          <h2 className="font-serif text-2xl md:text-4xl font-medium mb-4 text-white tracking-tight leading-[1.15]">How Much Does Residential Cleaning Cost in <span className="text-yellow-300">Charleston, SC?</span></h2>
           <p className="text-slate-300 leading-relaxed mb-6">
             We believe in straightforward pricing without hidden fees. The cost of regular house cleaning depends on a few key variables: the total square footage of your home, the number of bedrooms and bathrooms, the presence of indoor pets, and how often you want us to visit. Generally, weekly or bi-weekly cleanings offer a lower per-visit rate compared to monthly cleanings, as the home requires less intensive scrubbing to maintain. Because every home is unique, we don't use a one-size-fits-all price tag.
           </p>
@@ -298,11 +322,12 @@ export default function ResidentialCleaning() {
           <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
           
           <div className="relative z-10 max-w-3xl mb-12">
-            <span className="text-blue-400 font-bold uppercase tracking-wider text-xs mb-3 block flex items-center gap-2">
-              <MapPin className="w-4 h-4 shrink-0" /> Service Coverage Map
-            </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4 font-heading">
-              Serving All of Charleston & The Lowcountry
+            <div className="flex items-center gap-3 mb-4">
+              <span className="w-8 h-px bg-star-blue"></span>
+              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Service Coverage</span>
+            </div>
+            <h2 className="font-serif text-3xl md:text-5xl font-medium text-white tracking-tight mb-4 leading-[1.15]">
+              Serving All of Charleston &amp; <span className="text-star-blue">The Lowcountry.</span>
             </h2>
             <p className="text-slate-300 text-base md:text-lg leading-relaxed">
               We proudly bring our elite, veteran-owned residential cleaning services directly to your doorstep. Choose your neighborhood below to connect with our local precision teams:
@@ -337,54 +362,72 @@ export default function ResidentialCleaning() {
         </div>
 
         {/* FAQ SECTION */}
-        <h2 className="text-3xl font-bold text-slate-900 mb-8">Frequently Asked Questions</h2>
-        <div className="space-y-6 mb-16">
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-            <h3 className="font-bold text-lg text-slate-900 mb-2">Q: Do I need to be home during the residential cleaning?</h3>
-            <p className="text-slate-600">A: Not at all! Most of our clients provide us with a spare key, garage code, or lockbox access. You can go to work or run errands and return to a beautifully clean house.</p>
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-px bg-star-blue"></span>
+              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Got Questions?</span>
+              <span className="w-8 h-px bg-star-blue"></span>
+            </div>
+            <h2 className="font-serif text-3xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">Frequently Asked <span className="text-star-blue">Questions.</span></h2>
           </div>
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-            <h3 className="font-bold text-lg text-slate-900 mb-2">Q: Do you bring your own cleaning supplies and equipment?</h3>
-            <p className="text-slate-600">A: Yes, we arrive fully equipped with our own high-quality vacuums, microfiber cloths, and eco-friendly, pet-safe cleaning solutions. You don't need to provide a thing.</p>
-          </div>
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-            <h3 className="font-bold text-lg text-slate-900 mb-2">Q: What if I have dogs or cats in the house?</h3>
-            <p className="text-slate-600">A: We are very pet-friendly! Just let us know in advance if you have pets and if they will be roaming free or crated. We always use non-toxic products that are completely safe for animals.</p>
-          </div>
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-            <h3 className="font-bold text-lg text-slate-900 mb-2">Q: How do I find the best residential cleaning in Summerville?</h3>
-            <p className="text-slate-600">A: Look for a company with verified reviews, background-checked employees, and a satisfaction guarantee. As a veteran-owned business, Star Cleaning SC brings unmatched discipline and reliability to every Summerville home we clean.</p>
-          </div>
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-            <h3 className="font-bold text-lg text-slate-900 mb-2">Q: Can I request specific tasks for my house cleaning in James Island?</h3>
-            <p className="text-slate-600">A: Absolutely. While we have a comprehensive standard checklist, we are happy to customize your service. Just communicate your priorities when booking your James Island cleaning, and we will accommodate them.</p>
+          <div className="space-y-6">
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+              <h3 className="font-bold text-lg text-slate-900 mb-2">Q: Do I need to be home during the residential cleaning?</h3>
+              <p className="text-slate-600">A: Not at all! Most of our clients provide us with a spare key, garage code, or lockbox access. You can go to work or run errands and return to a beautifully clean house.</p>
+            </div>
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+              <h3 className="font-bold text-lg text-slate-900 mb-2">Q: Do you bring your own cleaning supplies and equipment?</h3>
+              <p className="text-slate-600">A: Yes, we arrive fully equipped with our own high-quality vacuums, microfiber cloths, and eco-friendly, pet-safe cleaning solutions. You don't need to provide a thing.</p>
+            </div>
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+              <h3 className="font-bold text-lg text-slate-900 mb-2">Q: What if I have dogs or cats in the house?</h3>
+              <p className="text-slate-600">A: We are very pet-friendly! Just let us know in advance if you have pets and if they will be roaming free or crated. We always use non-toxic products that are completely safe for animals.</p>
+            </div>
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+              <h3 className="font-bold text-lg text-slate-900 mb-2">Q: How do I find the best residential cleaning in Summerville?</h3>
+              <p className="text-slate-600">A: Look for a company with verified reviews, background-checked employees, and a satisfaction guarantee. As a veteran-owned business, Star Cleaning SC brings unmatched discipline and reliability to every Summerville home we clean.</p>
+            </div>
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+              <h3 className="font-bold text-lg text-slate-900 mb-2">Q: Can I request specific tasks for my house cleaning in James Island?</h3>
+              <p className="text-slate-600">A: Absolutely. While we have a comprehensive standard checklist, we are happy to customize your service. Just communicate your priorities when booking your James Island cleaning, and we will accommodate them.</p>
+            </div>
           </div>
         </div>
 
         {/* SOCIAL PROOF BLOCK */}
-        <h2 className="text-3xl font-bold text-slate-900 mb-8">What Our Clients Say</h2>
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
-          <ReviewCard
-            theme="light"
-            variant="grid"
-            text="Star Cleaning SC has been a lifesaver for our family. With two toddlers and a golden retriever, our house in Summerville was always chaotic. Their residential cleaning service is incredibly thorough, and I love that they use pet-safe products. Highly recommend!"
-            author="Sarah M."
-            location="Summerville"
-          />
-          <ReviewCard
-            theme="light"
-            variant="grid"
-            text="I've hired several maid services in Charleston over the years, but none compare to the military precision of this veteran-owned team. They show up exactly when they say they will and leave my apartment spotless every single time."
-            author="David T."
-            location="Charleston"
-          />
-          <ReviewCard
-            theme="light"
-            variant="grid"
-            text="The best house cleaning I've ever had. They pay attention to the little details that other companies miss. Coming home to a clean house in James Island after a long week at work is the best feeling in the world."
-            author="Emily R."
-            location="James Island"
-          />
+        <div className="mb-16">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-px bg-star-blue"></span>
+              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Customer Satisfaction</span>
+              <span className="w-8 h-px bg-star-blue"></span>
+            </div>
+            <h2 className="font-serif text-3xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">What Our <span className="text-star-blue">Clients Say.</span></h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6 mb-16">
+            <ReviewCard
+              theme="light"
+              variant="grid"
+              text="Star Cleaning SC has been a lifesaver for our family. With two toddlers and a golden retriever, our house in Summerville was always chaotic. Their residential cleaning service is incredibly thorough, and I love that they use pet-safe products. Highly recommend!"
+              author="Sarah M."
+              location="Summerville"
+            />
+            <ReviewCard
+              theme="light"
+              variant="grid"
+              text="I've hired several maid services in Charleston over the years, but none compare to the military precision of this veteran-owned team. They show up exactly when they say they will and leave my apartment spotless every single time."
+              author="David T."
+              location="Charleston"
+            />
+            <ReviewCard
+              theme="light"
+              variant="grid"
+              text="The best house cleaning I've ever had. They pay attention to the little details that other companies miss. Coming home to a clean house in James Island after a long week at work is the best feeling in the world."
+              author="Emily R."
+              location="James Island"
+            />
+          </div>
         </div>
 
         {/* CLOSING CTA SECTION */}

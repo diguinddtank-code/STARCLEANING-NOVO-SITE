@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat, Open_Sans, Dancing_Script } from "next/font/google";
+import { Montserrat, Open_Sans, Dancing_Script, Playfair_Display } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
@@ -18,6 +18,13 @@ const openSans = Open_Sans({
 const dancingScript = Dancing_Script({
   subsets: ["latin"],
   variable: "--font-dancing-script",
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-playfair",
   display: "swap",
 });
 
@@ -119,7 +126,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${montserrat.variable} ${openSans.variable} ${dancingScript.variable}`}>
+    <html lang="en" className={`${montserrat.variable} ${openSans.variable} ${dancingScript.variable} ${playfair.variable}`}>
       <head>
         {/* Google Tag Manager */}
         <script

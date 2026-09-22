@@ -93,9 +93,13 @@ export default function CareersClient() {
               
             {/* Left Content (Text) */}
             <div className="lg:col-span-5 text-center lg:text-left">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-2 font-heading tracking-tight leading-tight drop-shadow-lg">
+              <div className="flex items-center justify-center lg:justify-start gap-3 mb-4">
+                <span className="w-8 h-px bg-yellow-400"></span>
+                <span className="text-yellow-300 font-bold uppercase tracking-[0.2em] text-xs">Join Our Team</span>
+              </div>
+              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-medium text-white mb-2 tracking-tight leading-[1.15] drop-shadow-lg">
                   {t.workWith} <br className="hidden sm:block" />
-                  <span className="text-[#89CFF0]">Star Cleaning.</span>
+                  <span className="text-yellow-300">Star Cleaning.</span>
               </h1>
               <p className="text-lg md:text-xl text-slate-200 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium mb-6 mt-2">
                   {t.subtitle}
@@ -156,7 +160,12 @@ export default function CareersClient() {
       <section className="py-16 md:py-24 bg-gray-50">
           <div className="container mx-auto px-4 max-w-6xl">
               <div className="text-center mb-12 md:mb-16">
-                  <h2 className="text-3xl md:text-5xl font-black text-gray-900 tracking-tight">{t.whyWork}</h2>
+                  <div className="flex items-center justify-center gap-3 mb-4">
+                    <span className="w-8 h-px bg-star-blue"></span>
+                    <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Perks &amp; Culture</span>
+                    <span className="w-8 h-px bg-star-blue"></span>
+                  </div>
+                  <h2 className="font-serif text-3xl md:text-5xl font-medium text-slate-900 tracking-tight leading-[1.15]">{t.whyWork}</h2>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">

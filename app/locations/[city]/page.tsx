@@ -68,45 +68,50 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-900 text-white">
-        {/* Background elements */}
-        <div className="absolute inset-0 z-0">
+      <section className="relative pt-14 sm:pt-16 pb-16 lg:pt-24 lg:pb-28 overflow-hidden bg-[#0A192F] text-white">
+        {/* Background elements with rich depth and ambient light */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
             src="/images/hero-background.jpg"
             alt="Cleaning products laid out on a wooden surface"
             fill
-            className="object-cover opacity-10"
+            priority
+            className="object-cover opacity-20 mix-blend-luminosity"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/95 to-slate-900/40" />
+          {/* Subtle multi-layer gradient with Lowcountry deep navy, ocean tint, and vignette */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A192F]/85 via-[#0D2447]/80 to-[#0A192F]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(14,165,233,0.18),transparent_70%)]" />
+          <div className="absolute -top-32 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 left-0 w-96 h-96 bg-star-blue/10 rounded-full blur-3xl pointer-events-none" />
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
           <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
             {/* Left Content */}
             <div className="lg:w-1/2 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-400/20 backdrop-blur-sm mb-6">
-                <MapPin className="w-4 h-4 text-blue-400" />
-                <span className="text-sm font-semibold text-blue-200 uppercase tracking-wider">Serving {data.name}, SC</span>
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-star-blue/15 border border-star-blue/30 backdrop-blur-md mb-6 shadow-sm">
+                <MapPin className="w-3.5 h-3.5 text-blue-300" />
+                <span className="text-xs font-bold text-blue-200 uppercase tracking-widest">Serving {data.name}, SC</span>
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-[1.1] tracking-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-[1.1] tracking-tight text-white drop-shadow-sm">
                 {data.hero.h1}
               </h1>
               
-              <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl text-slate-200/90 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
                 {data.hero.subtitle}
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link 
                   href="#book-now" 
-                  className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2"
+                  className="px-8 py-4 bg-star-blue hover:bg-star-dark text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 text-base hover:-translate-y-0.5"
                 >
                   Get a Free Quote
                 </Link>
                 <a 
                   href="tel:+18432979935" 
-                  className="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-bold transition-all backdrop-blur-sm flex items-center justify-center gap-2"
+                  className="px-8 py-4 bg-white/10 hover:bg-white/15 border border-white/20 text-white rounded-xl font-bold transition-all backdrop-blur-md flex items-center justify-center gap-2 text-base hover:-translate-y-0.5"
                 >
                   (843) 297-9935
                 </a>
@@ -141,34 +146,34 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
             <div className="lg:w-1/2 relative hidden md:block">
               <div className="relative w-full aspect-square max-w-lg mx-auto">
                 {/* Main Image */}
-                <div className="absolute inset-0 rounded-[2rem] overflow-hidden border-8 border-slate-900/50 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                <div className="absolute inset-0 rounded-[2rem] overflow-hidden border border-white/15 shadow-2xl shadow-black/50 transform rotate-2 hover:rotate-0 transition-transform duration-500">
                   <Image 
                     src="/images/residential.png"
                     alt={`Star Cleaning SC team members cleaning a home in ${data.name}`}
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A192F]/90 via-transparent to-transparent" />
                   <div className="absolute bottom-6 left-6 right-6">
-                    <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 flex items-center gap-4">
-                      <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <div className="bg-slate-900/60 backdrop-blur-md border border-white/20 rounded-2xl p-4 flex items-center gap-4 shadow-xl">
+                      <div className="w-12 h-12 bg-star-blue rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
                         <CheckCircle2 className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <p className="text-white font-bold">Spotless Guarantee</p>
-                        <p className="text-blue-200 text-sm">100% satisfaction on every clean</p>
+                        <p className="text-white font-bold tracking-tight">Spotless Guarantee</p>
+                        <p className="text-slate-300 text-xs sm:text-sm">100% satisfaction on every clean</p>
                       </div>
                     </div>
                   </div>
                 </div>
                 
                 {/* Floating Badge */}
-                <div className="absolute -top-6 -right-6 bg-white text-slate-900 rounded-2xl p-4 shadow-xl transform -rotate-6">
+                <div className="absolute -top-4 -right-4 bg-white/95 backdrop-blur-md text-slate-900 rounded-2xl p-4 shadow-2xl border border-white transform -rotate-3 hover:rotate-0 transition-transform">
                   <div className="flex items-center gap-2 mb-1">
-                    <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
-                    <span className="font-bold">Top Rated</span>
+                    <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                    <span className="font-bold text-sm tracking-tight">Top Rated Maid Service</span>
                   </div>
-                  <p className="text-sm text-slate-500 font-medium">in {data.name}</p>
+                  <p className="text-xs text-slate-600 font-medium">in {data.name}, SC</p>
                 </div>
               </div>
             </div>
@@ -198,20 +203,21 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
 
             {/* Content */}
             <div>
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gray-50 border border-gray-200 text-gray-600 mb-4 font-bold text-xs uppercase tracking-widest">
-                  <Star className="w-3.5 h-3.5 text-star-blue fill-star-blue" />
-                  Top-Rated in {data.name}
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="w-8 h-px bg-star-blue"></span>
+                  <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">
+                    Top-Rated in {data.name}
+                  </span>
                 </div>
 
-                <h2 className="text-3xl sm:text-4xl font-black text-gray-900 font-heading leading-tight">
+                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium text-slate-900 tracking-tight leading-[1.15]">
                   Trusted House Cleaning<br />
-                  in <span className="text-star-blue">{data.name}, SC</span>
+                  in <span className="text-star-blue">{data.name}, SC.</span>
                 </h2>
-                <div className="w-12 h-1 bg-star-blue rounded-full my-4"></div>
 
-                <div className="text-gray-600 text-base leading-relaxed space-y-3">
+                <div className="text-slate-600 text-base sm:text-lg leading-relaxed space-y-3 mt-4">
                   <p>
-                    <strong className="text-gray-900 font-bold">Life gets busy. Let us handle the cleaning.</strong>{' '}
+                    <strong className="text-slate-900 font-bold">Life gets busy. Let us handle the cleaning.</strong>{' '}
                     {renderIntro(data.intro, '/services/residential-cleaning')}
                   </p>
                 </div>
@@ -270,8 +276,13 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
       <section className="py-20 bg-slate-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Our Cleaning Services in {data.name}</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">Comprehensive cleaning solutions tailored to your home's unique needs.</p>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-px bg-star-blue"></span>
+              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Our Capabilities</span>
+              <span className="w-8 h-px bg-star-blue"></span>
+            </div>
+            <h2 className="font-serif text-3xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">Our Cleaning Services in <span className="text-star-blue">{data.name}.</span></h2>
+            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">Comprehensive cleaning solutions tailored to your home's unique needs.</p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -316,8 +327,13 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
         <div className="absolute inset-0 z-0 opacity-10 bg-[url('/images/deep-cleaning.webp')] bg-cover bg-center" />
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Star Cleaning SC in {data.name}?</h2>
-            <p className="text-blue-100 text-lg max-w-2xl mx-auto">Veteran-owned, military precision, and a commitment to your complete satisfaction.</p>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-px bg-yellow-400"></span>
+              <span className="text-yellow-300 font-bold uppercase tracking-[0.2em] text-xs">The Star Standard</span>
+              <span className="w-8 h-px bg-yellow-400"></span>
+            </div>
+            <h2 className="font-serif text-3xl md:text-5xl font-medium mb-4 text-white tracking-tight leading-[1.15]">Why Choose Star Cleaning SC in <span className="text-yellow-300">{data.name}?</span></h2>
+            <p className="text-blue-100 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">Veteran-owned, military precision, and a commitment to your complete satisfaction.</p>
           </div>
           
           <div className="grid md:grid-cols-2 gap-8">
@@ -340,8 +356,13 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
       <section className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">What's Included in Your Clean?</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">Transparent checklists so you know exactly what to expect.</p>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-px bg-star-blue"></span>
+              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Service Checklists</span>
+              <span className="w-8 h-px bg-star-blue"></span>
+            </div>
+            <h2 className="font-serif text-3xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">What&apos;s Included in Your Clean?</h2>
+            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">Transparent checklists so you know exactly what to expect.</p>
           </div>
           
           <div className="grid md:grid-cols-2 gap-12">
@@ -398,7 +419,12 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
       <section className="py-20 bg-slate-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Trusted by {data.name} Residents</h2>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-px bg-star-blue"></span>
+              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Customer Satisfaction</span>
+              <span className="w-8 h-px bg-star-blue"></span>
+            </div>
+            <h2 className="font-serif text-3xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">Trusted by <span className="text-star-blue">{data.name} Residents.</span></h2>
             <div className="flex justify-center gap-1 mb-4">
               {[1, 2, 3, 4, 5].map((star) => (
                 <Star key={star} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
@@ -426,8 +452,13 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
       <section id="book-now" className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Book Your {data.name} Cleaning</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">Get a free, instant quote and schedule your cleaning online in under 60 seconds.</p>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-px bg-star-blue"></span>
+              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Free Instant Estimate</span>
+              <span className="w-8 h-px bg-star-blue"></span>
+            </div>
+            <h2 className="font-serif text-3xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">Book Your <span className="text-star-blue">{data.name} Cleaning.</span></h2>
+            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">Get a free, instant quote and schedule your cleaning online in under 60 seconds.</p>
           </div>
           <BookingForm showPricing={false} />
         </div>
@@ -437,8 +468,13 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
       <section className="py-20 bg-slate-50">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
-            <p className="text-lg text-slate-600">Everything you need to know about our {data.name} cleaning services.</p>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-px bg-star-blue"></span>
+              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Got Questions?</span>
+              <span className="w-8 h-px bg-star-blue"></span>
+            </div>
+            <h2 className="font-serif text-3xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">Frequently Asked <span className="text-star-blue">Questions.</span></h2>
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed">Everything you need to know about our {data.name} cleaning services.</p>
           </div>
           
           <div className="space-y-6">
