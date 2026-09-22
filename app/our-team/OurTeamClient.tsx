@@ -169,14 +169,14 @@ export default function OurTeamClient() {
           {/* Desktop & Tablet-Landscape */}
           <div className="hidden lg:block relative h-[580px] xl:h-[620px] overflow-hidden">
             
-            {/* Foto posicionada no lado direito em container proporcional para NÃO dar zoom excessivo */}
-            <div className="absolute top-0 right-0 bottom-0 w-[55%] xl:w-[58%] overflow-hidden bg-slate-100">
+            {/* Foto posicionada no lado direito em container que se estende sob a curva SVG eliminando qualquer corte reto */}
+            <div className="absolute inset-y-0 right-0 w-[70%] xl:w-[72%] overflow-hidden bg-slate-100">
               <Image
                 src="/images/team2.png"
                 alt="Star Cleaning SC team making a bed with precision"
                 fill
                 priority
-                className="object-cover object-[center_center]"
+                className="object-cover object-[right_center]"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/5 via-transparent to-black/15 pointer-events-none" />
               
@@ -188,7 +188,7 @@ export default function OurTeamClient() {
               </p>
             </div>
 
-            {/* Curva 2: Inicia perfeitamente alinhada em L420 (continuação da Sec 1) e flui suave até L460 */}
+            {/* Curva 2: Inicia perfeitamente alinhada em L420 (continuação da Sec 1) e flui suave e ondulada até L460 */}
             <svg
               className="absolute inset-0 w-full h-full z-10 pointer-events-none"
               viewBox="0 0 1000 620"
@@ -295,14 +295,14 @@ export default function OurTeamClient() {
           {/* Desktop & Tablet-Landscape */}
           <div className="hidden lg:block relative h-[580px] xl:h-[620px] overflow-hidden">
             
-            {/* Foto da Sala de Jantar proporcional no lado direito (55% da tela) para mostrar as duas colaboradoras com perfeição */}
-            <div className="absolute top-0 right-0 bottom-0 w-[55%] xl:w-[58%] overflow-hidden bg-slate-100">
+            {/* Foto da Sala de Jantar no lado direito em container amplo sob a curva SVG */}
+            <div className="absolute inset-y-0 right-0 w-[70%] xl:w-[72%] overflow-hidden bg-slate-100">
               <Image
                 src="/images/team3.png"
                 alt="Star Cleaning SC team cleaning a dining room"
                 fill
                 priority
-                className="object-cover object-[center_center]"
+                className="object-cover object-[right_center]"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/5 via-transparent to-black/20 pointer-events-none" />
               

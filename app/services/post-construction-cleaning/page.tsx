@@ -7,7 +7,7 @@ import ReviewCard from '@/components/ReviewCard';
 import OwnerMessage from '@/components/OwnerMessage';
 import CleaningForAReason from '@/components/CleaningForAReason';
 import ServiceAreas from '@/components/ServiceAreas';
-import { CheckCircle2, MapPin, Star, ShieldCheck, ThumbsUp, Leaf, ArrowRight, HardHat, Hammer, Home, Building2 } from 'lucide-react';
+import { CheckCircle2, MapPin, Star, ShieldCheck, ThumbsUp, Leaf, ArrowRight, HardHat, Hammer, Home, Building2, Phone } from 'lucide-react';
 
 export const metadata = {
   title: 'Post-Construction Cleaning Services in Charleston, SC | Star Cleaning SC',
@@ -122,18 +122,20 @@ export default function PostConstructionCleaningPage() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-6">
+              <div className="flex flex-row items-center gap-3 sm:gap-4 mt-6">
                 <Link
                   href="/#quote"
-                  className="inline-flex items-center gap-2 bg-star-blue hover:bg-star-dark text-white px-6 py-3 rounded-full font-bold text-sm shadow-lg shadow-blue-200 transition-all transform hover:-translate-y-0.5"
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-star-blue hover:bg-star-dark text-white px-4 sm:px-6 py-3 rounded-full font-bold text-xs sm:text-sm shadow-md shadow-blue-200 transition-all transform hover:-translate-y-0.5 whitespace-nowrap text-center"
                 >
-                  Get a Free Estimate <ArrowRight className="w-4 h-4" />
+                  <span>Get a Free Estimate</span>
+                  <ArrowRight className="w-4 h-4 shrink-0" />
                 </Link>
                 <a
                   href="tel:+18432979935"
-                  className="text-gray-700 font-bold text-sm border-b-2 border-star-blue hover:text-star-blue transition-colors inline-flex items-center gap-1.5"
+                  className="inline-flex items-center justify-center gap-1.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 px-4 sm:px-5 py-3 rounded-full font-bold text-xs sm:text-sm transition-colors shadow-xs hover:border-star-blue/30 whitespace-nowrap text-center shrink-0"
                 >
-                  (843) 297-9935
+                  <Phone className="w-3.5 h-3.5 text-star-blue shrink-0" />
+                  <span>(843) 297-9935</span>
                 </a>
               </div>
             </div>

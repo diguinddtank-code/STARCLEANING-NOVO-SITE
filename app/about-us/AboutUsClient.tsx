@@ -22,6 +22,7 @@ import {
   Heart,
   Calendar,
   CheckCircle2,
+  Phone,
 } from 'lucide-react';
 
 const serviceAreas = [
@@ -72,18 +73,20 @@ export default function AboutUsClient() {
                     We are a veteran-owned, independently run residential cleaning service based in Summerville, South Carolina. We are not a franchise, an app, or a call center. When you call, you speak to us. When we clean, our own trained, background-checked team comes through the door.
                   </p>
 
-                  <div className="flex flex-wrap items-center gap-4">
+                  <div className="flex flex-row items-center gap-3 sm:gap-4">
                     <Link
                       href="/quote"
-                      className="inline-flex items-center gap-2 bg-star-blue hover:bg-star-dark text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all transform hover:-translate-y-0.5 shadow-md shadow-star-blue/25"
+                      className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-star-blue hover:bg-star-dark text-white px-4 sm:px-7 py-3 sm:py-3.5 rounded-full font-semibold text-xs sm:text-sm transition-all transform hover:-translate-y-0.5 shadow-md shadow-star-blue/25 whitespace-nowrap text-center"
                     >
-                      Get a Free Quote <ArrowRight className="w-4 h-4" />
+                      <span>Get a Free Quote</span>
+                      <ArrowRight className="w-4 h-4 shrink-0" />
                     </Link>
                     <a
                       href="tel:+18432979935"
-                      className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-900 border border-slate-200 px-6 py-3.5 rounded-full font-semibold text-sm transition-colors shadow-sm"
+                      className="inline-flex items-center justify-center gap-1.5 bg-white hover:bg-slate-50 text-slate-900 border border-slate-200 px-3.5 sm:px-6 py-3 sm:py-3.5 rounded-full font-semibold text-xs sm:text-sm transition-colors shadow-xs hover:border-star-blue/30 whitespace-nowrap text-center shrink-0"
                     >
-                      (843) 297-9935
+                      <Phone className="w-3.5 h-3.5 text-star-blue shrink-0" />
+                      <span>(843) 297-9935</span>
                     </a>
                   </div>
                 </ScrollReveal>
