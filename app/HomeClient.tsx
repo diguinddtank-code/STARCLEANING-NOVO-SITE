@@ -53,37 +53,29 @@ const Home = () => {
         
         <TrustBar />
         
-        <ScrollReveal direction="up">
+        <ScrollReveal direction="up" delay={50}>
           <OwnerMessage />
         </ScrollReveal>
 
-        <ScrollReveal direction="up">
-          <CleaningForAReason />
-        </ScrollReveal>
+        <CleaningForAReason />
 
-        <ScrollReveal direction="up">
-          <TeamPreview />
-        </ScrollReveal>
+        <TeamPreview />
 
         <Services />
         
-        <ScrollReveal direction="left">
+        <ScrollReveal direction="up" delay={50}>
           <BeforeAfter />
         </ScrollReveal>
         
-        <ScrollReveal direction="up">
-          <Testimonials />
-        </ScrollReveal>
+        <Testimonials />
         
-        <ScrollReveal direction="up">
-          <FAQ />
-        </ScrollReveal>
+        <FAQ />
 
-        <ScrollReveal direction="up">
+        <ScrollReveal direction="up" delay={50}>
           <ServiceAreas />
         </ScrollReveal>
         
-        <ScrollReveal direction="up" id="quote">
+        <ScrollReveal direction="up" id="quote" delay={50}>
           <section className="py-20 lg:py-28 bg-slate-50">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-12">

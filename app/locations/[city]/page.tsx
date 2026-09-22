@@ -7,9 +7,10 @@ import ReviewCard from '@/components/ReviewCard';
 import OwnerMessage from '@/components/OwnerMessage';
 import CleaningForAReason from '@/components/CleaningForAReason';
 import ServiceAreas from '@/components/ServiceAreas';
+import ScrollReveal from '@/components/ScrollReveal';
 import Link from 'next/link';
 import Image from 'next/image';
-import { CheckCircle2, Star, ShieldCheck, Clock, MapPin, Leaf, Home as HomeIcon } from 'lucide-react';
+import { CheckCircle2, Star, ShieldCheck, Clock, MapPin, Leaf, Home as HomeIcon, ArrowRight } from 'lucide-react';
 
 export function generateStaticParams() {
   return Object.keys(locationsData).map((city) => ({
@@ -57,152 +58,177 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
             </Link>
           );
         }
-        return <strong key={i} className="text-blue-900">{label}</strong>;
+        return <strong key={i} className="text-slate-900">{label}</strong>;
       }
       return part;
     });
   };
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-white font-sans selection:bg-star-blue/10 selection:text-star-blue">
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative pt-14 sm:pt-16 pb-16 lg:pt-24 lg:pb-28 overflow-hidden bg-[#0A192F] text-white">
-        {/* Background elements with rich depth and ambient light */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <Image
-            src="/images/hero-background.jpg"
-            alt="Cleaning products laid out on a wooden surface"
-            fill
-            priority
-            className="object-cover opacity-20 mix-blend-luminosity"
-          />
-          {/* Subtle multi-layer gradient with Lowcountry deep navy, ocean tint, and vignette */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0A192F]/85 via-[#0D2447]/80 to-[#0A192F]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(14,165,233,0.18),transparent_70%)]" />
-          <div className="absolute -top-32 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 left-0 w-96 h-96 bg-star-blue/10 rounded-full blur-3xl pointer-events-none" />
+      {/* =========================================================================
+          HERO SECTION: Warm Editorial Light Layout aligned with Brand
+         ========================================================================= */}
+      <section className="relative py-14 sm:py-18 lg:py-24 bg-[#FAF9F7] border-b border-slate-100 overflow-hidden">
+        {/* Subtle Ambient Background */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute -top-24 right-10 w-96 h-96 bg-blue-50/60 rounded-full blur-3xl mix-blend-multiply" />
+          <div className="absolute -bottom-24 left-10 w-96 h-96 bg-amber-50/80 rounded-full blur-3xl mix-blend-multiply" />
         </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-          <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
-            {/* Left Content */}
-            <div className="lg:w-1/2 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-star-blue/15 border border-star-blue/30 backdrop-blur-md mb-6 shadow-sm">
-                <MapPin className="w-3.5 h-3.5 text-blue-300" />
-                <span className="text-xs font-bold text-blue-200 uppercase tracking-widest">Serving {data.name}, SC</span>
-              </div>
-              
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-[1.1] tracking-tight text-white drop-shadow-sm">
-                {data.hero.h1}
-              </h1>
-              
-              <p className="text-base sm:text-lg md:text-xl text-slate-200/90 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
-                {data.hero.subtitle}
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Link 
-                  href="#book-now" 
-                  className="px-8 py-4 bg-star-blue hover:bg-star-dark text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 text-base hover:-translate-y-0.5"
-                >
-                  Get a Free Quote
-                </Link>
-                <a 
-                  href="tel:+18432979935" 
-                  className="px-8 py-4 bg-white/10 hover:bg-white/15 border border-white/20 text-white rounded-xl font-bold transition-all backdrop-blur-md flex items-center justify-center gap-2 text-base hover:-translate-y-0.5"
-                >
-                  (843) 297-9935
-                </a>
-              </div>
-              
-              {/* Trust Indicators */}
-              <div className="mt-10 pt-10 border-t border-white/10 flex flex-wrap justify-center lg:justify-start gap-6 lg:gap-10">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm">
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-                    </svg>
-                  </div>
-                  <div className="text-sm text-left">
-                    <div className="flex text-yellow-400 text-xs">
-                      <Star className="w-3 h-3 fill-current" /><Star className="w-3 h-3 fill-current" /><Star className="w-3 h-3 fill-current" /><Star className="w-3 h-3 fill-current" /><Star className="w-3 h-3 fill-current" />
-                    </div>
-                    <span className="font-medium text-white">4.9 Rated on Google</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 text-sm font-medium text-slate-300">
-                  <ShieldCheck className="w-5 h-5 text-emerald-400" />
-                  Veteran Owned
-                </div>
-              </div>
-            </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
-            {/* Right Image Composition */}
-            <div className="lg:w-1/2 relative hidden md:block">
-              <div className="relative w-full aspect-square max-w-lg mx-auto">
-                {/* Main Image */}
-                <div className="absolute inset-0 rounded-[2rem] overflow-hidden border border-white/15 shadow-2xl shadow-black/50 transform rotate-2 hover:rotate-0 transition-transform duration-500">
-                  <Image 
-                    src="/images/residential.png"
-                    alt={`Star Cleaning SC team members cleaning a home in ${data.name}`}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A192F]/90 via-transparent to-transparent" />
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <div className="bg-slate-900/60 backdrop-blur-md border border-white/20 rounded-2xl p-4 flex items-center gap-4 shadow-xl">
-                      <div className="w-12 h-12 bg-star-blue rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
-                        <CheckCircle2 className="w-6 h-6 text-white" />
+            {/* Left Copy Column */}
+            <div className="lg:col-span-7 text-left">
+              <ScrollReveal direction="up" delay={50}>
+                
+                {/* Eyebrow badge */}
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="w-8 h-px bg-star-blue"></span>
+                  <div className="flex items-center gap-1.5 text-star-blue font-bold uppercase tracking-[0.2em] text-xs">
+                    <MapPin className="w-3.5 h-3.5 text-star-blue" />
+                    <span>Serving {data.name}, SC</span>
+                  </div>
+                </div>
+
+                {/* H1 Heading in Brand Serif */}
+                <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium text-slate-900 tracking-tight leading-[1.15] mb-6">
+                  House Cleaning Services in{' '}
+                  <span className="text-star-blue">{data.name}, SC.</span>
+                </h1>
+
+                {/* Subtitle / Copy */}
+                <p className="text-slate-600 leading-relaxed text-base sm:text-lg mb-8 max-w-xl">
+                  {data.hero.subtitle || `Experience the trusted, veteran-owned house cleaning service that ${data.name} families rely on. Thorough, reliable, and 100% satisfaction guaranteed.`}
+                </p>
+
+                {/* Call to Actions */}
+                <div className="flex flex-wrap items-center gap-4">
+                  <Link
+                    href="#book-now"
+                    className="inline-flex items-center gap-2 bg-star-blue hover:bg-star-dark text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all transform hover:-translate-y-0.5 shadow-md shadow-star-blue/20"
+                  >
+                    Get a Free Quote <ArrowRight className="w-4 h-4" />
+                  </Link>
+
+                  <a
+                    href="tel:+18432979935"
+                    className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-900 border border-slate-200 px-6 py-3.5 rounded-full font-semibold text-sm transition-colors shadow-sm hover:border-star-blue/30"
+                  >
+                    (843) 297-9935
+                  </a>
+                </div>
+
+                {/* Trust strip */}
+                <div className="mt-10 pt-6 border-t border-slate-200/70 flex flex-wrap items-center gap-5 sm:gap-8">
+                  {/* Google Rating */}
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-full bg-white border border-slate-200/80 flex items-center justify-center shrink-0 shadow-xs">
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                      </svg>
+                    </div>
+                    <div className="text-left">
+                      <div className="flex text-yellow-400 text-xs gap-0.5">
+                        <Star className="w-3 h-3 fill-current" /><Star className="w-3 h-3 fill-current" /><Star className="w-3 h-3 fill-current" /><Star className="w-3 h-3 fill-current" /><Star className="w-3 h-3 fill-current" />
                       </div>
-                      <div>
-                        <p className="text-white font-bold tracking-tight">Spotless Guarantee</p>
-                        <p className="text-slate-300 text-xs sm:text-sm">100% satisfaction on every clean</p>
+                      <span className="text-xs font-bold text-slate-800">4.9 Rated on Google</span>
+                    </div>
+                  </div>
+
+                  <div className="hidden sm:block h-6 w-px bg-slate-200" />
+
+                  {/* Veteran Owned */}
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
+                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                    <span>Veteran Owned &bull; 18+ Years</span>
+                  </div>
+
+                  <div className="hidden sm:block h-6 w-px bg-slate-200" />
+
+                  {/* Background Checked */}
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
+                    <CheckCircle2 className="w-4 h-4 text-star-blue" />
+                    <span>Background-Checked Team</span>
+                  </div>
+                </div>
+
+              </ScrollReveal>
+            </div>
+
+            {/* Right Photo Column */}
+            <div className="lg:col-span-5">
+              <ScrollReveal direction="left" delay={150}>
+                <div className="relative mx-auto max-w-md">
+                  {/* Clean Photography Card */}
+                  <div className="relative aspect-[4/3] sm:aspect-[4/3.5] rounded-3xl overflow-hidden shadow-xl border border-slate-100 bg-white group">
+                    <Image
+                      src="/images/residential.png"
+                      alt={`Star Cleaning SC team members cleaning a home in ${data.name}`}
+                      fill
+                      priority
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                    
+                    {/* Elegant overlay caption */}
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent p-5 sm:p-6 text-white">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="font-serif font-bold text-base sm:text-lg leading-tight">100% Satisfaction Guarantee</p>
+                          <p className="text-xs text-slate-200 mt-0.5">Reliable &amp; pet-friendly house cleaning</p>
+                        </div>
+                        <div className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0">
+                          <CheckCircle2 className="w-5 h-5 text-white" />
+                        </div>
                       </div>
                     </div>
                   </div>
+
+                  {/* Editorial handwritten note */}
+                  <p className="font-handwriting text-2xl sm:text-3xl text-star-blue absolute -bottom-5 -right-2 sm:-bottom-6 sm:right-2 text-right leading-tight z-20 drop-shadow-sm select-none pointer-events-none">
+                    More Time For What Matters.
+                  </p>
                 </div>
-                
-                {/* Floating Badge */}
-                <div className="absolute -top-4 -right-4 bg-white/95 backdrop-blur-md text-slate-900 rounded-2xl p-4 shadow-2xl border border-white transform -rotate-3 hover:rotate-0 transition-transform">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                    <span className="font-bold text-sm tracking-tight">Top Rated Maid Service</span>
-                  </div>
-                  <p className="text-xs text-slate-600 font-medium">in {data.name}, SC</p>
-                </div>
-              </div>
+              </ScrollReveal>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* Intro Section */}
-      <section className="bg-white py-12 lg:py-20">
+      {/* =========================================================================
+          INTRO / ABOUT LOCAL SERVICE SECTION
+         ========================================================================= */}
+      <section className="bg-white py-14 lg:py-20 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            
             {/* Image card */}
-            <div className="relative h-72 sm:h-96 lg:h-[520px] rounded-3xl overflow-hidden shadow-2xl">
-              <Image
-                src="/images/clean-living-room.jpg"
-                alt={`Bright, tidy living room after a Star Cleaning SC deep clean in ${data.name}`}
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/0 to-black/0" />
-              <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 text-white">
-                <p className="uppercase tracking-[0.2em] text-xs sm:text-sm font-bold">Clean Spaces</p>
-                <p className="uppercase tracking-[0.2em] text-xs sm:text-sm font-bold">Happier Days</p>
-                <div className="w-8 h-0.5 bg-white/80 mt-2"></div>
+            <ScrollReveal direction="right" delay={100}>
+              <div className="relative h-72 sm:h-96 lg:h-[480px] rounded-3xl overflow-hidden shadow-xl border border-slate-100">
+                <Image
+                  src="/images/clean-living-room.jpg"
+                  alt={`Bright, tidy living room after a Star Cleaning SC deep clean in ${data.name}`}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 text-white">
+                  <p className="uppercase tracking-[0.2em] text-xs font-bold text-blue-200">Clean Spaces</p>
+                  <p className="font-serif text-xl sm:text-2xl font-medium mt-1">Brighter Days for {data.name}</p>
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Content */}
             <div>
+              <ScrollReveal direction="left" delay={100}>
                 <div className="flex items-center gap-3 mb-4">
                   <span className="w-8 h-px bg-star-blue"></span>
                   <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">
@@ -210,12 +236,12 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
                   </span>
                 </div>
 
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium text-slate-900 tracking-tight leading-[1.15]">
+                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium text-slate-900 tracking-tight leading-[1.15] mb-6">
                   Trusted House Cleaning<br />
                   in <span className="text-star-blue">{data.name}, SC.</span>
                 </h2>
 
-                <div className="text-slate-600 text-base sm:text-lg leading-relaxed space-y-3 mt-4">
+                <div className="text-slate-600 text-base sm:text-lg leading-relaxed space-y-4 mb-8">
                   <p>
                     <strong className="text-slate-900 font-bold">Life gets busy. Let us handle the cleaning.</strong>{' '}
                     {renderIntro(data.intro, '/services/residential-cleaning')}
@@ -223,67 +249,86 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
                 </div>
 
                 {/* Trust icons row */}
-                <div className="flex items-center justify-between sm:justify-start sm:gap-6 mt-6 pt-6 border-t border-gray-100">
-                  <div className="flex flex-col items-center text-center gap-1.5 sm:flex-1">
-                    <ShieldCheck className="w-6 h-6 text-star-blue" />
-                    <span className="text-xs font-bold uppercase tracking-wide text-gray-500 leading-tight">Background-<br />Checked Team</span>
+                <div className="grid grid-cols-3 gap-3 py-6 border-y border-slate-100">
+                  <div className="text-center">
+                    <div className="w-10 h-10 rounded-2xl bg-blue-50 text-star-blue flex items-center justify-center mx-auto mb-2">
+                      <ShieldCheck className="w-5 h-5" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-800 block">Vetted Team</span>
+                    <span className="text-[11px] text-slate-500">100% background-checked</span>
                   </div>
-                  <div className="w-px h-10 bg-gray-100 hidden sm:block"></div>
-                  <div className="flex flex-col items-center text-center gap-1.5 sm:flex-1">
-                    <Leaf className="w-6 h-6 text-star-blue" />
-                    <span className="text-xs font-bold uppercase tracking-wide text-gray-500 leading-tight">Pet-Safe &<br />Eco-Friendly</span>
+
+                  <div className="text-center border-x border-slate-100">
+                    <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-2">
+                      <Leaf className="w-5 h-5" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-800 block">Pet-Safe</span>
+                    <span className="text-[11px] text-slate-500">Gentle &amp; eco-friendly</span>
                   </div>
-                  <div className="w-px h-10 bg-gray-100 hidden sm:block"></div>
-                  <div className="flex flex-col items-center text-center gap-1.5 sm:flex-1">
-                    <HomeIcon className="w-6 h-6 text-star-blue" />
-                    <span className="text-xs font-bold uppercase tracking-wide text-gray-500 leading-tight">18+ Years<br />of Experience</span>
+
+                  <div className="text-center">
+                    <div className="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto mb-2">
+                      <HomeIcon className="w-5 h-5" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-800 block">18+ Years</span>
+                    <span className="text-[11px] text-slate-500">Lowcountry experience</span>
                   </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-x-6 sm:gap-y-3 mt-6">
+                <div className="flex flex-wrap items-center gap-4 mt-8">
                   <Link
                     href="#book-now"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-star-blue hover:bg-star-dark text-white px-6 py-3.5 sm:py-3 rounded-full font-bold text-sm shadow-lg shadow-blue-200 transition-all transform hover:-translate-y-0.5"
+                    className="inline-flex items-center gap-2 bg-star-blue hover:bg-star-dark text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all transform hover:-translate-y-0.5 shadow-md shadow-star-blue/20"
                   >
-                    Get a Free Estimate <span aria-hidden="true">&rarr;</span>
+                    Get a Free Estimate <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link
                     href={`/deep-cleaning-${data.slug}-sc`}
-                    className="text-gray-700 font-bold text-xs sm:text-sm border-b-2 border-star-blue hover:text-star-blue transition-colors inline-flex items-center gap-1.5"
+                    className="text-slate-700 font-bold text-sm border-b-2 border-star-blue hover:text-star-blue transition-colors inline-flex items-center gap-1.5 py-1"
                   >
-                    View Our Deep Cleaning Services <span aria-hidden="true">&rarr;</span>
+                    View Deep Cleaning Checklist <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
+              </ScrollReveal>
             </div>
+
           </div>
         </div>
 
         {/* Proudly serving strip */}
         {data.landmarks && (
-          <div className="bg-slate-50 border-t border-slate-100 py-4">
+          <div className="bg-slate-50 border-t border-slate-100 py-3.5 mt-12">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center gap-2 sm:gap-3 text-center sm:text-left">
               <MapPin className="w-4 h-4 text-star-blue shrink-0" />
-              <span className="text-star-blue font-bold text-xs uppercase tracking-widest shrink-0">Proudly Serving</span>
-              <span className="text-gray-500 text-xs sm:text-sm uppercase tracking-wide">
-                {data.landmarks.join(' • ')} • And Surrounding Areas
+              <span className="text-star-blue font-bold text-xs uppercase tracking-widest shrink-0">Proudly Serving:</span>
+              <span className="text-slate-600 text-xs sm:text-sm font-medium">
+                {data.landmarks.join(' • ')} • And Surrounding Neighborhoods
               </span>
             </div>
           </div>
         )}
       </section>
 
-      {/* Services Section */}
-      <section className="py-20 bg-slate-50">
+      {/* =========================================================================
+          SERVICES SECTION
+         ========================================================================= */}
+      <section className="py-16 lg:py-24 bg-[#FAFAF9]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="w-8 h-px bg-star-blue"></span>
-              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Our Capabilities</span>
-              <span className="w-8 h-px bg-star-blue"></span>
+          <ScrollReveal direction="up">
+            <div className="text-center mb-14">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="w-8 h-px bg-star-blue"></span>
+                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Our Capabilities</span>
+                <span className="w-8 h-px bg-star-blue"></span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">
+                Our Cleaning Services in <span className="text-star-blue">{data.name}.</span>
+              </h2>
+              <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                Comprehensive cleaning solutions tailored to your home's unique needs.
+              </p>
             </div>
-            <h2 className="font-serif text-3xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">Our Cleaning Services in <span className="text-star-blue">{data.name}.</span></h2>
-            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">Comprehensive cleaning solutions tailored to your home's unique needs.</p>
-          </div>
+          </ScrollReveal>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
@@ -294,227 +339,189 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
               { title: "Commercial Office", desc: "Professional cleaning for a healthier, more productive workspace.", img: "/images/commercial.webp", alt: "Wiping down an office desk near a computer monitor", href: "/services/commercial-office-cleaning" },
               { title: "Post-Construction", desc: "Thorough removal of drywall dust and debris after renovations.", img: "/images/post-construction.webp", alt: "Room mid-renovation with construction dust and debris on the floor", href: "/services/post-construction-cleaning" }
             ].map((service, i) => (
-              <div key={i} className="bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow overflow-hidden group">
-                <div className="relative h-48 w-full overflow-hidden">
-                  <Image
-                    src={service.img}
-                    alt={service.alt}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    referrerPolicy="no-referrer"
-                  />
+              <ScrollReveal key={i} direction="up" delay={i * 60}>
+                <div className="bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all overflow-hidden group h-full flex flex-col">
+                  <div className="relative h-48 w-full overflow-hidden bg-slate-100">
+                    <Image
+                      src={service.img}
+                      alt={service.alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                  </div>
+                  <div className="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="font-serif text-xl font-medium text-slate-900 mb-2 group-hover:text-star-blue transition-colors">
+                        {service.title}
+                      </h3>
+                      <p className="text-slate-600 text-sm leading-relaxed mb-4">{service.desc}</p>
+                    </div>
+                    <Link
+                      href={service.href}
+                      className="text-star-blue font-bold text-sm inline-flex items-center gap-1.5 hover:underline mt-auto"
+                    >
+                      Learn More <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
                 </div>
-                <div className="p-8">
-                  <h3 className="text-xl font-bold text-slate-900 mb-3">{service.title}</h3>
-                  <p className="text-slate-600 mb-4">{data.serviceDescriptions?.[i] || service.desc}</p>
-                  <Link href={service.href} className="text-blue-600 font-semibold hover:text-blue-700 inline-flex items-center gap-1">
-                    Learn more <span aria-hidden="true">&rarr;</span>
-                  </Link>
-                </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
-          <p className="text-center mt-12 text-slate-500 font-medium">Proudly serving {data.name} and surrounding areas.</p>
         </div>
       </section>
 
-      <OwnerMessage quoteHref="#book-now" />
+      {/* =========================================================================
+          WHY CHOOSE US
+         ========================================================================= */}
+      <section className="py-16 lg:py-24 bg-white border-y border-slate-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ScrollReveal direction="up">
+            <div className="text-center mb-14">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="w-8 h-px bg-star-blue"></span>
+                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">The Star Standard</span>
+                <span className="w-8 h-px bg-star-blue"></span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">
+                Why {data.name} Homeowners Choose <span className="text-star-blue">Star Cleaning.</span>
+              </h2>
+              <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                We bring reliability, care, and attention to detail to every home we touch.
+              </p>
+            </div>
+          </ScrollReveal>
 
+          <div className="grid md:grid-cols-2 gap-8">
+            {data.whyChooseUs.map((item: any, i: number) => (
+              <ScrollReveal key={i} direction="up" delay={i * 80}>
+                <div className="bg-[#FAF9F7] p-8 rounded-2xl border border-slate-100 hover:shadow-md transition-shadow">
+                  <div className="w-10 h-10 rounded-2xl bg-white shadow-xs border border-slate-200/80 flex items-center justify-center text-star-blue mb-4">
+                    <CheckCircle2 className="w-5 h-5 text-star-blue" />
+                  </div>
+                  <h3 className="font-serif text-xl font-medium text-slate-900 mb-2">{item.title}</h3>
+                  <p className="text-slate-600 leading-relaxed text-sm sm:text-base">{item.desc}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Owner Message & Non-Profit Mission */}
+      <OwnerMessage />
       <CleaningForAReason />
 
-      {/* Why Choose Us */}
-      <section className="py-20 bg-blue-900 text-white relative overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-10 bg-[url('/images/deep-cleaning.webp')] bg-cover bg-center" />
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="w-8 h-px bg-yellow-400"></span>
-              <span className="text-yellow-300 font-bold uppercase tracking-[0.2em] text-xs">The Star Standard</span>
-              <span className="w-8 h-px bg-yellow-400"></span>
-            </div>
-            <h2 className="font-serif text-3xl md:text-5xl font-medium mb-4 text-white tracking-tight leading-[1.15]">Why Choose Star Cleaning SC in <span className="text-yellow-300">{data.name}?</span></h2>
-            <p className="text-blue-100 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">Veteran-owned, military precision, and a commitment to your complete satisfaction.</p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-8">
-            {data.whyChooseUs.map((reason: any, i: number) => (
-              <div key={i} className="flex gap-4 p-6 rounded-2xl bg-blue-900/80 border border-blue-700/50 backdrop-blur-sm hover:bg-blue-800/80 transition-colors">
-                <div className="flex-shrink-0 mt-1">
-                  <ShieldCheck className="w-8 h-8 text-blue-300" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2">{reason.title}</h3>
-                  <p className="text-blue-100 leading-relaxed">{reason.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* What's Included */}
-      <section className="py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="w-8 h-px bg-star-blue"></span>
-              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Service Checklists</span>
-              <span className="w-8 h-px bg-star-blue"></span>
-            </div>
-            <h2 className="font-serif text-3xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">What&apos;s Included in Your Clean?</h2>
-            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">Transparent checklists so you know exactly what to expect.</p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="bg-slate-50 p-8 rounded-3xl border border-slate-100">
-              <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
-                <CheckCircle2 className="w-6 h-6 text-blue-500" />
-                Standard Clean
-              </h3>
-              <ul className="space-y-4">
-                {[
-                  "Dust all accessible surfaces",
-                  "Wipe down exterior of appliances",
-                  "Clean and sanitize countertops",
-                  "Scrub and sanitize toilets, sinks, and showers",
-                  "Vacuum all carpets and rugs",
-                  "Sweep and mop all hard floors",
-                  ...(data.checklistExtra?.standard ? [data.checklistExtra.standard] : [])
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-slate-600">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="bg-blue-50 p-8 rounded-3xl border border-blue-100">
-              <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
-                <Star className="w-6 h-6 text-blue-500" />
-                Deep Clean Additions
-              </h3>
-              <ul className="space-y-4">
-                {[
-                  "Hand-wipe baseboards and door frames",
-                  "Clean interior windows and sills",
-                  "Deep scrub tile grout",
-                  "Dust ceiling fans and light fixtures",
-                  "Clean inside microwave and oven (upon request)",
-                  "Wipe down cabinet exteriors",
-                  ...(data.checklistExtra?.deep ? [data.checklistExtra.deep] : [])
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-slate-600">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Reviews */}
-      <section className="py-20 bg-slate-50">
+      {/* =========================================================================
+          REVIEWS SECTION
+         ========================================================================= */}
+      <section className="py-16 lg:py-24 bg-white border-t border-slate-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="w-8 h-px bg-star-blue"></span>
-              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Customer Satisfaction</span>
-              <span className="w-8 h-px bg-star-blue"></span>
+          <ScrollReveal direction="up">
+            <div className="text-center mb-14">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="w-8 h-px bg-star-blue"></span>
+                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Real Feedback</span>
+                <span className="w-8 h-px bg-star-blue"></span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">
+                What Our Clients in <span className="text-star-blue">{data.name} Say.</span>
+              </h2>
+              <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                Read authentic testimonials from homeowners right in your community.
+              </p>
             </div>
-            <h2 className="font-serif text-3xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">Trusted by <span className="text-star-blue">{data.name} Residents.</span></h2>
-            <div className="flex justify-center gap-1 mb-4">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <Star key={star} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
-              ))}
-            </div>
-          </div>
-          
+          </ScrollReveal>
+
           <div className="grid md:grid-cols-3 gap-8">
-            {data.reviews.map((review: any, i: number) => (
-              <ReviewCard
-                key={i}
-                text={review.text}
-                author={review.author}
-                location={`${data.name}, SC`}
-                rating={5}
-                theme="light"
-                variant="grid"
-              />
+            {data.reviews.map((rev: any, i: number) => (
+              <ScrollReveal key={i} direction="up" delay={i * 80}>
+                <div className="bg-[#FAF9F7] p-8 rounded-2xl border border-slate-100 shadow-xs flex flex-col justify-between h-full">
+                  <div>
+                    <div className="flex text-yellow-400 gap-1 mb-4">
+                      {[...Array(5)].map((_, starIdx) => (
+                        <Star key={starIdx} className="w-4 h-4 fill-current" />
+                      ))}
+                    </div>
+                    <p className="text-slate-700 italic text-sm sm:text-base leading-relaxed mb-6">
+                      &ldquo;{rev.text}&rdquo;
+                    </p>
+                  </div>
+                  <div className="pt-4 border-t border-slate-200/60 flex items-center justify-between">
+                    <span className="font-bold text-slate-900 text-sm">{rev.author}</span>
+                    <span className="text-xs text-star-blue font-semibold">{data.name}, SC</span>
+                  </div>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Booking Form Section */}
-      <section id="book-now" className="py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="w-8 h-px bg-star-blue"></span>
-              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Free Instant Estimate</span>
-              <span className="w-8 h-px bg-star-blue"></span>
+      {/* =========================================================================
+          FAQ SECTION
+         ========================================================================= */}
+      <section className="py-16 lg:py-24 bg-[#FAF9F7] border-t border-slate-100">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ScrollReveal direction="up">
+            <div className="text-center mb-14">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="w-8 h-px bg-star-blue"></span>
+                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Clear Answers</span>
+                <span className="w-8 h-px bg-star-blue"></span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">
+                {data.name} Cleaning <span className="text-star-blue">FAQs.</span>
+              </h2>
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl mx-auto">
+                Got questions about scheduling, access, or products in {data.name}? We have answers.
+              </p>
             </div>
-            <h2 className="font-serif text-3xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">Book Your <span className="text-star-blue">{data.name} Cleaning.</span></h2>
-            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">Get a free, instant quote and schedule your cleaning online in under 60 seconds.</p>
+          </ScrollReveal>
+
+          <div className="space-y-4">
+            {data.faqs.map((faq: any, i: number) => (
+              <ScrollReveal key={i} direction="up" delay={i * 60}>
+                <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-xs">
+                  <h3 className="font-bold text-slate-900 text-base sm:text-lg mb-2">{faq.q}</h3>
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed">{faq.a}</p>
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* Service Areas */}
+      <ServiceAreas />
+
+      {/* =========================================================================
+          BOOKING FORM SECTION
+         ========================================================================= */}
+      <section id="book-now" className="py-20 lg:py-28 bg-slate-50 border-t border-slate-100">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ScrollReveal direction="up">
+            <div className="text-center mb-12">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="w-8 h-px bg-star-blue"></span>
+                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Free Instant Quote</span>
+                <span className="w-8 h-px bg-star-blue"></span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-slate-900 mt-4 mb-4 tracking-tight leading-[1.15]">
+                Ready to Get Your <span className="text-star-blue">Time Back?</span>
+              </h2>
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl mx-auto">
+                Get your free, no-obligation cleaning quote in {data.name} in minutes.
+              </p>
+            </div>
+          </ScrollReveal>
           <BookingForm showPricing={false} />
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="w-8 h-px bg-star-blue"></span>
-              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Got Questions?</span>
-              <span className="w-8 h-px bg-star-blue"></span>
-            </div>
-            <h2 className="font-serif text-3xl md:text-5xl font-medium text-slate-900 mb-4 tracking-tight leading-[1.15]">Frequently Asked <span className="text-star-blue">Questions.</span></h2>
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed">Everything you need to know about our {data.name} cleaning services.</p>
-          </div>
-          
-          <div className="space-y-6">
-            {data.faqs.map((faq: any, i: number) => (
-              <div key={i} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                <h3 className="text-lg font-bold text-slate-900 mb-3">{faq.q}</h3>
-                <p className="text-slate-600 leading-relaxed">{faq.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-20 bg-blue-900 text-white text-center">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready for a Cleaner Home in {data.name}?</h2>
-          <p className="text-xl text-blue-100 mb-10">Join hundreds of satisfied customers in the Lowcountry who trust Star Cleaning SC.</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="#book-now" 
-              className="px-8 py-4 bg-blue-500 hover:bg-blue-400 text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-blue-500/25"
-            >
-              Book Now
-            </Link>
-            <a 
-              href="tel:+18432979935" 
-              className="px-8 py-4 bg-transparent border-2 border-white/20 hover:bg-white/10 text-white rounded-xl font-semibold transition-all"
-            >
-              Call or Text (843) 297-9935
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <ServiceAreas />
-
       <Footer />
 
-      {/* JSON-LD Schema */}
+      {/* Schema.org Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -522,19 +529,29 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
             "@context": "https://schema.org",
             "@graph": [
               {
-                "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
-                "name": "Star Cleaning SC",
-                "image": "https://www.starcleaningsc.com/star-cleaning-sc.jpg",
-                "@id": `https://www.starcleaningsc.com/locations/${data.slug}`,
-                "url": `https://www.starcleaningsc.com/locations/${data.slug}`,
-                "telephone": "+18432979935",
-                "email": "admin@starcleaningsc.com",
+                "@type": "LocalBusiness",
+                "@id": `https://www.starcleaningsc.com/locations/${data.slug}#localbusiness`,
+                "name": `Star Cleaning SC - ${data.name}`,
+                "image": "https://www.starcleaningsc.com/images/residential.png",
+                "telephone": "+1-843-297-9935",
+                "email": "contact@starcleaningsc.com",
                 "priceRange": "$$",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": data.name,
+                  "addressRegion": "SC",
+                  "addressCountry": "US"
+                },
+                "geo": {
+                  "@type": "GeoCoordinates",
+                  "latitude": data.coordinates.lat,
+                  "longitude": data.coordinates.lng
+                },
                 "openingHoursSpecification": [
                   {
                     "@type": "OpeningHoursSpecification",
-                    "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday"],
-                    "opens": "09:00",
+                    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                    "opens": "08:00",
                     "closes": "18:00"
                   },
                   {

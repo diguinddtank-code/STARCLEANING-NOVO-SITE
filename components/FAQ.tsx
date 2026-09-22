@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import Link from 'next/link';
+import ScrollReveal from './ScrollReveal';
 
 const FAQ: React.FC = () => {
   const faqs = [
@@ -32,25 +32,29 @@ const FAQ: React.FC = () => {
   ];
 
   return (
-    <section id="faq" className="py-24 bg-blue-50">
-      <div className="container mx-auto px-4 max-w-4xl">
-        <div className="text-center mb-16">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="w-8 h-px bg-star-blue"></span>
-            <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Clear Answers</span>
-            <span className="w-8 h-px bg-star-blue"></span>
+    <section id="faq" className="py-24 bg-blue-50/70 relative overflow-hidden">
+      <div className="container mx-auto px-4 max-w-4xl relative z-10">
+        <ScrollReveal direction="up">
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-px bg-star-blue"></span>
+              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Clear Answers</span>
+              <span className="w-8 h-px bg-star-blue"></span>
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium mt-4 mb-4 text-slate-900 tracking-tight leading-[1.15]">
+              Frequently Asked <span className="text-star-blue">Questions.</span>
+            </h2>
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+              Everything you need to know about our home cleaning visits, pet policies, and satisfaction guarantee.
+            </p>
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium mt-4 mb-4 text-slate-900 tracking-tight leading-[1.15]">
-            Frequently Asked <span className="text-star-blue">Questions.</span>
-          </h2>
-          <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-            Everything you need to know about our home cleaning visits, pet policies, and satisfaction guarantee.
-          </p>
-        </div>
+        </ScrollReveal>
 
         <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <FAQItem key={index} question={faq.question} answer={faq.answer} />
+            <ScrollReveal key={index} direction="up" delay={index * 60}>
+              <FAQItem question={faq.question} answer={faq.answer} />
+            </ScrollReveal>
           ))}
         </div>
       </div>
@@ -62,20 +66,20 @@ const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, ans
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md">
+    <div className="bg-white rounded-2xl border border-gray-100/80 shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md hover:border-slate-200">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-6 text-left focus:outline-none"
+        className="w-full flex items-center justify-between p-6 text-left focus:outline-none group cursor-pointer"
       >
-        <span className="font-bold text-gray-900 text-lg pr-8">{question}</span>
-        <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${isOpen ? 'bg-star-blue text-white rotate-180' : 'bg-gray-100 text-gray-500'}`}>
-            <i className="fas fa-chevron-down"></i>
+        <span className="font-bold text-gray-900 text-base sm:text-lg pr-6 group-hover:text-star-blue transition-colors">{question}</span>
+        <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${isOpen ? 'bg-star-blue text-white rotate-180 shadow-sm' : 'bg-gray-100 text-gray-500 group-hover:bg-blue-50 group-hover:text-star-blue'}`}>
+            <i className="fas fa-chevron-down text-xs"></i>
         </div>
       </button>
       <div 
-        className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-56 opacity-100' : 'max-h-0 opacity-0'}`}
       >
-        <div className="p-6 pt-0 text-gray-600 leading-relaxed border-t border-dashed border-gray-100 mt-2">
+        <div className="p-6 pt-0 text-slate-600 text-sm sm:text-base leading-relaxed border-t border-dashed border-gray-100 mt-1">
             {answer}
         </div>
       </div>

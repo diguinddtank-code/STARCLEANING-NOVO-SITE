@@ -1,59 +1,63 @@
+"use client";
+
 import React from 'react';
-import Image from 'next/image';
 import { ShieldCheck } from 'lucide-react';
+import ScrollReveal from './ScrollReveal';
 
 const TrustBar: React.FC = () => {
   return (
-    <div className="bg-white border-b border-gray-100 py-8 lg:py-16 relative z-20">
+    <div className="bg-white border-b border-gray-100 py-8 lg:py-16 relative z-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:flex lg:justify-center items-center gap-y-6 gap-x-4 md:gap-x-8">
-          
-          {/* Main Trust Item: Nextdoor - Spans 2 cols on mobile for emphasis */}
-          <div className="col-span-2 lg:col-span-1 flex justify-center lg:block mb-2 lg:mb-0">
-            <div className="inline-flex items-center gap-3 bg-gray-50 px-5 py-2.5 rounded-full border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer group hover:border-green-200 w-full justify-center lg:w-auto">
-                <div className="bg-[#8ED500] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-inner">
-                <i className="fas fa-home text-sm"></i>
-                </div>
-                <div className="flex flex-col text-left">
-                <span className="font-black text-gray-800 leading-none text-sm group-hover:text-[#8ED500] transition-colors">nextdoor</span>
-                <span className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Neighborhood Fave</span>
-                </div>
+        <ScrollReveal direction="up" delay={50}>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:flex lg:justify-center items-center gap-y-6 gap-x-4 md:gap-x-8">
+            
+            {/* Main Trust Item: Nextdoor - Spans 2 cols on mobile for emphasis */}
+            <div className="col-span-2 lg:col-span-1 flex justify-center lg:block mb-2 lg:mb-0">
+              <div className="inline-flex items-center gap-3 bg-gray-50 px-5 py-2.5 rounded-full border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer group hover:border-green-200 w-full justify-center lg:w-auto">
+                  <div className="bg-[#8ED500] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-inner">
+                  <i className="fas fa-home text-sm"></i>
+                  </div>
+                  <div className="flex flex-col text-left">
+                  <span className="font-black text-gray-800 leading-none text-sm group-hover:text-[#8ED500] transition-colors">nextdoor</span>
+                  <span className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Neighborhood Fave</span>
+                  </div>
+              </div>
             </div>
-          </div>
 
-          <div className="hidden lg:block h-10 w-px bg-gray-200"></div>
+            <div className="hidden lg:block h-10 w-px bg-gray-200"></div>
 
-          <TrustItem 
-            icon="fa-paw" 
-            label="PET FRIENDLY" 
-            subLabel="We love animals" 
-            color="text-orange-400"
-          />
-          
-          <div className="hidden lg:block h-10 w-px bg-gray-200"></div>
+            <TrustItem 
+              icon="fa-paw" 
+              label="PET FRIENDLY" 
+              subLabel="We love animals" 
+              color="text-orange-400"
+            />
+            
+            <div className="hidden lg:block h-10 w-px bg-gray-200"></div>
 
-          <TrustItem 
-            icon="fa-user-shield" 
-            label="BACKGROUND CHECKED" 
-            subLabel="100% Vetted Staff" 
-            color="text-blue-500"
-          />
+            <TrustItem 
+              icon="fa-user-shield" 
+              label="BACKGROUND CHECKED" 
+              subLabel="100% Vetted Staff" 
+              color="text-blue-500"
+            />
 
-          <div className="hidden lg:block h-10 w-px bg-gray-200"></div>
+            <div className="hidden lg:block h-10 w-px bg-gray-200"></div>
 
-          {/* VETERAN OWNED - IMAGE SEAL UPDATE (desktop only; already covered by the Hero's mobile trust capsule) */}
-          <div className="hidden lg:flex col-span-2 md:col-span-2 md:col-start-2 lg:col-span-1 lg:col-start-auto flex-col items-center justify-center text-center gap-1.5 opacity-90 hover:opacity-100 transition-all group hover:-translate-y-1 duration-300">
-             <div className="relative h-12 w-12 mb-1 group-hover:scale-105 transition-transform drop-shadow-sm flex items-center justify-center">
-               <ShieldCheck className="w-10 h-10 text-emerald-600" />
-             </div>
-             <div className="flex flex-col">
-                <span className="text-[10px] lg:text-xs font-black text-gray-700 tracking-wider">VETERAN OWNED</span>
-                <span className="text-[9px] lg:text-[10px] text-gray-400 font-medium">18 Years Serving SC</span>
+            {/* VETERAN OWNED */}
+            <div className="hidden lg:flex col-span-2 md:col-span-2 md:col-start-2 lg:col-span-1 lg:col-start-auto flex-col items-center justify-center text-center gap-1.5 opacity-90 hover:opacity-100 transition-all group hover:-translate-y-1 duration-300">
+               <div className="relative h-12 w-12 mb-1 group-hover:scale-105 transition-transform drop-shadow-sm flex items-center justify-center">
+                 <ShieldCheck className="w-10 h-10 text-emerald-600" />
+               </div>
+               <div className="flex flex-col">
+                  <span className="text-[10px] lg:text-xs font-black text-gray-700 tracking-wider">VETERAN OWNED</span>
+                  <span className="text-[9px] lg:text-[10px] text-gray-400 font-medium">18 Years Serving SC</span>
+              </div>
             </div>
-          </div>
 
-        </div>
+          </div>
+        </ScrollReveal>
       </div>
     </div>
   );

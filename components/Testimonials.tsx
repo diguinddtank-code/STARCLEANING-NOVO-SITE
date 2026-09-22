@@ -1,56 +1,69 @@
+"use client";
+
 import React from 'react';
 import ReviewCard from './ReviewCard';
+import ScrollReveal from './ScrollReveal';
 import { homeReviews } from '@/data/reviews';
 
 const Testimonials: React.FC = () => {
   const reviews = homeReviews;
 
   return (
-    <section id="reviews" className="py-16 lg:py-24 bg-gradient-to-b from-white to-orange-50 overflow-hidden relative">
-      {/* Background Decoration - Warmer */}
+    <section id="reviews" className="py-16 lg:py-24 bg-gradient-to-b from-white to-orange-50/50 overflow-hidden relative">
+      {/* Background Decoration */}
       <div className="absolute top-0 left-0 w-full h-full opacity-40 pointer-events-none overflow-hidden">
           <div className="absolute top-10 right-0 w-[500px] h-[500px] bg-yellow-100 rounded-full blur-[100px] mix-blend-multiply"></div>
           <div className="absolute bottom-10 left-0 w-[400px] h-[400px] bg-blue-50 rounded-full blur-[80px] mix-blend-multiply"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 lg:mb-16 relative z-20">
-        <div className="text-center max-w-3xl mx-auto">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="w-8 h-px bg-star-blue"></span>
-              <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Real Feedback &bull; 4.9 Stars</span>
-              <span className="w-8 h-px bg-star-blue"></span>
-            </div>
-            
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-slate-900 mb-5 tracking-tight leading-[1.15]">
-              Don&apos;t just take our word for it. <span className="text-star-blue">Read their stories.</span>
-            </h2>
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-              We believe trust is earned, one clean home at a time. Here is what your neighbors in Charleston &amp; Summerville are saying.
-            </p>
-        </div>
+        <ScrollReveal direction="up">
+          <div className="text-center max-w-3xl mx-auto">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="w-8 h-px bg-star-blue"></span>
+                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">Real Feedback &bull; 4.9 Stars</span>
+                <span className="w-8 h-px bg-star-blue"></span>
+              </div>
+              
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-slate-900 mb-5 tracking-tight leading-[1.15]">
+                Don&apos;t just take our word for it. <span className="text-star-blue">Read their stories.</span>
+              </h2>
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+                We believe trust is earned, one clean home at a time. Here is what your neighbors in Charleston &amp; Summerville are saying.
+              </p>
+          </div>
+        </ScrollReveal>
       </div>
 
       {/* Infinite Scroll Container */}
-      <div className="w-full relative py-8">
-        {/* Gradient Masks for Scroll Fade */}
-        <div className="absolute top-0 left-0 w-8 md:w-32 h-full bg-gradient-to-r from-white via-white/80 to-transparent z-20 pointer-events-none"></div>
-        <div className="absolute top-0 right-0 w-8 md:w-32 h-full bg-gradient-to-l from-white via-white/80 to-transparent z-20 pointer-events-none"></div>
+      <ScrollReveal direction="up" delay={100}>
+        <div className="w-full relative py-8">
+          {/* Gradient Masks for Scroll Fade */}
+          <div className="absolute top-0 left-0 w-8 md:w-32 h-full bg-gradient-to-r from-white via-white/80 to-transparent z-20 pointer-events-none"></div>
+          <div className="absolute top-0 right-0 w-8 md:w-32 h-full bg-gradient-to-l from-white via-white/80 to-transparent z-20 pointer-events-none"></div>
 
-        <div className="flex gap-4 lg:gap-6 w-max animate-scroll hover:[animation-play-state:paused] px-4">
-          {reviews.map((review, idx) => (
-            <ReviewCard key={`r-${idx}`} {...review} theme="light" variant="carousel" />
-          ))}
-          {/* Duplicated only so the marquee can loop seamlessly; hidden from assistive tech and search engines */}
-          <div className="contents" aria-hidden="true">
+          <div className="flex gap-4 lg:gap-6 w-max animate-scroll hover:[animation-play-state:paused] px-4">
             {reviews.map((review, idx) => (
-              <ReviewCard key={`r-dup-${idx}`} {...review} theme="light" variant="carousel" />
+              <ReviewCard key={`r-${idx}`} {...review} theme="light" variant="carousel" />
             ))}
+            {/* Duplicated only so the marquee can loop seamlessly; hidden from assistive tech and search engines */}
+            <div className="contents" aria-hidden="true">
+              {reviews.map((review, idx) => (
+                <ReviewCard key={`r-dup-${idx}`} {...review} theme="light" variant="carousel" />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      </ScrollReveal>
       
       <div className="text-center mt-8 lg:mt-12 relative z-20">
-          <a href="https://share.google/udkA7cxV0VCC39Ag2" target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-md text-gray-600 hover:text-star-blue transition font-bold text-sm border border-gray-100 hover:scale-105 duration-300">
+        <ScrollReveal direction="up" delay={150}>
+          <a 
+            href="https://share.google/udkA7cxV0VCC39Ag2" 
+            target="_blank" 
+            rel="noreferrer" 
+            className="inline-flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-md text-gray-700 hover:text-star-blue transition-all font-bold text-sm border border-gray-100 hover:shadow-lg hover:-translate-y-0.5 duration-300"
+          >
               <svg className="w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -59,6 +72,7 @@ const Testimonials: React.FC = () => {
               </svg>
               Read more reviews on Google
           </a>
+        </ScrollReveal>
       </div>
     </section>
   );
