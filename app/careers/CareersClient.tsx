@@ -94,12 +94,12 @@ export default function CareersClient() {
             {/* Left Content (Text) */}
             <div className="lg:col-span-5 text-center lg:text-left">
               <div className="flex items-center justify-center lg:justify-start gap-3 mb-4">
-                <span className="w-8 h-px bg-yellow-400"></span>
-                <span className="text-yellow-300 font-bold uppercase tracking-[0.2em] text-xs">Join Our Team</span>
+                <span className="w-8 h-px bg-[#004aad]"></span>
+                <span className="text-[#00b4db] font-bold uppercase tracking-[0.2em] text-xs">Join Our Team</span>
               </div>
-              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-medium text-white mb-2 tracking-tight leading-[1.15] drop-shadow-lg">
+              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-black text-white mb-2 tracking-tight leading-[1.12] drop-shadow-lg">
                   {t.workWith} <br className="hidden sm:block" />
-                  <span className="text-yellow-300">Star Cleaning.</span>
+                  <span className="text-[#38bdf8] drop-shadow-[0_2px_10px_rgba(0,74,173,0.8)]">Star Cleaning.</span>
               </h1>
               <p className="text-lg md:text-xl text-slate-200 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium mb-6 mt-2">
                   {t.subtitle}
