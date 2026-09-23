@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import ReviewCard from '@/components/ReviewCard';
 import OwnerMessage from '@/components/OwnerMessage';
 import CleaningForAReason from '@/components/CleaningForAReason';
+import TeamPreview from '@/components/TeamPreview';
 import ServiceAreas from '@/components/ServiceAreas';
 import { CheckCircle2, MapPin, Star, ShieldCheck, ThumbsUp, Leaf, ArrowRight, Building2, Briefcase, Store, Phone } from 'lucide-react';
 
@@ -157,6 +158,8 @@ export default function CommercialCleaningPage() {
       <OwnerMessage />
 
       <CleaningForAReason />
+
+      <TeamPreview />
 
       {/* Intro Paragraph */}
       <section className="py-16 bg-white">

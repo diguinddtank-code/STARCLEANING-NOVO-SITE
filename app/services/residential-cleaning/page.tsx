@@ -6,6 +6,7 @@ import Script from 'next/script';
 import ReviewCard from '@/components/ReviewCard';
 import OwnerMessage from '@/components/OwnerMessage';
 import CleaningForAReason from '@/components/CleaningForAReason';
+import TeamPreview from '@/components/TeamPreview';
 import ServiceAreas from '@/components/ServiceAreas';
 import { MapPin, Star, ShieldCheck, ThumbsUp, Leaf, ArrowRight, CheckCircle2, Sparkles, Home, BedDouble, Phone } from 'lucide-react';
 
@@ -156,6 +157,8 @@ export default function ResidentialCleaning() {
       <OwnerMessage />
 
       <CleaningForAReason />
+
+      <TeamPreview />
 
       <div className="container mx-auto px-4 py-16 max-w-6xl">
         {/* INTRO PARAGRAPH */}
