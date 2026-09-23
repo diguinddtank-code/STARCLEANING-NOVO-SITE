@@ -120,6 +120,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Blog posts
   const blogPosts = [
+    'first-recurring-clean-charleston-summerville-sc',
     'charleston-airbnb-cleaning-guide',
     'move-out-cleaning-cost-summerville-sc',
     'deep-cleaning-vs-standard-cleaning-north-charleston',

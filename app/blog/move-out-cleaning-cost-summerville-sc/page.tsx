@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -75,7 +76,7 @@ const BlogPost2 = () => {
             <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 font-montserrat leading-tight">
               How Much Does Move-Out Cleaning Cost in Summerville, SC?
             </h1>
-            <div className="flex items-center justify-center gap-3 text-slate-600">
+            <div className="flex items-center justify-center gap-3 text-slate-600 mb-8">
               <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
                 <i className="fas fa-star"></i>
               </div>
@@ -83,6 +84,19 @@ const BlogPost2 = () => {
                 <p className="font-semibold text-slate-900">Star Cleaning SC Team</p>
                 <p className="text-sm">February 10, 2026</p>
               </div>
+            </div>
+
+            {/* Featured Image */}
+            <div className="rounded-2xl overflow-hidden shadow-lg border border-slate-100 relative aspect-video w-full mb-10">
+              <Image
+                src="/images/blog/move-out-cleaning-cost-summerville-sc.jpg"
+                alt="Move out cleaning in Summerville SC with packed boxes and clean hardwood floors"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 896px"
+                className="object-cover"
+                referrerPolicy="no-referrer"
+              />
             </div>
           </header>
 
