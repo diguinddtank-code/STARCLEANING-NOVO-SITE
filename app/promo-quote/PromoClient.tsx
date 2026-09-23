@@ -58,8 +58,8 @@ export default function PromoClient() {
 
             {/* Headlines - Clean Thanksgiving focus */}
             <div className="text-center mb-8 max-w-3xl mx-auto px-2">
-                <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-4 tracking-tight leading-[1.15] drop-shadow-lg">
-                    Thanksgiving <br className="sm:hidden" /><span className="text-yellow-300">Cleaning.</span>
+                <h1 className="font-serif text-3xl min-[360px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-3 sm:mb-4 tracking-tight leading-tight drop-shadow-lg text-center">
+                    Thanksgiving <span className="text-yellow-300">Cleaning.</span>
                 </h1>
                 
                 {/* Highlights - Kept in a single line on mobile */}
@@ -77,9 +77,12 @@ export default function PromoClient() {
                 <BookingForm hideSidebar={true} variant="glass" showPricing={false} showScheduling={false} isPromo={true} promoCode={promoCode} />
                 
                 {/* Trust Badges Below Form */}
-                <div className="flex flex-col items-center justify-center gap-2 mt-6">
-                    <div className="flex items-center gap-2 text-sm font-bold text-white/80 bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
-                        <i className="fas fa-lock text-green-400"></i> No credit card required &bull; 20% Thanksgiving discount
+                <div className="flex flex-col items-center justify-center gap-2 mt-5 sm:mt-6 px-2">
+                    <div className="inline-flex items-center justify-center text-center gap-2 text-xs sm:text-sm font-bold text-white/85 bg-black/35 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10 shadow-sm max-w-full">
+                        <i className="fas fa-lock text-green-400 shrink-0 text-xs sm:text-sm"></i>
+                        <span className="text-center leading-snug">
+                            No credit card required &bull; 20% Thanksgiving discount
+                        </span>
                     </div>
                 </div>
             </div>
