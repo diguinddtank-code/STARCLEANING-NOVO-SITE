@@ -2,8 +2,8 @@ import React from 'react';
 import PromoClient from './PromoClient';
 
 export const metadata = {
-  title: 'Special Offer - Get a Free Quote | Star Cleaning SC',
-  description: 'Get an instant free quote for house cleaning services in Charleston, SC and claim your special promotional offer. Book your 5-star rated cleaning today.',
+  title: 'Thanksgiving Special - Get a Free Quote | Star Cleaning SC',
+  description: 'Get your home guest-ready for the holidays with our Thanksgiving Cleaning Special in Charleston & Summerville, SC. Claim 20% off your first deep clean today.',
   alternates: {
     canonical: 'https://www.starcleaningsc.com/promo-quote',
   },
