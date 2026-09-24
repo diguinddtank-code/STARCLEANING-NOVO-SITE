@@ -88,39 +88,52 @@ export default function CareersClient() {
           <div className="absolute inset-0 bg-gradient-to-b from-slate-900/30 via-slate-900/50 to-slate-900" />
         </div>
         
-        <div className="container mx-auto px-4 relative z-10 max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-start">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10 max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
               
-            {/* Left Content (Text) */}
-            <div className="lg:col-span-5 text-center lg:text-left">
-              <div className="flex items-center justify-center lg:justify-start gap-3 mb-4">
-                <span className="w-8 h-px bg-[#004aad]"></span>
-                <span className="text-[#00b4db] font-bold uppercase tracking-[0.2em] text-xs">Join Our Team</span>
+            {/* Left Content (Text & Visuals) */}
+            <div className="lg:col-span-5 text-center lg:text-left lg:sticky lg:top-28">
+              <div className="inline-flex items-center justify-center lg:justify-start gap-2.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 mb-5">
+                <span className="w-2 h-2 rounded-full bg-[#00b4db] animate-pulse"></span>
+                <span className="text-[#38bdf8] font-black uppercase tracking-[0.2em] text-[11px]">Join Our Team</span>
               </div>
-              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-black text-white mb-2 tracking-tight leading-[1.12] drop-shadow-lg">
+              <h1 className="font-heading text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-black text-white mb-4 tracking-tight leading-[1.1] drop-shadow-lg">
                   {t.workWith} <br className="hidden sm:block" />
                   <span className="text-[#38bdf8] drop-shadow-[0_2px_10px_rgba(0,74,173,0.8)]">Star Cleaning.</span>
               </h1>
-              <p className="text-lg md:text-xl text-slate-200 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium mb-6 mt-2">
+              <p className="text-base sm:text-lg lg:text-xl text-slate-200 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium mb-6">
                   {t.subtitle}
               </p>
+
+              {/* Quick Perks Pill Tags */}
+              <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-8">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-200 text-xs font-semibold">
+                  <i className="fas fa-check text-[#38bdf8] text-[10px]"></i> {t.schedTitle}
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-200 text-xs font-semibold">
+                  <i className="fas fa-check text-[#38bdf8] text-[10px]"></i> {t.payTitle}
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-200 text-xs font-semibold">
+                  <i className="fas fa-check text-[#38bdf8] text-[10px]"></i> {t.growTitle}
+                </span>
+              </div>
               
-              <div className="hidden lg:block w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border border-white/10 mt-8 relative">
+              <div className="hidden lg:block w-full rounded-3xl overflow-hidden shadow-2xl border border-white/10 relative group">
                   <div className="absolute inset-0 bg-blue-600/20 mix-blend-overlay z-10 pointer-events-none"></div>
                   <Image 
                     src="/images/residential.png"
                     alt="Star Cleaning SC team members wiping down a glass table in a client's living room"
                     width={600}
-                    height={400}
-                    className="w-full h-[280px] object-cover hover:scale-105 transition-transform duration-700"
+                    height={380}
+                    className="w-full h-[240px] xl:h-[260px] object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent p-6 z-20">
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950 via-slate-900/80 to-transparent p-5 z-20">
                       <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white shadow-lg">
+                          <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white shadow-lg shrink-0">
                               <i className="fas fa-check"></i>
                           </div>
                           <div>
-                              <p className="text-white font-bold whitespace-nowrap">{t.joinTeam}</p>
+                              <p className="text-white font-bold whitespace-nowrap text-sm sm:text-base">{t.joinTeam}</p>
                               <p className="text-blue-200 text-xs font-medium">{t.applyTwoMins}</p>
                           </div>
                       </div>
@@ -129,7 +142,7 @@ export default function CareersClient() {
             </div>
 
             {/* Right Content (Form) */}
-            <div className="lg:col-span-7 w-full max-w-lg mx-auto lg:mx-0 lg:ml-auto mt-4 lg:mt-0 relative z-20">
+            <div className="lg:col-span-7 w-full max-w-xl mx-auto lg:mx-0 lg:max-w-none relative z-20">
               <CareersForm lang={lang} setLang={setLang} />
             </div>
           </div>

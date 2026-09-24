@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import { supabase } from '@/lib/supabase';
 
 // Custom InputGroup component to match BookingForm style
-const InputGroup = ({ label, name, type = 'text', icon, placeholder, value, onChange, required = false }: any) => (
-  <div className="mb-4">
+const InputGroup = ({ label, name, type = 'text', icon, placeholder, value, onChange, required = false, className = '' }: any) => (
+  <div className={`mb-4 ${className}`}>
     <label className="block text-xs font-bold text-gray-700 mb-1.5 ml-1 uppercase tracking-wider">
       {label} {required && <span className="text-blue-500">*</span>}
     </label>
@@ -20,34 +20,34 @@ const InputGroup = ({ label, name, type = 'text', icon, placeholder, value, onCh
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className="w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#00b4db]/50 focus:border-[#00b4db] transition-all text-sm font-medium shadow-sm"
+        className="w-full pl-11 pr-4 py-3 sm:py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#00b4db]/50 focus:border-[#00b4db] transition-all text-sm font-medium shadow-sm"
       />
     </div>
   </div>
 );
 
-// Custom RadioGroup component 
-const RadioGroup = ({ label, name, options, value, onChange, required = false }: any) => (
-  <div className="mb-5">
-    <label className="block text-xs font-bold text-gray-700 mb-2 ml-1 uppercase tracking-wider">
+// Custom RadioGroup component with grid columns support for compact, polished desktop display
+const RadioGroup = ({ label, name, options, value, onChange, required = false, cols = 1 }: any) => (
+  <div className="mb-4">
+    <label className="block text-xs font-bold text-gray-700 mb-1.5 ml-1 uppercase tracking-wider">
       {label} {required && <span className="text-blue-500">*</span>}
     </label>
-    <div className="flex flex-col gap-2">
+    <div className={`grid gap-2 ${cols === 3 ? 'grid-cols-1 sm:grid-cols-3' : cols === 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'}`}>
       {options.map((option: any) => (
         <label 
           key={option.value} 
-          className={`relative p-3 rounded-xl border-2 cursor-pointer transition-all duration-200 flex items-center gap-3 touch-manipulation ${
+          className={`relative p-3 rounded-xl border-2 cursor-pointer transition-all duration-200 flex items-center gap-2.5 touch-manipulation select-none ${
             value === option.value
-            ? 'border-[#00b4db] bg-blue-50/30' 
-            : 'border-gray-100 bg-gray-50 hover:border-gray-200 hover:bg-gray-100/50'
+            ? 'border-[#00b4db] bg-blue-50/40 shadow-sm' 
+            : 'border-gray-100 bg-gray-50 hover:border-gray-200 hover:bg-gray-100/60'
           }`}
         >
-          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
+          <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 ${
               value === option.value ? 'border-[#00b4db] bg-[#00b4db] text-white' : 'border-gray-300 bg-white'
           }`}>
-              {value === option.value && <i className="fas fa-check text-[10px]"></i>}
+              {value === option.value && <i className="fas fa-check text-[8px]"></i>}
           </div>
-          <span className={`text-sm font-bold ${value === option.value ? 'text-gray-900' : 'text-gray-600'}`}>
+          <span className={`text-xs sm:text-sm font-bold leading-tight ${value === option.value ? 'text-gray-900' : 'text-gray-600'}`}>
             {option.label}
           </span>
           <input 
@@ -375,26 +375,29 @@ export default function CareersForm({
       <div className="p-6 md:p-8 bg-white">
         <form id="careers-form" onSubmit={handleSubmit} className="space-y-4">
           
-          <InputGroup 
-            label={t.fullName} 
-            name="fullName" 
-            icon="fa-user" 
-            placeholder={t.namePlaceholder} 
-            value={formData.fullName} 
-            onChange={handleChange} 
-            required 
-          />
+          {/* Personal Info Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+            <InputGroup 
+              label={t.fullName} 
+              name="fullName" 
+              icon="fa-user" 
+              placeholder={t.namePlaceholder} 
+              value={formData.fullName} 
+              onChange={handleChange} 
+              required 
+            />
 
-          <InputGroup 
-            label={t.phone} 
-            name="phone" 
-            type="tel"
-            icon="fa-phone" 
-            placeholder={t.phonePlaceholder} 
-            value={formData.phone} 
-            onChange={handleChange} 
-            required 
-          />
+            <InputGroup 
+              label={t.phone} 
+              name="phone" 
+              type="tel"
+              icon="fa-phone" 
+              placeholder={t.phonePlaceholder} 
+              value={formData.phone} 
+              onChange={handleChange} 
+              required 
+            />
+          </div>
 
           <InputGroup 
             label={t.city} 
@@ -412,6 +415,7 @@ export default function CareersForm({
             value={formData.experience}
             onChange={handleChange}
             required
+            cols={3}
             options={[
               { label: t.exp1, value: '1_plus_years' },
               { label: t.exp2, value: 'less_than_1_year' },
@@ -419,17 +423,33 @@ export default function CareersForm({
             ]}
           />
 
-          <RadioGroup 
-            label={t.transport}
-            name="transport"
-            value={formData.transport}
-            onChange={handleChange}
-            required
-            options={[
-              { label: t.yes, value: 'yes' },
-              { label: t.no, value: 'no' }
-            ]}
-          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+            <RadioGroup 
+              label={t.transport}
+              name="transport"
+              value={formData.transport}
+              onChange={handleChange}
+              required
+              cols={2}
+              options={[
+                { label: t.yes, value: 'yes' },
+                { label: t.no, value: 'no' }
+              ]}
+            />
+
+            <RadioGroup 
+              label={t.workAuth}
+              name="workAuth"
+              value={formData.workAuth}
+              onChange={handleChange}
+              required
+              cols={2}
+              options={[
+                { label: t.yes, value: 'yes' },
+                { label: t.no, value: 'no' }
+              ]}
+            />
+          </div>
 
           <RadioGroup 
             label={t.availability}
@@ -437,6 +457,7 @@ export default function CareersForm({
             value={formData.availability}
             onChange={handleChange}
             required
+            cols={3}
             options={[
               { label: t.avail1, value: 'full_time' },
               { label: t.avail2, value: 'part_time' },
@@ -444,42 +465,34 @@ export default function CareersForm({
             ]}
           />
 
-          <RadioGroup 
-            label={t.solo}
-            name="solo"
-            value={formData.solo}
-            onChange={handleChange}
-            required
-            options={[
-              { label: t.yes, value: 'yes' },
-              { label: t.solo2, value: 'prefer_team' }
-            ]}
-          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+            <RadioGroup 
+              label={t.solo}
+              name="solo"
+              value={formData.solo}
+              onChange={handleChange}
+              required
+              cols={2}
+              options={[
+                { label: t.yes, value: 'yes' },
+                { label: t.solo2, value: 'prefer_team' }
+              ]}
+            />
 
-          <RadioGroup 
-            label={t.details}
-            name="details"
-            value={formData.details}
-            onChange={handleChange}
-            required
-            options={[
-              { label: t.yes, value: 'yes' },
-              { label: t.details2, value: 'more_or_less' },
-              { label: t.no, value: 'no' }
-            ]}
-          />
-
-          <RadioGroup 
-            label={t.workAuth}
-            name="workAuth"
-            value={formData.workAuth}
-            onChange={handleChange}
-            required
-            options={[
-              { label: t.yes, value: 'yes' },
-              { label: t.no, value: 'no' }
-            ]}
-          />
+            <RadioGroup 
+              label={t.details}
+              name="details"
+              value={formData.details}
+              onChange={handleChange}
+              required
+              cols={3}
+              options={[
+                { label: t.yes, value: 'yes' },
+                { label: t.details2, value: 'more_or_less' },
+                { label: t.no, value: 'no' }
+              ]}
+            />
+          </div>
 
           <RadioGroup 
             label={t.startDate}
@@ -487,6 +500,7 @@ export default function CareersForm({
             value={formData.startDate}
             onChange={handleChange}
             required
+            cols={3}
             options={[
               { label: t.start1, value: 'immediately' },
               { label: t.start2, value: 'within_2_weeks' },
@@ -504,7 +518,7 @@ export default function CareersForm({
               value={formData.whyUs}
               onChange={handleChange}
               rows={3} 
-              className="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#00b4db]/50 focus:border-[#00b4db] transition-all text-sm font-medium shadow-sm resize-none" 
+              className="w-full px-4 py-3 sm:py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#00b4db]/50 focus:border-[#00b4db] transition-all text-sm font-medium shadow-sm resize-none" 
               placeholder={t.whyPlaceholder} 
             />
           </div>
