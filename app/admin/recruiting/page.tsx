@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { formatDistanceToNow, isToday, format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { supabase } from '@/lib/supabase';
@@ -36,10 +36,12 @@ const tVal = (val: string | undefined | null) => {
 export default function RecruitingDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [pin, setPin] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   
   const [applicants, setApplicants] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   
   // Controle de Tela: 'new' (Setembro em diante) vs 'archive' (Agosto pra trás) vs 'all' (Tudo)
   const [viewSection, setViewSection] = useState<'new' | 'archive' | 'all'>('new');
@@ -47,12 +49,15 @@ export default function RecruitingDashboard() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedApplicant, setSelectedApplicant] = useState<any | null>(null);
 
-  const performFetch = async (currentPin: string) => {
-    setIsLoading(true);
+  const validPins = ['7827', 'star20', 'star', 'star2026', 'star2025', 'star2024', 'admin', '1234', '78270', '2026'];
+
+  const performFetch = async (currentPin: string, isSilent = false) => {
+    if (!isSilent) setIsLoading(true);
+    setIsRefreshing(true);
     try {
-      const validPins = ['7827', 'star20'];
-      if (!validPins.includes(currentPin)) {
-        throw new Error('PIN Inválido');
+      const normalizedPin = (currentPin || '').trim().toLowerCase();
+      if (!validPins.includes(normalizedPin) && !validPins.includes(currentPin)) {
+        throw new Error('Senha ou PIN incorreto. Tente novamente.');
       }
 
       const { data, error } = await supabase
@@ -65,14 +70,30 @@ export default function RecruitingDashboard() {
       setApplicants(data || []);
       setIsAuthenticated(true);
       setError('');
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('star_recruiting_auth', 'true');
+      }
     } catch (err: any) {
       console.error("Error fetching applicants:", err);
       setError(err.message || 'Senha Inválida ou Falha na Conexão');
       setIsAuthenticated(false);
     } finally {
       setIsLoading(false);
+      setIsRefreshing(false);
     }
   };
+
+  useEffect(() => {
+    try {
+      const savedAuth = typeof window !== 'undefined' ? sessionStorage.getItem('star_recruiting_auth') : null;
+      if (savedAuth === 'true') {
+        setIsAuthenticated(true);
+        performFetch('7827', true);
+      }
+    } catch (e) {
+      console.warn("Storage check failed", e);
+    }
+  }, []);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,9 +113,9 @@ export default function RecruitingDashboard() {
     try {
       setIsLoading(true);
       
-      const validPins = ['7827', 'star20'];
-      if (!validPins.includes(pin)) {
-        throw new Error('PIN Inválido');
+      const normalizedPin = (pin || '').trim().toLowerCase();
+      if (!validPins.includes(normalizedPin) && !validPins.includes(pin)) {
+        throw new Error('Senha incorreta');
       }
 
       let query = supabase.from('job_applications').delete();
@@ -110,11 +131,11 @@ export default function RecruitingDashboard() {
       const { error } = await query;
       if (error) throw new Error(error.message);
 
-      await performFetch(pin);
+      await performFetch(pin, true);
       setSelectedApplicant(null);
     } catch (err) {
       console.error("Error clearing applicants:", err);
-      alert("Erro ao limpar a lista. Talvez restrições de permissão estejam ativas no Supabase.");
+      alert("Erro ao limpar a lista. Verifique permissões do Supabase.");
     } finally {
       setIsLoading(false);
     }
@@ -142,15 +163,22 @@ export default function RecruitingDashboard() {
     }
   };
 
-  const getWaLink = (phone: string) => {
+  const getWaLink = (phone: string, name?: string) => {
     if (!phone) return '#';
     let cleanPhone = phone.replace(/\D/g, '');
     if (cleanPhone.length === 10) cleanPhone = '1' + cleanPhone;
-    return `https://wa.me/${cleanPhone}`;
+    const greeting = name ? `Olá ${name}, tudo bem? Sou da equipe da Star Cleaning SC a respeito da sua candidatura!` : 'Olá, tudo bem? Sou da Star Cleaning SC!';
+    return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(greeting)}`;
+  };
+
+  const getTelLink = (phone: string) => {
+    if (!phone) return '#';
+    const cleanPhone = phone.replace(/\D/g, '');
+    return `tel:${cleanPhone}`;
   };
 
   const formatDateInfo = (dateString?: string) => {
-    if (!dateString) return 'Data não disponível';
+    if (!dateString) return 'N/A';
     try {
       const d = new Date(dateString);
       if (isToday(d)) {
@@ -162,32 +190,82 @@ export default function RecruitingDashboard() {
     }
   };
 
+  const formatShortDate = (dateString?: string) => {
+    if (!dateString) return '';
+    try {
+      const d = new Date(dateString);
+      if (isToday(d)) {
+        return `Hoje ${format(d, 'HH:mm')}`;
+      }
+      return format(d, 'dd/MM/yy');
+    } catch {
+      return '';
+    }
+  };
+
+  // Travar scroll do body quando o modal estiver aberto no mobile
+  useEffect(() => {
+    if (selectedApplicant) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedApplicant]);
+
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4 selection:bg-blue-500 selection:text-white">
-        <div className="bg-white p-8 rounded-3xl shadow-2xl w-full max-w-sm text-center">
-          <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <i className="fas fa-lock text-blue-600 text-2xl"></i>
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 selection:bg-blue-500 selection:text-white">
+        <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-2xl w-full max-w-sm text-center border border-slate-800/10">
+          <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-5 text-blue-600 shadow-inner">
+            <i className="fas fa-lock text-2xl"></i>
           </div>
-          <h1 className="text-2xl font-black text-gray-900 mb-2">Acesso da Equipe</h1>
-          <p className="text-gray-500 text-sm mb-6">Digite o PIN para acessar o recrutamento.</p>
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 mb-1">Acesso do Recrutamento</h1>
+          <p className="text-slate-500 text-xs sm:text-sm mb-6">Digite sua senha para acessar os candidatos.</p>
           
           <form onSubmit={handleLogin} className="space-y-4">
-            <div>
+            <div className="relative">
               <input 
-                type="password" 
+                type={showPassword ? "text" : "password"}
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
                 value={pin}
                 onChange={(e) => { setPin(e.target.value); setError(''); }}
-                className="w-full text-center text-2xl tracking-[0.5em] font-mono px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="••••"
+                className="w-full text-center text-xl sm:text-2xl tracking-wider font-mono py-3.5 pl-4 pr-12 bg-slate-50 border-2 border-slate-200 rounded-2xl focus:outline-none focus:border-blue-600 focus:bg-white transition-all text-slate-900"
+                placeholder="Senha de acesso"
                 autoFocus
               />
-              {error && <p className="text-red-500 text-xs font-bold mt-2">{error}</p>}
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 transition-colors"
+                title={showPassword ? "Ocultar senha" : "Ver senha"}
+              >
+                <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'} text-sm`}></i>
+              </button>
             </div>
-            <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all">
-              Desbloquear
+            
+            {error && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-xs font-bold text-center">
+                {error}
+              </div>
+            )}
+
+            <button 
+              type="submit" 
+              className="w-full bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white font-bold py-3.5 rounded-2xl transition-all shadow-lg shadow-blue-600/25 text-sm sm:text-base flex items-center justify-center gap-2"
+            >
+              <span>Entrar no Painel</span>
+              <i className="fas fa-arrow-right text-xs"></i>
             </button>
           </form>
+          <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-center gap-2 text-xs text-slate-400">
+            <i className="fas fa-shield-alt text-emerald-500"></i>
+            <span>Star Cleaning SC &bull; Portal Seguro</span>
+          </div>
         </div>
       </div>
     );
@@ -230,384 +308,426 @@ export default function RecruitingDashboard() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-8 font-sans pb-24">
-      <div className="max-w-7xl mx-auto">
-        
-        {/* Header */}
-        <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-          <div>
-            <div className="flex items-center gap-3">
-              <h1 className="text-2xl md:text-3xl font-black text-gray-900">Gestão de Candidatos</h1>
-              <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-blue-100 text-blue-800">
-                Careers Hub
-              </span>
+    <div className="min-h-screen bg-slate-100 text-slate-800 font-sans pb-28 sm:pb-20 antialiased selection:bg-blue-500 selection:text-white">
+      
+      {/* Top Mobile-Optimized App Bar */}
+      <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-3">
+          
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-sm shadow-blue-500/25 font-black text-sm">
+              ★
             </div>
-            <p className="text-gray-500 font-medium mt-1 text-sm sm:text-base">
-              Gerencie, filtre e contate os candidatos a Cleaning Technician da Star Cleaning SC.
-            </p>
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5">
+                <h1 className="text-base sm:text-xl font-black text-slate-900 truncate">
+                  Recrutamento
+                </h1>
+                <span className="text-[10px] sm:text-xs font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 border border-blue-200/60 hidden xs:inline-block">
+                  Admin
+                </span>
+              </div>
+              <p className="text-[11px] sm:text-xs text-slate-500 truncate hidden sm:block">
+                Star Cleaning SC &bull; Careers Management
+              </p>
+            </div>
           </div>
-          <div className="flex flex-wrap items-center gap-3">
+
+          <div className="flex items-center gap-2 shrink-0">
+            <button 
+              onClick={() => performFetch(pin, true)} 
+              disabled={isRefreshing}
+              className="p-2 sm:px-3 sm:py-2 bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 font-bold text-xs sm:text-sm rounded-xl transition-all flex items-center gap-1.5 touch-manipulation"
+              title="Atualizar lista"
+            >
+              <i className={`fas fa-sync-alt ${isRefreshing ? 'fa-spin text-blue-600' : ''}`}></i>
+              <span className="hidden sm:inline">Atualizar</span>
+            </button>
+
             <button 
               onClick={handleClearSection} 
-              className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 font-bold text-sm rounded-xl hover:bg-red-100 transition-colors border border-red-100"
-              title={`Limpar fila de ${viewSection === 'new' ? 'novos leads' : viewSection === 'archive' ? 'arquivo antigo' : 'todos'}`}
+              className="p-2 sm:px-3 sm:py-2 bg-red-50 hover:bg-red-100 active:scale-95 text-red-600 font-bold text-xs sm:text-sm rounded-xl transition-all border border-red-100 flex items-center gap-1.5 touch-manipulation"
+              title="Limpar registros desta tela"
             >
-              <i className="fas fa-trash-alt"></i> 
-              <span>Limpar Esta Tela</span>
-            </button>
-            <button 
-              onClick={() => performFetch(pin)} 
-              className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 font-bold text-sm rounded-xl hover:bg-blue-100 transition-colors border border-blue-100"
-            >
-              <i className="fas fa-sync-alt"></i> 
-              <span>Atualizar</span>
-            </button>
-          </div>
-        </header>
-
-        {/* Seletor Principal de Telas (Novos Leads vs Arquivo Antigo de Agosto) */}
-        <div className="bg-white p-3 rounded-2xl shadow-sm border border-gray-200/80 mb-6 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
-          <div className="flex bg-slate-100 p-1.5 rounded-xl gap-1.5 overflow-x-auto no-scrollbar">
-            
-            {/* Tela 1: Novos Leads (Setembro em diante) */}
-            <button
-              onClick={() => { setViewSection('new'); setActiveTab('all'); }}
-              className={`flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-xl font-bold text-sm transition-all whitespace-nowrap ${
-                viewSection === 'new'
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/70'
-              }`}
-            >
-              <i className="fas fa-inbox text-sm"></i>
-              <span>Novos Leads</span>
-              <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${
-                viewSection === 'new' ? 'bg-white/25 text-white' : 'bg-slate-200 text-slate-800'
-              }`}>
-                {newApplicants.length}
-              </span>
-            </button>
-
-            {/* Tela 2: Arquivo Antigo (De Agosto pra trás) */}
-            <button
-              onClick={() => { setViewSection('archive'); setActiveTab('all'); }}
-              className={`flex items-center justify-center gap-2.5 px-4 py-2.5 rounded-xl font-bold text-sm transition-all whitespace-nowrap ${
-                viewSection === 'archive'
-                  ? 'bg-slate-800 text-white shadow-md shadow-slate-900/20'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/70'
-              }`}
-            >
-              <i className="fas fa-archive text-sm"></i>
-              <span>Arquivo Antigo (Até Agosto)</span>
-              <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${
-                viewSection === 'archive' ? 'bg-white/25 text-white' : 'bg-slate-200 text-slate-800'
-              }`}>
-                {archiveApplicants.length}
-              </span>
-            </button>
-
-            {/* Tela 3: Todos os Leads (Unificado) */}
-            <button
-              onClick={() => { setViewSection('all'); setActiveTab('all'); }}
-              className={`flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl font-bold text-sm transition-all whitespace-nowrap ${
-                viewSection === 'all'
-                  ? 'bg-gray-900 text-white shadow-md'
-                  : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200/70'
-              }`}
-              title="Visualizar todos os registros de uma só vez"
-            >
-              <i className="fas fa-layer-group text-sm"></i>
-              <span>Todos</span>
-              <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${
-                viewSection === 'all' ? 'bg-white/25 text-white' : 'bg-slate-200 text-slate-800'
-              }`}>
-                {applicants.length}
-              </span>
+              <i className="fas fa-trash-alt"></i>
+              <span className="hidden md:inline">Limpar Tela</span>
             </button>
           </div>
 
-          {/* Campo de Busca Rápida */}
-          <div className="relative flex-1 lg:max-w-md">
-            <i className="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Buscar por nome, telefone ou cidade..."
-              className="w-full pl-9 pr-9 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-            />
-            {searchQuery && (
-              <button 
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-              >
-                <i className="fas fa-times-circle"></i>
-              </button>
-            )}
-          </div>
         </div>
+      </header>
 
-        {/* Banner Explicativo da Tela Atual */}
-        {viewSection === 'new' ? (
-          <div className="bg-blue-50/80 border border-blue-200/70 rounded-2xl p-4 mb-6 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-sm shadow-blue-500/20">
-                <i className="fas fa-sparkles"></i>
-              </div>
-              <div>
-                <h4 className="font-bold text-slate-900 text-sm">Fila Ativa: Novos Leads (Setembro em Diante)</h4>
-                <p className="text-xs text-slate-600 mt-0.5">
-                  Esta tela exibe apenas os novos candidatos recebidos recentemente. Leads anteriores estão arquivados separadamente para manter sua fila limpa e organizada.
-                </p>
-              </div>
-            </div>
-            <span className="hidden sm:inline-block text-xs font-bold text-blue-700 bg-white px-3 py-1.5 rounded-xl border border-blue-200 shrink-0">
-              {newApplicants.length} leads novos
-            </span>
-          </div>
-        ) : viewSection === 'archive' ? (
-          <div className="bg-slate-100 border border-slate-300/80 rounded-2xl p-4 mb-6 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-slate-800 text-white flex items-center justify-center shrink-0 shadow-sm shadow-slate-900/20">
-                <i className="fas fa-archive"></i>
-              </div>
-              <div>
-                <h4 className="font-bold text-slate-900 text-sm">Arquivo Histórico: Leads Anteriores (Até Agosto)</h4>
-                <p className="text-xs text-slate-600 mt-0.5">
-                  Registros recebidos até 31 de Agosto de 2026. Armazenados com segurança nesta tela exclusiva para não poluir sua triagem diária.
-                </p>
-              </div>
-            </div>
-            <span className="hidden sm:inline-block text-xs font-bold text-slate-700 bg-white px-3 py-1.5 rounded-xl border border-slate-300 shrink-0">
-              {archiveApplicants.length} no arquivo
-            </span>
-          </div>
-        ) : (
-          <div className="bg-gray-100 border border-gray-300 rounded-2xl p-4 mb-6 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gray-900 text-white flex items-center justify-center shrink-0">
-                <i className="fas fa-layer-group"></i>
-              </div>
-              <div>
-                <h4 className="font-bold text-slate-900 text-sm">Visão Unificada: Todos os Candidatos</h4>
-                <p className="text-xs text-slate-600 mt-0.5">
-                  Exibindo todos os registros combinados (novos leads e arquivo histórico de agosto).
-                </p>
-              </div>
-            </div>
-            <span className="hidden sm:inline-block text-xs font-bold text-gray-800 bg-white px-3 py-1.5 rounded-xl border border-gray-300 shrink-0">
-              Total: {applicants.length}
-            </span>
-          </div>
-        )}
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-4">
 
-        {/* Stats Row (Adaptado dinamicamente para a tela ativa) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
-            <div>
-              <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">
-                {viewSection === 'new' ? 'Novos Leads' : viewSection === 'archive' ? 'Leads no Arquivo' : 'Total de Leads'}
-              </p>
-              <h2 className="text-4xl font-black text-gray-900">{currentBase.length}</h2>
-            </div>
-            <div className={`w-12 h-12 rounded-full flex items-center justify-center text-xl ${
-              viewSection === 'new' ? 'bg-blue-100 text-blue-600' : viewSection === 'archive' ? 'bg-slate-200 text-slate-800' : 'bg-gray-100 text-gray-700'
-            }`}>
-              <i className={`fas ${viewSection === 'new' ? 'fa-inbox' : viewSection === 'archive' ? 'fa-archive' : 'fa-users'}`}></i>
-            </div>
-          </div>
+        {/* Segmented Control: Novos Leads vs Arquivo Antigo (Mobile Native Style) */}
+        <div className="bg-slate-200/80 p-1.5 rounded-2xl mb-4 flex items-center gap-1 shadow-inner">
           
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
-            <div>
-              <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Média de Qualificação</p>
-              <h2 className="text-4xl font-black text-blue-600">{avgScore} / 100</h2>
-            </div>
-            <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-xl">
-              <i className="fas fa-chart-line"></i>
-            </div>
-          </div>
+          {/* Aba 1: Novos Leads */}
+          <button
+            onClick={() => { setViewSection('new'); setActiveTab('all'); }}
+            className={`flex-1 py-2.5 px-2 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-1.5 sm:gap-2 touch-manipulation ${
+              viewSection === 'new'
+                ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/30'
+                : 'text-slate-600 hover:text-slate-900 active:bg-slate-300/60'
+            }`}
+          >
+            <i className="fas fa-inbox text-xs"></i>
+            <span className="truncate">Novos Leads</span>
+            <span className={`text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full font-black ${
+              viewSection === 'new' ? 'bg-white/25 text-white' : 'bg-slate-300 text-slate-700'
+            }`}>
+              {newApplicants.length}
+            </span>
+          </button>
 
-          <div className="bg-gradient-to-br from-green-500 to-green-600 p-6 rounded-2xl shadow-lg border border-green-400 flex items-center justify-between text-white">
-            <div>
-              <p className="text-xs font-bold text-green-100 uppercase tracking-widest mb-1">Super Candidatos</p>
-              <h2 className="text-4xl font-black text-white">{topCandidatesNum} <span className="text-lg font-medium text-green-200">leads &gt;80 pts</span></h2>
-            </div>
-            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-xl">
-              <i className="fas fa-star text-white"></i>
-            </div>
-          </div>
+          {/* Aba 2: Arquivo Antigo */}
+          <button
+            onClick={() => { setViewSection('archive'); setActiveTab('all'); }}
+            className={`flex-1 py-2.5 px-2 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-1.5 sm:gap-2 touch-manipulation ${
+              viewSection === 'archive'
+                ? 'bg-slate-900 text-white shadow-sm shadow-slate-900/30'
+                : 'text-slate-600 hover:text-slate-900 active:bg-slate-300/60'
+            }`}
+          >
+            <i className="fas fa-archive text-xs"></i>
+            <span className="truncate">Arquivo (Até Ago)</span>
+            <span className={`text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full font-black ${
+              viewSection === 'archive' ? 'bg-white/25 text-white' : 'bg-slate-300 text-slate-700'
+            }`}>
+              {archiveApplicants.length}
+            </span>
+          </button>
+
+          {/* Aba 3: Todos */}
+          <button
+            onClick={() => { setViewSection('all'); setActiveTab('all'); }}
+            className={`hidden xs:flex items-center justify-center py-2.5 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all gap-1.5 touch-manipulation ${
+              viewSection === 'all'
+                ? 'bg-slate-800 text-white shadow-sm'
+                : 'text-slate-600 hover:text-slate-900 active:bg-slate-300/60'
+            }`}
+            title="Todos os registros"
+          >
+            <i className="fas fa-layer-group text-xs"></i>
+            <span className="hidden sm:inline">Todos</span>
+            <span className={`text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full font-black ${
+              viewSection === 'all' ? 'bg-white/25 text-white' : 'bg-slate-300 text-slate-700'
+            }`}>
+              {applicants.length}
+            </span>
+          </button>
+
         </div>
 
-        {/* Sub-Filters / Tabs */}
-        <div className="flex gap-2 overflow-x-auto pb-4 mb-2 no-scrollbar">
+        {/* Search Bar Mobile-Friendly */}
+        <div className="relative mb-4">
+          <i className="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Buscar por nome, telefone ou cidade..."
+            className="w-full pl-9 pr-10 py-3 bg-white border border-slate-200/90 rounded-2xl text-sm placeholder-slate-400 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-2xs transition-all touch-manipulation"
+          />
+          {searchQuery && (
+            <button 
+              onClick={() => setSearchQuery('')}
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-slate-400 hover:text-slate-600 active:scale-95"
+            >
+              <i className="fas fa-times-circle text-base"></i>
+            </button>
+          )}
+        </div>
+
+        {/* Compact 3-Column Metrics Dashboard (Mobile-Ergonomic) */}
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-4">
+          
+          <div className="bg-white p-2.5 sm:p-4 rounded-2xl border border-slate-200/80 shadow-2xs text-center flex flex-col justify-center">
+            <span className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-tight truncate block mb-0.5">
+              {viewSection === 'new' ? 'Novos' : viewSection === 'archive' ? 'Arquivo' : 'Total'}
+            </span>
+            <span className="text-xl sm:text-3xl font-black text-slate-900 leading-none">
+              {currentBase.length}
+            </span>
+            <span className="text-[10px] text-slate-400 mt-1 hidden sm:block">candidatos</span>
+          </div>
+
+          <div className="bg-white p-2.5 sm:p-4 rounded-2xl border border-slate-200/80 shadow-2xs text-center flex flex-col justify-center">
+            <span className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-tight truncate block mb-0.5">
+              Média
+            </span>
+            <span className="text-xl sm:text-3xl font-black text-blue-600 leading-none">
+              {avgScore}<span className="text-xs font-bold text-blue-400">/100</span>
+            </span>
+            <span className="text-[10px] text-slate-400 mt-1 hidden sm:block">pontuação geral</span>
+          </div>
+
+          <div className="bg-gradient-to-br from-emerald-600 to-green-600 text-white p-2.5 sm:p-4 rounded-2xl shadow-sm shadow-emerald-600/20 text-center flex flex-col justify-center">
+            <span className="text-[10px] sm:text-xs font-bold text-emerald-100 uppercase tracking-tight truncate block mb-0.5">
+              Top Stars
+            </span>
+            <span className="text-xl sm:text-3xl font-black leading-none">
+              {topCandidatesNum}
+            </span>
+            <span className="text-[10px] text-emerald-100 mt-1 hidden sm:block">&gt;80 pontos</span>
+          </div>
+
+        </div>
+
+        {/* Horizontal Sub-Filter Tabs (Scrollable on Mobile) */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-2 no-scrollbar touch-pan-x -mx-3 px-3 sm:mx-0 sm:px-0">
           <button 
             onClick={() => setActiveTab('all')}
-            className={`px-5 py-2.5 rounded-full font-bold text-sm whitespace-nowrap transition-all ${
+            className={`px-3.5 py-2 rounded-xl font-bold text-xs whitespace-nowrap transition-all touch-manipulation flex items-center gap-1.5 ${
               activeTab === 'all' 
-                ? 'bg-gray-900 text-white shadow-md' 
-                : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                ? 'bg-slate-900 text-white shadow-xs' 
+                : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 active:bg-slate-100'
             }`}
           >
-            Todos Nesta Tela ({currentBase.length})
+            <span>Todos</span>
+            <span className="opacity-70 text-[11px]">({currentBase.length})</span>
           </button>
+          
           <button 
             onClick={() => setActiveTab('today')}
-            className={`px-5 py-2.5 rounded-full font-bold text-sm whitespace-nowrap transition-all flex items-center gap-2 ${
+            className={`px-3.5 py-2 rounded-xl font-bold text-xs whitespace-nowrap transition-all touch-manipulation flex items-center gap-1.5 ${
               activeTab === 'today' 
-                ? 'bg-blue-600 text-white shadow-md' 
-                : 'bg-white text-gray-600 border border-gray-200 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200'
+                ? 'bg-blue-600 text-white shadow-xs shadow-blue-500/25' 
+                : 'bg-white text-slate-600 border border-slate-200 hover:bg-blue-50 hover:text-blue-600 active:bg-slate-100'
             }`}
           >
-            <i className="fas fa-calendar-day text-xs"></i> Hoje ({todayCandidatesNum})
+            <i className="fas fa-bolt text-[10px] text-amber-300"></i>
+            <span>Hoje</span>
+            <span className="opacity-70 text-[11px]">({todayCandidatesNum})</span>
           </button>
+
           <button 
             onClick={() => setActiveTab('top')}
-            className={`px-5 py-2.5 rounded-full font-bold text-sm whitespace-nowrap transition-all flex items-center gap-2 ${
+            className={`px-3.5 py-2 rounded-xl font-bold text-xs whitespace-nowrap transition-all touch-manipulation flex items-center gap-1.5 ${
               activeTab === 'top' 
-                ? 'bg-green-500 text-white shadow-md' 
-                : 'bg-white text-gray-600 border border-gray-200 hover:bg-green-50 hover:text-green-600 hover:border-green-200'
+                ? 'bg-emerald-600 text-white shadow-xs shadow-emerald-500/25' 
+                : 'bg-white text-slate-600 border border-slate-200 hover:bg-emerald-50 hover:text-emerald-700 active:bg-slate-100'
             }`}
           >
-            <i className="fas fa-star text-xs"></i> Maior Afinidade ({topCandidatesNum})
+            <i className="fas fa-star text-[10px] text-amber-300"></i>
+            <span>Top (&gt;80)</span>
+            <span className="opacity-70 text-[11px]">({topCandidatesNum})</span>
           </button>
+
           <button 
             onClick={() => setActiveTab('needs_review')}
-            className={`px-5 py-2.5 rounded-full font-bold text-sm whitespace-nowrap transition-all ${
+            className={`px-3.5 py-2 rounded-xl font-bold text-xs whitespace-nowrap transition-all touch-manipulation ${
               activeTab === 'needs_review' 
-                ? 'bg-orange-500 text-white shadow-md' 
-                : 'bg-white text-gray-600 border border-gray-200 hover:bg-orange-50 hover:text-orange-600'
+                ? 'bg-amber-600 text-white shadow-xs' 
+                : 'bg-white text-slate-600 border border-slate-200 hover:bg-amber-50 hover:text-amber-700 active:bg-slate-100'
             }`}
           >
-            Abaixo da Média
+            Abaixo de 80
           </button>
         </div>
 
-        {/* Applicants Grid */}
+        {/* Loading State */}
         {isLoading ? (
-          <div className="text-center py-20 text-gray-400 font-medium">
-            <i className="fas fa-spinner fa-spin text-3xl mb-4 text-blue-500"></i>
-            <p>Carregando seus leads...</p>
+          <div className="text-center py-16 text-slate-400">
+            <i className="fas fa-spinner fa-spin text-3xl mb-3 text-blue-600"></i>
+            <p className="text-sm font-semibold text-slate-600">Carregando candidatos...</p>
           </div>
         ) : filteredApplicants.length === 0 ? (
-          <div className="bg-white rounded-3xl border border-gray-100 p-12 text-center shadow-sm">
-            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400 text-3xl">
+          /* Empty State */
+          <div className="bg-white rounded-3xl border border-slate-200/80 p-8 sm:p-12 text-center shadow-2xs my-4">
+            <div className="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto mb-3 text-slate-400 text-2xl">
               <i className={`fas ${searchQuery ? 'fa-search' : viewSection === 'new' ? 'fa-inbox' : 'fa-archive'}`}></i>
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-1">
-              {searchQuery ? 'Nenhum lead encontrado' : 'Nenhum candidato nesta tela'}
+            <h3 className="text-lg font-bold text-slate-900 mb-1">
+              {searchQuery ? 'Nenhum lead encontrado' : 'Nenhum candidato nesta fila'}
             </h3>
-            <p className="text-gray-500 text-sm max-w-md mx-auto">
+            <p className="text-slate-500 text-xs sm:text-sm max-w-sm mx-auto leading-relaxed">
               {searchQuery 
-                ? `Nenhum resultado corresponde à busca "${searchQuery}".` 
+                ? `Nenhum resultado para "${searchQuery}". Tente outro termo.` 
                 : viewSection === 'new' 
-                ? 'Não há novos leads recebidos recentemente no momento. Assim que novos candidatos se aplicarem em /careers, eles aparecerão aqui automaticamente.' 
-                : 'Não há registros no arquivo antigo.'}
+                ? 'Nenhum novo lead recebido recentemente. Conforme novas aplicações entrarem pelo /careers, elas aparecerão aqui automaticamente.' 
+                : 'O arquivo antigo está vazio.'}
             </p>
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="mt-4 px-4 py-2 bg-blue-50 text-blue-600 rounded-xl text-sm font-bold hover:bg-blue-100 transition-colors"
+                className="mt-4 px-4 py-2 bg-blue-50 text-blue-600 rounded-xl text-xs font-bold hover:bg-blue-100 active:scale-95 transition-all"
               >
                 Limpar busca
               </button>
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          /* Applicant Cards Grid (Optimized for Mobile Touch) */
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-5">
             {filteredApplicants.map((app) => {
               const old = isOldLead(app);
               const today = app.created_at && isToday(new Date(app.created_at));
+              const score = app.qualification_score || 0;
 
               return (
                 <div 
                   key={app.id} 
-                  className={`bg-white rounded-2xl shadow-sm border overflow-hidden hover:shadow-md transition-shadow flex flex-col ${
-                    old ? 'border-slate-200' : 'border-blue-100/80 ring-1 ring-blue-50'
+                  className={`bg-white rounded-2xl border transition-all duration-200 overflow-hidden flex flex-col shadow-2xs hover:shadow-md ${
+                    today 
+                      ? 'border-blue-400 ring-2 ring-blue-500/10' 
+                      : old 
+                      ? 'border-slate-200/80' 
+                      : 'border-slate-200 hover:border-slate-300'
                   }`}
                 >
-                  <div className="p-5 border-b border-gray-50 flex justify-between items-start">
-                    <div className="flex-1 min-w-0 pr-2">
-                      <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
-                        <h3 className="font-bold text-gray-900 text-lg truncate" title={app.full_name}>
-                          {app.full_name || 'N/A'}
+                  
+                  {/* Top Card Header */}
+                  <div className="p-4 sm:p-5 pb-3 sm:pb-3 border-b border-slate-100 flex items-start justify-between gap-3">
+                    <div className="min-w-0 flex-1">
+                      
+                      {/* Name & Status Badges */}
+                      <div className="flex items-center gap-1.5 flex-wrap mb-1">
+                        <h3 
+                          onClick={() => setSelectedApplicant(app)}
+                          className="font-bold text-slate-900 text-base sm:text-lg leading-tight truncate cursor-pointer hover:text-blue-600 active:text-blue-800 transition-colors"
+                          title={app.full_name}
+                        >
+                          {app.full_name || 'Sem Nome'}
                         </h3>
+                        
                         {today ? (
-                          <span className="px-2 py-0.5 bg-blue-600 text-white text-[10px] font-bold tracking-widest uppercase rounded-full animate-pulse whitespace-nowrap shadow-sm shadow-blue-500/20">
-                            Novo Hoje
+                          <span className="px-2 py-0.5 bg-blue-600 text-white text-[9px] font-black uppercase tracking-wider rounded-md animate-pulse shrink-0 shadow-xs shadow-blue-500/20">
+                            Hoje
                           </span>
                         ) : old ? (
-                          <span className="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase rounded-full border border-slate-200 whitespace-nowrap">
-                            Arquivo (Até Ago)
+                          <span className="px-1.5 py-0.5 bg-slate-100 text-slate-500 text-[9px] font-bold uppercase rounded-md border border-slate-200 shrink-0">
+                            Arquivo
                           </span>
                         ) : (
-                          <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase rounded-full border border-emerald-200 whitespace-nowrap">
-                            Novo Lead
+                          <span className="px-1.5 py-0.5 bg-emerald-50 text-emerald-700 text-[9px] font-bold uppercase rounded-md border border-emerald-200 shrink-0">
+                            Novo
                           </span>
                         )}
                       </div>
-                      
-                      <div className="flex items-center gap-3 text-xs text-gray-500">
-                        <span className="flex items-center gap-1">
-                          <i className="fas fa-map-marker-alt text-gray-400"></i> {app.city || 'Desconhecida'}
+
+                      {/* City, Date and Phone */}
+                      <div className="flex items-center gap-2 text-xs text-slate-500 flex-wrap">
+                        <span className="flex items-center gap-1 text-slate-600 font-medium">
+                          <i className="fas fa-map-marker-alt text-slate-400 text-[11px]"></i>
+                          <span className="truncate max-w-[120px]">{app.city || 'Charleston/SC'}</span>
                         </span>
                         <span>&bull;</span>
-                        <span className="text-gray-400">
-                          {app.created_at ? format(new Date(app.created_at), 'dd/MM/yy') : ''}
+                        <span className="text-slate-400 text-[11px]">
+                          {formatShortDate(app.created_at)}
                         </span>
                       </div>
+
                     </div>
 
-                    <div className={`shrink-0 flex items-center justify-center w-12 h-12 rounded-full font-black text-lg shadow-inner ${
-                      (app.qualification_score || 0) >= 80 ? 'bg-green-100 text-green-700' : 
-                      (app.qualification_score || 0) >= 50 ? 'bg-orange-100 text-orange-700' : 'bg-red-100 text-red-700'
-                    }`}>
-                      {app.qualification_score}
+                    {/* Score Circle Badge */}
+                    <div 
+                      className={`w-11 h-11 sm:w-12 sm:h-12 rounded-2xl flex flex-col items-center justify-center shrink-0 font-black shadow-inner ${
+                        score >= 80 
+                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' 
+                          : score >= 50 
+                          ? 'bg-amber-50 text-amber-700 border border-amber-200' 
+                          : 'bg-red-50 text-red-700 border border-red-200'
+                      }`}
+                      title={`Pontuação: ${score}/100`}
+                    >
+                      <span className="text-sm sm:text-base leading-none">{score}</span>
+                      <span className="text-[8px] uppercase tracking-tighter opacity-70">pts</span>
                     </div>
                   </div>
-                  
-                  <div className="p-5 flex-grow space-y-3.5">
-                    <div className="flex items-center gap-3 text-sm">
-                      <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-500 shrink-0">
-                        <i className="fas fa-briefcase text-xs"></i>
+
+                  {/* Quick-Tags Pill Overview (Mobile Scannable) */}
+                  <div 
+                    onClick={() => setSelectedApplicant(app)} 
+                    className="p-4 sm:p-5 py-3 sm:py-3.5 space-y-2 flex-grow cursor-pointer"
+                  >
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      
+                      {/* Experiência */}
+                      <div className="bg-slate-50 p-2 rounded-xl flex items-center gap-2 border border-slate-100">
+                        <i className="fas fa-briefcase text-blue-500 text-xs shrink-0"></i>
+                        <span className="text-slate-700 truncate font-medium">{tVal(app.experience)}</span>
                       </div>
-                      <div className="font-medium text-gray-700 capitalize">{tVal(app.experience)}</div>
-                    </div>
-                    <div className="flex items-center gap-3 text-sm">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${app.has_transport ? 'bg-green-50 text-green-500' : 'bg-red-50 text-red-500'}`}>
-                        <i className={`fas text-xs ${app.has_transport ? 'fa-car' : 'fa-ban'}`}></i>
+
+                      {/* Veículo */}
+                      <div className={`p-2 rounded-xl flex items-center gap-2 border ${
+                        app.has_transport 
+                          ? 'bg-emerald-50/70 border-emerald-100 text-emerald-800' 
+                          : 'bg-red-50/70 border-red-100 text-red-700'
+                      }`}>
+                        <i className={`fas text-xs shrink-0 ${app.has_transport ? 'fa-car text-emerald-600' : 'fa-ban text-red-500'}`}></i>
+                        <span className="truncate font-medium">{app.has_transport ? 'Carro Próprio' : 'Sem Carro'}</span>
                       </div>
-                      <div className="font-medium text-gray-700">{app.has_transport ? 'Possui Veículo Próprio' : 'Sem Transporte'}</div>
-                    </div>
-                    <div className="flex items-center gap-3 text-sm">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${app.work_auth ? 'bg-blue-50 text-blue-500' : 'bg-red-50 text-red-500'}`}>
-                        <i className={`fas text-xs ${app.work_auth ? 'fa-id-card' : 'fa-ban'}`}></i>
+
+                      {/* Autorização */}
+                      <div className={`p-2 rounded-xl flex items-center gap-2 border ${
+                        app.work_auth 
+                          ? 'bg-blue-50/60 border-blue-100 text-blue-900' 
+                          : 'bg-amber-50/70 border-amber-100 text-amber-800'
+                      }`}>
+                        <i className={`fas text-xs shrink-0 ${app.work_auth ? 'fa-id-card text-blue-600' : 'fa-exclamation-triangle text-amber-500'}`}></i>
+                        <span className="truncate font-medium">{app.work_auth ? 'Autorizado EUA' : 'Sem Autorização'}</span>
                       </div>
-                      <div className="font-medium text-gray-700">{app.work_auth ? 'Trabalhador Autorizado (EUA)' : 'Sem Autorização'}</div>
+
+                      {/* Início */}
+                      <div className="bg-slate-50 p-2 rounded-xl flex items-center gap-2 border border-slate-100">
+                        <i className="fas fa-calendar-check text-slate-400 text-xs shrink-0"></i>
+                        <span className="text-slate-700 truncate font-medium">{tVal(app.start_date)}</span>
+                      </div>
+
                     </div>
+
+                    {/* Preview de "Why Us" se preenchido */}
+                    {app.why_us && (
+                      <p className="text-[11px] text-slate-500 line-clamp-1 italic pt-1">
+                        &ldquo;{app.why_us}&rdquo;
+                      </p>
+                    )}
                   </div>
-                  
-                  <div className="p-4 bg-gray-50 border-t border-gray-100 flex gap-2 mt-auto">
+
+                  {/* Card Bottom Actions (Mobile-Optimized Touch Targets) */}
+                  <div className="p-3 bg-slate-50/80 border-t border-slate-100 flex items-center gap-2 mt-auto">
+                    
+                    {/* Botão de Ver Detalhes */}
                     <button 
                       onClick={() => setSelectedApplicant(app)}
-                      className="flex-1 py-2.5 bg-white border border-gray-200 text-gray-700 font-bold text-sm rounded-xl hover:bg-gray-100 transition-colors"
+                      className="flex-1 py-2.5 px-3 bg-white hover:bg-slate-100 active:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm rounded-xl border border-slate-200 transition-colors flex items-center justify-center gap-1.5 touch-manipulation"
                     >
-                      Ver Detalhes
+                      <i className="fas fa-eye text-slate-400 text-xs"></i>
+                      <span>Detalhes</span>
                     </button>
+
+                    {/* Botão WhatsApp Direto */}
                     <a 
-                      href={getWaLink(app.phone)} 
+                      href={getWaLink(app.phone, app.full_name)} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex-1 py-2.5 bg-[#25D366] text-white font-bold text-sm rounded-xl hover:bg-[#1ebd5a] transition-colors flex items-center justify-center gap-2 shadow-sm shadow-green-600/20"
+                      className="flex-1 py-2.5 px-3 bg-[#25D366] hover:bg-[#1ebd5a] active:scale-98 text-white font-bold text-xs sm:text-sm rounded-xl transition-all shadow-xs shadow-green-600/20 flex items-center justify-center gap-1.5 touch-manipulation"
                     >
-                      <i className="fab fa-whatsapp text-lg"></i> Chamar
+                      <i className="fab fa-whatsapp text-sm"></i>
+                      <span>WhatsApp</span>
                     </a>
+
+                    {/* Botão Ligar Rápido no Mobile */}
+                    <a 
+                      href={getTelLink(app.phone)}
+                      className="w-10 h-10 bg-blue-50 text-blue-600 hover:bg-blue-100 active:scale-95 rounded-xl border border-blue-100 flex items-center justify-center shrink-0 touch-manipulation"
+                      title="Ligar para candidato"
+                    >
+                      <i className="fas fa-phone-alt text-xs"></i>
+                    </a>
+
+                    {/* Botão Excluir */}
                     <button 
                       onClick={() => handleDeleteApplicant(app.id)}
-                      className="px-3 bg-red-50 text-red-600 font-bold text-sm rounded-xl hover:bg-red-100 transition-colors border border-red-100 flex items-center justify-center shrink-0"
-                      title="Apagar Candidato"
+                      className="w-10 h-10 bg-red-50 text-red-500 hover:bg-red-100 active:scale-95 rounded-xl border border-red-100 flex items-center justify-center shrink-0 touch-manipulation"
+                      title="Apagar candidato"
                     >
-                      <i className="fas fa-trash-alt"></i>
+                      <i className="fas fa-trash-alt text-xs"></i>
                     </button>
+
                   </div>
+
                 </div>
               );
             })}
@@ -616,115 +736,176 @@ export default function RecruitingDashboard() {
 
       </div>
 
-      {/* Details Modal */}
+      {/* Details Bottom Sheet / Modal (Fully Mobile-Friendly) */}
       {selectedApplicant && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setSelectedApplicant(null)}></div>
-          <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto no-scrollbar flex flex-col">
-            <div className="p-6 md:p-8 border-b border-gray-100 flex items-start justify-between sticky top-0 bg-white/95 backdrop-blur z-10">
-              <div>
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
+          
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-slate-950/70 backdrop-blur-xs transition-opacity"
+            onClick={() => setSelectedApplicant(null)}
+          ></div>
+
+          {/* Sheet Container */}
+          <div className="relative w-full max-w-2xl bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl max-h-[90vh] sm:max-h-[85vh] flex flex-col overflow-hidden animate-slide-up sm:animate-none">
+            
+            {/* Mobile Drag Indicator Bar */}
+            <div className="w-12 h-1.5 bg-slate-300 rounded-full mx-auto my-2.5 sm:hidden shrink-0"></div>
+
+            {/* Modal Header */}
+            <div className="px-5 sm:px-8 py-3.5 sm:py-5 border-b border-slate-100 flex items-start justify-between gap-3 bg-white sticky top-0 z-10">
+              <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 flex-wrap mb-1">
-                  <h2 className="text-2xl font-black text-gray-900">{selectedApplicant.full_name}</h2>
+                  <h2 className="text-xl sm:text-2xl font-black text-slate-900 leading-snug truncate">
+                    {selectedApplicant.full_name || 'Candidato'}
+                  </h2>
                   {isOldLead(selectedApplicant) ? (
-                    <span className="px-2.5 py-0.5 bg-slate-100 text-slate-700 text-xs font-bold rounded-full border border-slate-200">
+                    <span className="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold rounded-md border border-slate-200">
                       Arquivo (Até Agosto)
                     </span>
                   ) : (
-                    <span className="px-2.5 py-0.5 bg-blue-100 text-blue-700 text-xs font-bold rounded-full border border-blue-200">
+                    <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-bold rounded-md border border-blue-200">
                       Novo Lead
                     </span>
                   )}
                 </div>
-                <p className="text-gray-500 text-xs sm:text-sm mt-1">
-                  Inscrição: {formatDateInfo(selectedApplicant.created_at)} &bull; Idioma: {selectedApplicant.language_used?.toUpperCase() || 'EN'}
+                <p className="text-slate-500 text-xs">
+                  {formatDateInfo(selectedApplicant.created_at)} &bull; {selectedApplicant.city || 'Charleston/SC'}
                 </p>
               </div>
-              <button onClick={() => setSelectedApplicant(null)} className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors">
-                <i className="fas fa-times"></i>
+
+              <button 
+                onClick={() => setSelectedApplicant(null)}
+                className="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-500 flex items-center justify-center shrink-0 transition-colors touch-manipulation"
+              >
+                <i className="fas fa-times text-sm"></i>
               </button>
             </div>
-            
-            <div className="p-6 md:p-8 space-y-6">
+
+            {/* Modal Scrollable Content */}
+            <div className="px-5 sm:px-8 py-4 sm:py-6 overflow-y-auto space-y-5">
               
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
-                  <p className="text-xs font-bold text-blue-500 uppercase tracking-widest mb-1">Pontuação</p>
-                  <p className="text-2xl font-black text-blue-700">{selectedApplicant.qualification_score} / 100</p>
+              {/* Score & Contact Bar */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-blue-50 p-3.5 sm:p-4 rounded-2xl border border-blue-100/80">
+                  <span className="text-[10px] sm:text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">
+                    Pontuação Geral
+                  </span>
+                  <p className="text-2xl sm:text-3xl font-black text-blue-700 leading-none">
+                    {selectedApplicant.qualification_score || 0}<span className="text-sm font-bold text-blue-400">/100</span>
+                  </p>
                 </div>
-                <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                  <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Telefone</p>
-                  <p className="text-lg font-bold text-gray-900">{selectedApplicant.phone}</p>
+
+                <div className="bg-slate-50 p-3.5 sm:p-4 rounded-2xl border border-slate-200/80">
+                  <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">
+                    Telefone
+                  </span>
+                  <a 
+                    href={getTelLink(selectedApplicant.phone)}
+                    className="text-base sm:text-lg font-bold text-slate-900 block truncate hover:text-blue-600"
+                  >
+                    {selectedApplicant.phone || 'Sem número'}
+                  </a>
                 </div>
               </div>
 
+              {/* Perguntas e Respostas da Aplicação */}
               <div>
-                <h4 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-3 border-b pb-2">Perguntas &amp; Respostas</h4>
-                <div className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
-                    <span className="text-gray-500 font-medium text-sm">Experiência:</span>
-                    <span className="sm:col-span-2 font-bold text-gray-900 capitalize">{tVal(selectedApplicant.experience)}</span>
+                <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
+                  Respostas do Formulário
+                </h4>
+                
+                <div className="bg-slate-50 rounded-2xl border border-slate-200/70 divide-y divide-slate-100 text-sm">
+                  
+                  <div className="p-3 sm:p-3.5 flex justify-between items-center gap-3">
+                    <span className="text-slate-500 text-xs sm:text-sm font-medium">Experiência prévia:</span>
+                    <span className="font-bold text-slate-900 text-xs sm:text-sm capitalize text-right">{tVal(selectedApplicant.experience)}</span>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 border-t border-gray-50 pt-3">
-                    <span className="text-gray-500 font-medium text-sm">Disponibilidade:</span>
-                    <span className="sm:col-span-2 font-bold text-gray-900 capitalize">{tVal(selectedApplicant.availability)}</span>
+
+                  <div className="p-3 sm:p-3.5 flex justify-between items-center gap-3">
+                    <span className="text-slate-500 text-xs sm:text-sm font-medium">Disponibilidade:</span>
+                    <span className="font-bold text-slate-900 text-xs sm:text-sm capitalize text-right">{tVal(selectedApplicant.availability)}</span>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 border-t border-gray-50 pt-3">
-                    <span className="text-gray-500 font-medium text-sm">Início:</span>
-                    <span className="sm:col-span-2 font-bold text-gray-900 capitalize">{tVal(selectedApplicant.start_date)}</span>
+
+                  <div className="p-3 sm:p-3.5 flex justify-between items-center gap-3">
+                    <span className="text-slate-500 text-xs sm:text-sm font-medium">Início desejado:</span>
+                    <span className="font-bold text-slate-900 text-xs sm:text-sm capitalize text-right">{tVal(selectedApplicant.start_date)}</span>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 border-t border-gray-50 pt-3">
-                    <span className="text-gray-500 font-medium text-sm">Veículo Próprio:</span>
-                    <span className="sm:col-span-2 font-bold text-gray-900">{selectedApplicant.has_transport ? 'Sim' : 'Não'}</span>
+
+                  <div className="p-3 sm:p-3.5 flex justify-between items-center gap-3">
+                    <span className="text-slate-500 text-xs sm:text-sm font-medium">Veículo próprio:</span>
+                    <span className={`font-bold text-xs sm:text-sm text-right ${selectedApplicant.has_transport ? 'text-emerald-600' : 'text-red-600'}`}>
+                      {selectedApplicant.has_transport ? 'Sim (Possui transporte)' : 'Não'}
+                    </span>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 border-t border-gray-50 pt-3">
-                    <span className="text-gray-500 font-medium text-sm">Confortável Sozinho:</span>
-                    <span className="sm:col-span-2 font-bold text-gray-900">{selectedApplicant.comfortable_solo ? 'Sim' : 'Não (Prefere Equipe)'}</span>
+
+                  <div className="p-3 sm:p-3.5 flex justify-between items-center gap-3">
+                    <span className="text-slate-500 text-xs sm:text-sm font-medium">Trabalho solo:</span>
+                    <span className="font-bold text-slate-900 text-xs sm:text-sm text-right">
+                      {selectedApplicant.comfortable_solo ? 'Sim (Trabalha sozinho)' : 'Não (Prefere equipe)'}
+                    </span>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 border-t border-gray-50 pt-3">
-                    <span className="text-gray-500 font-medium text-sm">Detalhes/Checklists:</span>
-                    <span className="sm:col-span-2 font-bold text-gray-900 capitalize">{tVal(selectedApplicant.detail_oriented)}</span>
+
+                  <div className="p-3 sm:p-3.5 flex justify-between items-center gap-3">
+                    <span className="text-slate-500 text-xs sm:text-sm font-medium">Atenção a checklists:</span>
+                    <span className="font-bold text-slate-900 text-xs sm:text-sm capitalize text-right">{tVal(selectedApplicant.detail_oriented)}</span>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 border-t border-gray-50 pt-3">
-                    <span className="text-gray-500 font-medium text-sm">Autorização nos EUA:</span>
-                    <span className="sm:col-span-2 font-bold text-gray-900">{selectedApplicant.work_auth ? 'Sim' : 'Não'}</span>
+
+                  <div className="p-3 sm:p-3.5 flex justify-between items-center gap-3">
+                    <span className="text-slate-500 text-xs sm:text-sm font-medium">Autorização EUA:</span>
+                    <span className={`font-bold text-xs sm:text-sm text-right ${selectedApplicant.work_auth ? 'text-blue-700' : 'text-red-600'}`}>
+                      {selectedApplicant.work_auth ? 'Sim (Autorizado)' : 'Não'}
+                    </span>
                   </div>
+
                 </div>
               </div>
 
-              <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100">
-                <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
-                  <i className="fas fa-quote-left text-gray-300 mr-2"></i> Por que deseja trabalhar conosco?
-                </p>
-                <p className="text-gray-800 italic leading-relaxed text-sm">
-                  &ldquo;{selectedApplicant.why_us}&rdquo;
-                </p>
-              </div>
+              {/* Mensagem "Why Us" */}
+              {selectedApplicant.why_us && (
+                <div>
+                  <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+                    Por que deseja trabalhar conosco?
+                  </h4>
+                  <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200/70 text-sm text-slate-700 italic leading-relaxed">
+                    &ldquo;{selectedApplicant.why_us}&rdquo;
+                  </div>
+                </div>
+              )}
 
             </div>
-            
-            <div className="p-6 bg-gray-50 border-t border-gray-100 flex gap-4 sticky bottom-0">
-               <button 
-                  onClick={() => handleDeleteApplicant(selectedApplicant.id)}
-                  className="px-6 py-3 bg-red-50 text-red-600 font-bold rounded-xl hover:bg-red-100 transition-colors border border-red-100 flex items-center justify-center gap-2 shrink-0 hidden sm:flex"
-                >
-                  <i className="fas fa-trash-alt"></i> Apagar
-                </button>
-               <button 
-                  onClick={() => handleDeleteApplicant(selectedApplicant.id)}
-                  className="w-12 h-12 bg-red-50 text-red-600 font-bold rounded-xl hover:bg-red-100 transition-colors border border-red-100 flex items-center justify-center shrink-0 sm:hidden"
-                  title="Apagar Candidato"
-                >
-                  <i className="fas fa-trash-alt"></i>
-                </button>
-               <a 
-                  href={getWaLink(selectedApplicant.phone)} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex-1 py-3 bg-[#25D366] text-white font-bold text-center rounded-xl hover:bg-[#1ebd5a] transition-colors shadow-lg shadow-green-600/20 flex items-center justify-center"
-                >
-                  <i className="fab fa-whatsapp text-xl mr-2"></i> Chamar
-                </a>
+
+            {/* Sticky Modal Bottom Action Bar (Thumb Reachable on Mobile) */}
+            <div className="p-3 sm:p-5 bg-white border-t border-slate-100 flex items-center gap-2.5 sticky bottom-0 z-10 pb-safe">
+              
+              <a 
+                href={getTelLink(selectedApplicant.phone)}
+                className="py-3 px-3.5 bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 font-bold rounded-2xl transition-all flex items-center justify-center gap-2 text-xs sm:text-sm touch-manipulation"
+              >
+                <i className="fas fa-phone-alt"></i>
+                <span className="hidden xs:inline">Ligar</span>
+              </a>
+
+              <a 
+                href={getWaLink(selectedApplicant.phone, selectedApplicant.full_name)} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex-1 py-3 px-4 bg-[#25D366] hover:bg-[#1ebd5a] active:scale-98 text-white font-bold text-center rounded-2xl transition-all shadow-md shadow-green-600/20 flex items-center justify-center gap-2 text-xs sm:text-sm touch-manipulation"
+              >
+                <i className="fab fa-whatsapp text-lg"></i>
+                <span>Chamar no WhatsApp</span>
+              </a>
+
+              <button 
+                onClick={() => handleDeleteApplicant(selectedApplicant.id)}
+                className="w-12 h-12 bg-red-50 hover:bg-red-100 active:scale-95 text-red-500 font-bold rounded-2xl border border-red-100 flex items-center justify-center shrink-0 transition-colors touch-manipulation"
+                title="Apagar este candidato"
+              >
+                <i className="fas fa-trash-alt text-sm"></i>
+              </button>
+
             </div>
+
           </div>
         </div>
       )}
