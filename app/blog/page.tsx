@@ -24,6 +24,14 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "How to Deep Clean Your House Step-by-Step: The Ultimate Lowcountry Guide",
+      slug: "how-to-deep-clean-house-step-by-step-charleston-sc",
+      excerpt: "Step-by-step wikiHow-style guide to deep cleaning your house like a pro. Master the top-to-bottom rule, conquer coastal humidity grime, and get room-by-room checklists.",
+      date: "September 24, 2026",
+      category: "wikiHow & Pro Guide",
+      image: "/images/blog/how-to-deep-clean-house-step-by-step.jpg"
+    },
+    {
       title: "First Recurring Clean: What to Expect in Charleston & Summerville, SC",
       slug: "first-recurring-clean-charleston-summerville-sc",
       excerpt: "Curious about what happens on your first recurring house clean? Learn why the initial deep clean sets the foundation for effortless maintenance in Charleston and Summerville.",
