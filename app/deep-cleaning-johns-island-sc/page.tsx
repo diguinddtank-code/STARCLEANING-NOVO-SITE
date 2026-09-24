@@ -47,15 +47,9 @@ export default function JohnsIslandDeepCleaningPage() {
                 "openingHoursSpecification": [
                   {
                     "@type": "OpeningHoursSpecification",
-                    "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday"],
-                    "opens": "09:00",
-                    "closes": "18:00"
-                  },
-                  {
-                    "@type": "OpeningHoursSpecification",
-                    "dayOfWeek": ["Saturday"],
-                    "opens": "09:00",
-                    "closes": "15:00"
+                    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                    "opens": "08:00",
+                    "closes": "17:00"
                   }
                 ],
                 "areaServed": [
