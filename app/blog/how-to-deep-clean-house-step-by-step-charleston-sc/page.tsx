@@ -726,6 +726,9 @@ const BlogPostHowToDeepClean = () => {
                 <Link href="/blog/first-recurring-clean-charleston-summerville-sc" className="text-blue-600 hover:text-blue-800 flex items-center gap-1.5 font-medium">
                   &rarr; First Recurring Clean Guide
                 </Link>
+                <Link href="/blog/how-to-clean-before-moving-in-checklist-charleston-sc" className="text-blue-600 hover:text-blue-800 flex items-center gap-1.5 font-medium">
+                  &rarr; Move-In Cleaning Checklist Guide
+                </Link>
                 <Link href="/blog/move-out-cleaning-cost-summerville-sc" className="text-blue-600 hover:text-blue-800 flex items-center gap-1.5 font-medium">
                   &rarr; Move-Out Cleaning Cost Breakdown
                 </Link>

@@ -24,6 +24,14 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "How to Clean a House Before Moving In: The Step-by-Step Move-In Checklist",
+      slug: "how-to-clean-before-moving-in-checklist-charleston-sc",
+      excerpt: "Step-by-step wikiHow-style guide to deep cleaning an empty house before unpacking boxes. Master cabinet sanitization, appliance detailing, and baseboard cleaning in Charleston & Summerville.",
+      date: "September 25, 2026",
+      category: "wikiHow & Pro Guide",
+      image: "/images/blog/how-to-clean-before-moving-in-checklist.jpg"
+    },
+    {
       title: "How to Deep Clean Your House Step-by-Step: The Ultimate Lowcountry Guide",
       slug: "how-to-deep-clean-house-step-by-step-charleston-sc",
       excerpt: "Step-by-step wikiHow-style guide to deep cleaning your house like a pro. Master the top-to-bottom rule, conquer coastal humidity grime, and get room-by-room checklists.",
