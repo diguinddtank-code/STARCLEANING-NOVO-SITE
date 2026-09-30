@@ -828,6 +828,9 @@ const BlogPostHowToCleanBeforeMovingIn = () => {
                 <Link href="/blog/how-to-deep-clean-house-step-by-step-charleston-sc" className="text-blue-600 hover:text-blue-800 flex items-center gap-1.5 font-medium">
                   &rarr; Step-by-Step Deep Cleaning Guide
                 </Link>
+                <Link href="/blog/how-to-clean-house-after-construction-checklist-charleston-sc" className="text-blue-600 hover:text-blue-800 flex items-center gap-1.5 font-medium">
+                  &rarr; Post-Construction Cleaning Checklist
+                </Link>
                 <Link href="/blog/first-recurring-clean-charleston-summerville-sc" className="text-blue-600 hover:text-blue-800 flex items-center gap-1.5 font-medium">
                   &rarr; First Recurring Clean Expectations
                 </Link>

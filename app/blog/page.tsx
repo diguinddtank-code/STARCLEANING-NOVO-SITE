@@ -24,6 +24,14 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "How to Clean a House After Remodeling: The Step-by-Step Post-Construction Checklist",
+      slug: "how-to-clean-house-after-construction-checklist-charleston-sc",
+      excerpt: "Step-by-step wikiHow-style guide to conquering drywall dust and paint overspray after home renovation. Master HEPA vacuuming, duct protection, and haze-free floor mopping in Charleston & Summerville.",
+      date: "September 29, 2026",
+      category: "wikiHow & Pro Guide",
+      image: "/images/blog/how-to-clean-house-after-construction-checklist.jpg"
+    },
+    {
       title: "How to Clean a House Before Moving In: The Step-by-Step Move-In Checklist",
       slug: "how-to-clean-before-moving-in-checklist-charleston-sc",
       excerpt: "Step-by-step wikiHow-style guide to deep cleaning an empty house before unpacking boxes. Master cabinet sanitization, appliance detailing, and baseboard cleaning in Charleston & Summerville.",

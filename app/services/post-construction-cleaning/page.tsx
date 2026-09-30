@@ -479,6 +479,7 @@ export default function PostConstructionCleaningPage() {
               <ul className="space-y-2 text-sm">
                 <li><Link href="/services/commercial-office-cleaning" className="hover:text-blue-400 transition-colors">Commercial Cleaning</Link></li>
                 <li><Link href="/services/vacation-rental-airbnb-cleaning" className="hover:text-blue-400 transition-colors">Airbnb Cleaning</Link></li>
+                <li><Link href="/blog/how-to-clean-house-after-construction-checklist-charleston-sc" className="hover:text-blue-400 transition-colors text-amber-300 font-medium">DIY Post-Remodel Guide</Link></li>
               </ul>
             </div>
             <div>
