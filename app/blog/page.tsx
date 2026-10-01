@@ -24,6 +24,14 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "How to Remove Hard Water Stains & Mildew from Shower Glass and Grout",
+      slug: "how-to-remove-hard-water-stains-shower-glass-grout-charleston-sc",
+      excerpt: "Step-by-step wikiHow-style guide to dissolving cloudy mineral scale on shower doors and eliminating black mold from tile grout. Master chemical dwell times, non-scratch pads, and hydrophobic sealants in Charleston & Summerville.",
+      date: "September 30, 2026",
+      category: "wikiHow & Pro Guide",
+      image: "/images/blog/how-to-remove-hard-water-stains-shower-glass-grout.jpg"
+    },
+    {
       title: "How to Clean a House After Remodeling: The Step-by-Step Post-Construction Checklist",
       slug: "how-to-clean-house-after-construction-checklist-charleston-sc",
       excerpt: "Step-by-step wikiHow-style guide to conquering drywall dust and paint overspray after home renovation. Master HEPA vacuuming, duct protection, and haze-free floor mopping in Charleston & Summerville.",

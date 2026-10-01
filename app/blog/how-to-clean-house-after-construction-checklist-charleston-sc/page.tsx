@@ -804,6 +804,9 @@ const BlogPostHowToCleanAfterConstruction = () => {
                 <Link href="/deep-cleaning-north-charleston-sc" className="text-blue-600 hover:text-blue-800 flex items-center gap-1.5 font-medium">
                   &rarr; Deep Cleaning North Charleston, SC
                 </Link>
+                <Link href="/blog/how-to-remove-hard-water-stains-shower-glass-grout-charleston-sc" className="text-blue-600 hover:text-blue-800 flex items-center gap-1.5 font-medium">
+                  &rarr; Shower Glass &amp; Grout Cleaning Guide
+                </Link>
                 <Link href="/blog/how-to-clean-before-moving-in-checklist-charleston-sc" className="text-blue-600 hover:text-blue-800 flex items-center gap-1.5 font-medium">
                   &rarr; Move-In Cleaning Checklist Guide
                 </Link>
