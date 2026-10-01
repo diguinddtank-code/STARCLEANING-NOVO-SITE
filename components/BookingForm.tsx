@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { supabase } from '../lib/supabase';
+import { attributionFields } from '../lib/attribution';
 
 interface BookingFormProps {
   initialData?: any;
@@ -227,6 +228,8 @@ const BookingForm: React.FC<BookingFormProps> = ({
         cityDetected: city || "Not Detected",
         stage,
         ...extraData,
+        // Where the lead came from (Google Ads / Meta / organic / direct), saved on the lead by n8n
+        ...attributionFields(),
         submittedAt: new Date().toISOString()
       };
 

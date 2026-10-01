@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Open_Sans, Dancing_Script, Playfair_Display } from "next/font/google";
 import Script from "next/script";
+import AttributionCapture from "@/components/AttributionCapture";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -186,6 +187,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <AttributionCapture />
         {children}
       </body>
     </html>
