@@ -38,7 +38,7 @@ export default function NorthCharlestonDeepCleaningPage() {
             "@graph": [
               {
                 "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
-                "@id": "https://www.starcleaningsc.com/deep-cleaning-north-charleston-sc#localbusiness",
+                "@id": "https://www.starcleaningsc.com/#localbusiness",
                 "name": "Star Cleaning SC",
                 "url": "https://www.starcleaningsc.com/deep-cleaning-north-charleston-sc",
                 "telephone": "+18432979935",
@@ -62,18 +62,12 @@ export default function NorthCharlestonDeepCleaningPage() {
                   "https://instagram.com/star.cleaningsc",
                   "https://share.google/udkA7cxV0VCC39Ag2"
                 ],
-                "review": [
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Angela F." }, "reviewBody": "I manage six units off Ashley Phosphate and used to lose two or three days between tenants waiting on cleaning. Star Cleaning turns a unit around same-day now, including the oven and cabinet interiors.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Derek W." }, "reviewBody": "I work rotating 12-hour shifts near the base and could never get anyone to clean before 7am. They started showing up at 6:30 and I come home off a night shift to a spotless house. Small thing, huge difference.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Priya N." }, "reviewBody": "Our old townhome near the Tanger Outlets had years of grime built into the vents from being a rental. They pulled the covers off, washed them separately, and the airflow noticeably improved.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } }
-                ],
-                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5", "reviewCount": 3 }
               },
               {
                 "@type": "Service",
                 "name": "Apartment Turnover & Shift-Friendly Deep House Cleaning",
                 "serviceType": "Deep House Cleaning",
-                "provider": { "@id": "https://www.starcleaningsc.com/deep-cleaning-north-charleston-sc#localbusiness" },
+                "provider": { "@id": "https://www.starcleaningsc.com/#localbusiness" },
                 "areaServed": [
                   { "@type": "City", "name": "North Charleston" },
                   { "@type": "City", "name": "Park Circle" },

@@ -38,7 +38,7 @@ export default function MountPleasantDeepCleaningPage() {
             "@graph": [
               {
                 "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
-                "@id": "https://www.starcleaningsc.com/deep-cleaning-mount-pleasant-sc#localbusiness",
+                "@id": "https://www.starcleaningsc.com/#localbusiness",
                 "name": "Star Cleaning SC",
                 "url": "https://www.starcleaningsc.com/deep-cleaning-mount-pleasant-sc",
                 "telephone": "+18432979935",
@@ -62,18 +62,12 @@ export default function MountPleasantDeepCleaningPage() {
                   "https://instagram.com/star.cleaningsc",
                   "https://share.google/udkA7cxV0VCC39Ag2"
                 ],
-                "review": [
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Nancy P." }, "reviewBody": "We live in the Old Village and our 1940s home needs a gentler touch than a new build. They understood that immediately and never used anything too harsh on our original floors.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Brian K." }, "reviewBody": "Our house in Carolina Park backs up to a pond and the humidity is no joke. Since switching to biweekly cleanings, the musty smell we used to get in the closets is completely gone.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Samantha T." }, "reviewBody": "I run a short-term rental near Shem Creek and their turnover cleaning has been flawless for over a year. My guests always comment on how clean the place smells.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } }
-                ],
-                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5", "reviewCount": 3 }
               },
               {
                 "@type": "Service",
                 "name": "Historic Home & New Construction Deep House Cleaning",
                 "serviceType": "Deep House Cleaning",
-                "provider": { "@id": "https://www.starcleaningsc.com/deep-cleaning-mount-pleasant-sc#localbusiness" },
+                "provider": { "@id": "https://www.starcleaningsc.com/#localbusiness" },
                 "areaServed": [
                   { "@type": "City", "name": "Mount Pleasant" },
                   { "@type": "City", "name": "Old Village" },

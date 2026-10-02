@@ -38,7 +38,7 @@ export default function JohnsIslandDeepCleaningPage() {
             "@graph": [
               {
                 "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
-                "@id": "https://www.starcleaningsc.com/deep-cleaning-johns-island-sc#localbusiness",
+                "@id": "https://www.starcleaningsc.com/#localbusiness",
                 "name": "Star Cleaning SC",
                 "url": "https://www.starcleaningsc.com/deep-cleaning-johns-island-sc",
                 "telephone": "+18432979935",
@@ -62,18 +62,12 @@ export default function JohnsIslandDeepCleaningPage() {
                   "https://instagram.com/star.cleaningsc",
                   "https://share.google/udkA7cxV0VCC39Ag2"
                 ],
-                "review": [
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Caroline B." }, "reviewBody": "We live on a few acres off River Road and most cleaners don't want to make the drive or deal with the size of the place. Star Cleaning SC never blinks, and our farmhouse has never looked better.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Patrick M." }, "reviewBody": "Our new build near the Angel Oak still had construction dust in the vents a year after we moved in. They finally got it all out during a deep clean. Wish we'd called sooner.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Diane R." }, "reviewBody": "We have a waterfront property on the Stono River and needed a team we could trust with the place while we're away. They're reliable, thorough, and always lock up properly.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } }
-                ],
-                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5", "reviewCount": 3 }
               },
               {
                 "@type": "Service",
                 "name": "Farmhouse, New-Construction & Acreage Deep House Cleaning",
                 "serviceType": "Deep House Cleaning",
-                "provider": { "@id": "https://www.starcleaningsc.com/deep-cleaning-johns-island-sc#localbusiness" },
+                "provider": { "@id": "https://www.starcleaningsc.com/#localbusiness" },
                 "areaServed": [
                   { "@type": "City", "name": "Johns Island" },
                   { "@type": "City", "name": "River Road" },

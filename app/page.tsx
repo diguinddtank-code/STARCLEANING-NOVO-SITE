@@ -63,66 +63,26 @@ const jsonLd = {
     {
       "@type": "Review",
       "itemReviewed": { "@id": "https://www.starcleaningsc.com/#localbusiness" },
-      "author": { "@type": "Person", "name": "Sarah R." },
-      "reviewBody": "This cleaning company exceeded my expectations! They were professional, on time, and incredibly thorough. Every room looked better than I imagined from the floors to the bathrooms to all the little details that usually get missed. It feels so good to come home to a truly clean house. I'm beyond happy with their work and will absolutely be a repeat customer.",
+      "author": { "@type": "Person", "name": "Tom Craven" },
+      "reviewBody": "I am thoroughly amazed by how clean my apartment is. I've come home to a spotless apartment to the counters, to the shower glass, to the ceiling fans, to the couch fabric being cleaned, to the beds being made “better” than I did. This was my first experience with Star and will happily set up regular service for the rest of my lease at least.",
       "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-      "datePublished": "2026-01-15"
+      "datePublished": "2026-08-01"
     },
     {
       "@type": "Review",
       "itemReviewed": { "@id": "https://www.starcleaningsc.com/#localbusiness" },
-      "author": { "@type": "Person", "name": "Mariah E." },
-      "reviewBody": "Star Cleaning always does an amazing job! We love coming home after our cleaning to a fresh home. There's nothing better. Marianna is always responsive to any questions we have and has been very flexible when we've needed to move our cleaning day. Highly recommend!",
+      "author": { "@type": "Person", "name": "Amanda Weatherford" },
+      "reviewBody": "Star Cleaning completely transformed my home with a much-needed deep clean. Every room looked spotless and smelled incredible when they were finished—it honestly felt like walking into a brand new space. I was so impressed with their attention to detail and quality of work that I've now signed up for biweekly cleanings.",
       "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-      "datePublished": "2026-01-09"
+      "datePublished": "2026-04-01"
     },
     {
       "@type": "Review",
       "itemReviewed": { "@id": "https://www.starcleaningsc.com/#localbusiness" },
-      "author": { "@type": "Person", "name": "Janice O." },
-      "reviewBody": "The cleaning that was done today was very good. Everything looks clean and perfectly arranged. Thank you.",
+      "author": { "@type": "Person", "name": "Sonya Haines" },
+      "reviewBody": "I love how my house looks every time they visit! They do an excellent job, with special finishing touches. The team is always polite and friendly. Highly recommend Star Cleaning.",
       "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-      "datePublished": "2026-01-16"
-    },
-    {
-      "@type": "Review",
-      "itemReviewed": { "@id": "https://www.starcleaningsc.com/#localbusiness" },
-      "author": { "@type": "Person", "name": "Ginny B." },
-      "reviewBody": "Everything looks fresh and clean! Thank you for a thorough cleaning today and working with my schedule. We appreciate our cleaners hard work.",
-      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-      "datePublished": "2026-01-15"
-    },
-    {
-      "@type": "Review",
-      "itemReviewed": { "@id": "https://www.starcleaningsc.com/#localbusiness" },
-      "author": { "@type": "Person", "name": "Janet R." },
-      "reviewBody": "Excellent job every time they are here. And they are so polite, just nice hardworking girls.",
-      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-      "datePublished": "2026-01-15"
-    },
-    {
-      "@type": "Review",
-      "itemReviewed": { "@id": "https://www.starcleaningsc.com/#localbusiness" },
-      "author": { "@type": "Person", "name": "Julie B." },
-      "reviewBody": "Star Cleaning does an amazing job each month in my home, the ladies make my home sparkle each time! I highly recommend.",
-      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-      "datePublished": "2026-01-14"
-    },
-    {
-      "@type": "Review",
-      "itemReviewed": { "@id": "https://www.starcleaningsc.com/#localbusiness" },
-      "author": { "@type": "Person", "name": "Kelley C." },
-      "reviewBody": "Great job and thanks for all the extra attention to detail the ladies do for us. Can never do less than.",
-      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-      "datePublished": "2026-01-15"
-    },
-    {
-      "@type": "Review",
-      "itemReviewed": { "@id": "https://www.starcleaningsc.com/#localbusiness" },
-      "author": { "@type": "Person", "name": "Laura P." },
-      "reviewBody": "Excellent !!",
-      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-      "datePublished": "2026-01-07"
+      "datePublished": "2026-09-01"
     }
   ]
 };

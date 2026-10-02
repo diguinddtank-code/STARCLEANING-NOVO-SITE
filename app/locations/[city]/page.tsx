@@ -537,23 +537,12 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
             "@graph": [
               {
                 "@type": "LocalBusiness",
-                "@id": `https://www.starcleaningsc.com/locations/${data.slug}#localbusiness`,
-                "name": `Star Cleaning SC - ${data.name}`,
-                "image": "https://www.starcleaningsc.com/images/residential.png",
-                "telephone": "+1-843-297-9935",
-                "email": "contact@starcleaningsc.com",
+                "@id": "https://www.starcleaningsc.com/#localbusiness",
+                "name": "Star Cleaning SC",
+                "image": "https://www.starcleaningsc.com/images/logo-mark.png",
+                "telephone": "+18432979935",
+                "email": "admin@starcleaningsc.com",
                 "priceRange": "$$",
-                "address": {
-                  "@type": "PostalAddress",
-                  "addressLocality": data.name,
-                  "addressRegion": "SC",
-                  "addressCountry": "US"
-                },
-                "geo": {
-                  "@type": "GeoCoordinates",
-                  "latitude": data.coordinates.lat,
-                  "longitude": data.coordinates.lng
-                },
                 "openingHoursSpecification": [
                   {
                     "@type": "OpeningHoursSpecification",
@@ -593,18 +582,6 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
                     { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Post-Construction Cleaning" } }
                   ]
                 },
-                "review": data.reviews.map((review: any) => ({
-                  "@type": "Review",
-                  "author": { "@type": "Person", "name": review.author },
-                  "reviewBody": review.text,
-                  "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
-                })),
-                "aggregateRating": {
-                  "@type": "AggregateRating",
-                  "ratingValue": "4.9",
-                  "bestRating": "5",
-                  "reviewCount": data.reviews.length
-                }
               },
               {
                 "@type": "FAQPage",

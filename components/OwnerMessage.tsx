@@ -91,7 +91,7 @@ const OwnerMessage: React.FC<OwnerMessageProps> = ({ quoteHref = '/#quote' }) =>
                     
                     <div className="space-y-4 lg:space-y-6 text-blue-50 text-sm md:text-lg leading-relaxed font-medium opacity-90">
                         <p>
-                            Thank you for visiting! For <strong>18 years</strong>, we have dedicated ourselves to serving families in <strong>Charleston, Summerville</strong>, and the Lowcountry.
+                            Thank you for visiting! For <strong>18 years</strong>, Star Cleaning SC has been dedicated to serving families in <strong>Charleston, Summerville</strong>, and the Lowcountry.
                         </p>
                         <p>
                             As a <strong>Veteran Owned Business</strong>, we bring discipline, integrity, and respect to every home we clean. We treat your home with the same care as our own.

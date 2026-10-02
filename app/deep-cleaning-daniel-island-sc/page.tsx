@@ -38,7 +38,7 @@ export default function DanielIslandDeepCleaningPage() {
             "@graph": [
               {
                 "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
-                "@id": "https://www.starcleaningsc.com/deep-cleaning-daniel-island-sc#localbusiness",
+                "@id": "https://www.starcleaningsc.com/#localbusiness",
                 "name": "Star Cleaning SC",
                 "url": "https://www.starcleaningsc.com/deep-cleaning-daniel-island-sc",
                 "telephone": "+18432979935",
@@ -62,18 +62,12 @@ export default function DanielIslandDeepCleaningPage() {
                   "https://instagram.com/star.cleaningsc",
                   "https://share.google/udkA7cxV0VCC39Ag2"
                 ],
-                "review": [
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Margaret W." }, "reviewBody": "We just had quartzite installed and were nervous about who we let clean it. They treated our counters exactly the way our stone installer told us to and even asked about the sealant before starting.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Robert K." }, "reviewBody": "Our house backs to the golf course and grass clippings used to get tracked onto the hardwood constantly. They started doing a proper entryway sweep before mopping and the floors have held up so much better.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Christine L." }, "reviewBody": "We travel constantly for work and needed a crew our HOA would actually let through the gate without us being home. They handled the visitor registration every time without a single issue.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } }
-                ],
-                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5", "reviewCount": 3 }
               },
               {
                 "@type": "Service",
                 "name": "Luxury Deep House Cleaning for Stone, Custom Millwork & Premium Hardwood",
                 "serviceType": "Deep House Cleaning",
-                "provider": { "@id": "https://www.starcleaningsc.com/deep-cleaning-daniel-island-sc#localbusiness" },
+                "provider": { "@id": "https://www.starcleaningsc.com/#localbusiness" },
                 "areaServed": [
                   { "@type": "City", "name": "Daniel Island" },
                   { "@type": "City", "name": "Smythe Park" },

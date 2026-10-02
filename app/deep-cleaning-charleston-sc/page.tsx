@@ -38,7 +38,7 @@ export default function CharlestonDeepCleaningPage() {
             "@graph": [
               {
                 "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
-                "@id": "https://www.starcleaningsc.com/deep-cleaning-charleston-sc#localbusiness",
+                "@id": "https://www.starcleaningsc.com/#localbusiness",
                 "name": "Star Cleaning SC",
                 "url": "https://www.starcleaningsc.com/deep-cleaning-charleston-sc",
                 "telephone": "+18432979935",
@@ -64,18 +64,12 @@ export default function CharlestonDeepCleaningPage() {
                   "https://instagram.com/star.cleaningsc",
                   "https://share.google/udkA7cxV0VCC39Ag2"
                 ],
-                "review": [
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Christopher M." }, "reviewBody": "Scheduling a deep clean for our pre-listing marketing South of Broad was a lifesaver. The baseboards were spotless and they managed to scrub the pollen layer completely off our historic window framings. Our buyer was incredibly pleased!", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Jessica T." }, "reviewBody": "Coming home to our house in West Ashley after Star Cleaning SC did their deep clean was amazing. With two black labs, the hair and dander were out of control, but they used pet-safe chemical formulas and literally zero dust was left behind!", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Ronald D." }, "reviewBody": "I hire them for turnover deep cleaning of our vacation properties downtown. Excellent attention, clean baseboards, prompt veteran timing, and zero issues with property owners. 10/10 cleaning discipline.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } }
-                ],
-                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5", "reviewCount": 3 }
               },
               {
                 "@type": "Service",
                 "name": "Military-Precision Deep Chemical & Manual House Cleaning",
                 "serviceType": "Deep House Cleaning",
-                "provider": { "@id": "https://www.starcleaningsc.com/deep-cleaning-charleston-sc#localbusiness" },
+                "provider": { "@id": "https://www.starcleaningsc.com/#localbusiness" },
                 "areaServed": [
                   { "@type": "City", "name": "Charleston" },
                   { "@type": "City", "name": "West Ashley" },

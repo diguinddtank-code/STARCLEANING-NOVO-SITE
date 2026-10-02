@@ -38,7 +38,7 @@ export default function SummervilleDeepCleaningPage() {
             "@graph": [
               {
                 "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
-                "@id": "https://www.starcleaningsc.com/deep-cleaning-summerville-sc#localbusiness",
+                "@id": "https://www.starcleaningsc.com/#localbusiness",
                 "name": "Star Cleaning SC",
                 "url": "https://www.starcleaningsc.com/deep-cleaning-summerville-sc",
                 "telephone": "+18432979935",
@@ -63,18 +63,12 @@ export default function SummervilleDeepCleaningPage() {
                   "https://instagram.com/star.cleaningsc",
                   "https://share.google/udkA7cxV0VCC39Ag2"
                 ],
-                "review": [
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Marcus V." }, "reviewBody": "Our new home in Nexton felt dusty even after the builders finished. We hired Star Cleaning SC for a top-to-bottom deep clean and they completely eliminated the fine drywall and clay residue. They are incredible!", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Diana K." }, "reviewBody": "As an asthma sufferer, springtime in Summerville is brutal. Star Cleans hand washed every speck of yellow pollen off my window sills and thoroughly scrubbed our air vent covers. I am finally breathing easy.", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } },
-                  { "@type": "Review", "author": { "@type": "Person", "name": "Linda P." }, "reviewBody": "With three kids and constant sports mud, my tile grout gets black. Their deep cleaning scrubbed the grout lines to their original beige color in just a few hours. Military precision indeed!", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" } }
-                ],
-                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5", "reviewCount": 3 }
               },
               {
                 "@type": "Service",
                 "name": "Flowertown Professional Deep House Cleaning Service",
                 "serviceType": "Deep House Cleaning",
-                "provider": { "@id": "https://www.starcleaningsc.com/deep-cleaning-summerville-sc#localbusiness" },
+                "provider": { "@id": "https://www.starcleaningsc.com/#localbusiness" },
                 "areaServed": [
                   { "@type": "City", "name": "Summerville" },
                   { "@type": "City", "name": "Nexton" },

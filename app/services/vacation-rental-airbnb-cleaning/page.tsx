@@ -31,7 +31,8 @@ export default function VacationRentalCleaning() {
               "provider": {
                 "@type": "LocalBusiness",
                 "name": "Star Cleaning SC",
-                "telephone": "(843) 297-9935",
+                "@id": "https://www.starcleaningsc.com/#localbusiness",
+                "telephone": "+18432979935",
                 "url": "https://www.starcleaningsc.com"
               },
               "areaServed": ["Charleston, SC", "North Charleston, SC", "Summerville, SC", "Ladson, SC", "James Island, SC", "Daniel Island, SC"],
@@ -417,7 +418,8 @@ export default function VacationRentalCleaning() {
             "provider": {
               "@type": "LocalBusiness",
               "name": "Star Cleaning SC",
-              "telephone": "(843) 297-9935",
+              "@id": "https://www.starcleaningsc.com/#localbusiness",
+              "telephone": "+18432979935",
               "url": "https://www.starcleaningsc.com"
             },
             "areaServed": [
