@@ -538,7 +538,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
             isFull 
             ? 'w-full min-h-screen bg-white flex flex-col' 
             : isGlass
-            ? 'w-full max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto bg-white/80 backdrop-blur-md rounded-xl sm:rounded-3xl shadow-2xl overflow-hidden border border-white/50 scroll-mt-20'
+            ? 'w-full max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto bg-white/95 backdrop-blur-xl rounded-2xl sm:rounded-[2rem] shadow-[0_25px_70px_-15px_rgba(0,0,0,0.45)] overflow-hidden scroll-mt-20'
             : 'w-full max-w-md md:max-w-lg lg:max-w-xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-white/10 scroll-mt-20'
         }`}>
           
@@ -549,7 +549,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
                   Promo Code <span className="bg-white px-2 py-0.5 rounded tracking-widest uppercase shadow-sm">{promoCode}</span> auto-applied!
               </div>
           )}
-          <div className={`bg-gradient-to-br from-blue-900 to-blue-800 ${isGlass ? 'p-4 sm:p-6' : 'p-6'} text-white relative overflow-hidden`}>
+          <div className={`bg-gradient-to-br from-star-blue to-star-dark ${isGlass ? 'p-4 sm:p-6' : 'p-6'} text-white relative overflow-hidden`}>
               {/* Decorative Elements */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-blue-500/20 rounded-full blur-xl translate-y-1/2 -translate-x-1/4"></div>
@@ -568,8 +568,8 @@ const BookingForm: React.FC<BookingFormProps> = ({
                       </div>
                   </div>
 
-                  <h2 className={`${isGlass ? 'text-xl sm:text-2xl' : 'text-2xl'} font-black mb-1 font-heading tracking-tight`}>Your Custom Quote</h2>
-                  <p className={`text-blue-200 text-xs font-medium opacity-90 ${isGlass ? 'mb-3 sm:mb-4' : 'mb-4'}`}>Proudly serving Charleston for 18 years.</p>
+                  <h2 className={`${isGlass ? 'text-xl sm:text-2xl' : 'text-2xl'} font-black mb-1 font-heading tracking-tight`}>Get Your Time Back</h2>
+                  <p className={`text-blue-200 text-xs font-medium opacity-90 ${isGlass ? 'mb-3 sm:mb-4' : 'mb-4'}`}>18 years of background-checked pros serving the Lowcountry.</p>
 
                   {/* Progress Bar */}
                   <div className="h-1.5 w-full bg-blue-950/50 rounded-full overflow-hidden">
@@ -593,7 +593,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
                     {step === 1 && "Let's get in touch"}
                     {step === 2 && "Tell us about your home"}
                     {step === 3 && "Choose your service"}
-                    {step === 4 && (showPricing ? "Your estimated price" : "Quote Request Received")}
+                    {step === 4 && (showPricing ? "Your estimated price" : "You're All Set!")}
                     {step === 5 && "Schedule your walkthrough"}
                 </h3>
             </div>
@@ -803,7 +803,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
                           {/* Pricing Presentation */}
                           <div id="quote-summary-box" className="bg-white rounded-xl border border-blue-100 shadow-sm overflow-hidden mt-4">
                               <div className="bg-blue-50/50 px-3 py-3 border-b border-blue-50 flex justify-between items-center gap-2">
-                                  <h4 className="font-bold text-[13px] sm:text-sm text-blue-900 leading-none whitespace-nowrap">Your Estimated Price</h4>
+                                  <h4 className="font-bold text-[13px] sm:text-sm text-blue-900 leading-none whitespace-nowrap">Your Personalized Plan</h4>
                                   <div className="flex gap-1.5 text-green-600 font-bold text-[9px] sm:text-[10px] items-center uppercase tracking-wider leading-none whitespace-nowrap">
                                       <i className="fas fa-check-circle"></i> <span>No Commitment</span>
                                   </div>
@@ -853,7 +853,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
                               </div>
                               
                               <div className="bg-gray-50 px-2 py-2 border-t border-gray-100 flex justify-center gap-4 sm:gap-6 items-center text-[9px] sm:text-[10px] font-medium text-gray-500 whitespace-nowrap">
-                                  <span className="flex items-center gap-1.5"><i className="fas fa-shield-alt text-green-500"></i> Transparent Pricing</span>
+                                  <span className="flex items-center gap-1.5"><i className="fas fa-shield-alt text-green-500"></i> No Hidden Fees</span>
                                   <span className="flex items-center gap-1.5"><i className="fas fa-calendar-check text-blue-400"></i> Cancel Anytime</span>
                               </div>
                           </div>
@@ -868,10 +868,10 @@ const BookingForm: React.FC<BookingFormProps> = ({
                               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-500 text-3xl mx-auto mb-4 animate-bounce">
                                   <i className="fas fa-file-invoice-dollar"></i>
                               </div>
-                              <h3 className="text-xl font-black text-gray-900 mb-1">{showPricing ? "Quote Saved!" : "Request Received!"}</h3>
+                              <h3 className="text-xl font-black text-gray-900 mb-1">{showPricing ? "Quote Saved!" : "Your Weekend Is Secured!"}</h3>
                               <div className="text-sm text-gray-600">
                                  {showPricing && <span className="block font-bold">Range: ${initialMin} - ${initialMax}</span>}
-                                 {!showPricing && <span className="block font-bold text-green-600">Our team will contact you shortly.</span>}
+                                 {!showPricing && <span className="block font-bold text-green-600">We'll reach out shortly to lock in your time.</span>}
                               </div>
                           </div>
 
@@ -906,7 +906,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
                               {!showScheduling && (
                                   <div className="flex flex-col gap-4">
                                       <p className="text-sm font-medium text-gray-600">
-                                          Your request has been saved. We'll be in touch with you at <span className="text-blue-600 font-bold">{formData.phone}</span> within the next business hour.
+                                          You're one step closer to getting your weekend back. We'll text or call <span className="text-blue-600 font-bold">{formData.phone}</span> within the hour.
                                       </p>
                                       <button 
                                           type="button"
@@ -1045,7 +1045,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
                             <i className="fas fa-spinner fa-spin relative z-10"></i>
                         ) : (
                             <div className="relative z-10 flex items-center gap-2">
-                                <span>Claim This Offer</span>
+                                <span>Reclaim My Weekend</span>
                                 <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                             </div>
                         )}
@@ -1086,14 +1086,18 @@ const BookingForm: React.FC<BookingFormProps> = ({
 
         {/* Trust Badges Below Form */}
         {!isFull && (
-            <div className="flex justify-center gap-3 mt-6">
-                <div className="flex items-center gap-1.5 bg-white shadow-md border border-gray-100 px-3.5 py-1.5 rounded-full">
-                    <i className="fas fa-shield-alt text-green-500 text-xs"></i>
-                    <span className="text-[10px] font-bold text-gray-700 uppercase tracking-wider">100% Guaranteed</span>
-                </div>
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-6 px-2">
                 <div className="flex items-center gap-1.5 bg-white shadow-md border border-gray-100 px-3.5 py-1.5 rounded-full">
                     <i className="fas fa-star text-yellow-400 text-xs"></i>
-                    <span className="text-[10px] font-bold text-gray-700 uppercase tracking-wider">4.9 Rating</span>
+                    <span className="text-[10px] font-bold text-gray-700 uppercase tracking-wider whitespace-nowrap">4.9 (45 Reviews)</span>
+                </div>
+                <div className="flex items-center gap-1.5 bg-white shadow-md border border-gray-100 px-3.5 py-1.5 rounded-full">
+                    <i className="fas fa-user-shield text-star-blue text-xs"></i>
+                    <span className="text-[10px] font-bold text-gray-700 uppercase tracking-wider whitespace-nowrap">Background-Checked</span>
+                </div>
+                <div className="flex items-center gap-1.5 bg-white shadow-md border border-gray-100 px-3.5 py-1.5 rounded-full">
+                    <i className="fas fa-shield-alt text-green-500 text-xs"></i>
+                    <span className="text-[10px] font-bold text-gray-700 uppercase tracking-wider whitespace-nowrap">100% Guaranteed</span>
                 </div>
             </div>
         )}

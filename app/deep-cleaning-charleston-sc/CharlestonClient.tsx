@@ -19,7 +19,7 @@ export default function CharlestonClient() {
       heroCardBadge="Holy City Standard"
       heroCardQuote="Their deep cleaning made my original pine floors downtown look newly restored."
       heroCardAuthor="Sarah G., South of Broad"
-      trustLine="4.9 Star Rated (44+ Google Reviews)"
+      trustLine="4.9 Star Rated (45+ Google Reviews)"
       seoEyebrow="The Science of Local Dirt"
       seoHeadline="Why Standard Dusting Fails in Charleston's Coastal Climate"
       seoParagraphs={[
