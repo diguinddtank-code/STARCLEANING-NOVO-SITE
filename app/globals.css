@@ -109,3 +109,36 @@ html { scroll-behavior: smooth; }
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+/* ---- Home hero motion (drift and entrance) ---- */
+@keyframes hero-drift {
+  0% { transform: scale(1) translate3d(0, 0, 0); }
+  100% { transform: scale(1.1) translate3d(-1.5%, -1.2%, 0); }
+}
+@keyframes hero-rise {
+  0% { opacity: 0; transform: translate3d(0, 22px, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes hero-fade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.hero-drift {
+  transform-origin: 55% 45%;
+  will-change: transform;
+  animation: hero-drift 16s ease-in-out infinite alternate;
+}
+.hero-rise {
+  opacity: 0;
+  animation: hero-rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+.hero-fade {
+  opacity: 0;
+  animation: hero-fade 0.9s ease-out forwards;
+  animation-delay: var(--d, 0ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-drift { animation: none; }
+  .hero-rise, .hero-fade { animation: none; opacity: 1; }
+}

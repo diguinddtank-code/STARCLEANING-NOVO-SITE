@@ -71,7 +71,7 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
           alt={HERO_ALT}
           fetchPriority="high"
           decoding="async"
-          className="absolute inset-0 -z-20 h-full w-full object-cover object-[50%_22%] lg:object-center"
+          className="hero-drift absolute inset-0 -z-20 h-full w-full object-cover object-[50%_22%] lg:object-center"
         />
       </picture>
 
@@ -82,12 +82,14 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
       {/* Mobile: headline at the top, CTA at the bottom, family in between. Desktop: copy stays in the left third. */}
       <div className="relative flex h-full flex-col items-center justify-between px-5 pb-11 pt-11 text-center sm:px-8 sm:pb-14 sm:pt-14 lg:w-[38%] lg:items-start lg:justify-center lg:pb-0 lg:pl-[5vw] lg:pr-2 lg:pt-0 lg:text-left">
         <div>
-          <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-blue-200 sm:mb-4 lg:mb-4 lg:text-[clamp(0.7rem,0.95vw,1.05rem)]">
+          <p style={{ ["--d" as string]: "100ms" }} className="hero-rise mb-3 text-xs font-bold uppercase tracking-[0.2em] text-blue-200 sm:mb-4 lg:mb-4 lg:text-[clamp(0.7rem,0.95vw,1.05rem)]">
             <span className="hidden sm:inline lg:hidden">Star Cleaning SC &bull; </span>Charleston &amp; Summerville, SC
           </p>
 
           <h1 className="font-serif text-[3.15rem] font-medium leading-[1.04] tracking-tight text-white drop-shadow-lg sm:text-7xl lg:text-[clamp(2.2rem,4.5vw,6.25rem)]">
-            Life&apos;s too short<br /> to spend it<br /> <span className="italic text-blue-300">cleaning.</span>
+            <span className="hero-rise block" style={{ ["--d" as string]: "260ms" }}>Life&apos;s too short</span>
+            <span className="hero-rise block" style={{ ["--d" as string]: "420ms" }}>to spend it</span>
+            <span className="hero-rise block italic text-blue-300" style={{ ["--d" as string]: "580ms" }}>cleaning.</span>
           </h1>
         </div>
 
@@ -95,17 +97,18 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
         <div className="flex w-full flex-col items-center gap-2.5 lg:hidden">
           <Link
             href="/quote"
-            className="inline-flex w-full max-w-[21rem] items-center justify-center gap-2.5 whitespace-nowrap rounded-full border border-white/25 bg-star-blue px-8 py-4 text-lg font-black text-white shadow-[0_12px_32px_rgba(0,74,173,0.6)] transition-all hover:-translate-y-0.5 hover:bg-blue-600"
+            style={{ ["--d" as string]: "880ms" }}
+            className="hero-rise inline-flex w-full max-w-[21rem] items-center justify-center gap-2.5 whitespace-nowrap rounded-full border border-white/25 bg-star-blue px-8 py-4 text-lg font-black text-white shadow-[0_12px_32px_rgba(0,74,173,0.6)] transition-all hover:-translate-y-0.5 hover:bg-blue-600"
           >
             Reclaim My Weekend
             <i className="fas fa-arrow-right text-sm"></i>
           </Link>
-          <p className="text-xs font-semibold text-white/85">Free estimate &bull; No obligation &bull; Takes 60 seconds</p>
+          <p style={{ ["--d" as string]: "1040ms" }} className="hero-rise text-xs font-semibold text-white/85">Free estimate &bull; No obligation &bull; Takes 60 seconds</p>
         </div>
       </div>
 
       {/* Desktop glass estimate form, tucked into the right edge of the photo */}
-      <div style={{ fontSize: "clamp(13px, 0.98vw, 18px)" }} className="absolute right-[3vw] top-1/2 hidden w-[clamp(300px,25vw,480px)] -translate-y-1/2 rounded-[1.7em] border border-white/30 bg-slate-950/25 p-[1.5em] shadow-[0_20px_60px_rgba(0,0,0,0.3)] backdrop-blur-sm lg:block">
+      <div style={{ fontSize: "clamp(13px, 0.98vw, 18px)", ["--d" as string]: "700ms" }} className="hero-fade absolute right-[3vw] top-1/2 hidden w-[clamp(300px,25vw,480px)] -translate-y-1/2 rounded-[1.7em] border border-white/30 bg-slate-950/25 p-[1.5em] shadow-[0_20px_60px_rgba(0,0,0,0.3)] backdrop-blur-sm lg:block">
         <h3 className="font-heading text-[1.5em] font-black leading-tight text-white">Get Your Time Back</h3>
         <p className="mb-[1.1em] mt-[0.3em] text-[0.88em] text-white/80">Free, no-obligation estimate in under a minute.</p>
 
