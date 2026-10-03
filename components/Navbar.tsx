@@ -29,19 +29,19 @@ const Navbar: React.FC = () => {
       className={`sticky top-0 z-40 transition-all duration-500 ease-in-out border-b border-transparent
         ${scrolled 
           ? 'bg-white/90 backdrop-blur-md shadow-lg py-2 border-gray-100' 
-          : 'bg-white py-4 shadow-sm'
+          : 'bg-white py-3 md:py-4 shadow-sm'
         }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center group relative z-50">
-            <div className={`relative transition-all duration-500 ${scrolled ? 'h-10 w-[76px]' : 'h-12 w-[91px] md:h-20 md:w-[152px]'}`}>
+            <div className={`relative aspect-[348/159] transition-all duration-500 ${scrolled ? 'w-[112px] md:w-[140px] lg:w-[124px] xl:w-[140px]' : 'w-[150px] md:w-[190px] lg:w-[150px] xl:w-[184px]'}`}>
               <Image 
-                src="/images/logo-mark.png"
+                src="/images/logo-mark-tight.png"
                 alt="Star Cleaning SC logo"
                 fill
-                sizes="(max-width: 768px) 122px, 152px"
+                sizes="(max-width: 768px) 150px, 190px"
                 className="object-contain"
                 priority
                 referrerPolicy="no-referrer"

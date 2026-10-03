@@ -7,6 +7,7 @@ import TrustBar from '../components/TrustBar';
 import OwnerMessage from '../components/OwnerMessage';
 import CleaningForAReason from '../components/CleaningForAReason';
 import TeamPreview from '../components/TeamPreview';
+import MoreThanClean from '../components/MoreThanClean';
 import Services from '../components/Services';
 import BeforeAfter from '../components/BeforeAfter';
 import Testimonials from '../components/Testimonials';
@@ -32,26 +33,24 @@ const Home = () => {
   };
 
   return (
-    <div className="font-sans text-gray-800 bg-white selection:bg-yellow-200 selection:text-star-blue">
-      {/* Top Notification Bar - Optimized for Mobile One-Line */}
-      <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-blue-900 text-center py-1.5 lg:py-2.5 text-[10px] md:text-sm font-bold uppercase tracking-wider shadow-sm relative z-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center items-center gap-2 whitespace-nowrap overflow-hidden text-ellipsis">
-              <span className="animate-pulse bg-white text-yellow-500 rounded-full w-4 h-4 md:w-5 md:h-5 flex items-center justify-center shadow-sm shrink-0"><i className="fas fa-bolt text-[8px] md:text-[10px]"></i></span>
-              <span className="truncate">
-                <span className="hidden sm:inline">New Customer Special: </span>
-                <span className="underline decoration-blue-900 decoration-2 underline-offset-2">20% OFF</span>
-                <span className="hidden sm:inline"> Your First Deep Clean!</span>
-                <span className="sm:hidden"> First Deep Clean!</span>
-              </span>
-          </div>
-      </div>
+    <div className="font-sans text-gray-800 bg-white selection:bg-blue-100 selection:text-star-blue">
+      {/* Top contact bar */}
+      <a href="tel:+18432979935" className="relative z-50 block bg-gradient-to-r from-star-dark via-star-blue to-star-dark py-2 text-center text-white shadow-sm transition-opacity hover:opacity-95 lg:py-2.5">
+        <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 whitespace-nowrap px-4 text-[11px] font-bold uppercase tracking-wider sm:text-xs lg:text-sm">
+          <i className="fas fa-phone-alt text-[10px] lg:text-xs"></i>
+          <span>Text or call</span>
+          <span className="font-black">(843) 297-9935</span>
+          <span className="hidden opacity-60 sm:inline">&bull;</span>
+          <span className="hidden sm:inline">Free estimates, no obligation</span>
+        </div>
+      </a>
 
       <Navbar />
       
       <main className="w-full">
         <Hero onStartQuote={handleStartQuote} />
         
-        <TrustBar />
+        <TrustBar overlap />
         
         <ScrollReveal direction="up" delay={50}>
           <OwnerMessage />
@@ -59,7 +58,11 @@ const Home = () => {
 
         <CleaningForAReason />
 
+        <MoreThanClean />
+
         <TeamPreview />
+
+        <Testimonials />
 
         <Services />
         
@@ -67,7 +70,6 @@ const Home = () => {
           <BeforeAfter />
         </ScrollReveal>
         
-        <Testimonials />
         
         <FAQ />
 

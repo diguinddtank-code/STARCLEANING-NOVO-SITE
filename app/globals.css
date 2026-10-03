@@ -32,6 +32,21 @@
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+@keyframes moments-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.3333333%); }
+}
+.animate-moments-scroll {
+  animation: moments-scroll 42s linear infinite;
+}
+.animate-moments-scroll:hover {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-moments-scroll {
+    animation: none;
+  }
+}
 @keyframes slide-in-right {
   0% { transform: translateX(20px); opacity: 0; }
   100% { transform: translateX(0); opacity: 1; }

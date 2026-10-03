@@ -574,7 +574,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
                   {/* Progress Bar */}
                   <div className="h-1.5 w-full bg-blue-950/50 rounded-full overflow-hidden">
                       <motion.div 
-                          className="h-full bg-yellow-400 rounded-full shadow-[0_0_10px_rgba(250,204,21,0.5)]"
+                          className="h-full bg-blue-300 rounded-full shadow-[0_0_10px_rgba(147,197,253,0.55)]"
                           initial={{ width: 0 }}
                           animate={{ width: `${(step / (showScheduling ? 5 : 4)) * 100}%` }}
                           transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -1172,7 +1172,7 @@ const StepIndicator: React.FC<{ current: number, num: number, label: string }> =
     
     return (
         <div className={`flex items-center gap-3 transition-all duration-300 ${isActive ? 'opacity-100 translate-x-1' : 'opacity-60'}`}>
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border transition-colors ${isActive || isCompleted ? 'bg-yellow-400 border-yellow-400 text-blue-900' : 'bg-transparent border-white/30 text-white'}`}>
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border transition-colors ${isActive || isCompleted ? 'bg-blue-300 border-blue-300 text-blue-900' : 'bg-transparent border-white/30 text-white'}`}>
                 {isCompleted ? <i className="fas fa-check"></i> : num}
             </div>
             <span className="text-sm font-bold tracking-wide text-white">{label}</span>

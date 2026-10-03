@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import HomeClient from './HomeClient';
+import { homeReviews } from '@/data/reviews';
 
 export const metadata: Metadata = {
   title: "Star Cleaning SC | House Cleaning in Charleston & Summerville, SC",
@@ -20,6 +21,14 @@ export const metadata: Metadata = {
     title: "Star Cleaning SC | House Cleaning in Charleston & Summerville, SC",
     description: "Veteran-owned, background-checked, 100% guaranteed house cleaning services in Charleston, SC.",
   },
+};
+
+const MONTHS: Record<string, string> = { Jan: '01', Feb: '02', Mar: '03', Apr: '04', May: '05', Jun: '06', Jul: '07', Aug: '08', Sep: '09', Oct: '10', Nov: '11', Dec: '12' };
+
+// Google only shows relative dates, so reviews carry a month/year ("Sep 2026"); schema uses the first of that month.
+const toIsoMonth = (d?: string) => {
+  const [mon, year] = (d ?? '').split(' ');
+  return MONTHS[mon] && year ? `${year}-${MONTHS[mon]}-01` : undefined;
 };
 
 const jsonLd = {
@@ -60,30 +69,14 @@ const jsonLd = {
         }
       ]
     },
-    {
+    ...homeReviews.map((review) => ({
       "@type": "Review",
       "itemReviewed": { "@id": "https://www.starcleaningsc.com/#localbusiness" },
-      "author": { "@type": "Person", "name": "Tom Craven" },
-      "reviewBody": "I am thoroughly amazed by how clean my apartment is. I've come home to a spotless apartment to the counters, to the shower glass, to the ceiling fans, to the couch fabric being cleaned, to the beds being made “better” than I did. This was my first experience with Star and will happily set up regular service for the rest of my lease at least.",
-      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-      "datePublished": "2026-08-01"
-    },
-    {
-      "@type": "Review",
-      "itemReviewed": { "@id": "https://www.starcleaningsc.com/#localbusiness" },
-      "author": { "@type": "Person", "name": "Amanda Weatherford" },
-      "reviewBody": "Star Cleaning completely transformed my home with a much-needed deep clean. Every room looked spotless and smelled incredible when they were finished—it honestly felt like walking into a brand new space. I was so impressed with their attention to detail and quality of work that I've now signed up for biweekly cleanings.",
-      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-      "datePublished": "2026-04-01"
-    },
-    {
-      "@type": "Review",
-      "itemReviewed": { "@id": "https://www.starcleaningsc.com/#localbusiness" },
-      "author": { "@type": "Person", "name": "Sonya Haines" },
-      "reviewBody": "I love how my house looks every time they visit! They do an excellent job, with special finishing touches. The team is always polite and friendly. Highly recommend Star Cleaning.",
-      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-      "datePublished": "2026-09-01"
-    }
+      "author": { "@type": "Person", "name": review.author },
+      "reviewBody": review.text.replace(/\s*…$/, ''),
+      "reviewRating": { "@type": "Rating", "ratingValue": String(review.rating ?? 5), "bestRating": "5" },
+      "datePublished": toIsoMonth(review.date),
+    })),
   ]
 };
 

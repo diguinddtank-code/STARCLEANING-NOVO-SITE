@@ -21,7 +21,7 @@ const BookingForm = dynamic(() => import('../../components/BookingForm'));
 
 const QuoteLanding = () => {
   return (
-    <div className="min-h-screen bg-gray-50 font-sans text-gray-800 selection:bg-yellow-200 selection:text-star-blue">
+    <div className="min-h-screen bg-gray-50 font-sans text-gray-800 selection:bg-blue-100 selection:text-star-blue">
       
       {/* Hero Section with Video Background & Form */}
       <section className="relative min-h-screen flex flex-col items-center pt-2 pb-12 overflow-hidden">
@@ -65,14 +65,14 @@ const QuoteLanding = () => {
             {/* Headlines */}
             <div className="text-center mb-8 max-w-3xl mx-auto px-2">
                 {/* Value Badge */}
-                <div className="flex items-center justify-center gap-3 mb-4">
-                  <span className="w-8 h-px bg-yellow-400"></span>
-                  <span className="text-yellow-300 font-bold uppercase tracking-[0.2em] text-xs">18 Years Serving the Lowcountry</span>
-                  <span className="w-8 h-px bg-yellow-400"></span>
+                <div className="flex items-center justify-center gap-2.5 sm:gap-3 mb-4">
+                  <span className="w-5 sm:w-8 h-px bg-blue-300"></span>
+                  <span className="text-blue-200 font-bold uppercase tracking-[0.14em] sm:tracking-[0.2em] text-[11px] sm:text-xs whitespace-nowrap">18 Years Serving the Lowcountry</span>
+                  <span className="w-5 sm:w-8 h-px bg-blue-300"></span>
                 </div>
 
                 <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-4 tracking-tight leading-[1.15] drop-shadow-lg">
-                    Reclaim Your <br className="sm:hidden" /><span className="text-yellow-300">Weekends.</span>
+                    Reclaim Your <br className="sm:hidden" /><span className="text-blue-300">Weekends.</span>
                 </h1>
 
                 {/* Highlights */}
@@ -126,7 +126,9 @@ const QuoteLanding = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
             {quoteReviews.map((review, idx) => (
-              <ReviewCard key={`qr-${idx}`} {...review} theme="light" variant="grid" />
+              <div key={`qr-${idx}`} className={idx >= 3 ? 'hidden sm:flex' : 'flex'}>
+                <ReviewCard {...review} theme="light" variant="grid" />
+              </div>
             ))}
           </div>
 
@@ -240,7 +242,7 @@ const QuoteLanding = () => {
                   <span className="font-bold text-slate-900 text-sm ml-1.5">4.9 / 5.0</span>
                 </div>
                 <p className="text-xs text-slate-600">
-                  <span className="font-semibold text-slate-800">Google Reviews Rating</span> &bull; 45+ five-star reviews in SC
+                  <span className="font-semibold text-slate-800">Google Reviews Rating</span> &bull; 45 reviews on Google
                 </p>
               </div>
             </div>

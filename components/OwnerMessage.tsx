@@ -12,7 +12,7 @@ const OwnerMessage: React.FC<OwnerMessageProps> = ({ quoteHref = '/#quote' }) =>
       {/* Background Decor - Hidden on mobile for performance and cleaner look */}
       <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none hidden lg:block">
           <div className="absolute top-20 left-10 w-64 h-64 bg-blue-50 rounded-full blur-3xl mix-blend-multiply animate-pulse-slow"></div>
-          <div className="absolute bottom-20 right-10 w-80 h-80 bg-yellow-50 rounded-full blur-3xl mix-blend-multiply animate-pulse-slow" style={{animationDelay: '1s'}}></div>
+          <div className="absolute bottom-20 right-10 w-80 h-80 bg-blue-50 rounded-full blur-3xl mix-blend-multiply animate-pulse-slow" style={{animationDelay: '1s'}}></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -25,7 +25,7 @@ const OwnerMessage: React.FC<OwnerMessageProps> = ({ quoteHref = '/#quote' }) =>
             <div className="hidden lg:block absolute -top-8 -right-12 z-20 animate-float pointer-events-none">
                <div className="bg-white text-star-blue p-6 rounded-3xl rounded-bl-none shadow-[0_10px_30px_rgba(0,0,0,0.15)] max-w-[240px] relative border border-gray-100 transform rotate-2 group-hover:rotate-0 transition-transform duration-500">
                   <p className="font-bold text-sm leading-snug italic font-heading">
-                    <i className="fas fa-quote-left text-yellow-400 mr-2 text-lg"></i>
+                    <i className="fas fa-quote-left text-star-blue mr-2 text-lg"></i>
                     I promise cleaning day will be the best day of the week!
                   </p>
                   {/* Bubble Tail */}
@@ -36,7 +36,7 @@ const OwnerMessage: React.FC<OwnerMessageProps> = ({ quoteHref = '/#quote' }) =>
             {/* Main Image Container */}
             <div className="relative z-10 w-[280px] h-[350px] sm:w-[320px] sm:h-[400px] lg:w-[380px] lg:h-[475px]">
               {/* Abstract shapes behind */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-yellow-300 to-yellow-400 rounded-[2rem] lg:rounded-[3rem] transform rotate-3 scale-[1.03] shadow-lg group-hover:rotate-2 transition-transform duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-200 to-star-blue rounded-[2rem] lg:rounded-[3rem] transform rotate-3 scale-[1.03] shadow-lg group-hover:rotate-2 transition-transform duration-500"></div>
               
               <Image
                 src="/images/owner-photo.jpg"
@@ -65,11 +65,11 @@ const OwnerMessage: React.FC<OwnerMessageProps> = ({ quoteHref = '/#quote' }) =>
                 
                 {/* Texture/Pattern */}
                 <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '32px 32px'}}></div>
-                <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-yellow-400/20 rounded-full blur-3xl"></div>
+                <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
 
                 <div className="relative z-10">
                     <div className="flex items-center gap-3 mb-4 lg:mb-6">
-                        <span className="w-8 h-px bg-yellow-400"></span>
+                        <span className="w-8 h-px bg-blue-200"></span>
                         <div className="inline-flex items-center gap-2">
                           <div className="relative h-6 w-12">
                             <Image 
@@ -80,13 +80,13 @@ const OwnerMessage: React.FC<OwnerMessageProps> = ({ quoteHref = '/#quote' }) =>
                                 className="object-contain"
                             />
                           </div>
-                          <span className="text-xs font-bold uppercase tracking-[0.2em] text-yellow-300">Veteran-Owned Care</span>
+                          <span className="text-xs font-bold uppercase tracking-[0.2em] text-blue-200">Veteran-Owned Care</span>
                         </div>
                     </div>
 
                     <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium mb-4 lg:mb-6 text-white tracking-tight leading-[1.15]">
                       A Clean Home <br/>
-                      <span className="text-yellow-300">Starts Here.</span>
+                      <span className="text-blue-200">Starts Here.</span>
                     </h2>
                     
                     <div className="space-y-4 lg:space-y-6 text-blue-50 text-sm md:text-lg leading-relaxed font-medium opacity-90">
@@ -100,24 +100,24 @@ const OwnerMessage: React.FC<OwnerMessageProps> = ({ quoteHref = '/#quote' }) =>
 
                     <div className="mt-6 lg:mt-8 flex items-center gap-4">
                         <div className="h-px bg-white/20 flex-grow"></div>
-                        <span className="font-handwriting text-2xl md:text-4xl text-yellow-300 transform -rotate-3 block text-center sm:text-right font-bold mt-2">
+                        <span className="font-handwriting text-2xl md:text-4xl text-blue-200 transform -rotate-3 block text-center sm:text-right font-bold mt-2">
                            Mariana & The Team
                         </span>
                         <div className="h-px bg-white/20 flex-grow"></div>
                     </div>
 
                     <div className="mt-8 lg:mt-10 flex flex-col sm:flex-row gap-4 lg:gap-5 items-center">
-                        <Link href={quoteHref} className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-300 text-blue-900 px-8 py-3.5 lg:py-4 rounded-xl font-black shadow-[0_10px_20px_rgba(250,204,21,0.3)] transform hover:-translate-y-1 transition-all duration-300 flex justify-center items-center gap-3">
+                        <Link href={quoteHref} className="w-full sm:w-auto bg-white hover:bg-blue-50 text-star-blue px-8 py-3.5 lg:py-4 rounded-xl font-black shadow-[0_10px_20px_rgba(0,0,0,0.2)] transform hover:-translate-y-1 transition-all duration-300 flex justify-center items-center gap-3">
                             <span>Get Your Free Quote</span>
                             <i className="fas fa-arrow-right"></i>
                         </Link>
                         <a href="tel:+18432979935" className="group flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white/10 transition">
                              <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition">
-                                <i className="fas fa-phone text-yellow-300 text-sm lg:text-base"></i>
+                                <i className="fas fa-phone text-blue-200 text-sm lg:text-base"></i>
                              </div>
                              <div className="flex flex-col">
                                  <span className="text-[10px] font-bold opacity-70 uppercase tracking-wider">Call or Text</span>
-                                 <span className="text-base lg:text-lg font-black text-white group-hover:text-yellow-300 transition">(843) 297-9935</span>
+                                 <span className="text-base lg:text-lg font-black text-white group-hover:text-blue-200 transition">(843) 297-9935</span>
                              </div>
                         </a>
                     </div>
