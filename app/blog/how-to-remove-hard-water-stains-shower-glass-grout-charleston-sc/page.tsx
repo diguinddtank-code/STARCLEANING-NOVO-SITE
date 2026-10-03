@@ -775,6 +775,9 @@ const BlogPostShowerGlassGrout = () => {
                 <Link href="/deep-cleaning-daniel-island-sc" className="text-blue-600 hover:text-blue-800 flex items-center gap-1.5 font-medium">
                   &rarr; Deep Cleaning Daniel Island, SC
                 </Link>
+                <Link href="/blog/how-to-prepare-for-house-cleaners-checklist-charleston-sc" className="text-blue-600 hover:text-blue-800 flex items-center gap-1.5 font-medium">
+                  &rarr; What to Do Before Cleaners Arrive
+                </Link>
                 <Link href="/blog/how-to-clean-house-after-construction-checklist-charleston-sc" className="text-blue-600 hover:text-blue-800 flex items-center gap-1.5 font-medium">
                   &rarr; Post-Construction Cleaning Checklist
                 </Link>

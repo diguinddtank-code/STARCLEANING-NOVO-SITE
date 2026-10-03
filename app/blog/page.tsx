@@ -24,6 +24,14 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "How to Prepare Your House for Cleaners: The Step-by-Step Lowcountry Checklist",
+      slug: "how-to-prepare-for-house-cleaners-checklist-charleston-sc",
+      excerpt: "Step-by-step wikiHow-style guide on what to do before house cleaners arrive. Master the 10-minute clutter sweep, pet safety, entry access, bed linen etiquette, and tipping rules in Charleston & Summerville.",
+      date: "October 2, 2026",
+      category: "wikiHow & Pro Guide",
+      image: "/images/blog/how-to-prepare-for-house-cleaners-checklist.jpg"
+    },
+    {
       title: "How to Remove Hard Water Stains & Mildew from Shower Glass and Grout",
       slug: "how-to-remove-hard-water-stains-shower-glass-grout-charleston-sc",
       excerpt: "Step-by-step wikiHow-style guide to dissolving cloudy mineral scale on shower doors and eliminating black mold from tile grout. Master chemical dwell times, non-scratch pads, and hydrophobic sealants in Charleston & Summerville.",

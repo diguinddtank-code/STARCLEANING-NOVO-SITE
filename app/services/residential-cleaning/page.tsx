@@ -461,6 +461,7 @@ export default function ResidentialCleaning() {
             <li><Link href="/services/vacation-rental-airbnb-cleaning" className="text-blue-600 hover:underline font-medium">Vacation Rental Cleaning</Link>: Fast, reliable turnovers to keep your 5-star host rating intact.</li>
             <li><Link href="/services/commercial-office-cleaning" className="text-blue-600 hover:underline font-medium">Commercial Office Cleaning</Link>: Professional janitorial services for a healthier, more productive workspace.</li>
             <li><Link href="/services/post-construction-cleaning" className="text-blue-600 hover:underline font-medium">Post-Construction Cleaning</Link>: We remove the drywall dust and debris after your renovation project.</li>
+            <li><Link href="/blog/how-to-prepare-for-house-cleaners-checklist-charleston-sc" className="text-blue-600 hover:underline font-medium">What to Do Before Cleaners Arrive</Link>: The quick 15-minute preparation checklist for Charleston homeowners.</li>
           </ul>
           <p className="text-slate-600">
             View all our <Link href="/locations" className="text-blue-600 hover:underline">service areas</Link> or check out our <Link href="/#faq" className="text-blue-600 hover:underline">FAQ page</Link> for more details.
