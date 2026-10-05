@@ -120,6 +120,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Blog posts
   const blogPosts = [
+    'how-often-should-you-have-your-house-cleaned-charleston-sc',
     'how-to-prepare-for-house-cleaners-checklist-charleston-sc',
     'how-to-remove-hard-water-stains-shower-glass-grout-charleston-sc',
     'how-to-clean-house-after-construction-checklist-charleston-sc',

@@ -712,6 +712,9 @@ const BlogPostPrepareForCleaners = () => {
               <Link href="/services/move-in-move-out-cleaning" className="text-star-blue hover:text-blue-900 flex items-center gap-1.5">
                 &rarr; Move-In &amp; Move-Out Service
               </Link>
+              <Link href="/blog/how-often-should-you-have-your-house-cleaned-charleston-sc" className="text-star-blue hover:text-blue-900 flex items-center gap-1.5">
+                &rarr; How Often to Clean Your House
+              </Link>
               <Link href="/blog/how-to-remove-hard-water-stains-shower-glass-grout-charleston-sc" className="text-star-blue hover:text-blue-900 flex items-center gap-1.5">
                 &rarr; Shower Glass &amp; Grout Cleaning
               </Link>

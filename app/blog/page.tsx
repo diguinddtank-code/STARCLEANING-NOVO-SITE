@@ -24,6 +24,14 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "How Often Should You Have Your House Cleaned? Weekly vs. Bi-Weekly vs. Monthly",
+      slug: "how-often-should-you-have-your-house-cleaned-charleston-sc",
+      excerpt: "Step-by-step wikiHow-style guide to choosing the perfect house cleaning frequency. Learn the physics of dirt at 7, 14, and 30 days, cost differences, and take our 60-second schedule quiz for Charleston & Summerville.",
+      date: "October 3, 2026",
+      category: "wikiHow & Pro Guide",
+      image: "/images/blog/how-often-should-you-have-your-house-cleaned.jpg"
+    },
+    {
       title: "How to Prepare Your House for Cleaners: The Step-by-Step Lowcountry Checklist",
       slug: "how-to-prepare-for-house-cleaners-checklist-charleston-sc",
       excerpt: "Step-by-step wikiHow-style guide on what to do before house cleaners arrive. Master the 10-minute clutter sweep, pet safety, entry access, bed linen etiquette, and tipping rules in Charleston & Summerville.",
