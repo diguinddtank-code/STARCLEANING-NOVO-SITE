@@ -15,7 +15,6 @@ import FAQ from '../components/FAQ';
 import BookingForm from '../components/BookingForm';
 import Footer from '../components/Footer';
 import ScrollReveal from '../components/ScrollReveal';
-import ExitIntentPopup from '../components/ExitIntentPopup';
 import ServiceAreas from '../components/ServiceAreas';
 
 const Home = () => {
@@ -99,7 +98,6 @@ const Home = () => {
         </ScrollReveal>
       </main>
       
-      <ExitIntentPopup />
       <Footer />
     </div>
   );
