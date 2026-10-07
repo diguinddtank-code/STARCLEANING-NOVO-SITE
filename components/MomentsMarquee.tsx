@@ -34,7 +34,7 @@ const MomentsMarquee: React.FC = () => {
               className="box-border w-[86vw] max-w-[27rem] shrink-0 lg:max-w-[31rem] pr-4 sm:w-[27rem] sm:pr-6 lg:w-[31rem]"
             >
               {/* Same 3:2 ratio as the photos, so nothing is cropped */}
-              <div className="relative aspect-[3/2] w-full overflow-hidden rounded-3xl shadow-[0_24px_50px_-18px_rgba(0,0,0,0.6)] ring-1 ring-white/20">
+              <div className="relative aspect-[3/2] w-full overflow-hidden rounded-3xl shadow-[0_24px_50px_-20px_rgba(0,40,85,0.45)] ring-1 ring-black/5">
                 <Image
                   src={moment.src}
                   alt={set === 0 ? moment.alt : ''}
@@ -44,8 +44,8 @@ const MomentsMarquee: React.FC = () => {
                   className="object-cover"
                 />
               </div>
-              <figcaption className="mt-3.5 flex items-center gap-2 text-[13px] font-bold text-blue-100 sm:gap-2.5 sm:text-base">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white text-star-blue sm:h-8 sm:w-8">
+              <figcaption className="mt-3.5 flex items-center gap-2 text-[13px] font-bold text-slate-700 sm:gap-2.5 sm:text-base">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-star-blue text-white sm:h-8 sm:w-8">
                   <i className="fas fa-heart text-[10px] sm:text-xs"></i>
                 </span>
                 <span className="whitespace-nowrap leading-tight">{moment.caption}</span>

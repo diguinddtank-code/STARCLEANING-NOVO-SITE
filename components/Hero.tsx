@@ -82,28 +82,31 @@ const Hero: React.FC<HeroProps> = ({ onStartQuote }) => {
       {/* Mobile: headline at the top, CTA at the bottom, family in between. Desktop: copy stays in the left third. */}
       <div className="relative flex h-full flex-col items-center justify-between px-5 pb-11 pt-11 text-center sm:px-8 sm:pb-14 sm:pt-14 lg:w-[38%] lg:items-start lg:justify-center lg:pb-0 lg:pl-[5vw] lg:pr-2 lg:pt-0 lg:text-left">
         <div>
-          <p style={{ ["--d" as string]: "100ms" }} className="hero-rise mb-3 text-xs font-bold uppercase tracking-[0.2em] text-blue-200 sm:mb-4 lg:mb-4 lg:text-[clamp(0.7rem,0.95vw,1.05rem)]">
-            <span className="hidden sm:inline lg:hidden">Star Cleaning SC &bull; </span>Charleston &amp; Summerville, SC
-          </p>
-
-          <h1 className="font-serif text-[3.15rem] font-medium leading-[1.04] tracking-tight text-white drop-shadow-lg sm:text-7xl lg:text-[clamp(2.2rem,4.5vw,6.25rem)]">
-            <span className="hero-rise block" style={{ ["--d" as string]: "260ms" }}>Life&apos;s too short</span>
-            <span className="hero-rise block" style={{ ["--d" as string]: "420ms" }}>to spend it</span>
-            <span className="hero-rise block italic text-blue-300" style={{ ["--d" as string]: "580ms" }}>cleaning.</span>
+          <h1 className="font-serif text-[3.15rem] font-medium leading-[1.04] tracking-tight text-white drop-shadow-lg sm:text-7xl lg:text-[clamp(2.2rem,5.3vw,7rem)]">
+            <span className="hero-rise block" style={{ ["--d" as string]: "200ms" }}>Get your</span>{" "}
+            <span className="hero-rise block italic text-blue-300" style={{ ["--d" as string]: "360ms" }}>weekends</span>{" "}
+            <span className="hero-rise block" style={{ ["--d" as string]: "520ms" }}>back.</span>
           </h1>
+
+          <p
+            style={{ ["--d" as string]: "720ms" }}
+            className="hero-rise mx-auto mt-4 max-w-[21rem] text-[15px] font-medium leading-snug text-white/90 drop-shadow sm:max-w-md sm:text-lg lg:mx-0 lg:mt-[1.4vw] lg:max-w-[30ch] lg:text-[clamp(0.95rem,1.25vw,1.4rem)]"
+          >
+            Veteran-owned house cleaning in Charleston &amp; Summerville. Same trusted team, every visit.
+          </p>
         </div>
 
         {/* Mobile / tablet CTA (desktop uses the glass form instead) */}
         <div className="flex w-full flex-col items-center gap-2.5 lg:hidden">
           <Link
             href="/quote"
-            style={{ ["--d" as string]: "880ms" }}
+            style={{ ["--d" as string]: "940ms" }}
             className="hero-rise inline-flex w-full max-w-[21rem] items-center justify-center gap-2.5 whitespace-nowrap rounded-full border border-white/25 bg-star-blue px-8 py-4 text-lg font-black text-white shadow-[0_12px_32px_rgba(0,74,173,0.6)] transition-all hover:-translate-y-0.5 hover:bg-blue-600"
           >
             Reclaim My Weekend
             <i className="fas fa-arrow-right text-sm"></i>
           </Link>
-          <p style={{ ["--d" as string]: "1040ms" }} className="hero-rise text-xs font-semibold text-white/85">Free estimate &bull; No obligation &bull; Takes 60 seconds</p>
+          <p style={{ ["--d" as string]: "1100ms" }} className="hero-rise text-xs font-semibold text-white/85">Free estimate &bull; No obligation &bull; Takes 60 seconds</p>
         </div>
       </div>
 

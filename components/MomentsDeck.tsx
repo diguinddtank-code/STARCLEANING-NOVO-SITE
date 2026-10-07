@@ -85,7 +85,7 @@ const MomentsDeck: React.FC = () => {
             return (
               <motion.div
                 key={moment.src}
-                className="absolute inset-0 overflow-hidden rounded-[1.75rem] bg-star-dark shadow-[0_28px_60px_-20px_rgba(0,0,0,0.65)] ring-1 ring-white/25"
+                className="absolute inset-0 overflow-hidden rounded-[1.75rem] bg-star-dark shadow-[0_28px_60px_-22px_rgba(0,40,85,0.5)] ring-1 ring-black/5"
                 style={{ zIndex: throwing && isTop ? 4 : 3 - place, transformOrigin: '50% 100%' }}
                 initial={false}
                 animate={target}
@@ -117,7 +117,7 @@ const MomentsDeck: React.FC = () => {
         </div>
       </div>
 
-      <div className="-mt-4 flex flex-col items-center gap-3">
+      <div className="mt-1 flex flex-col items-center gap-3">
         <div className="h-9">
           <AnimatePresence mode="wait" initial={false}>
             <motion.p
@@ -126,9 +126,9 @@ const MomentsDeck: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.28 }}
-              className="flex items-center gap-3 whitespace-nowrap text-base font-bold text-blue-50"
+              className="flex items-center gap-3 whitespace-nowrap text-base font-bold text-star-dark"
             >
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-star-blue">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-star-blue text-white">
                 <i className="fas fa-heart text-xs"></i>
               </span>
               {moments[top].caption}
@@ -140,7 +140,7 @@ const MomentsDeck: React.FC = () => {
           {moments.map((moment, i) => (
             <span
               key={moment.src}
-              className={`h-2 rounded-full transition-all duration-300 ${i === top ? 'w-8 bg-white' : 'w-2 bg-white/35'}`}
+              className={`h-2 rounded-full transition-all duration-300 ${i === top ? 'w-8 bg-star-blue' : 'w-2 bg-star-blue/25'}`}
             />
           ))}
         </div>
