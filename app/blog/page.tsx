@@ -24,6 +24,14 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "How Much Does House Cleaning Cost in Charleston, SC? (2026 Pricing Breakdown)",
+      slug: "how-much-does-house-cleaning-cost-in-charleston-sc",
+      excerpt: "Step-by-step wikiHow-style guide to house cleaning costs in Charleston, Summerville, and Mount Pleasant. Compare rates by square footage, flat-rate vs. hourly pitfalls, and learn how to save up to 20%.",
+      date: "October 7, 2026",
+      category: "wikiHow & Pricing Guide",
+      image: "/images/blog/how-much-does-house-cleaning-cost-in-charleston-sc.jpg"
+    },
+    {
       title: "How Often Should You Have Your House Cleaned? Weekly vs. Bi-Weekly vs. Monthly",
       slug: "how-often-should-you-have-your-house-cleaned-charleston-sc",
       excerpt: "Step-by-step wikiHow-style guide to choosing the perfect house cleaning frequency. Learn the physics of dirt at 7, 14, and 30 days, cost differences, and take our 60-second schedule quiz for Charleston & Summerville.",

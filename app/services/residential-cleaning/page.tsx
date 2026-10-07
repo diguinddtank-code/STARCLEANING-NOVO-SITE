@@ -463,6 +463,7 @@ export default function ResidentialCleaning() {
             <li><Link href="/services/post-construction-cleaning" className="text-blue-600 hover:underline font-medium">Post-Construction Cleaning</Link>: We remove the drywall dust and debris after your renovation project.</li>
             <li><Link href="/blog/how-to-prepare-for-house-cleaners-checklist-charleston-sc" className="text-blue-600 hover:underline font-medium">What to Do Before Cleaners Arrive</Link>: The quick 15-minute preparation checklist for Charleston homeowners.</li>
             <li><Link href="/blog/how-often-should-you-have-your-house-cleaned-charleston-sc" className="text-blue-600 hover:underline font-medium">How Often to Have Your House Cleaned</Link>: Weekly vs. bi-weekly vs. monthly frequency guide and schedule calculator.</li>
+            <li><Link href="/blog/how-much-does-house-cleaning-cost-in-charleston-sc" className="text-blue-600 hover:underline font-medium">House Cleaning Cost Guide (2026)</Link>: Complete pricing breakdown by square foot and flat-rate vs. hourly comparisons.</li>
           </ul>
           <p className="text-slate-600">
             View all our <Link href="/locations" className="text-blue-600 hover:underline">service areas</Link> or check out our <Link href="/#faq" className="text-blue-600 hover:underline">FAQ page</Link> for more details.

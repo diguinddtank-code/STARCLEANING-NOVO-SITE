@@ -946,6 +946,19 @@ const BlogPostHowOftenHouseCleaned = () => {
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Link
+                href="/blog/how-much-does-house-cleaning-cost-in-charleston-sc"
+                className="p-4 rounded-2xl bg-white border border-slate-200 hover:border-star-blue hover:shadow-md transition-all group"
+              >
+                <span className="text-xs font-bold text-star-blue uppercase tracking-wider block mb-1">Pricing Guide</span>
+                <h4 className="font-bold text-slate-900 group-hover:text-star-blue transition-colors text-sm mb-1">
+                  How Much Does House Cleaning Cost in Charleston, SC?
+                </h4>
+                <p className="text-xs text-slate-500">
+                  Complete 2026 rates by square foot, flat-rate vs. hourly pitfalls, and savings.
+                </p>
+              </Link>
+
+              <Link
                 href="/blog/how-to-prepare-for-house-cleaners-checklist-charleston-sc"
                 className="p-4 rounded-2xl bg-white border border-slate-200 hover:border-star-blue hover:shadow-md transition-all group"
               >
