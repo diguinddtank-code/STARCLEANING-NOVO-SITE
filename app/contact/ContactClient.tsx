@@ -134,7 +134,7 @@ export default function ContactClient() {
 
               {/* Right: Booking Form */}
               <div className="lg:col-span-3">
-                <BookingForm showPricing={false} />
+                <BookingForm />
               </div>
             </div>
           </div>

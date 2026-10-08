@@ -347,7 +347,7 @@ export default function RegionalDeepCleanPage({
                 Get a free, instant quote and schedule your cleaning online in under 60 seconds.
               </p>
             </div>
-            <BookingForm showPricing={false} />
+            <BookingForm />
           </div>
         </section>
       </ScrollReveal>

@@ -92,7 +92,7 @@ const Home = () => {
                   Answer a few quick questions and get your free, no-obligation quote in minutes.
                 </p>
               </div>
-              <BookingForm initialData={prefilledData} showPricing={false} />
+              <BookingForm initialData={prefilledData} />
             </div>
           </section>
         </ScrollReveal>

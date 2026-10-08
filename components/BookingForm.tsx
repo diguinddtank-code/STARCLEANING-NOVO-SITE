@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { supabase } from '../lib/supabase';
 import { attributionFields } from '../lib/attribution';
+import { sizeRangeIndex, nearestOptionIndex, planEstimate, high, money, type Frequency } from '../lib/pricing';
 
 interface BookingFormProps {
   initialData?: any;
@@ -57,7 +58,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
   initialData, 
   variant = 'default', 
   hideSidebar = false,
-  showPricing = true,
+  showPricing = false, // when true, shows estimates from lib/pricing.ts; the payload always carries them
   showScheduling = false, // Disabled per user request
   isPromo = false,
   promoCode = "SUMMER SPARKLE"
@@ -68,15 +69,14 @@ const BookingForm: React.FC<BookingFormProps> = ({
   const [showLockPopup, setShowLockPopup] = useState(false);
   const [hasBookedTime, setHasBookedTime] = useState(false);
   
+  // Demo mode (?demo=1): walks through every step but sends nothing (no webhook, GTM or Meta event).
+  const [isDemo, setIsDemo] = useState(false);
+  useEffect(() => {
+    setIsDemo(new URLSearchParams(window.location.search).get('demo') === '1');
+  }, []);
+
   const isFull = variant === 'full';
   const isGlass = variant === 'glass';
-  
-  // Pricing State
-  const [initialMin, setInitialMin] = useState("0.00");
-  const [initialMax, setInitialMax] = useState("0.00");
-  const [recurringMin, setRecurringMin] = useState("0.00");
-  const [recurringMax, setRecurringMax] = useState("0.00");
-  const [recurringSavings, setRecurringSavings] = useState("0.00");
   
   // Calendar State
   const [availableDates, setAvailableDates] = useState<Date[]>([]);
@@ -172,59 +172,26 @@ const BookingForm: React.FC<BookingFormProps> = ({
 
   }, []);
 
-  // --- PRICING ENGINE ---
-  useEffect(() => {
-    let standardBase = 165.50; 
-    const bedDiff = formData.bedrooms - 3;
-    standardBase += (bedDiff * 28.50); 
-    const bathDiff = formData.bathrooms - 2;
-    standardBase += (bathDiff * 22.75); 
-
-    let sqftMultiplier = 0;
-    if (formData.sqft < 1000) sqftMultiplier = -15;
-    else if (formData.sqft < 1500) sqftMultiplier = 0;
-    else if (formData.sqft < 2000) sqftMultiplier = 20;
-    else if (formData.sqft < 2500) sqftMultiplier = 40;
-    else if (formData.sqft < 3000) sqftMultiplier = 60;
-    else if (formData.sqft < 3500) sqftMultiplier = 80;
-    else if (formData.sqft < 4000) sqftMultiplier = 100;
-    else sqftMultiplier = 130;
-    standardBase += sqftMultiplier;
-
-    if (formData.hasDog) standardBase += 12.50;
-    if (formData.hasCat) standardBase += 10.50;
-    if (standardBase < 120.00) standardBase = 120.00;
-
-    let initialMultiplier = 1.65; 
-    if (formData.serviceType && (formData.serviceType.includes("Move") || formData.serviceType.includes("Vacation"))) {
-        initialMultiplier = 2.0;
-    }
-
-    const initialPriceRaw = standardBase * initialMultiplier;
-
-    let discountPercent = 0;
-    if (formData.frequency === "Weekly") discountPercent = 0.20; 
-    if (formData.frequency === "Bi-Weekly") discountPercent = 0.15; 
-    if (formData.frequency === "Monthly") discountPercent = 0.05; 
-    
-    const recurringPriceRaw = standardBase * (1 - discountPercent);
-    const savingsRaw = standardBase * discountPercent;
-
-    setInitialMin(initialPriceRaw.toFixed(2));
-    setInitialMax((initialPriceRaw * 1.12).toFixed(2));
-    setRecurringMin(recurringPriceRaw.toFixed(2));
-    setRecurringMax((recurringPriceRaw * 1.12).toFixed(2));
-    setRecurringSavings(savingsRaw.toFixed(2));
-
-  }, [formData]);
+  // --- PRICING (Star Cleaning Pricing Sheet > ALL PRICES, see lib/pricing.ts) ---
+  // Move In/Out requests and the One-Time option are a single "Deep Clean Reset";
+  // every recurring plan starts with an "Initial Deep Clean" and then repeats at its own price.
+  const isOneTime = formData.frequency === 'One-Time' || formData.serviceType.includes('Move');
+  const rangeIndex = sizeRangeIndex(formData.sqft);
+  const plan = planEstimate(
+    rangeIndex,
+    nearestOptionIndex(rangeIndex, formData.bedrooms, formData.bathrooms),
+    isOneTime ? 'One-Time' : (formData.frequency as Frequency)
+  );
+  const firstName = formData.fullName.trim().split(" ")[0];
+  const pair = (p: readonly [number, number]) => `$${p[0]} - $${p[1]}`;
 
   // --- WEBHOOK HELPER ---
   const submitWebhook = async (stage: string, extraData = {}) => {
       const payload = {
         ...formData,
-        initialCleanPrice: `$${initialMin} - $${initialMax}`,
-        recurringPrice: `$${recurringMin} - $${recurringMax}`,
-        frequencySavings: `$${recurringSavings}`,
+        initialCleanPrice: pair(plan.initial),
+        recurringPrice: plan.recurring ? pair(plan.recurring) : "N/A",
+        frequencySavings: "$0.00",
         cityDetected: city || "Not Detected",
         stage,
         ...extraData,
@@ -245,6 +212,11 @@ const BookingForm: React.FC<BookingFormProps> = ({
       }
 
       if (!url) return false;
+
+      if (isDemo) {
+          console.info('[BookingForm demo] nothing sent. Payload that would go to', url, payload);
+          return true;
+      }
 
       // Fire the conversion event immediately, before attempting the webhook call,
       // so a slow/unreachable webhook can never suppress the Google Ads conversion.
@@ -422,10 +394,10 @@ const BookingForm: React.FC<BookingFormProps> = ({
     setIsSubmitting(true);
     
     // Track Lead Event on Facebook Pixel
-    if (window.fbq) {
+    if (window.fbq && !isDemo) {
         window.fbq('track', 'Lead', {
             content_name: 'Quote Generated',
-            value: showPricing ? parseFloat(recurringMin) : 0, 
+            value: 0,
             currency: 'USD'
         });
     }
@@ -518,8 +490,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
     setShowPopup(true);
   };
 
-  const isOneTime = formData.frequency === 'One-Time' || (formData.serviceType && formData.serviceType.includes('Move'));
-  
   const handleFrequencySelect = (freq: string) => {
       setFormData(prev => ({ ...prev, frequency: freq }));
       // Scroll down slightly to make the next button visible
@@ -547,6 +517,11 @@ const BookingForm: React.FC<BookingFormProps> = ({
               <div className="bg-yellow-500 text-slate-900 text-center py-2 px-4 text-xs sm:text-sm font-bold flex items-center justify-center gap-2">
                   <i className="fas fa-ticket-alt"></i>
                   Promo Code <span className="bg-white px-2 py-0.5 rounded tracking-widest uppercase shadow-sm">{promoCode}</span> auto-applied!
+              </div>
+          )}
+          {isDemo && (
+              <div className="bg-slate-900 text-white text-center py-2 px-4 text-xs font-bold tracking-wide">
+                  DEMO MODE: nothing is sent
               </div>
           )}
           <div className={`bg-gradient-to-br from-star-blue to-star-dark ${isGlass ? 'p-4 sm:p-6' : 'p-6'} text-white relative overflow-hidden`}>
@@ -712,7 +687,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
                                             <input 
                                                 type="range" 
                                                 min="500" 
-                                                max="5000" 
+                                                max="9000"
                                                 step="100" 
                                                 value={formData.sqft}
                                                 onChange={(e) => setFormData(prev => ({ ...prev, sqft: parseInt(e.target.value) }))}
@@ -772,8 +747,8 @@ const BookingForm: React.FC<BookingFormProps> = ({
                           {/* Frequency Selector */}
                           <div>
                               <div className="flex justify-between items-end mb-2">
-                                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Select Frequency</label>
-                                  <span className="text-[9px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded uppercase tracking-wider border border-green-100">Most Popular: Bi-Weekly</span>
+                                  <label className="whitespace-nowrap text-[10px] font-bold text-gray-500 uppercase tracking-wider"><span className="max-[359px]:hidden">Select </span>Frequency</label>
+                                  <span className="whitespace-nowrap text-[9px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded uppercase tracking-wider border border-green-100"><span className="max-[359px]:hidden">Most </span>Popular: Bi-Weekly</span>
                               </div>
                               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                                   {['Weekly', 'Bi-Weekly', 'Monthly', 'One-Time'].map((freq) => (
@@ -793,17 +768,79 @@ const BookingForm: React.FC<BookingFormProps> = ({
                                               </div>
                                           )}
                                           <span>{freq}</span>
-                                          {freq === 'One-Time' && <span className={`text-[8px] font-medium leading-none ${formData.frequency === freq ? 'text-blue-700' : 'text-gray-400'}`}>Move In/Out</span>}
-                                          {freq !== 'One-Time' && <span className={`text-[8px] font-medium leading-none ${formData.frequency === freq ? 'text-blue-700' : 'text-gray-400'}`}>Save up to 20%</span>}
+                                          <span className={`text-[8px] font-medium leading-none ${formData.frequency === freq ? 'text-blue-700' : 'text-gray-400'}`}>
+                                              {{ 'Weekly': 'Every week', 'Bi-Weekly': 'Every 2 weeks', 'Monthly': 'Every month', 'One-Time': 'Move In/Out' }[freq]}
+                                          </span>
                                       </button>
                                   ))}
                               </div>
                           </div>
 
                           {/* Pricing Presentation */}
-                          <div id="quote-summary-box" className="bg-white rounded-xl border border-blue-100 shadow-sm overflow-hidden mt-4">
+                          {showPricing && (
+                              <p className="mt-4 text-sm font-semibold text-gray-700">
+                                  {firstName ? `Great news, ${firstName}! ` : 'Great news! '}Here&apos;s what your clean could look like.
+                              </p>
+                          )}
+                          {!showPricing && (
+                              <div id="quote-summary-box" className="mt-4 overflow-hidden rounded-xl border border-blue-100 bg-white shadow-sm">
+                                  <div className="flex items-center justify-between gap-2 border-b border-blue-50 bg-blue-50/50 px-3 py-3">
+                                      <h4 className="whitespace-nowrap text-[13px] font-bold leading-none text-blue-900 sm:text-sm">Your <span className="max-[359px]:hidden">Quote </span>Summary</h4>
+                                      <div className="flex items-center gap-1.5 whitespace-nowrap text-[9px] font-bold uppercase leading-none tracking-wider text-green-600 sm:text-[10px]">
+                                          <i className="fas fa-check-circle"></i> <span>No Commitment</span>
+                                      </div>
+                                  </div>
+
+                                  <div className="flex items-center gap-3 px-3 py-3 sm:px-4">
+                                      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-500 max-[359px]:hidden">
+                                          <i className="fas fa-home text-[10px]"></i>
+                                      </div>
+                                      <div className="min-w-0">
+                                          <span className="block truncate text-[13px] font-bold text-gray-800 sm:text-sm">Your home</span>
+                                          <span className="block truncate text-[11px] font-medium text-gray-500">{formData.bedrooms} bed &middot; {formData.bathrooms} bath &middot; {formData.sqft.toLocaleString("en-US")} sq ft</span>
+                                      </div>
+                                  </div>
+
+                                  <div className="h-px w-full bg-gray-100"></div>
+                                  <div className="flex items-center gap-3 px-3 py-3 sm:px-4">
+                                      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-50 text-green-500 max-[359px]:hidden">
+                                          <i className="fas fa-broom text-[10px]"></i>
+                                      </div>
+                                      <div className="min-w-0">
+                                          <span className="block truncate text-[13px] font-bold text-gray-800 sm:text-sm">{isOneTime ? 'Deep Clean Reset' : `${formData.frequency} cleaning`}</span>
+                                          <span className="block truncate text-[11px] font-medium text-gray-500">{isOneTime ? 'One visit, a fresh start' : 'Starts with a deep clean'}</span>
+                                      </div>
+                                  </div>
+
+                                  <div className="h-px w-full bg-gray-100"></div>
+                                  <div className="flex items-center justify-between gap-3 bg-gray-50/70 px-3 py-3 sm:px-4">
+                                      <div className="flex min-w-0 items-center gap-3">
+                                          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-star-blue max-[359px]:hidden">
+                                              <i className="fas fa-lock text-[10px]"></i>
+                                          </div>
+                                          <div className="min-w-0">
+                                              <span className="block truncate text-[13px] font-bold text-gray-800 sm:text-sm">Your exact price</span>
+                                              <span className="block truncate text-[11px] font-medium text-gray-500">Sent to your phone</span>
+                                          </div>
+                                      </div>
+                                      <span aria-hidden="true" className="shrink-0 select-none rounded-lg bg-white px-3 py-1.5 text-base font-black text-gray-900 shadow-sm ring-1 ring-gray-200 blur-[5px]">$000</span>
+                                  </div>
+
+                                  <p className="px-4 pb-3 pt-3 text-center text-[11px] leading-snug text-gray-500">
+                                      Every home is different, so we confirm your price personally and text or call you with it, usually within the hour. No guessing, no surprises.
+                                  </p>
+
+                                  <div className="flex items-center justify-center gap-4 whitespace-nowrap border-t border-gray-100 bg-gray-50 px-2 py-2 text-[9px] font-medium text-gray-500 sm:gap-6 sm:text-[10px]">
+                                      <span className="flex items-center gap-1.5"><i className="fas fa-shield-alt text-green-500"></i> No Hidden Fees</span>
+                                      <span className="flex items-center gap-1.5"><i className="fas fa-calendar-check text-blue-400"></i> Cancel Anytime</span>
+                                  </div>
+                              </div>
+                          )}
+
+                          {showPricing && (
+                          <div id="quote-summary-box" className="mt-2 overflow-hidden rounded-xl border border-blue-100 bg-white shadow-sm">
                               <div className="bg-blue-50/50 px-3 py-3 border-b border-blue-50 flex justify-between items-center gap-2">
-                                  <h4 className="font-bold text-[13px] sm:text-sm text-blue-900 leading-none whitespace-nowrap">Your Personalized Plan</h4>
+                                  <h4 className="font-bold text-[13px] sm:text-sm text-blue-900 leading-none whitespace-nowrap">{showPricing ? 'Your Estimate' : 'Your Personalized Plan'}</h4>
                                   <div className="flex gap-1.5 text-green-600 font-bold text-[9px] sm:text-[10px] items-center uppercase tracking-wider leading-none whitespace-nowrap">
                                       <i className="fas fa-check-circle"></i> <span>No Commitment</span>
                                   </div>
@@ -813,16 +850,26 @@ const BookingForm: React.FC<BookingFormProps> = ({
                                   {/* First Visit / One Time */}
                                   <div className="flex justify-between items-center px-3 sm:px-4 py-3 gap-2">
                                       <div className="flex items-center gap-2 sm:gap-3 overflow-hidden">
-                                          <div className="w-6 h-6 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center shrink-0">
+                                          <div className="w-6 h-6 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center shrink-0 max-[359px]:hidden">
                                               <i className="fas fa-broom text-[10px]"></i>
                                           </div>
-                                          <span className="font-bold text-gray-800 text-[13px] sm:text-sm truncate">
-                                              {isOneTime ? 'Deep Clean Reset' : 'Initial Deep Clean'}
-                                          </span>
+                                          <div className="min-w-0">
+                                              <span className="block font-bold text-gray-800 text-[13px] sm:text-sm truncate">
+                                                  {plan.initialLabel}
+                                              </span>
+                                              {showPricing && (
+                                                  <span className="block text-[10px] font-medium text-gray-400 truncate">
+                                                      {isOneTime ? 'One visit, a fresh start' : 'Your first visit, a fresh start'}
+                                                  </span>
+                                              )}
+                                          </div>
                                       </div>
                                       <div className="text-right shrink-0">
                                           {showPricing ? (
-                                              <span className="text-sm sm:text-base font-black text-gray-900 whitespace-nowrap">${initialMin} - ${initialMax}</span>
+                                              <span className="whitespace-nowrap">
+                                                  <span className="mr-1 text-[10px] font-semibold text-gray-400">up to</span>
+                                                  <span className="text-base sm:text-lg font-black text-gray-900">{money(high(plan.initial))}</span>
+                                              </span>
                                           ) : (
                                               <span className="text-[10px] sm:text-[11px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-md whitespace-nowrap">Quote Saved</span>
                                           )}
@@ -835,14 +882,25 @@ const BookingForm: React.FC<BookingFormProps> = ({
                                           <div className="h-px w-full bg-gray-100"></div>
                                           <div className="flex justify-between items-center px-3 sm:px-4 py-3 bg-gray-50/50 gap-2">
                                               <div className="flex items-center gap-2 sm:gap-3 overflow-hidden">
-                                                  <div className="w-6 h-6 rounded-full bg-green-50 text-green-500 flex items-center justify-center shrink-0">
+                                                  <div className="w-6 h-6 rounded-full bg-green-50 text-green-500 flex items-center justify-center shrink-0 max-[359px]:hidden">
                                                       <i className="fas fa-redo-alt text-[10px]"></i>
                                                   </div>
-                                                  <span className="font-bold text-gray-800 text-[13px] sm:text-sm truncate">Ongoing {formData.frequency}</span>
+                                                  <div className="min-w-0">
+                                                      <span className="block font-bold text-gray-800 text-[13px] sm:text-sm truncate">{showPricing ? `Then ${formData.frequency}` : `Ongoing ${formData.frequency}`}</span>
+                                                      {showPricing && (
+                                                          <span className="block text-[10px] font-medium text-gray-400 truncate">
+                                                              {{ 'Weekly': 'Every week after that', 'Bi-Weekly': 'Every 2 weeks after that', 'Monthly': 'Every month after that' }[formData.frequency] ?? 'After that'}
+                                                          </span>
+                                                      )}
+                                                  </div>
                                               </div>
                                               <div className="text-right shrink-0">
-                                                  {showPricing ? (
-                                                      <span className="text-sm sm:text-base font-black text-blue-900 whitespace-nowrap">${recurringMin} - ${recurringMax}</span>
+                                                  {showPricing && plan.recurring ? (
+                                                      <span className="whitespace-nowrap">
+                                                          <span className="mr-1 text-[10px] font-semibold text-gray-400">up to</span>
+                                                          <span className="text-base sm:text-lg font-black text-blue-900">{money(high(plan.recurring))}</span>
+                                                          <span className="ml-0.5 text-[10px] font-semibold text-gray-400">/visit</span>
+                                                      </span>
                                                   ) : (
                                                       <span className="text-[10px] sm:text-[11px] font-bold text-green-600 bg-green-50 px-2 py-1 rounded-md whitespace-nowrap">Discount Applied</span>
                                                   )}
@@ -852,11 +910,18 @@ const BookingForm: React.FC<BookingFormProps> = ({
                                   )}
                               </div>
                               
+                              {showPricing && (
+                                  <p className="px-4 pb-3 pt-2 text-center text-[11px] leading-snug text-gray-500">
+                                      Just an estimate, not a fixed price. We&apos;ll go over your exact price together before we start, and we&apos;re always happy to work with you on it.
+                                  </p>
+                              )}
+
                               <div className="bg-gray-50 px-2 py-2 border-t border-gray-100 flex justify-center gap-4 sm:gap-6 items-center text-[9px] sm:text-[10px] font-medium text-gray-500 whitespace-nowrap">
                                   <span className="flex items-center gap-1.5"><i className="fas fa-shield-alt text-green-500"></i> No Hidden Fees</span>
                                   <span className="flex items-center gap-1.5"><i className="fas fa-calendar-check text-blue-400"></i> Cancel Anytime</span>
                               </div>
                           </div>
+                          )}
                       </div>
                   )}
 
@@ -865,13 +930,24 @@ const BookingForm: React.FC<BookingFormProps> = ({
                       <div className="py-2">
                           
                           <div className="bg-green-50 border border-green-100 rounded-2xl p-6 text-center shadow-sm mb-6 animate-zoom-in">
-                              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-500 text-3xl mx-auto mb-4 animate-bounce">
-                                  <i className="fas fa-file-invoice-dollar"></i>
+                              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-500 text-3xl mx-auto mb-4 animate-zoom-in">
+                                  <i className={showPricing ? 'fas fa-file-invoice-dollar' : 'fas fa-check'}></i>
                               </div>
-                              <h3 className="text-xl font-black text-gray-900 mb-1">{showPricing ? "Quote Saved!" : "Your Weekend Is Secured!"}</h3>
+                              <h3 className="text-xl font-black text-gray-900 mb-1">{showPricing ? (firstName ? `You're all set, ${firstName}!` : "You're all set!") : (firstName ? `Got it, ${firstName}!` : "Got it!")}</h3>
                               <div className="text-sm text-gray-600">
-                                 {showPricing && <span className="block font-bold">Range: ${initialMin} - ${initialMax}</span>}
-                                 {!showPricing && <span className="block font-bold text-green-600">We'll reach out shortly to lock in your time.</span>}
+                                 {showPricing && (
+                                    <>
+                                      <span className="block font-bold whitespace-nowrap">{plan.initialLabel}: up to {money(high(plan.initial))}</span>
+                                      {plan.recurring && <span className="block font-bold whitespace-nowrap">Then {formData.frequency}: up to {money(high(plan.recurring))}/visit</span>}
+                                      <span className="mt-2 block text-xs font-medium text-gray-500">Just an estimate. We&apos;ll go over your exact price together, no pressure.</span>
+                                    </>
+                                 )}
+                                 {!showPricing && (
+                                    <>
+                                      <span className="block font-bold text-green-600">We&apos;ll be in touch in the next few minutes.</span>
+                                      <span className="mt-1.5 block text-xs font-medium text-gray-500">Someone from our team will text or call <span className="font-bold text-star-blue">{formData.phone}</span> with your exact price.</span>
+                                    </>
+                                 )}
                               </div>
                           </div>
 
@@ -905,10 +981,27 @@ const BookingForm: React.FC<BookingFormProps> = ({
                               
                               {!showScheduling && (
                                   <div className="flex flex-col gap-4">
-                                      <p className="text-sm font-medium text-gray-600">
-                                          You're one step closer to getting your weekend back. We'll text or call <span className="text-blue-600 font-bold">{formData.phone}</span> within the hour.
-                                      </p>
-                                      <button 
+                                      {showPricing ? (
+                                          <p className="text-sm font-medium text-gray-600">
+                                              You're one step closer to getting your weekend back. We'll text or call <span className="text-blue-600 font-bold">{formData.phone}</span> within the hour.
+                                          </p>
+                                      ) : (
+                                          <div className="border-t border-gray-100 pt-5">
+                                              <p className="font-serif text-lg italic leading-snug text-star-dark">
+                                                  Your next free Saturday is closer than you think.
+                                              </p>
+                                              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                                                  The beach, the ball game, a slow morning with the people you love. We&apos;ll take care of the cleaning so you can take care of that.
+                                              </p>
+                                          </div>
+                                      )}
+                                      {!showPricing && (
+                                          <a href="sms:+18432979935" className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-bold text-star-blue">
+                                              <i className="fas fa-comment-dots text-xs"></i>
+                                              <span className="max-[359px]:hidden">Need it sooner? </span>Text (843) 297-9935
+                                          </a>
+                                      )}
+                                      <button
                                           type="button"
                                           onClick={resetForm}
                                           className="w-full bg-blue-900 text-white font-bold py-4 rounded-xl shadow-lg active:scale-95 transition-all"
@@ -1044,9 +1137,9 @@ const BookingForm: React.FC<BookingFormProps> = ({
                         {isSubmitting ? (
                             <i className="fas fa-spinner fa-spin relative z-10"></i>
                         ) : (
-                            <div className="relative z-10 flex items-center gap-2">
-                                <span>Reclaim My Weekend</span>
-                                <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                            <div className="relative z-10 flex items-center gap-2 whitespace-nowrap">
+                                <span className="max-[359px]:text-sm">Get My Exact Price</span>
+                                <span className="max-[359px]:hidden"><i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i></span>
                             </div>
                         )}
                     </button>
@@ -1080,6 +1173,11 @@ const BookingForm: React.FC<BookingFormProps> = ({
                 )}
 
               </div>
+              {step === 3 && !showPricing && (
+                  <p className="mt-2.5 text-center text-[11px] font-medium text-gray-500">
+                      Free <span className="text-gray-300">&middot;</span> No obligation <span className="text-gray-300">&middot;</span> No credit card
+                  </p>
+              )}
             </form>
           </div>
         </div>

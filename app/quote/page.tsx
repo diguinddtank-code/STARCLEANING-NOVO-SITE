@@ -86,8 +86,8 @@ const QuoteLanding = () => {
             </div>
 
             {/* The Form Component - Wider, Less Margin, Slide Up */}
-            <div className="w-full animate-slide-up-fade" style={{ animationDuration: '0.8s' }}>
-                <BookingForm hideSidebar={true} variant="glass" showPricing={false} showScheduling={false} />
+            <div id="quote-form" className="w-full scroll-mt-4 animate-slide-up-fade" style={{ animationDuration: '0.8s' }}>
+                <BookingForm hideSidebar={true} variant="glass" showScheduling={false} />
                 
                 {/* Trust Badges Below Form */}
                 <div className="flex flex-col items-center justify-center gap-2 mt-6">
@@ -267,6 +267,8 @@ const QuoteLanding = () => {
 
         </div>
       </section>
+
+      {/* Transparent price estimate */}
 
       {/* About Us / Main Website Link */}
       <section className="bg-white py-16 border-b border-gray-100">

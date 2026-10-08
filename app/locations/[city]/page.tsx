@@ -522,7 +522,7 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
               </p>
             </div>
           </ScrollReveal>
-          <BookingForm showPricing={false} />
+          <BookingForm />
         </div>
       </section>
 
