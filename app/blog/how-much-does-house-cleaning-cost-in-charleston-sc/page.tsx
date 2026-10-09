@@ -27,12 +27,12 @@ export const metadata: Metadata = {
   title: "How Much Does House Cleaning Cost in Charleston, SC? 2026 Pricing Guide",
   description: "Complete 2026 pricing guide for house cleaning in Charleston, SC. Compare average rates by square footage, flat-rate vs hourly costs, recurring discounts, and hidden fees to avoid.",
   alternates: {
-    canonical: "https://www.starcleaningsc.com/blog/how-much-does-house-cleaning-cost-in-charleston-sc/",
+    canonical: "https://www.starcleaningsc.com/blog/how-much-does-house-cleaning-cost-in-charleston-sc",
   },
   openGraph: {
     title: "How Much Does House Cleaning Cost in Charleston, SC? 2026 Guide | Star Cleaning SC",
     description: "Honest, transparent pricing breakdown for Charleston, Mount Pleasant, and Summerville homeowners. Compare square footage rates, recurring discounts, and flat-rate vs. hourly billing.",
-    url: "https://www.starcleaningsc.com/blog/how-much-does-house-cleaning-cost-in-charleston-sc/",
+    url: "https://www.starcleaningsc.com/blog/how-much-does-house-cleaning-cost-in-charleston-sc",
     siteName: "Star Cleaning SC",
     images: [
       {
@@ -75,8 +75,8 @@ const BlogPostHouseCleaningCost = () => {
     "datePublished": "2026-10-07",
     "dateModified": "2026-10-07",
     "description": "Comprehensive 2026 cost guide for house cleaning in Charleston, Summerville, and Mount Pleasant, SC. Learn average costs by square foot, flat-rate vs. hourly billing, add-on pricing, and recurring discounts.",
-    "url": "https://www.starcleaningsc.com/blog/how-much-does-house-cleaning-cost-in-charleston-sc/",
-    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/how-much-does-house-cleaning-cost-in-charleston-sc/",
+    "url": "https://www.starcleaningsc.com/blog/how-much-does-house-cleaning-cost-in-charleston-sc",
+    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/how-much-does-house-cleaning-cost-in-charleston-sc",
     "keywords": "how much does house cleaning cost charleston sc, house cleaning prices charleston, maid service cost mount pleasant, deep cleaning cost summerville sc, flat rate house cleaning charleston, biweekly cleaning cost",
     "articleSection": "Home Cleaning Pricing & Cost Guides"
   };
@@ -87,7 +87,7 @@ const BlogPostHouseCleaningCost = () => {
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
       { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.starcleaningsc.com/blog" },
-      { "@type": "ListItem", "position": 3, "name": "House Cleaning Cost Charleston SC", "item": "https://www.starcleaningsc.com/blog/how-much-does-house-cleaning-cost-in-charleston-sc/" }
+      { "@type": "ListItem", "position": 3, "name": "House Cleaning Cost Charleston SC", "item": "https://www.starcleaningsc.com/blog/how-much-does-house-cleaning-cost-in-charleston-sc" }
     ]
   };
 

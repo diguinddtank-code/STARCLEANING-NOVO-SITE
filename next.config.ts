@@ -25,6 +25,15 @@ const nextConfig: NextConfig = {
       { source: '/commercial-services', destination: '/', permanent: true },
     ];
   },
+  // Files in /public are served with max-age=0 by default, so every repeat visit re-checks each
+  // image. 30 days is safe for files that are only ever replaced under a new name.
+  async headers() {
+    const cache = [{ key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" }];
+    return [
+      { source: "/images/:path*", headers: cache },
+      { source: "/videos/:path*", headers: cache },
+    ];
+  },
   images: {
     remotePatterns: [
       {

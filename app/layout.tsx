@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Star Cleaning SC | House Cleaning in Charleston & Summerville, SC",
     description: "Veteran-owned, background-checked, 100% guaranteed house cleaning services in Charleston, SC. Book your clean today and reclaim your weekends!",
-    url: "https://www.starcleaningsc.com",
+    // no fixed og:url here: each page sets its own, otherwise pages without one inherit the home URL
     siteName: "Star Cleaning SC",
     locale: "en_US",
     type: "website",
@@ -122,35 +122,21 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${montserrat.variable} ${openSans.variable} ${dancingScript.variable} ${playfair.variable}`}>
       <head>
-        {/* Google Tag Manager */}
-        <script
-          key="gtm-script"
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-5DSS84QS');`
-          }}
-        />
-        {/* End Google Tag Manager */}
-
-        {/* Google tag (gtag.js) */}
-        <script key="gtag-js" async src="https://www.googletagmanager.com/gtag/js?id=AW-17191412064"></script>
-        <script
-          key="gtag-config"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'AW-17191412064');
-            `
-          }}
-        />
-        {/* End Google tag (gtag.js) */}
+        {/* Font Awesome: the stylesheet is added by script so it never blocks the first paint
+            (it used to delay it by ~0.9 s on mobile). Browsers without JS get it via the noscript. */}
         <link key="fa-preconnect" rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
-        <link key="fa-style" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        <script
+          key="fa-async"
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';document.head.appendChild(l);})();`
+          }}
+        />
+        <noscript
+          key="fa-noscript"
+          dangerouslySetInnerHTML={{
+            __html: '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />'
+          }}
+        />
       </head>
       <body className="antialiased font-sans">
         {/* Google Tag Manager (noscript) */}
@@ -163,23 +149,59 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           ></iframe>
         </noscript>
         {/* End Google Tag Manager (noscript) */}
-        {/* Meta Pixel Code */}
-        <Script key="meta-pixel-script" id="meta-pixel" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `
-          !function(f,b,e,v,n,t,s)
-          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        {/* Tracking: Google Tag Manager, Google Ads gtag.js and Meta Pixel.
+            The dataLayer / gtag / fbq queues are created right away, so every event the page
+            sends (PageView, Lead, form_submit_success, conversions) is recorded. The three heavy
+            third-party scripts (~400 KB and about 3 s of main-thread work on a mid-range phone)
+            are only downloaded on the visitor's first interaction, or 3.5 s after the page has
+            loaded, whichever comes first. They then process the queued events. */}
+        <Script key="tracking-loader" id="tracking-loader" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+          function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', 'AW-17191412064');
+
+          !function(f){if(f.fbq)return;var n=f.fbq=function(){n.callMethod?
           n.callMethod.apply(n,arguments):n.queue.push(arguments)};
           if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-          n.queue=[];t=b.createElement(e);t.async=!0;
-          t.src=v;s=b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t,s)}(window, document,'script',
-          'https://connect.facebook.net/en_US/fbevents.js');
+          n.queue=[]}(window);
           fbq('init', '743691638778789');
           fbq('track', 'PageView');
+
+          (function(){
+            var done = false;
+            var events = ['pointerdown', 'touchstart', 'keydown', 'scroll', 'wheel', 'mousemove'];
+            function load() {
+              if (done) return;
+              done = true;
+              events.forEach(function(ev){ window.removeEventListener(ev, load, true); });
+              [
+                'https://www.googletagmanager.com/gtm.js?id=GTM-5DSS84QS',
+                'https://www.googletagmanager.com/gtag/js?id=AW-17191412064',
+                'https://connect.facebook.net/en_US/fbevents.js'
+              ].forEach(function(src){
+                var s = document.createElement('script');
+                s.async = true;
+                s.src = src;
+                document.head.appendChild(s);
+              });
+            }
+            window.__loadTracking = load;
+            events.forEach(function(ev){ window.addEventListener(ev, load, { capture: true, passive: true }); });
+            function startTimer(){ setTimeout(load, 3500); }
+            if (document.readyState === 'complete') startTimer();
+            else window.addEventListener('load', startTimer);
+          })();
         ` }} />
-        <noscript key="meta-pixel-noscript">
-          <img height="1" width="1" style={{display: 'none'}} src="https://www.facebook.com/tr?id=743691638778789&ev=PageView&noscript=1" alt="" />
-        </noscript>
-        {/* End Meta Pixel Code */}
+        {/* Rendered as raw HTML so React does not preload the image (that preload sent a duplicate PageView). */}
+        <noscript
+          key="meta-pixel-noscript"
+          dangerouslySetInnerHTML={{
+            __html: '<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=743691638778789&ev=PageView&noscript=1" alt="" />',
+          }}
+        />
 
         <script
           key="json-ld-script"

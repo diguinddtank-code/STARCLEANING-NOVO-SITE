@@ -38,7 +38,6 @@ export default function OurTeamClient() {
                 src="/images/background-team.png"
                 alt=""
                 fill
-                priority
                 aria-hidden="true"
                 className="object-cover object-[0%_35%] scale-[1.75]"
               />
@@ -73,7 +72,7 @@ export default function OurTeamClient() {
                 alt="Mariana and the Star Cleaning SC team standing together in matching uniforms"
                 width={1774}
                 height={887}
-                priority
+                sizes="(min-width: 1536px) 1100px, 70vw"
                 className="h-auto w-full object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.18)]"
               />
             </div>
@@ -175,7 +174,6 @@ export default function OurTeamClient() {
                 src="/images/team2.png"
                 alt="Star Cleaning SC team making a bed with precision"
                 fill
-                priority
                 className="object-cover object-[right_center]"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/5 via-transparent to-black/15 pointer-events-none" />
@@ -301,7 +299,6 @@ export default function OurTeamClient() {
                 src="/images/team3.png"
                 alt="Star Cleaning SC team cleaning a dining room"
                 fill
-                priority
                 className="object-cover object-[right_center]"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/5 via-transparent to-black/20 pointer-events-none" />

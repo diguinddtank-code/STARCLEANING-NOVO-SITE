@@ -30,12 +30,12 @@ export const metadata: Metadata = {
   title: "How Often Should You Have Your House Cleaned? | Charleston, SC Guide",
   description: "Weekly, bi-weekly, or monthly? Step-by-step wikiHow-style guide to choosing the best house cleaning frequency for your home size, pets, budget, and Lowcountry climate.",
   alternates: {
-    canonical: "https://www.starcleaningsc.com/blog/how-often-should-you-have-your-house-cleaned-charleston-sc/",
+    canonical: "https://www.starcleaningsc.com/blog/how-often-should-you-have-your-house-cleaned-charleston-sc",
   },
   openGraph: {
     title: "How Often Should You Have Your House Cleaned? Weekly vs. Bi-Weekly vs. Monthly | Star Cleaning SC",
     description: "Confused about how often professional cleaners should come? Discover the true differences in cost, cleanliness, and time saved between weekly, bi-weekly, and monthly maid service.",
-    url: "https://www.starcleaningsc.com/blog/how-often-should-you-have-your-house-cleaned-charleston-sc/",
+    url: "https://www.starcleaningsc.com/blog/how-often-should-you-have-your-house-cleaned-charleston-sc",
     siteName: "Star Cleaning SC",
     images: [
       {
@@ -78,8 +78,8 @@ const BlogPostHowOftenHouseCleaned = () => {
     "datePublished": "2026-10-03",
     "dateModified": "2026-10-03",
     "description": "A comprehensive wikiHow-style guide helping homeowners decide how often to have their house cleaned. Compares weekly, bi-weekly, and monthly cleaning schedules, pricing, and coastal climate challenges in Charleston, Summerville, and Mount Pleasant, SC.",
-    "url": "https://www.starcleaningsc.com/blog/how-often-should-you-have-your-house-cleaned-charleston-sc/",
-    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/how-often-should-you-have-your-house-cleaned-charleston-sc/",
+    "url": "https://www.starcleaningsc.com/blog/how-often-should-you-have-your-house-cleaned-charleston-sc",
+    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/how-often-should-you-have-your-house-cleaned-charleston-sc",
     "keywords": "how often should you have your house cleaned, weekly vs biweekly cleaning, is monthly house cleaning worth it, house cleaning schedule charleston sc, maid service frequency, recurring cleaning cost summerville sc",
     "articleSection": "Home Maintenance & Cleaning Frequency Guides"
   };
@@ -90,7 +90,7 @@ const BlogPostHowOftenHouseCleaned = () => {
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
       { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.starcleaningsc.com/blog" },
-      { "@type": "ListItem", "position": 3, "name": "How Often to Have Your House Cleaned", "item": "https://www.starcleaningsc.com/blog/how-often-should-you-have-your-house-cleaned-charleston-sc/" }
+      { "@type": "ListItem", "position": 3, "name": "How Often to Have Your House Cleaned", "item": "https://www.starcleaningsc.com/blog/how-often-should-you-have-your-house-cleaned-charleston-sc" }
     ]
   };
 

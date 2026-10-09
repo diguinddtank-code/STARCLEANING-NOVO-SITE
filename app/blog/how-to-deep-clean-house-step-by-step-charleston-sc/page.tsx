@@ -26,12 +26,12 @@ export const metadata: Metadata = {
   title: "How to Deep Clean Your House Step-by-Step | Pro Lowcountry Guide",
   description: "A comprehensive, wikiHow-style step-by-step guide to deep cleaning your house like a pro. Room-by-room checklist, coastal humidity secrets, and time-saving techniques for Charleston & Summerville, SC.",
   alternates: {
-    canonical: "https://www.starcleaningsc.com/blog/how-to-deep-clean-house-step-by-step-charleston-sc/",
+    canonical: "https://www.starcleaningsc.com/blog/how-to-deep-clean-house-step-by-step-charleston-sc",
   },
   openGraph: {
     title: "How to Deep Clean Your House Step-by-Step | Star Cleaning SC",
     description: "The definitive step-by-step guide to deep cleaning your home. Actionable checklists, top-to-bottom order, coastal South Carolina tips, and professional maid secrets.",
-    url: "https://www.starcleaningsc.com/blog/how-to-deep-clean-house-step-by-step-charleston-sc/",
+    url: "https://www.starcleaningsc.com/blog/how-to-deep-clean-house-step-by-step-charleston-sc",
     siteName: "Star Cleaning SC",
     images: [
       {
@@ -68,8 +68,8 @@ const BlogPostHowToDeepClean = () => {
     "datePublished": "2026-09-24",
     "dateModified": "2026-09-24",
     "description": "Learn how to deep clean a house step by step with this comprehensive, room-by-room professional checklist crafted for coastal South Carolina homes.",
-    "url": "https://www.starcleaningsc.com/blog/how-to-deep-clean-house-step-by-step-charleston-sc/",
-    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/how-to-deep-clean-house-step-by-step-charleston-sc/",
+    "url": "https://www.starcleaningsc.com/blog/how-to-deep-clean-house-step-by-step-charleston-sc",
+    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/how-to-deep-clean-house-step-by-step-charleston-sc",
     "keywords": "how to deep clean a house step by step, house deep cleaning checklist, deep cleaning charleston sc, deep cleaning summerville sc, professional maid tips, top to bottom cleaning method",
     "articleSection": "Cleaning Guides & Tutorials"
   };
@@ -80,7 +80,7 @@ const BlogPostHowToDeepClean = () => {
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
       { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.starcleaningsc.com/blog" },
-      { "@type": "ListItem", "position": 3, "name": "How to Deep Clean Your House Step-by-Step", "item": "https://www.starcleaningsc.com/blog/how-to-deep-clean-house-step-by-step-charleston-sc/" }
+      { "@type": "ListItem", "position": 3, "name": "How to Deep Clean Your House Step-by-Step", "item": "https://www.starcleaningsc.com/blog/how-to-deep-clean-house-step-by-step-charleston-sc" }
     ]
   };
 

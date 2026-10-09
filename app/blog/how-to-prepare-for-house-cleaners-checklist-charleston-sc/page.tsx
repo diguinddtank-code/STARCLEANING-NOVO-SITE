@@ -28,12 +28,12 @@ export const metadata: Metadata = {
   title: "What to Do Before House Cleaners Arrive | Lowcountry Checklist",
   description: "Should you clean before the cleaners come? Step-by-step wikiHow-style guide on how to prepare your house, secure pets, and get 100% value from your Charleston maid service.",
   alternates: {
-    canonical: "https://www.starcleaningsc.com/blog/how-to-prepare-for-house-cleaners-checklist-charleston-sc/",
+    canonical: "https://www.starcleaningsc.com/blog/how-to-prepare-for-house-cleaners-checklist-charleston-sc",
   },
   openGraph: {
     title: "How to Prepare Your House for Cleaners: The Step-by-Step Lowcountry Checklist | Star Cleaning SC",
     description: "The definitive guide to preparing your home before the cleaning team arrives. Learn what to tidy, how to handle pets, linen etiquette, and tipping rules in Charleston & Summerville.",
-    url: "https://www.starcleaningsc.com/blog/how-to-prepare-for-house-cleaners-checklist-charleston-sc/",
+    url: "https://www.starcleaningsc.com/blog/how-to-prepare-for-house-cleaners-checklist-charleston-sc",
     siteName: "Star Cleaning SC",
     images: [
       {
@@ -76,8 +76,8 @@ const BlogPostPrepareForCleaners = () => {
     "datePublished": "2026-10-02",
     "dateModified": "2026-10-02",
     "description": "Learn the simple 15-minute preparation routine before your house cleaner arrives. Covers clutter vs cleaning, pet safety, entry access, linen etiquette, and tipping in Charleston & Summerville, SC.",
-    "url": "https://www.starcleaningsc.com/blog/how-to-prepare-for-house-cleaners-checklist-charleston-sc/",
-    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/how-to-prepare-for-house-cleaners-checklist-charleston-sc/",
+    "url": "https://www.starcleaningsc.com/blog/how-to-prepare-for-house-cleaners-checklist-charleston-sc",
+    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/how-to-prepare-for-house-cleaners-checklist-charleston-sc",
     "keywords": "how to prepare for house cleaners, do I clean before maid arrives, what to do before cleaning service, pet etiquette house cleaning charleston sc, house cleaning checklist, tipping house cleaners south carolina",
     "articleSection": "Home Cleaning Preparation & Etiquette"
   };
@@ -88,7 +88,7 @@ const BlogPostPrepareForCleaners = () => {
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
       { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.starcleaningsc.com/blog" },
-      { "@type": "ListItem", "position": 3, "name": "How to Prepare for House Cleaners", "item": "https://www.starcleaningsc.com/blog/how-to-prepare-for-house-cleaners-checklist-charleston-sc/" }
+      { "@type": "ListItem", "position": 3, "name": "How to Prepare for House Cleaners", "item": "https://www.starcleaningsc.com/blog/how-to-prepare-for-house-cleaners-checklist-charleston-sc" }
     ]
   };
 

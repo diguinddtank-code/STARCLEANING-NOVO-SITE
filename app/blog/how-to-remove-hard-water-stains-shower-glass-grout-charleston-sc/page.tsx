@@ -27,12 +27,12 @@ export const metadata: Metadata = {
   title: "How to Clean Shower Glass & Grout | Hard Water Removal SC",
   description: "Step-by-step wikiHow-style guide to removing cloudy hard water stains from shower glass and black mold from tile grout in Charleston & Summerville, SC.",
   alternates: {
-    canonical: "https://www.starcleaningsc.com/blog/how-to-remove-hard-water-stains-shower-glass-grout-charleston-sc/",
+    canonical: "https://www.starcleaningsc.com/blog/how-to-remove-hard-water-stains-shower-glass-grout-charleston-sc",
   },
   openGraph: {
     title: "How to Remove Hard Water Stains & Mildew from Shower Glass and Grout | Star Cleaning SC",
     description: "The complete step-by-step guide to dissolving calcium scale, soap scum, and tile grout mildew in coastal South Carolina bathrooms without scratching expensive glass.",
-    url: "https://www.starcleaningsc.com/blog/how-to-remove-hard-water-stains-shower-glass-grout-charleston-sc/",
+    url: "https://www.starcleaningsc.com/blog/how-to-remove-hard-water-stains-shower-glass-grout-charleston-sc",
     siteName: "Star Cleaning SC",
     images: [
       {
@@ -75,8 +75,8 @@ const BlogPostShowerGlassGrout = () => {
     "datePublished": "2026-09-30",
     "dateModified": "2026-09-30",
     "description": "Learn how to dissolve stubborn calcium deposits from glass shower doors and eradicate recurring black mildew from bathroom tile grout with this comprehensive wikiHow-style guide tailored for Charleston and Summerville, SC homeowners.",
-    "url": "https://www.starcleaningsc.com/blog/how-to-remove-hard-water-stains-shower-glass-grout-charleston-sc/",
-    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/how-to-remove-hard-water-stains-shower-glass-grout-charleston-sc/",
+    "url": "https://www.starcleaningsc.com/blog/how-to-remove-hard-water-stains-shower-glass-grout-charleston-sc",
+    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/how-to-remove-hard-water-stains-shower-glass-grout-charleston-sc",
     "keywords": "how to clean shower glass hard water stains, remove cloudy hard water spots from shower doors, clean bathroom tile grout, black mold shower grout charleston sc, shower descaler summerville sc, hydrophobic glass sealer",
     "articleSection": "Bathroom Cleaning & Maintenance"
   };
@@ -87,7 +87,7 @@ const BlogPostShowerGlassGrout = () => {
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
       { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.starcleaningsc.com/blog" },
-      { "@type": "ListItem", "position": 3, "name": "How to Remove Hard Water Stains & Mildew", "item": "https://www.starcleaningsc.com/blog/how-to-remove-hard-water-stains-shower-glass-grout-charleston-sc/" }
+      { "@type": "ListItem", "position": 3, "name": "How to Remove Hard Water Stains & Mildew", "item": "https://www.starcleaningsc.com/blog/how-to-remove-hard-water-stains-shower-glass-grout-charleston-sc" }
     ]
   };
 

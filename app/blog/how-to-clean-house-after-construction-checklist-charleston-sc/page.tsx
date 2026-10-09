@@ -29,12 +29,12 @@ export const metadata: Metadata = {
   title: "How to Clean a House After Remodeling | Post-Construction Checklist SC",
   description: "Step-by-step wikiHow-style guide to cleaning a house after construction or remodeling. Master drywall dust removal, HVAC purging, and haze-free floor mopping in Charleston & Summerville, SC.",
   alternates: {
-    canonical: "https://www.starcleaningsc.com/blog/how-to-clean-house-after-construction-checklist-charleston-sc/",
+    canonical: "https://www.starcleaningsc.com/blog/how-to-clean-house-after-construction-checklist-charleston-sc",
   },
   openGraph: {
     title: "How to Clean a House After Remodeling: Post-Construction Checklist | Star Cleaning SC",
     description: "The complete step-by-step guide to removing fine drywall dust, paint overspray, and renovation debris without ruining your vacuum or scratching surfaces. Tested maid secrets for Lowcountry homes.",
-    url: "https://www.starcleaningsc.com/blog/how-to-clean-house-after-construction-checklist-charleston-sc/",
+    url: "https://www.starcleaningsc.com/blog/how-to-clean-house-after-construction-checklist-charleston-sc",
     siteName: "Star Cleaning SC",
     images: [
       {
@@ -77,8 +77,8 @@ const BlogPostHowToCleanAfterConstruction = () => {
     "datePublished": "2026-09-29",
     "dateModified": "2026-09-29",
     "description": "Comprehensive wikiHow-style guide on how to safely clean a house after construction or remodeling. Proven techniques for drywall dust eradication, HVAC duct protection, and haze-free floors in Charleston and Summerville, SC.",
-    "url": "https://www.starcleaningsc.com/blog/how-to-clean-house-after-construction-checklist-charleston-sc/",
-    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/how-to-clean-house-after-construction-checklist-charleston-sc/",
+    "url": "https://www.starcleaningsc.com/blog/how-to-clean-house-after-construction-checklist-charleston-sc",
+    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/how-to-clean-house-after-construction-checklist-charleston-sc",
     "keywords": "how to clean house after construction, post construction cleaning checklist, clean drywall dust after renovation, post construction cleaning charleston sc, post remodel cleaning summerville sc, how to remove drywall dust haze from wood floors",
     "articleSection": "Home Improvement & Cleaning Guides"
   };
@@ -89,7 +89,7 @@ const BlogPostHowToCleanAfterConstruction = () => {
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
       { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.starcleaningsc.com/blog" },
-      { "@type": "ListItem", "position": 3, "name": "How to Clean House After Construction", "item": "https://www.starcleaningsc.com/blog/how-to-clean-house-after-construction-checklist-charleston-sc/" }
+      { "@type": "ListItem", "position": 3, "name": "How to Clean House After Construction", "item": "https://www.starcleaningsc.com/blog/how-to-clean-house-after-construction-checklist-charleston-sc" }
     ]
   };
 

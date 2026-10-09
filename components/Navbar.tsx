@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center group relative z-50">
+          <Link prefetch={false} href="/" className="flex items-center group relative z-50">
             <div className={`relative aspect-[348/159] transition-all duration-500 ${scrolled ? 'w-[112px] md:w-[140px] lg:w-[124px] xl:w-[140px]' : 'w-[150px] md:w-[190px] lg:w-[150px] xl:w-[184px]'}`}>
               <Image 
                 src="/images/logo-mark-tight.png"
@@ -60,14 +60,14 @@ const Navbar: React.FC = () => {
                 </button>
                 <div className="absolute top-full left-0 w-64 bg-white shadow-xl rounded-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden">
                   <div className="py-2">
-                    <Link href="/services/residential-cleaning/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Residential Cleaning</Link>
-                    <Link href="/services/deep-cleaning/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Deep Cleaning</Link>
-                    <Link href="/services/move-in-move-out-cleaning/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Move In/Out Cleaning</Link>
-                    <Link href="/services/vacation-rental-airbnb-cleaning/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Airbnb Cleaning</Link>
-                    <Link href="/services/commercial-office-cleaning/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Commercial Cleaning</Link>
-                    <Link href="/services/post-construction-cleaning/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Post-Construction</Link>
+                    <Link prefetch={false} href="/services/residential-cleaning/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Residential Cleaning</Link>
+                    <Link prefetch={false} href="/services/deep-cleaning/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Deep Cleaning</Link>
+                    <Link prefetch={false} href="/services/move-in-move-out-cleaning/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Move In/Out Cleaning</Link>
+                    <Link prefetch={false} href="/services/vacation-rental-airbnb-cleaning/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Airbnb Cleaning</Link>
+                    <Link prefetch={false} href="/services/commercial-office-cleaning/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Commercial Cleaning</Link>
+                    <Link prefetch={false} href="/services/post-construction-cleaning/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Post-Construction</Link>
                     <div className="border-t border-gray-100 mt-2 pt-2">
-                      <Link href="/#services" className="block px-4 py-2 text-xs font-black text-star-blue hover:bg-blue-50">SEE ALL SERVICES &rarr;</Link>
+                      <Link prefetch={false} href="/#services" className="block px-4 py-2 text-xs font-black text-star-blue hover:bg-blue-50">SEE ALL SERVICES &rarr;</Link>
                     </div>
                   </div>
                 </div>
@@ -80,34 +80,34 @@ const Navbar: React.FC = () => {
                 </button>
                 <div className="absolute top-full left-0 w-56 bg-white shadow-xl rounded-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden">
                   <div className="py-2">
-                    <Link href="/locations/charleston/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Charleston</Link>
-                    <Link href="/locations/north-charleston/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">North Charleston</Link>
-                    <Link href="/locations/ladson/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Ladson</Link>
-                    <Link href="/locations/summerville/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Summerville</Link>
-                    <Link href="/locations/james-island/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">James Island</Link>
-                    <Link href="/locations/daniel-island/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Daniel Island</Link>
-                    <Link href="/locations/johns-island/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Johns Island</Link>
-                    <Link href="/locations/mount-pleasant/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Mount Pleasant</Link>
+                    <Link prefetch={false} href="/locations/charleston/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Charleston</Link>
+                    <Link prefetch={false} href="/locations/north-charleston/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">North Charleston</Link>
+                    <Link prefetch={false} href="/locations/ladson/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Ladson</Link>
+                    <Link prefetch={false} href="/locations/summerville/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Summerville</Link>
+                    <Link prefetch={false} href="/locations/james-island/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">James Island</Link>
+                    <Link prefetch={false} href="/locations/daniel-island/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Daniel Island</Link>
+                    <Link prefetch={false} href="/locations/johns-island/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Johns Island</Link>
+                    <Link prefetch={false} href="/locations/mount-pleasant/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-star-blue">Mount Pleasant</Link>
                     <div className="border-t border-gray-100 mt-2 pt-2">
-                      <Link href="/locations/" className="block px-4 py-2 text-xs font-black text-star-blue hover:bg-blue-50">ALL SERVICE AREAS &rarr;</Link>
+                      <Link prefetch={false} href="/locations/" className="block px-4 py-2 text-xs font-black text-star-blue hover:bg-blue-50">ALL SERVICE AREAS &rarr;</Link>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <Link href="/about-us/" className="hover:text-star-blue transition-colors duration-300 relative group py-2">
+              <Link prefetch={false} href="/about-us/" className="hover:text-star-blue transition-colors duration-300 relative group py-2">
                 About Us
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-star-blue transition-all duration-300 ease-out group-hover:w-full"></span>
               </Link>
-              <Link href="/blog/" className="hover:text-star-blue transition-colors duration-300 relative group py-2">
+              <Link prefetch={false} href="/blog/" className="hover:text-star-blue transition-colors duration-300 relative group py-2">
                 Blog
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-star-blue transition-all duration-300 ease-out group-hover:w-full"></span>
               </Link>
-              <Link href="/contact/" className="hover:text-star-blue transition-colors duration-300 relative group py-2">
+              <Link prefetch={false} href="/contact/" className="hover:text-star-blue transition-colors duration-300 relative group py-2">
                 Contact
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-star-blue transition-all duration-300 ease-out group-hover:w-full"></span>
               </Link>
-              <Link href="/#faq" className="hover:text-star-blue transition-colors duration-300 relative group py-2">
+              <Link prefetch={false} href="/#faq" className="hover:text-star-blue transition-colors duration-300 relative group py-2">
                 FAQ
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-star-blue transition-all duration-300 ease-out group-hover:w-full"></span>
               </Link>
@@ -120,7 +120,7 @@ const Navbar: React.FC = () => {
                   (843) 297-9935
                 </a>
               </div>
-              <Link href="/#quote" className="btn-cta bg-star-blue hover:bg-star-dark text-white px-7 py-3 rounded-full font-bold shadow-lg shadow-blue-200 flex items-center gap-2 transform hover:-translate-y-1 transition-all duration-300">
+              <Link prefetch={false} href="/#quote" className="btn-cta bg-star-blue hover:bg-star-dark text-white px-7 py-3 rounded-full font-bold shadow-lg shadow-blue-200 flex items-center gap-2 transform hover:-translate-y-1 transition-all duration-300">
                 <span>Get Free Quote</span>
                 <i className="fas fa-arrow-right text-xs"></i>
               </Link>
@@ -145,7 +145,7 @@ const Navbar: React.FC = () => {
       {/* Mobile Menu Overlay */}
       <div className={`fixed inset-0 bg-white z-40 flex flex-col pt-24 px-6 transition-all duration-500 lg:hidden overflow-y-auto ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
           
-          <Link 
+          <Link prefetch={false} 
             href="/#quote" 
             onClick={() => setIsMobileMenuOpen(false)}
             className="w-full bg-star-blue text-white text-center py-4 rounded-xl shadow-lg font-black text-lg mb-8"
@@ -165,13 +165,13 @@ const Navbar: React.FC = () => {
                 <i className={`fas fa-chevron-down text-sm transition-transform duration-300 ${servicesOpen ? 'rotate-180' : ''}`}></i>
               </button>
               <div className={`flex flex-col gap-3 pl-4 overflow-hidden transition-all duration-300 ${servicesOpen ? 'max-h-96 opacity-100 mt-3' : 'max-h-0 opacity-0'}`}>
-                <Link href="/services/residential-cleaning/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Residential Cleaning</Link>
-                <Link href="/services/deep-cleaning/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Deep Cleaning</Link>
-                <Link href="/services/move-in-move-out-cleaning/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Move In/Out Cleaning</Link>
-                <Link href="/services/vacation-rental-airbnb-cleaning/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Airbnb Cleaning</Link>
-                <Link href="/services/commercial-office-cleaning/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Commercial Cleaning</Link>
-                <Link href="/services/post-construction-cleaning/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Post-Construction</Link>
-                <Link href="/#services" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-black text-star-blue mt-2">SEE ALL SERVICES &rarr;</Link>
+                <Link prefetch={false} href="/services/residential-cleaning/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Residential Cleaning</Link>
+                <Link prefetch={false} href="/services/deep-cleaning/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Deep Cleaning</Link>
+                <Link prefetch={false} href="/services/move-in-move-out-cleaning/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Move In/Out Cleaning</Link>
+                <Link prefetch={false} href="/services/vacation-rental-airbnb-cleaning/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Airbnb Cleaning</Link>
+                <Link prefetch={false} href="/services/commercial-office-cleaning/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Commercial Cleaning</Link>
+                <Link prefetch={false} href="/services/post-construction-cleaning/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Post-Construction</Link>
+                <Link prefetch={false} href="/#services" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-black text-star-blue mt-2">SEE ALL SERVICES &rarr;</Link>
               </div>
             </div>
 
@@ -185,22 +185,22 @@ const Navbar: React.FC = () => {
                 <i className={`fas fa-chevron-down text-sm transition-transform duration-300 ${locationsOpen ? 'rotate-180' : ''}`}></i>
               </button>
               <div className={`flex flex-col gap-3 pl-4 overflow-hidden transition-all duration-300 ${locationsOpen ? 'max-h-96 opacity-100 mt-3' : 'max-h-0 opacity-0'}`}>
-                <Link href="/locations/charleston/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Charleston</Link>
-                <Link href="/locations/north-charleston/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">North Charleston</Link>
-                <Link href="/locations/ladson/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Ladson</Link>
-                <Link href="/locations/summerville/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Summerville</Link>
-                <Link href="/locations/james-island/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">James Island</Link>
-                <Link href="/locations/daniel-island/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Daniel Island</Link>
-                <Link href="/locations/johns-island/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Johns Island</Link>
-                <Link href="/locations/mount-pleasant/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Mount Pleasant</Link>
-                <Link href="/locations/" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-black text-star-blue mt-2">ALL SERVICE AREAS &rarr;</Link>
+                <Link prefetch={false} href="/locations/charleston/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Charleston</Link>
+                <Link prefetch={false} href="/locations/north-charleston/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">North Charleston</Link>
+                <Link prefetch={false} href="/locations/ladson/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Ladson</Link>
+                <Link prefetch={false} href="/locations/summerville/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Summerville</Link>
+                <Link prefetch={false} href="/locations/james-island/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">James Island</Link>
+                <Link prefetch={false} href="/locations/daniel-island/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Daniel Island</Link>
+                <Link prefetch={false} href="/locations/johns-island/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Johns Island</Link>
+                <Link prefetch={false} href="/locations/mount-pleasant/" onClick={() => setIsMobileMenuOpen(false)} className="text-base text-gray-600 font-medium">Mount Pleasant</Link>
+                <Link prefetch={false} href="/locations/" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-black text-star-blue mt-2">ALL SERVICE AREAS &rarr;</Link>
               </div>
             </div>
 
-            <Link href="/about-us/" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-gray-100 hover:text-star-blue transition-colors">About Us</Link>
-            <Link href="/blog/" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-gray-100 hover:text-star-blue transition-colors">Blog</Link>
-            <Link href="/contact/" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-gray-100 hover:text-star-blue transition-colors">Contact</Link>
-            <Link href="/#faq" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-gray-100 hover:text-star-blue transition-colors">FAQ</Link>
+            <Link prefetch={false} href="/about-us/" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-gray-100 hover:text-star-blue transition-colors">About Us</Link>
+            <Link prefetch={false} href="/blog/" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-gray-100 hover:text-star-blue transition-colors">Blog</Link>
+            <Link prefetch={false} href="/contact/" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-gray-100 hover:text-star-blue transition-colors">Contact</Link>
+            <Link prefetch={false} href="/#faq" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-gray-100 hover:text-star-blue transition-colors">FAQ</Link>
             
             <div className="mt-6">
               <p className="text-xs text-gray-500 uppercase tracking-widest mb-2">Call or Text:</p>

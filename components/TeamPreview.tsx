@@ -94,7 +94,7 @@ const TeamPreview = () => {
             alt=""
             fill
             aria-hidden="true"
-            priority
+            sizes="100vw"
             className="object-cover object-[0%_35%] scale-[1.75]"
           />
           <div className="absolute inset-0 bg-white/10" />
@@ -136,7 +136,7 @@ const TeamPreview = () => {
               alt="Mariana and the Star Cleaning SC team standing together in matching uniforms"
               width={1774}
               height={887}
-              priority
+              sizes="(min-width: 1536px) 1100px, 70vw"
               className="h-auto w-full object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.18)]"
             />
           </div>

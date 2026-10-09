@@ -40,12 +40,12 @@ const Footer: React.FC = () => {
           <div className="lg:col-span-3">
             <h4 className="text-white font-bold uppercase tracking-wider mb-6 text-xs font-heading border-b border-white/10 pb-2 inline-block">Services</h4>
             <ul className="space-y-3 text-sm font-medium text-gray-400">
-              <li><Link href="/services/residential-cleaning/" className="hover:text-white transition-colors">Residential Cleaning</Link></li>
-              <li><Link href="/services/deep-cleaning/" className="hover:text-white transition-colors">Deep Cleaning</Link></li>
-              <li><Link href="/services/move-in-move-out-cleaning/" className="hover:text-white transition-colors">Move In/Out Cleaning</Link></li>
-              <li><Link href="/services/vacation-rental-airbnb-cleaning/" className="hover:text-white transition-colors">Airbnb Cleaning</Link></li>
-              <li><Link href="/services/commercial-office-cleaning/" className="hover:text-white transition-colors">Commercial Cleaning</Link></li>
-              <li><Link href="/services/post-construction-cleaning/" className="hover:text-white transition-colors">Post-Construction</Link></li>
+              <li><Link href="/services/residential-cleaning" prefetch={false} className="hover:text-white transition-colors">Residential Cleaning</Link></li>
+              <li><Link href="/services/deep-cleaning" prefetch={false} className="hover:text-white transition-colors">Deep Cleaning</Link></li>
+              <li><Link href="/services/move-in-move-out-cleaning" prefetch={false} className="hover:text-white transition-colors">Move In/Out Cleaning</Link></li>
+              <li><Link href="/services/vacation-rental-airbnb-cleaning" prefetch={false} className="hover:text-white transition-colors">Airbnb Cleaning</Link></li>
+              <li><Link href="/services/commercial-office-cleaning" prefetch={false} className="hover:text-white transition-colors">Commercial Cleaning</Link></li>
+              <li><Link href="/services/post-construction-cleaning" prefetch={false} className="hover:text-white transition-colors">Post-Construction</Link></li>
             </ul>
           </div>
 
@@ -53,25 +53,25 @@ const Footer: React.FC = () => {
           <div className="lg:col-span-2">
             <h4 className="text-white font-bold uppercase tracking-wider mb-6 text-xs font-heading border-b border-white/10 pb-2 inline-block">Service Areas</h4>
             <ul className="space-y-3 text-sm font-medium text-gray-400">
-              <li><Link href="/locations/charleston/" className="hover:text-white transition-colors">Charleston</Link></li>
-              <li><Link href="/locations/north-charleston/" className="hover:text-white transition-colors">North Charleston</Link></li>
-              <li><Link href="/locations/ladson/" className="hover:text-white transition-colors">Ladson</Link></li>
-              <li><Link href="/locations/summerville/" className="hover:text-white transition-colors">Summerville</Link></li>
-              <li><Link href="/locations/james-island/" className="hover:text-white transition-colors">James Island</Link></li>
-              <li><Link href="/locations/daniel-island/" className="hover:text-white transition-colors">Daniel Island</Link></li>
-              <li><Link href="/locations/johns-island/" className="hover:text-white transition-colors">Johns Island</Link></li>
-              <li><Link href="/locations/mount-pleasant/" className="hover:text-white transition-colors">Mount Pleasant</Link></li>
+              <li><Link href="/locations/charleston" prefetch={false} className="hover:text-white transition-colors">Charleston</Link></li>
+              <li><Link href="/locations/north-charleston" prefetch={false} className="hover:text-white transition-colors">North Charleston</Link></li>
+              <li><Link href="/locations/ladson" prefetch={false} className="hover:text-white transition-colors">Ladson</Link></li>
+              <li><Link href="/locations/summerville" prefetch={false} className="hover:text-white transition-colors">Summerville</Link></li>
+              <li><Link href="/locations/james-island" prefetch={false} className="hover:text-white transition-colors">James Island</Link></li>
+              <li><Link href="/locations/daniel-island" prefetch={false} className="hover:text-white transition-colors">Daniel Island</Link></li>
+              <li><Link href="/locations/johns-island" prefetch={false} className="hover:text-white transition-colors">Johns Island</Link></li>
+              <li><Link href="/locations/mount-pleasant" prefetch={false} className="hover:text-white transition-colors">Mount Pleasant</Link></li>
             </ul>
             <h4 className="text-white font-bold uppercase tracking-wider mt-6 mb-3 text-[10px] font-heading border-b border-white/10 pb-1 inline-block">Deep Clean SC</h4>
             <ul className="space-y-2 text-xs font-light text-gray-400">
-              <li><Link href="/deep-cleaning-charleston-sc" className="hover:text-white transition-colors">✦ Charleston Deep Clean</Link></li>
-              <li><Link href="/deep-cleaning-north-charleston-sc" className="hover:text-white transition-colors">✦ North Charleston Deep Clean</Link></li>
-              <li><Link href="/deep-cleaning-summerville-sc" className="hover:text-white transition-colors">✦ Summerville Deep Clean</Link></li>
-              <li><Link href="/deep-cleaning-ladson-sc" className="hover:text-white transition-colors">✦ Ladson Deep Clean</Link></li>
-              <li><Link href="/deep-cleaning-james-island-sc" className="hover:text-white transition-colors">✦ James Island Deep Clean</Link></li>
-              <li><Link href="/deep-cleaning-daniel-island-sc" className="hover:text-white transition-colors">✦ Daniel Island Deep Clean</Link></li>
-              <li><Link href="/deep-cleaning-johns-island-sc" className="hover:text-white transition-colors">✦ Johns Island Deep Clean</Link></li>
-              <li><Link href="/deep-cleaning-mount-pleasant-sc" className="hover:text-white transition-colors">✦ Mount Pleasant Deep Clean</Link></li>
+              <li><Link prefetch={false} href="/deep-cleaning-charleston-sc" className="hover:text-white transition-colors">✦ Charleston Deep Clean</Link></li>
+              <li><Link prefetch={false} href="/deep-cleaning-north-charleston-sc" className="hover:text-white transition-colors">✦ North Charleston Deep Clean</Link></li>
+              <li><Link prefetch={false} href="/deep-cleaning-summerville-sc" className="hover:text-white transition-colors">✦ Summerville Deep Clean</Link></li>
+              <li><Link prefetch={false} href="/deep-cleaning-ladson-sc" className="hover:text-white transition-colors">✦ Ladson Deep Clean</Link></li>
+              <li><Link prefetch={false} href="/deep-cleaning-james-island-sc" className="hover:text-white transition-colors">✦ James Island Deep Clean</Link></li>
+              <li><Link prefetch={false} href="/deep-cleaning-daniel-island-sc" className="hover:text-white transition-colors">✦ Daniel Island Deep Clean</Link></li>
+              <li><Link prefetch={false} href="/deep-cleaning-johns-island-sc" className="hover:text-white transition-colors">✦ Johns Island Deep Clean</Link></li>
+              <li><Link prefetch={false} href="/deep-cleaning-mount-pleasant-sc" className="hover:text-white transition-colors">✦ Mount Pleasant Deep Clean</Link></li>
             </ul>
           </div>
 
@@ -105,9 +105,9 @@ const Footer: React.FC = () => {
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 font-medium">
           <p>&copy; {new Date().getFullYear()} Star Cleaning SC. All Rights Reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
-            <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
-            <Link href="/sitemap.xml" className="hover:text-white transition-colors">Sitemap</Link>
+            <Link prefetch={false} href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link prefetch={false} href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link prefetch={false} href="/sitemap.xml" className="hover:text-white transition-colors">Sitemap</Link>
           </div>
           <p className="mt-4 md:mt-0 text-yellow-500 font-bold tracking-wider flex items-center gap-1.5">Veteran-Owned & Operated <Medal className="w-4 h-4" aria-hidden="true" /></p>
         </div>

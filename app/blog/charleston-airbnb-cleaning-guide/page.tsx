@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Expert Charleston Airbnb Cleaning Guide & Host Checklist",
   description: "Maximize your 5-star reviews with our ultimate Charleston Airbnb cleaning guide. Learn how to tackle coastal sand, humidity, and rapid guest turnovers.",
   alternates: {
-    canonical: "https://www.starcleaningsc.com/blog/charleston-airbnb-cleaning-guide/",
+    canonical: "https://www.starcleaningsc.com/blog/charleston-airbnb-cleaning-guide",
   }
 };
 
@@ -33,8 +33,8 @@ const BlogPost1 = () => {
     "datePublished": "2026-01-15",
     "dateModified": "2026-01-15",
     "description": "Maximize your 5-star reviews with our ultimate Charleston Airbnb cleaning guide. Learn how to tackle coastal sand, humidity, and rapid guest turnovers.",
-    "url": "https://www.starcleaningsc.com/blog/charleston-airbnb-cleaning-guide/",
-    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/charleston-airbnb-cleaning-guide/",
+    "url": "https://www.starcleaningsc.com/blog/charleston-airbnb-cleaning-guide",
+    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/charleston-airbnb-cleaning-guide",
     "keywords": "charleston airbnb cleaning, vacation rental cleaning charleston sc, airbnb turnover service, short term rental cleaners",
     "articleSection": "Local Guide"
   };
@@ -45,7 +45,7 @@ const BlogPost1 = () => {
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
       { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.starcleaningsc.com/blog" },
-      { "@type": "ListItem", "position": 3, "name": "Charleston Airbnb Cleaning Guide", "item": "https://www.starcleaningsc.com/blog/charleston-airbnb-cleaning-guide/" }
+      { "@type": "ListItem", "position": 3, "name": "Charleston Airbnb Cleaning Guide", "item": "https://www.starcleaningsc.com/blog/charleston-airbnb-cleaning-guide" }
     ]
   };
 

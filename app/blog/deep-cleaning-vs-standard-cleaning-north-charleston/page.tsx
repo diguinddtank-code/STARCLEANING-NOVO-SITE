@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Deep Cleaning vs Standard Cleaning in North Charleston",
   description: "Confused about deep cleaning vs standard cleaning? Learn the exact differences, what each service includes, and which one your North Charleston home really needs.",
   alternates: {
-    canonical: "https://www.starcleaningsc.com/blog/deep-cleaning-vs-standard-cleaning-north-charleston/",
+    canonical: "https://www.starcleaningsc.com/blog/deep-cleaning-vs-standard-cleaning-north-charleston",
   }
 };
 
@@ -33,8 +33,8 @@ const BlogPost3 = () => {
     "datePublished": "2026-03-05",
     "dateModified": "2026-03-05",
     "description": "Confused about deep cleaning vs standard cleaning? Learn the exact differences, what each service includes, and which one your North Charleston home really needs.",
-    "url": "https://www.starcleaningsc.com/blog/deep-cleaning-vs-standard-cleaning-north-charleston/",
-    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/deep-cleaning-vs-standard-cleaning-north-charleston/",
+    "url": "https://www.starcleaningsc.com/blog/deep-cleaning-vs-standard-cleaning-north-charleston",
+    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/deep-cleaning-vs-standard-cleaning-north-charleston",
     "keywords": "deep cleaning vs standard cleaning, deep house cleaning north charleston, what is a deep clean, standard maid service",
     "articleSection": "Cleaning Tips"
   };
@@ -45,7 +45,7 @@ const BlogPost3 = () => {
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
       { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.starcleaningsc.com/blog" },
-      { "@type": "ListItem", "position": 3, "name": "Deep Cleaning vs. Standard Cleaning", "item": "https://www.starcleaningsc.com/blog/deep-cleaning-vs-standard-cleaning-north-charleston/" }
+      { "@type": "ListItem", "position": 3, "name": "Deep Cleaning vs. Standard Cleaning", "item": "https://www.starcleaningsc.com/blog/deep-cleaning-vs-standard-cleaning-north-charleston" }
     ]
   };
 

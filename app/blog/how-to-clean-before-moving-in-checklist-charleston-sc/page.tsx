@@ -27,12 +27,12 @@ export const metadata: Metadata = {
   title: "How to Clean a House Before Moving In | Move-In Checklist SC",
   description: "Step-by-step wikiHow-style guide to deep cleaning a house before moving in. Room-by-room checklist, supply guide, and sanitization secrets for Charleston & Summerville, SC.",
   alternates: {
-    canonical: "https://www.starcleaningsc.com/blog/how-to-clean-before-moving-in-checklist-charleston-sc/",
+    canonical: "https://www.starcleaningsc.com/blog/how-to-clean-before-moving-in-checklist-charleston-sc",
   },
   openGraph: {
     title: "How to Clean a House Before Moving In: Step-by-Step Move-In Checklist | Star Cleaning SC",
     description: "The complete step-by-step guide to sanitizing and deep cleaning an empty house before unpacking boxes. Tested maid secrets for coastal South Carolina homes.",
-    url: "https://www.starcleaningsc.com/blog/how-to-clean-before-moving-in-checklist-charleston-sc/",
+    url: "https://www.starcleaningsc.com/blog/how-to-clean-before-moving-in-checklist-charleston-sc",
     siteName: "Star Cleaning SC",
     images: [
       {
@@ -69,8 +69,8 @@ const BlogPostHowToCleanBeforeMovingIn = () => {
     "datePublished": "2026-09-25",
     "dateModified": "2026-09-25",
     "description": "Learn how to clean an empty home before moving in with this comprehensive, room-by-room wikiHow-style guide tailored for Charleston and Summerville, SC homeowners.",
-    "url": "https://www.starcleaningsc.com/blog/how-to-clean-before-moving-in-checklist-charleston-sc/",
-    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/how-to-clean-before-moving-in-checklist-charleston-sc/",
+    "url": "https://www.starcleaningsc.com/blog/how-to-clean-before-moving-in-checklist-charleston-sc",
+    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/how-to-clean-before-moving-in-checklist-charleston-sc",
     "keywords": "how to clean before moving in, move in cleaning checklist, deep cleaning an empty house, move in house cleaning charleston sc, move in cleaning summerville sc, sanitizing home before moving furniture",
     "articleSection": "Moving & Relocation Guides"
   };
@@ -81,7 +81,7 @@ const BlogPostHowToCleanBeforeMovingIn = () => {
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
       { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.starcleaningsc.com/blog" },
-      { "@type": "ListItem", "position": 3, "name": "How to Clean Before Moving In", "item": "https://www.starcleaningsc.com/blog/how-to-clean-before-moving-in-checklist-charleston-sc/" }
+      { "@type": "ListItem", "position": 3, "name": "How to Clean Before Moving In", "item": "https://www.starcleaningsc.com/blog/how-to-clean-before-moving-in-checklist-charleston-sc" }
     ]
   };
 

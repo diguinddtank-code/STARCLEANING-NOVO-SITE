@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 const BeforeAfter: React.FC = () => {
   const [isCleaned, setIsCleaned] = useState(false);
@@ -55,16 +56,15 @@ const BeforeAfter: React.FC = () => {
              <div className="relative mx-auto w-[300px] h-[225px] sm:w-[400px] sm:h-[300px] lg:w-[500px] lg:h-[375px] rounded-3xl shadow-2xl border-4 border-white overflow-hidden group">
                 
                 {/* AFTER IMAGE (Bottom Layer) */}
-                <div
-                    className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-700 ease-out"
-                    style={{ backgroundImage: "url('/images/clean-bedroom-after.jpg')" }}
-                ></div>
+                <div className="absolute inset-0 w-full h-full transition-transform duration-700 ease-out">
+                    <Image src="/images/clean-bedroom-after.jpg" alt="A freshly cleaned bedroom" fill sizes="(min-width: 1024px) 500px, 400px" className="object-cover" />
+                </div>
 
                 {/* BEFORE IMAGE (Top Layer) - Fades out when cleaned */}
                 <div 
-                    className={`absolute inset-0 w-full h-full bg-cover bg-center transition-all duration-1000 ease-in-out ${isCleaned ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
-                    style={{ backgroundImage: "url('https://i.imgur.com/XhU71Rxh.jpg')" }}
+                    className={`absolute inset-0 w-full h-full transition-all duration-1000 ease-in-out ${isCleaned ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
                 >
+                    <Image src="https://i.imgur.com/XhU71Rxh.jpg" alt="A bedroom before cleaning" fill sizes="(min-width: 1024px) 500px, 400px" className="object-cover" />
                     {/* Overlay to make text readable on dirty image */}
                     <div className="absolute inset-0 bg-black/10"></div>
                 </div>

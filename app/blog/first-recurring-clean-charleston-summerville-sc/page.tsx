@@ -10,12 +10,12 @@ export const metadata: Metadata = {
   title: "First Recurring Clean: What to Expect in Charleston & Summerville, SC",
   description: "Learn what to expect on your first recurring house cleaning in Charleston and Summerville, SC. Discover why the initial deep clean sets the foundation for effortless maintenance.",
   alternates: {
-    canonical: "https://www.starcleaningsc.com/blog/first-recurring-clean-charleston-summerville-sc/",
+    canonical: "https://www.starcleaningsc.com/blog/first-recurring-clean-charleston-summerville-sc",
   },
   openGraph: {
     title: "First Recurring House Cleaning: What to Expect in Charleston & Summerville, SC",
     description: "Everything you need to know before your first recurring maid visit in Charleston, Summerville, and the Lowcountry. What's included, how to prepare, and why the initial clean is deeper.",
-    url: "https://www.starcleaningsc.com/blog/first-recurring-clean-charleston-summerville-sc/",
+    url: "https://www.starcleaningsc.com/blog/first-recurring-clean-charleston-summerville-sc",
     siteName: "Star Cleaning SC",
     images: [
       {
@@ -52,8 +52,8 @@ const BlogPostFirstRecurring = () => {
     "datePublished": "2026-09-23",
     "dateModified": "2026-09-23",
     "description": "Learn what to expect on your first recurring house cleaning in Charleston and Summerville, SC. Discover why the initial deep clean sets the foundation for effortless maintenance.",
-    "url": "https://www.starcleaningsc.com/blog/first-recurring-clean-charleston-summerville-sc/",
-    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/first-recurring-clean-charleston-summerville-sc/",
+    "url": "https://www.starcleaningsc.com/blog/first-recurring-clean-charleston-summerville-sc",
+    "mainEntityOfPage": "https://www.starcleaningsc.com/blog/first-recurring-clean-charleston-summerville-sc",
     "keywords": "first recurring clean charleston sc, recurring cleaning summerville, recurring house cleaning, what to expect first maid service, maid service charleston sc, bi-weekly cleaning nexton",
     "articleSection": "Home Maintenance & Cleaning Guides"
   };
@@ -64,7 +64,7 @@ const BlogPostFirstRecurring = () => {
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.starcleaningsc.com" },
       { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.starcleaningsc.com/blog" },
-      { "@type": "ListItem", "position": 3, "name": "What to Expect on Your First Recurring Clean", "item": "https://www.starcleaningsc.com/blog/first-recurring-clean-charleston-summerville-sc/" }
+      { "@type": "ListItem", "position": 3, "name": "What to Expect on Your First Recurring Clean", "item": "https://www.starcleaningsc.com/blog/first-recurring-clean-charleston-summerville-sc" }
     ]
   };
 
