@@ -91,7 +91,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
 
   // City Lookup
   const [city, setCity] = useState<string | null>(null);
-  const [demandCount, setDemandCount] = useState(0);
 
   // Refs for scrolling
   const formTopRef = useRef<HTMLDivElement>(null);
@@ -317,17 +316,14 @@ const BookingForm: React.FC<BookingFormProps> = ({
                 '29429': 'Awendaw', '29449': 'Hollywood', '29470': 'Ravenel'
             };
 
-            const setCitySuccess = (cityName: string) => {
-                setCity(cityName);
-                setDemandCount(Math.floor(Math.random() * (42 - 18 + 1)) + 18);
-            };
+            const setCitySuccess = (cityName: string) => setCity(cityName);
 
             if (LOCAL_ZIPS[cleanZip]) {
                 setCitySuccess(LOCAL_ZIPS[cleanZip]);
             } else {
                 try {
                     const response = await fetch(`https://api.zippopotam.us/us/${cleanZip}`);
-                    if (response.ok) {
+                    if (response.ok && cleanZip.startsWith('294')) {
                         const data = await response.json();
                         setCitySuccess(data.places[0]['place name']);
                     } else if (cleanZip.startsWith('294')) {
@@ -642,14 +638,11 @@ const BookingForm: React.FC<BookingFormProps> = ({
                             <div className="mt-2 bg-gray-50 border border-gray-100 rounded-xl p-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2 animate-slide-in-bottom">
                                 <div className="flex items-center gap-2">
                                     <i className="fas fa-check-circle text-green-500 ml-1"></i>
-                                    <p className="text-gray-700 text-xs font-bold">Available in <span className="text-star-blue">{city}</span></p>
+                                    <p className="text-gray-700 text-xs font-bold">Great news, we clean in <span className="text-star-blue">{city}</span>!</p>
                                 </div>
-                                <div className="flex items-center gap-1.5 text-gray-500 text-[10px] font-medium">
-                                    <span className="relative flex h-2 w-2">
-                                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                                      <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
-                                    </span>
-                                    {demandCount} neighbors booked this week
+                                <div className="flex items-center gap-1.5 whitespace-nowrap text-gray-500 text-[10px] font-medium">
+                                    <i className="fas fa-star text-[10px] text-yellow-400"></i>
+                                    4.9 from 45 Google reviews
                                 </div>
                             </div>
                         )}
@@ -1129,7 +1122,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
                         type="button"
                         onClick={handleLockPrice}
                         disabled={isSubmitting}
-                        className="flex-grow py-3.5 rounded-xl font-black text-white bg-gradient-to-r from-blue-900 to-blue-800 shadow-lg shadow-blue-900/20 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-base active:scale-95 group disabled:opacity-70 disabled:cursor-not-allowed touch-manipulation animate-pulse-slow relative overflow-hidden"
+                        className="flex-grow py-3.5 rounded-xl font-black text-white bg-gradient-to-r from-blue-900 to-blue-800 shadow-lg shadow-blue-900/20 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-base active:scale-95 group disabled:opacity-70 disabled:cursor-not-allowed touch-manipulation relative overflow-hidden"
                     >
                         {/* Shine effect */}
                         <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-[shimmer_1.5s_infinite]"></div>
