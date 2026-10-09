@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import TrustBar from '../../components/TrustBar';
+import HeroVideo from '../../components/HeroVideo';
 import OwnerMessage from '../../components/OwnerMessage';
 import TeamPreview from '../../components/TeamPreview';
 import ReviewCard from '../../components/ReviewCard';
@@ -27,16 +28,7 @@ const QuoteLanding = () => {
       <section className="relative min-h-screen flex flex-col items-center pt-2 pb-12 overflow-hidden">
           {/* Video Background */}
           <div className="absolute inset-0 w-full h-full">
-            <video 
-                autoPlay 
-                loop 
-                muted 
-                playsInline 
-                poster="/images/hero-background.jpg"
-                className="absolute inset-0 w-full h-full object-cover object-center"
-            >
-                <source src="/videos/hero.mp4" type="video/mp4" />
-            </video>
+            <HeroVideo className="absolute inset-0 w-full h-full object-cover object-center" />
           </div>
           
           {/* Dark Overlay matching screenshot vibe - Even Lighter */}

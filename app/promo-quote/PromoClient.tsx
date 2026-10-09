@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import HeroVideo from '../../components/HeroVideo';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
@@ -21,16 +22,7 @@ export default function PromoClient() {
       <section className="relative min-h-screen flex flex-col items-center pt-2 pb-12 overflow-hidden">
           {/* Video Background */}
           <div className="absolute inset-0 w-full h-full">
-            <video 
-                autoPlay 
-                loop 
-                muted 
-                playsInline 
-                poster="/images/hero-background.jpg"
-                className="absolute inset-0 w-full h-full object-cover object-center"
-            >
-                <source src="/videos/hero.mp4" type="video/mp4" />
-            </video>
+            <HeroVideo className="absolute inset-0 w-full h-full object-cover object-center" />
           </div>
           
           {/* Clean Dark Overlay matching /quote */}

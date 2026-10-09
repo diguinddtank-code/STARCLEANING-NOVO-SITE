@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import HeroVideo from '../../components/HeroVideo';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CareersForm from '@/components/CareersForm';
@@ -75,16 +76,7 @@ export default function CareersClient() {
       {/* Hero Section */}
       <section className="relative pt-16 pb-16 lg:pt-20 lg:pb-20 overflow-hidden bg-slate-900 text-white min-h-[90vh] flex items-start">
         <div className="absolute inset-0 z-0 pointer-events-none">
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline
-            poster="/images/hero-background.jpg"
-            className="w-full h-full object-cover object-center opacity-40"
-          >
-            <source src="/videos/hero.mp4" type="video/mp4" />
-          </video>
+          <HeroVideo className="w-full h-full object-cover object-center opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-b from-slate-900/30 via-slate-900/50 to-slate-900" />
         </div>
         
