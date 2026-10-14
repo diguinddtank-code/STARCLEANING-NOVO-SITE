@@ -760,6 +760,15 @@ const BlogPostHouseCleaningCost = () => {
                 </p>
               </div>
             </div>
+
+            <div className="p-4 rounded-xl bg-blue-50/60 border border-blue-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8">
+              <div className="text-xs sm:text-sm text-slate-700">
+                Need more details on solo maids vs. company crews, cash envelope etiquette, or holiday gift rules?
+              </div>
+              <Link href="/blog/do-you-tip-house-cleaners-charleston-sc" className="text-xs sm:text-sm font-bold text-star-blue hover:underline whitespace-nowrap">
+                Read the Full Tipping Guide &rarr;
+              </Link>
+            </div>
           </section>
 
           {/* Section 8: FAQ Accordions */}

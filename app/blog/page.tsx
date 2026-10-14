@@ -24,6 +24,14 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "Do You Tip House Cleaners? The 2026 Charleston Homeowner Etiquette & Tipping Guide",
+      slug: "do-you-tip-house-cleaners-charleston-sc",
+      excerpt: "Step-by-step wikiHow-style guide to house cleaner tipping etiquette in Charleston, Summerville, and Mount Pleasant. How much to tip per cleaner, one-time vs. recurring, holiday bonuses, and non-cash alternatives.",
+      date: "October 14, 2026",
+      category: "wikiHow & Etiquette Guide",
+      image: "/images/blog/do-you-tip-house-cleaners-charleston-sc.jpg"
+    },
+    {
       title: "How Much Does House Cleaning Cost in Charleston, SC? (2026 Pricing Breakdown)",
       slug: "how-much-does-house-cleaning-cost-in-charleston-sc",
       excerpt: "Step-by-step wikiHow-style guide to house cleaning costs in Charleston, Summerville, and Mount Pleasant. Compare rates by square footage, flat-rate vs. hourly pitfalls, and learn how to save up to 20%.",

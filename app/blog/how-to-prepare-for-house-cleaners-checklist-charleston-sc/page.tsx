@@ -618,7 +618,7 @@ const BlogPostPrepareForCleaners = () => {
                     <span>How Much Should You Tip House Cleaners?</span>
                   </h4>
                   <p className="text-sm text-slate-600 leading-relaxed">
-                    Tipping is never mandatory, but it is an awesome way to recognize detail-oriented hard work. In Charleston, SC, a tip of <strong>15% to 20%</strong> or <strong>$20 to $40 per technician</strong> is standard for first-time deep cleans, move-in/move-out resets, or post-construction cleanings. For regular bi-weekly service, many clients leave $10 to $20 on the kitchen counter per visit or gift a holiday bonus at the end of the year.
+                    Tipping is never mandatory, but it is an awesome way to recognize detail-oriented hard work. In Charleston, SC, a tip of <strong>15% to 20%</strong> or <strong>$20 to $40 per technician</strong> is standard for first-time deep cleans, move-in/move-out resets, or post-construction cleanings. For regular bi-weekly service, many clients leave $10 to $20 on the kitchen counter per visit or gift a holiday bonus at the end of the year. (Read our dedicated <Link href="/blog/do-you-tip-house-cleaners-charleston-sc" className="text-star-blue hover:underline font-semibold">Charleston House Cleaner Tipping &amp; Etiquette Guide</Link> for exact crew breakdowns, envelope protocols, and non-cash tips).
                   </p>
                 </div>
 
