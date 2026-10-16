@@ -24,6 +24,14 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "Do House Cleaners Bring Their Own Supplies? What's Included vs. What You Provide",
+      slug: "do-house-cleaners-bring-their-own-supplies-charleston-sc",
+      excerpt: "Step-by-step wikiHow-style guide to what cleaning supplies and equipment professionals bring. Discover commercial HEPA vacuums, the color-coded microfiber anti-contamination system, and what homeowners supply.",
+      date: "October 16, 2026",
+      category: "wikiHow & Equipment Guide",
+      image: "/images/blog/do-house-cleaners-bring-their-own-supplies-charleston-sc.jpg"
+    },
+    {
       title: "Do You Tip House Cleaners? The 2026 Charleston Homeowner Etiquette & Tipping Guide",
       slug: "do-you-tip-house-cleaners-charleston-sc",
       excerpt: "Step-by-step wikiHow-style guide to house cleaner tipping etiquette in Charleston, Summerville, and Mount Pleasant. How much to tip per cleaner, one-time vs. recurring, holiday bonuses, and non-cash alternatives.",

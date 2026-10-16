@@ -724,6 +724,12 @@ const BlogPostPrepareForCleaners = () => {
               <Link href="/blog/how-to-clean-before-moving-in-checklist-charleston-sc" className="text-star-blue hover:text-blue-900 flex items-center gap-1.5">
                 &rarr; Move-In Cleaning Checklist
               </Link>
+              <Link href="/blog/do-house-cleaners-bring-their-own-supplies-charleston-sc" className="text-star-blue hover:text-blue-900 flex items-center gap-1.5">
+                &rarr; Do Cleaners Bring Supplies?
+              </Link>
+              <Link href="/blog/do-you-tip-house-cleaners-charleston-sc" className="text-star-blue hover:text-blue-900 flex items-center gap-1.5">
+                &rarr; House Cleaner Tipping Guide
+              </Link>
               <Link href="/deep-cleaning-charleston-sc" className="text-star-blue hover:text-blue-900 flex items-center gap-1.5">
                 &rarr; Deep Cleaning Charleston, SC
               </Link>
