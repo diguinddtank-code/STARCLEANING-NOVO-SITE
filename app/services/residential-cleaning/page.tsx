@@ -466,6 +466,7 @@ export default function ResidentialCleaning() {
             <li><Link href="/blog/how-much-does-house-cleaning-cost-in-charleston-sc" className="text-blue-600 hover:underline font-medium">House Cleaning Cost Guide (2026)</Link>: Complete pricing breakdown by square foot and flat-rate vs. hourly comparisons.</li>
             <li><Link href="/blog/do-you-tip-house-cleaners-charleston-sc" className="text-blue-600 hover:underline font-medium">House Cleaner Tipping &amp; Etiquette Guide</Link>: How much to tip per cleaner, one-time vs. recurring rules, and holiday bonus standards.</li>
             <li><Link href="/blog/do-house-cleaners-bring-their-own-supplies-charleston-sc" className="text-blue-600 hover:underline font-medium">Do House Cleaners Bring Supplies?</Link>: Commercial HEPA vacuums, stone-safe chemicals, and color-coded microfiber standards.</li>
+            <li><Link href="/blog/should-you-stay-home-during-house-cleaning-charleston-sc" className="text-blue-600 hover:underline font-medium">Should You Stay Home During Cleaning?</Link>: Lowcountry homeowner etiquette, WFH zoom boundaries, and keyless access.</li>
           </ul>
           <p className="text-slate-600">
             View all our <Link href="/locations" className="text-blue-600 hover:underline">service areas</Link> or check out our <Link href="/#faq" className="text-blue-600 hover:underline">FAQ page</Link> for more details.

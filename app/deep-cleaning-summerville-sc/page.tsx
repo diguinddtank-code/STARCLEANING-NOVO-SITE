@@ -61,7 +61,9 @@ export default function SummervilleDeepCleaningPage() {
                 "sameAs": [
                   "https://www.facebook.com/profile.php?id=100068655907779",
                   "https://instagram.com/star.cleaningsc",
-                  "https://share.google/udkA7cxV0VCC39Ag2"
+                  "https://share.google/udkA7cxV0VCC39Ag2",
+                  "https://www.yelp.com/biz/star-cleaning-sc-charleston",
+                  "https://nextdoor.com/pages/star-cleaning-sc-charleston-sc"
                 ],
               },
               {

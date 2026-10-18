@@ -757,6 +757,21 @@ const BlogPostCleanerSupplies = () => {
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               <Link
+                href="/blog/should-you-stay-home-during-house-cleaning-charleston-sc"
+                className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-star-blue hover:shadow-md transition-all group"
+              >
+                <div className="text-xs text-blue-600 font-bold uppercase tracking-wider mb-2">
+                  Etiquette &amp; WFH
+                </div>
+                <h4 className="font-bold text-slate-900 group-hover:text-star-blue transition-colors text-sm mb-2 leading-snug">
+                  Should You Stay Home During Cleaning? 2026 Guide
+                </h4>
+                <p className="text-xs text-slate-500 line-clamp-2">
+                  Etiquette, pet safety, work-from-home boundaries, and keyless access in Charleston.
+                </p>
+              </Link>
+
+              <Link
                 href="/blog/do-you-tip-house-cleaners-charleston-sc"
                 className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-star-blue hover:shadow-md transition-all group"
               >

@@ -85,6 +85,24 @@ export default function RootLayout({
         "telephone": "+18432979935",
         "email": "admin@starcleaningsc.com",
         "priceRange": "$$",
+        "slogan": "Veteran-owned, military-precision house cleaning in the Charleston Lowcountry.",
+        "paymentAccepted": "Cash, Credit Card, Debit Card, Online Invoice, Apple Pay, Google Pay",
+        "currenciesAccepted": "USD",
+        "knowsAbout": [
+          "Residential house cleaning",
+          "Deep house cleaning",
+          "Move-in and move-out cleaning",
+          "Vacation rental and Airbnb turnover cleaning",
+          "Commercial office cleaning",
+          "Post-construction dust remediation",
+          "HEPA filtration vacuuming",
+          "Color-coded microfiber cross-contamination prevention",
+          "Hard water stain removal from shower glass",
+          "Tile and grout deep sanitization",
+          "Historic Charleston home care and molding dusting",
+          "Natural stone and marble-safe cleaning",
+          "Pet-safe and eco-friendly cleaning solutions"
+        ],
         "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",
@@ -94,21 +112,76 @@ export default function RootLayout({
           }
         ],
         "areaServed": [
-          { "@type": "City", "name": "Charleston" },
-          { "@type": "City", "name": "North Charleston" },
-          { "@type": "City", "name": "Ladson" },
-          { "@type": "City", "name": "Summerville" },
-          { "@type": "City", "name": "James Island" },
-          { "@type": "City", "name": "Daniel Island" },
-          { "@type": "City", "name": "Johns Island" },
-          { "@type": "City", "name": "Mount Pleasant" },
-          { "@type": "City", "name": "Goose Creek" }
+          { "@type": "City", "name": "Charleston", "postalCode": "29401" },
+          { "@type": "City", "name": "Mount Pleasant", "postalCode": "29464" },
+          { "@type": "City", "name": "Summerville", "postalCode": "29483" },
+          { "@type": "City", "name": "Daniel Island", "postalCode": "29492" },
+          { "@type": "City", "name": "West Ashley", "postalCode": "29407" },
+          { "@type": "City", "name": "North Charleston", "postalCode": "29405" },
+          { "@type": "City", "name": "James Island", "postalCode": "29412" },
+          { "@type": "City", "name": "Johns Island", "postalCode": "29455" },
+          { "@type": "City", "name": "Goose Creek", "postalCode": "29445" },
+          { "@type": "City", "name": "Hanahan", "postalCode": "29410" },
+          { "@type": "City", "name": "Ladson", "postalCode": "29456" }
         ],
         "sameAs": [
           "https://www.facebook.com/profile.php?id=100068655907779",
           "https://instagram.com/star.cleaningsc",
-          "https://share.google/udkA7cxV0VCC39Ag2"
+          "https://share.google/udkA7cxV0VCC39Ag2",
+          "https://www.yelp.com/biz/star-cleaning-sc-charleston",
+          "https://nextdoor.com/pages/star-cleaning-sc-charleston-sc"
         ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Cleaning Services Catalog",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Residential House Cleaning",
+                "description": "Weekly, bi-weekly, or monthly recurring maid service with HEPA filtration and surface sanitization.",
+                "url": "https://www.starcleaningsc.com/services/residential-cleaning"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Deep House Cleaning",
+                "description": "Intensive top-to-bottom reset including hand-washing baseboards, door frames, switch plates, and hard water scrub.",
+                "url": "https://www.starcleaningsc.com/services/deep-cleaning"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Move-In / Move-Out Cleaning",
+                "description": "Comprehensive turnover service for empty homes including interior cabinets, drawers, oven, and refrigerator.",
+                "url": "https://www.starcleaningsc.com/services/move-in-move-out-cleaning"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Vacation Rental & Airbnb Cleaning",
+                "description": "Same-day 10am-3pm turnover, linen laundering, guest restocking, and photo inspection reporting.",
+                "url": "https://www.starcleaningsc.com/services/vacation-rental-airbnb-cleaning"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Commercial Office Cleaning",
+                "description": "Custom janitorial solutions for businesses, clinics, and offices across Charleston.",
+                "url": "https://www.starcleaningsc.com/services/commercial-office-cleaning"
+              }
+            }
+          ]
+        },
         "aggregateRating": {
           "@type": "AggregateRating",
           "ratingValue": "4.9",

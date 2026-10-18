@@ -24,6 +24,14 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "Should You Stay Home During House Cleaning? The Charleston Homeowner Etiquette Guide",
+      slug: "should-you-stay-home-during-house-cleaning-charleston-sc",
+      excerpt: "Step-by-step wikiHow-style guide on whether to stay home or leave during a house cleaning. Learn WFH office etiquette, pet safety protocols, and keyless entry best practices in Charleston, SC.",
+      date: "October 17, 2026",
+      category: "wikiHow & Etiquette Guide",
+      image: "/images/blog/should-you-stay-home-during-house-cleaning-charleston-sc.jpg"
+    },
+    {
       title: "Do House Cleaners Bring Their Own Supplies? What's Included vs. What You Provide",
       slug: "do-house-cleaners-bring-their-own-supplies-charleston-sc",
       excerpt: "Step-by-step wikiHow-style guide to what cleaning supplies and equipment professionals bring. Discover commercial HEPA vacuums, the color-coded microfiber anti-contamination system, and what homeowners supply.",

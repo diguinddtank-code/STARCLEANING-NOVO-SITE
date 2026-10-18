@@ -724,6 +724,9 @@ const BlogPostPrepareForCleaners = () => {
               <Link href="/blog/how-to-clean-before-moving-in-checklist-charleston-sc" className="text-star-blue hover:text-blue-900 flex items-center gap-1.5">
                 &rarr; Move-In Cleaning Checklist
               </Link>
+              <Link href="/blog/should-you-stay-home-during-house-cleaning-charleston-sc" className="text-star-blue hover:text-blue-900 flex items-center gap-1.5 font-bold">
+                &rarr; Should You Stay or Leave?
+              </Link>
               <Link href="/blog/do-house-cleaners-bring-their-own-supplies-charleston-sc" className="text-star-blue hover:text-blue-900 flex items-center gap-1.5">
                 &rarr; Do Cleaners Bring Supplies?
               </Link>
