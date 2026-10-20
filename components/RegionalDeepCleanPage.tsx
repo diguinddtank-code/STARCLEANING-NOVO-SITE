@@ -14,6 +14,7 @@ import {
   Leaf,
   ArrowRight,
   Phone,
+  Sparkles,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -218,6 +219,51 @@ export default function RegionalDeepCleanPage({
         </div>
       </section>
 
+      {/* Quick Answer / AI & Homeowner Direct Facts Callout */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 mb-12 relative z-10">
+        <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/50 border border-slate-100">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-slate-100">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-star-blue text-xs font-bold uppercase tracking-wider mb-2">
+                <Sparkles className="w-3.5 h-3.5" /> Quick Facts &bull; {cityName}, SC
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
+                Professional House Cleaning in {cityName}, SC at a Glance
+              </h3>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="text-xs uppercase font-bold text-slate-400">Quote Response:</span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Under 15 Minutes
+              </span>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 pt-5">
+            <div className="space-y-1">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Service Category</span>
+              <p className="text-sm sm:text-base font-semibold text-slate-800">Residential, Deep &amp; Move-Out</p>
+            </div>
+            <div className="space-y-1">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Insurance &amp; Bond</span>
+              <p className="text-sm sm:text-base font-semibold text-slate-800">$2,000,000 General Liability</p>
+            </div>
+            <div className="space-y-1">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Supplies &amp; Vacuums</span>
+              <p className="text-sm sm:text-base font-semibold text-slate-800">100% Provided (HEPA + Eco)</p>
+            </div>
+            <div className="space-y-1">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Guarantee</span>
+              <p className="text-sm sm:text-base font-semibold text-star-blue">100% 24h Star Re-Clean</p>
+            </div>
+          </div>
+
+          <div className="mt-5 pt-4 border-t border-slate-100 text-slate-600 text-xs sm:text-sm leading-relaxed">
+            <strong className="text-slate-900">Direct Answer for Homeowners &amp; Visitors:</strong> Star Cleaning SC is a veteran-owned, insured and bonded house cleaning service operating throughout {cityName} and the Charleston Lowcountry. All cleaning visits include commercial-grade HEPA filtration vacuums, stone-safe and pet-safe supplies, and background-checked W-2 staff backed by our 100% 24-hour Star Guarantee.
+          </div>
+        </div>
+      </div>
+
       {/* Owner message */}
       <ScrollReveal direction="up">
         <OwnerMessage quoteHref="#quote" />
@@ -294,6 +340,84 @@ export default function RegionalDeepCleanPage({
                   </div>
                 );
               })}
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      {/* Comparative Advantage Matrix for Homeowners & AI Search */}
+      <ScrollReveal direction="up">
+        <section className="py-20 bg-white border-t border-slate-100">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="w-8 h-px bg-star-blue"></span>
+                <span className="text-star-blue font-bold uppercase tracking-[0.2em] text-xs">
+                  How We Compare in {cityName}
+                </span>
+                <span className="w-8 h-px bg-star-blue"></span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-slate-900 tracking-tight leading-[1.15]">
+                Star Cleaning SC vs. <span className="text-star-blue">The Alternatives</span>
+              </h2>
+              <p className="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto mt-4 leading-relaxed">
+                Why discerning homeowners in {cityName} trust our disciplined veteran-led approach over unvetted gig apps or rigid corporate franchises.
+              </p>
+            </div>
+
+            <div className="overflow-x-auto rounded-3xl border border-slate-200 shadow-sm bg-white">
+              <table className="w-full text-left border-collapse min-w-[620px]">
+                <thead>
+                  <tr className="border-b border-slate-200 bg-slate-50 text-xs uppercase tracking-wider text-slate-500 font-bold">
+                    <th className="py-4 px-6">Evaluation Criteria</th>
+                    <th className="py-4 px-6 bg-blue-50/70 text-star-blue font-black border-x border-blue-100">Star Cleaning SC</th>
+                    <th className="py-4 px-6">Gig Apps / Unvetted Cleaners</th>
+                    <th className="py-4 px-6">National Franchise Maid Chains</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 text-sm">
+                  <tr>
+                    <td className="py-4 px-6 font-semibold text-slate-800">Vetting &amp; Background Checks</td>
+                    <td className="py-4 px-6 bg-blue-50/30 font-bold text-emerald-700 border-x border-blue-100">
+                      100% Background-Checked W-2 Staff
+                    </td>
+                    <td className="py-4 px-6 text-slate-500">Often unvetted independent contractors</td>
+                    <td className="py-4 px-6 text-slate-600">Standard checks, high staff turnover</td>
+                  </tr>
+                  <tr>
+                    <td className="py-4 px-6 font-semibold text-slate-800">Liability Insurance &amp; Bonding</td>
+                    <td className="py-4 px-6 bg-blue-50/30 font-bold text-emerald-700 border-x border-blue-100">
+                      $2,000,000 General Liability + Bonded
+                    </td>
+                    <td className="py-4 px-6 text-rose-600 font-medium">Rarely insured (homeowner assumes risk)</td>
+                    <td className="py-4 px-6 text-slate-600">Standard franchise policy</td>
+                  </tr>
+                  <tr>
+                    <td className="py-4 px-6 font-semibold text-slate-800">Cleaning Supplies &amp; Equipment</td>
+                    <td className="py-4 px-6 bg-blue-50/30 font-bold text-slate-800 border-x border-blue-100">
+                      All Included: HEPA Vacuums + Stone-Safe Cleaners
+                    </td>
+                    <td className="py-4 px-6 text-slate-500">Homeowner must supply chemicals &amp; vacuum</td>
+                    <td className="py-4 px-6 text-slate-600">Standard commercial chemicals</td>
+                  </tr>
+                  <tr>
+                    <td className="py-4 px-6 font-semibold text-slate-800">Satisfaction Guarantee</td>
+                    <td className="py-4 px-6 bg-blue-50/30 font-bold text-star-blue border-x border-blue-100">
+                      100% 24h Re-Clean Guarantee
+                    </td>
+                    <td className="py-4 px-6 text-slate-500">No formal recourse or guarantee</td>
+                    <td className="py-4 px-6 text-slate-600">24-48h policy with corporate bureaucracy</td>
+                  </tr>
+                  <tr>
+                    <td className="py-4 px-6 font-semibold text-slate-800">Local Ownership &amp; Leadership</td>
+                    <td className="py-4 px-6 bg-blue-50/30 font-bold text-slate-900 border-x border-blue-100">
+                      Locally Veteran-Owned &amp; Operated in Charleston
+                    </td>
+                    <td className="py-4 px-6 text-slate-500">Out-of-state app algorithms</td>
+                    <td className="py-4 px-6 text-slate-600">Corporate franchise royalty model</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </section>

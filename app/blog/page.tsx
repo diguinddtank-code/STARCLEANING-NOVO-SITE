@@ -24,6 +24,14 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "How Long Does House Cleaning Take? Time Breakdown by Sq Footage & Clean Type",
+      slug: "how-long-does-house-cleaning-take-charleston-sc",
+      excerpt: "Step-by-step wikiHow-style breakdown of how long professional cleaning takes in Charleston, SC. Time charts by square footage, solo vs. 2-person crew speed, and standard vs. deep clean estimates.",
+      date: "October 19, 2026",
+      category: "wikiHow & Time Guide",
+      image: "/images/blog/how-long-does-house-cleaning-take-charleston-sc.jpg"
+    },
+    {
       title: "Should You Stay Home During House Cleaning? The Charleston Homeowner Etiquette Guide",
       slug: "should-you-stay-home-during-house-cleaning-charleston-sc",
       excerpt: "Step-by-step wikiHow-style guide on whether to stay home or leave during a house cleaning. Learn WFH office etiquette, pet safety protocols, and keyless entry best practices in Charleston, SC.",

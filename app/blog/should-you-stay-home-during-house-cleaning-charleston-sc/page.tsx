@@ -834,7 +834,16 @@ const BlogPostStayOrLeave = () => {
           {/* Related Articles Hub */}
           <div className="border-t border-slate-200 pt-10">
             <h3 className="font-bold text-slate-900 text-lg mb-4">Related Charleston Cleaning Guides:</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+              <Link
+                href="/blog/how-long-does-house-cleaning-take-charleston-sc"
+                className="p-4 bg-white rounded-xl border border-slate-200 hover:border-blue-400 hover:shadow-sm transition group"
+              >
+                <p className="font-semibold text-slate-900 group-hover:text-blue-600 mb-1">
+                  How Long Does Cleaning Take?
+                </p>
+                <p className="text-xs text-slate-500">Duration breakdown by square footage and clean type.</p>
+              </Link>
               <Link
                 href="/blog/do-house-cleaners-bring-their-own-supplies-charleston-sc"
                 className="p-4 bg-white rounded-xl border border-slate-200 hover:border-blue-400 hover:shadow-sm transition group"
