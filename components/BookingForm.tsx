@@ -640,10 +640,15 @@ const BookingForm: React.FC<BookingFormProps> = ({
                                     <i className="fas fa-check-circle text-green-500 ml-1"></i>
                                     <p className="text-gray-700 text-xs font-bold">Great news, we clean in <span className="text-star-blue">{city}</span>!</p>
                                 </div>
-                                <div className="flex items-center gap-1.5 whitespace-nowrap text-gray-500 text-[10px] font-medium">
+                                <a 
+                                    href="https://share.google/udkA7cxV0VCC39Ag2" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="flex items-center gap-1.5 whitespace-nowrap text-gray-500 hover:text-star-blue text-[10px] font-medium transition-colors"
+                                >
                                     <i className="fas fa-star text-[10px] text-yellow-400"></i>
-                                    4.9 from 45 Google reviews
-                                </div>
+                                    4.9 from 50+ Google reviews
+                                </a>
                             </div>
                         )}
                       </div>
@@ -1178,10 +1183,16 @@ const BookingForm: React.FC<BookingFormProps> = ({
         {/* Trust Badges Below Form */}
         {!isFull && (
             <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-6 px-2">
-                <div className="flex items-center gap-1.5 bg-white shadow-md border border-gray-100 px-3.5 py-1.5 rounded-full">
+                <a 
+                    href="https://share.google/udkA7cxV0VCC39Ag2" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="flex items-center gap-1.5 bg-white shadow-md border border-gray-100 hover:border-star-blue/40 px-3.5 py-1.5 rounded-full transition-colors"
+                    title="View 50+ verified reviews on Google Maps"
+                >
                     <i className="fas fa-star text-yellow-400 text-xs"></i>
-                    <span className="text-[10px] font-bold text-gray-700 uppercase tracking-wider whitespace-nowrap">4.9 (45 Reviews)</span>
-                </div>
+                    <span className="text-[10px] font-bold text-gray-700 hover:text-star-blue uppercase tracking-wider whitespace-nowrap">4.9 (50+ Reviews)</span>
+                </a>
                 <div className="flex items-center gap-1.5 bg-white shadow-md border border-gray-100 px-3.5 py-1.5 rounded-full">
                     <i className="fas fa-user-shield text-star-blue text-xs"></i>
                     <span className="text-[10px] font-bold text-gray-700 uppercase tracking-wider whitespace-nowrap">Background-Checked</span>

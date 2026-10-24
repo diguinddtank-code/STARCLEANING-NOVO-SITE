@@ -37,27 +37,55 @@ export default function CharlestonDeepCleaningPage() {
             "@context": "https://schema.org",
             "@graph": [
               {
-                "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
+                "@type": ["LocalBusiness", "HomeAndConstructionBusiness", "HouseCleaningOrMaidService", "CleaningService"],
                 "@id": "https://www.starcleaningsc.com/#localbusiness",
                 "name": "Star Cleaning SC",
                 "url": "https://www.starcleaningsc.com/deep-cleaning-charleston-sc",
                 "telephone": "+18432979935",
                 "email": "admin@starcleaningsc.com",
                 "priceRange": "$$",
+                "hasMap": "https://share.google/udkA7cxV0VCC39Ag2",
+                "geo": {
+                  "@type": "GeoCoordinates",
+                  "latitude": 32.7765,
+                  "longitude": -79.9311
+                },
+                "serviceArea": {
+                  "@type": "GeoCircle",
+                  "geoMidpoint": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 32.7765,
+                    "longitude": -79.9311
+                  },
+                  "geoRadius": "30000"
+                },
+                "aggregateRating": {
+                  "@type": "AggregateRating",
+                  "ratingValue": "4.9",
+                  "bestRating": "5",
+                  "reviewCount": 50
+                },
                 "openingHoursSpecification": [
                   {
                     "@type": "OpeningHoursSpecification",
                     "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                    "opens": "08:00",
+                    "opens": "09:00",
                     "closes": "17:00"
+                  },
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Saturday"],
+                    "opens": "09:00",
+                    "closes": "15:00"
                   }
                 ],
                 "areaServed": [
-                  { "@type": "City", "name": "Charleston" },
-                  { "@type": "City", "name": "West Ashley" },
-                  { "@type": "City", "name": "James Island" },
-                  { "@type": "City", "name": "Daniel Island" },
-                  { "@type": "City", "name": "North Charleston" }
+                  { "@type": "City", "name": "Charleston", "postalCode": "29401" },
+                  { "@type": "City", "name": "Charleston", "postalCode": "29403" },
+                  { "@type": "City", "name": "West Ashley", "postalCode": "29407" },
+                  { "@type": "City", "name": "James Island", "postalCode": "29412" },
+                  { "@type": "City", "name": "Daniel Island", "postalCode": "29492" },
+                  { "@type": "City", "name": "North Charleston", "postalCode": "29405" }
                 ],
                 "sameAs": [
                   "https://www.facebook.com/profile.php?id=100068655907779",

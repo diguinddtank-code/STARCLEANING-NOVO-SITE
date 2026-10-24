@@ -37,19 +37,46 @@ export default function JohnsIslandDeepCleaningPage() {
             "@context": "https://schema.org",
             "@graph": [
               {
-                "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
+                "@type": ["LocalBusiness", "HomeAndConstructionBusiness", "HouseCleaningOrMaidService", "CleaningService"],
                 "@id": "https://www.starcleaningsc.com/#localbusiness",
                 "name": "Star Cleaning SC",
                 "url": "https://www.starcleaningsc.com/deep-cleaning-johns-island-sc",
                 "telephone": "+18432979935",
                 "email": "admin@starcleaningsc.com",
                 "priceRange": "$$",
+                "hasMap": "https://share.google/udkA7cxV0VCC39Ag2",
+                "geo": {
+                  "@type": "GeoCoordinates",
+                  "latitude": 32.7005,
+                  "longitude": -80.0526
+                },
+                "serviceArea": {
+                  "@type": "GeoCircle",
+                  "geoMidpoint": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 32.7005,
+                    "longitude": -80.0526
+                  },
+                  "geoRadius": "25000"
+                },
+                "aggregateRating": {
+                  "@type": "AggregateRating",
+                  "ratingValue": "4.9",
+                  "bestRating": "5",
+                  "reviewCount": 50
+                },
                 "openingHoursSpecification": [
                   {
                     "@type": "OpeningHoursSpecification",
                     "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                    "opens": "08:00",
+                    "opens": "09:00",
                     "closes": "17:00"
+                  },
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Saturday"],
+                    "opens": "09:00",
+                    "closes": "15:00"
                   }
                 ],
                 "areaServed": [

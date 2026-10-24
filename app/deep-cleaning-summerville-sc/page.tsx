@@ -37,23 +37,52 @@ export default function SummervilleDeepCleaningPage() {
             "@context": "https://schema.org",
             "@graph": [
               {
-                "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
+                "@type": ["LocalBusiness", "HomeAndConstructionBusiness", "HouseCleaningOrMaidService", "CleaningService"],
                 "@id": "https://www.starcleaningsc.com/#localbusiness",
                 "name": "Star Cleaning SC",
                 "url": "https://www.starcleaningsc.com/deep-cleaning-summerville-sc",
                 "telephone": "+18432979935",
                 "email": "admin@starcleaningsc.com",
                 "priceRange": "$$",
+                "hasMap": "https://share.google/udkA7cxV0VCC39Ag2",
+                "geo": {
+                  "@type": "GeoCoordinates",
+                  "latitude": 33.0185,
+                  "longitude": -80.1756
+                },
+                "serviceArea": {
+                  "@type": "GeoCircle",
+                  "geoMidpoint": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 33.0185,
+                    "longitude": -80.1756
+                  },
+                  "geoRadius": "25000"
+                },
+                "aggregateRating": {
+                  "@type": "AggregateRating",
+                  "ratingValue": "4.9",
+                  "bestRating": "5",
+                  "reviewCount": 50
+                },
                 "openingHoursSpecification": [
                   {
                     "@type": "OpeningHoursSpecification",
                     "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                    "opens": "08:00",
+                    "opens": "09:00",
                     "closes": "17:00"
+                  },
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Saturday"],
+                    "opens": "09:00",
+                    "closes": "15:00"
                   }
                 ],
                 "areaServed": [
-                  { "@type": "City", "name": "Summerville" },
+                  { "@type": "City", "name": "Summerville", "postalCode": "29483" },
+                  { "@type": "City", "name": "Summerville", "postalCode": "29485" },
+                  { "@type": "City", "name": "Summerville", "postalCode": "29486" },
                   { "@type": "City", "name": "Nexton" },
                   { "@type": "City", "name": "Cane Bay" },
                   { "@type": "City", "name": "Carnes Crossroads" }

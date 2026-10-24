@@ -536,25 +536,49 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
             "@context": "https://schema.org",
             "@graph": [
               {
-                "@type": "LocalBusiness",
+                "@type": ["LocalBusiness", "HomeAndConstructionBusiness", "HouseCleaningOrMaidService", "CleaningService"],
                 "@id": "https://www.starcleaningsc.com/#localbusiness",
                 "name": "Star Cleaning SC",
+                "url": `https://www.starcleaningsc.com/locations/${data.slug}`,
                 "image": "https://www.starcleaningsc.com/images/logo-mark.png",
                 "telephone": "+18432979935",
                 "email": "admin@starcleaningsc.com",
                 "priceRange": "$$",
+                "hasMap": "https://share.google/udkA7cxV0VCC39Ag2",
+                "slogan": `Veteran-owned, military-precision house cleaning in ${data.name}, SC.`,
+                "paymentAccepted": "Cash, Credit Card, Debit Card, Online Invoice, Apple Pay, Google Pay",
+                "currenciesAccepted": "USD",
+                "geo": {
+                  "@type": "GeoCoordinates",
+                  "latitude": data.coordinates.lat,
+                  "longitude": data.coordinates.lng
+                },
+                "aggregateRating": {
+                  "@type": "AggregateRating",
+                  "ratingValue": "4.9",
+                  "bestRating": "5",
+                  "reviewCount": 50
+                },
                 "openingHoursSpecification": [
                   {
                     "@type": "OpeningHoursSpecification",
                     "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                    "opens": "08:00",
+                    "opens": "09:00",
                     "closes": "17:00"
+                  },
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Saturday"],
+                    "opens": "09:00",
+                    "closes": "15:00"
                   }
                 ],
                 "sameAs": [
                   "https://www.facebook.com/profile.php?id=100068655907779",
                   "https://instagram.com/star.cleaningsc",
-                  "https://share.google/udkA7cxV0VCC39Ag2"
+                  "https://share.google/udkA7cxV0VCC39Ag2",
+                  "https://www.yelp.com/biz/star-cleaning-sc-charleston",
+                  "https://nextdoor.com/pages/star-cleaning-sc-charleston-sc"
                 ],
                 "areaServed": {
                   "@type": "City",
@@ -568,7 +592,7 @@ export default async function LocationPage({ params }: { params: Promise<{ city:
                     "latitude": data.coordinates.lat,
                     "longitude": data.coordinates.lng
                   },
-                  "geoRadius": "20000"
+                  "geoRadius": "25000"
                 },
                 "hasOfferCatalog": {
                   "@type": "OfferCatalog",

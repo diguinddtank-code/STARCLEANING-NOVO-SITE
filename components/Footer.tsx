@@ -91,7 +91,11 @@ const Footer: React.FC = () => {
               </span>
               <span className="hours flex items-start gap-3">
                 <i className="fas fa-clock mt-1 text-yellow-500"></i>
-                <span>Mon–Fri: 8:00 AM – 5:00 PM</span>
+                <span className="flex flex-col text-xs leading-relaxed">
+                  <span className="text-gray-300">Mon–Fri: 9:00 AM – 5:00 PM</span>
+                  <span className="text-gray-300">Sat: 9:00 AM – 3:00 PM</span>
+                  <span className="text-gray-500">Sun: Closed</span>
+                </span>
               </span>
               <span className="location flex items-start gap-3">
                 <i className="fas fa-map-marker-alt mt-1 text-yellow-500"></i> 

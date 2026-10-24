@@ -24,6 +24,22 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "Independent Cleaner vs. Cleaning Company in Charleston SC: Cost, Risk & Insurance",
+      slug: "independent-cleaner-vs-cleaning-company-charleston-sc",
+      excerpt: "Side-by-side comparison of private independent cleaners vs. an insured cleaning company in Charleston SC. Discover worker comp liability, property protection, vetting questions, and reliability trade-offs.",
+      date: "October 24, 2026",
+      category: "wikiHow & Buyer Guide",
+      image: "/images/blog/independent-cleaner-vs-cleaning-company-charleston-sc.jpg"
+    },
+    {
+      title: "What Do House Cleaners NOT Clean? Service Exclusions, Safety Limits & Add-Ons",
+      slug: "what-house-cleaners-will-not-clean-charleston-sc",
+      excerpt: "Step-by-step wikiHow-style guide to what professional house cleaners will not clean: safety boundaries, OSHA height limits, biohazards, and optional add-on services in Charleston, SC.",
+      date: "October 22, 2026",
+      category: "wikiHow & Safety Guide",
+      image: "/images/blog/what-house-cleaners-will-not-clean-charleston-sc.jpg"
+    },
+    {
       title: "How Long Does House Cleaning Take? Time Breakdown by Sq Footage & Clean Type",
       slug: "how-long-does-house-cleaning-take-charleston-sc",
       excerpt: "Step-by-step wikiHow-style breakdown of how long professional cleaning takes in Charleston, SC. Time charts by square footage, solo vs. 2-person crew speed, and standard vs. deep clean estimates.",

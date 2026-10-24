@@ -65,11 +65,12 @@ export default function RootLayout({
         "description": "Veteran-owned house cleaning company serving Charleston, SC and the Lowcountry"
       },
       {
-        "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
+        "@type": ["LocalBusiness", "HomeAndConstructionBusiness", "HouseCleaningOrMaidService", "CleaningService"],
         "@id": "https://www.starcleaningsc.com/#localbusiness",
         "name": "Star Cleaning SC",
         "image": "https://www.starcleaningsc.com/images/logo-mark.png",
         "description": "Veteran-owned residential and commercial cleaning company serving the Charleston, SC Lowcountry with military-precision, 100%-guaranteed cleaning.",
+        "hasMap": "https://share.google/udkA7cxV0VCC39Ag2",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Charleston",
@@ -80,6 +81,15 @@ export default function RootLayout({
           "@type": "GeoCoordinates",
           "latitude": 32.7765,
           "longitude": -79.9311
+        },
+        "serviceArea": {
+          "@type": "GeoCircle",
+          "geoMidpoint": {
+            "@type": "GeoCoordinates",
+            "latitude": 32.7765,
+            "longitude": -79.9311
+          },
+          "geoRadius": "48280"
         },
         "url": "https://www.starcleaningsc.com",
         "telephone": "+18432979935",
@@ -107,8 +117,14 @@ export default function RootLayout({
           {
             "@type": "OpeningHoursSpecification",
             "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            "opens": "08:00",
+            "opens": "09:00",
             "closes": "17:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Saturday"],
+            "opens": "09:00",
+            "closes": "15:00"
           }
         ],
         "areaServed": [
@@ -186,7 +202,7 @@ export default function RootLayout({
           "@type": "AggregateRating",
           "ratingValue": "4.9",
           "bestRating": "5",
-          "reviewCount": 45
+          "reviewCount": 50
         }
       }
     ]

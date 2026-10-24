@@ -112,7 +112,15 @@ const QuoteLanding = () => {
                 <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
               ))}
               <span className="font-bold text-slate-900 text-base ml-1">4.9</span>
-              <span className="text-slate-500 text-sm">(45 Google reviews)</span>
+              <a 
+                href="https://share.google/udkA7cxV0VCC39Ag2" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-slate-500 hover:text-star-blue text-sm underline transition-colors"
+                title="View verified reviews on Google Maps"
+              >
+                (50+ Google reviews)
+              </a>
             </div>
           </div>
 
@@ -234,7 +242,15 @@ const QuoteLanding = () => {
                   <span className="font-bold text-slate-900 text-sm ml-1.5">4.9 / 5.0</span>
                 </div>
                 <p className="text-xs text-slate-600">
-                  <span className="font-semibold text-slate-800">Google Reviews Rating</span> &bull; 45 reviews on Google
+                  <a 
+                    href="https://share.google/udkA7cxV0VCC39Ag2" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="hover:text-star-blue hover:underline"
+                    title="Read live reviews on Google Business"
+                  >
+                    <span className="font-semibold text-slate-800">Google Reviews Rating</span> &bull; 50+ verified reviews
+                  </a>
                 </p>
               </div>
             </div>
