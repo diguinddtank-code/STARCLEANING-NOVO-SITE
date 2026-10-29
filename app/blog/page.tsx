@@ -24,6 +24,14 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "Pet-Friendly House Cleaning: Dogs, Cats, Shedding & Marsh Sand in Charleston SC",
+      slug: "pet-friendly-house-cleaning-guide-charleston-sc",
+      excerpt: "Step-by-step wikiHow-style guide for Charleston pet owners: non-toxic paw-safe chemistry, managing heavy shedding and beach sand, door safety protocols, and where pets should stay during cleaning.",
+      date: "October 29, 2026",
+      category: "wikiHow & Pet Guide",
+      image: "/images/blog/pet-friendly-house-cleaning-guide-charleston-sc.jpg"
+    },
+    {
       title: "Independent Cleaner vs. Cleaning Company in Charleston SC: Cost, Risk & Insurance",
       slug: "independent-cleaner-vs-cleaning-company-charleston-sc",
       excerpt: "Side-by-side comparison of private independent cleaners vs. an insured cleaning company in Charleston SC. Discover worker comp liability, property protection, vetting questions, and reliability trade-offs.",
