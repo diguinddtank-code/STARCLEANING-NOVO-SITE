@@ -37,8 +37,8 @@ const QuoteLanding = () => {
           <div className="container mx-auto px-4 sm:px-8 relative z-10 w-full max-w-5xl flex flex-col items-center">
             
             {/* Header / Logo & Phone */}
-            <div className="w-full flex justify-between items-center mb-6 mt-2 px-2 sm:px-0">
-                <Link href="/" className="inline-block hover:opacity-90 transition-opacity relative h-10 md:h-14 w-36 md:w-48">
+            <div className="w-full flex justify-between items-center mb-2 sm:mb-6 mt-1 sm:mt-2 px-2 sm:px-0">
+                <Link href="/" className="inline-block hover:opacity-90 transition-opacity relative h-9 md:h-14 w-32 md:w-48">
                     <Image 
                         src="/images/logo-mark.png"
                         alt="Star Cleaning" 
@@ -55,25 +55,25 @@ const QuoteLanding = () => {
             </div>
 
             {/* Headlines */}
-            <div className="text-center mb-8 max-w-3xl mx-auto px-2">
-                {/* Value Badge */}
-                <div className="flex items-center justify-center gap-2.5 sm:gap-3 mb-4">
+            <div className="text-center mb-4 sm:mb-8 max-w-3xl mx-auto px-2">
+                {/* Value Badge (the form header already says "18 years" on phones) */}
+                <div className="hidden sm:flex items-center justify-center gap-2.5 sm:gap-3 mb-4">
                   <span className="w-5 sm:w-8 h-px bg-blue-300"></span>
                   <span className="text-blue-200 font-bold uppercase tracking-[0.14em] sm:tracking-[0.2em] text-[11px] sm:text-xs whitespace-nowrap">18 Years Serving the Lowcountry</span>
                   <span className="w-5 sm:w-8 h-px bg-blue-300"></span>
                 </div>
 
-                <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-4 tracking-tight leading-[1.15] drop-shadow-lg">
-                    Reclaim Your <br className="sm:hidden" /><span className="text-blue-300">Weekends.</span>
+                <h1 className="font-serif text-[1.85rem] min-[400px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-2 sm:mb-4 tracking-tight leading-[1.15] drop-shadow-lg whitespace-nowrap">
+                    Reclaim Your <span className="text-blue-300">Weekends.</span>
                 </h1>
 
-                {/* Highlights */}
-                <div className="flex flex-wrap justify-center items-center gap-3 md:gap-6 text-white/95 text-xs sm:text-sm md:text-base font-bold drop-shadow-md">
-                    <span className="flex items-center gap-1.5"><i className="fas fa-user-shield text-green-400"></i> Background-Checked</span>
-                    <span className="hidden sm:inline opacity-50">•</span>
-                    <span className="flex items-center gap-1.5"><i className="fas fa-flag-usa text-red-400"></i> Veteran-Owned</span>
-                    <span className="hidden sm:inline opacity-50">•</span>
-                    <span className="flex items-center gap-1.5"><i className="fas fa-clock text-blue-300"></i> 60-Sec Quote</span>
+                {/* Highlights - one line on phones */}
+                <div className="flex flex-nowrap sm:flex-wrap justify-center items-center gap-2 sm:gap-3 md:gap-6 text-white/95 text-[11px] min-[400px]:text-xs sm:text-sm md:text-base font-bold drop-shadow-md">
+                    <span className="flex items-center gap-1 sm:gap-1.5 whitespace-nowrap"><i className="fas fa-user-shield text-green-400 max-[399px]:hidden!"></i> Background-Checked</span>
+                    <span className="opacity-50">•</span>
+                    <span className="flex items-center gap-1 sm:gap-1.5 whitespace-nowrap"><i className="fas fa-flag-usa text-red-400 max-[399px]:hidden!"></i> Veteran-Owned</span>
+                    <span className="opacity-50">•</span>
+                    <span className="flex items-center gap-1 sm:gap-1.5 whitespace-nowrap"><i className="fas fa-clock text-blue-300 max-[399px]:hidden!"></i> 60-Sec Quote</span>
                 </div>
             </div>
 
