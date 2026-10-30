@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import { supabase } from '../lib/supabase';
 import { attributionFields } from '../lib/attribution';
 import { sizeRangeIndex, nearestOptionIndex, planEstimate, high, money, type Frequency } from '../lib/pricing';
+import ThanksgivingHeader, { SegmentedProgress } from './ThanksgivingHeader';
+import { THANKSGIVING_OFFER } from '../lib/thanksgivingOffer';
 
 interface BookingFormProps {
   initialData?: any;
@@ -14,6 +16,7 @@ interface BookingFormProps {
   showScheduling?: boolean;
   isPromo?: boolean;
   promoCode?: string;
+  theme?: 'default' | 'thanksgiving'; // visual only; webhook payload and flow are the same
 }
 
 // STANDARD OPERATING HOURS
@@ -61,8 +64,10 @@ const BookingForm: React.FC<BookingFormProps> = ({
   showPricing = false, // when true, shows estimates from lib/pricing.ts; the payload always carries them
   showScheduling = false, // Disabled per user request
   isPromo = false,
-  promoCode = "SUMMER SPARKLE"
+  promoCode = "SUMMER SPARKLE",
+  theme = 'default'
 }) => {
+  const isThanksgiving = theme === 'thanksgiving';
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -110,6 +115,13 @@ const BookingForm: React.FC<BookingFormProps> = ({
   });
 
   const [serviceTab, setServiceTab] = useState<'Recurring' | 'One-Time'>('Recurring');
+
+  // Thanksgiving theme asks "when" instead of "how often": it's a one-time holiday clean,
+  // and the chosen window goes to the webhook as `preferredTiming`
+  const [preferredTiming, setPreferredTiming] = useState(THANKSGIVING_OFFER.timings[1].label);
+  useEffect(() => {
+      if (isThanksgiving) setFormData(prev => ({ ...prev, frequency: 'One-Time' }));
+  }, [isThanksgiving]);
 
   useEffect(() => {
       if (formData.frequency === 'One-Time') {
@@ -399,7 +411,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
     }
 
     // Fires SC SITE Webhook (Step 3 -> 4)
-    await submitWebhook("Quote Range Generated");
+    await submitWebhook("Quote Range Generated", isThanksgiving ? { preferredTiming } : {});
     setIsSubmitting(false);
     
     setShowLockPopup(true);
@@ -509,7 +521,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
         }`}>
           
           {/* CLASSIC BLUE HEADER */}
-          {isPromo && (
+          {isPromo && !isThanksgiving && (
               <div className="bg-yellow-500 text-slate-900 text-center py-2 px-4 text-xs sm:text-sm font-bold flex items-center justify-center gap-2">
                   <i className="fas fa-ticket-alt"></i>
                   Promo Code <span className="bg-white px-2 py-0.5 rounded tracking-widest uppercase shadow-sm">{promoCode}</span> auto-applied!
@@ -520,6 +532,8 @@ const BookingForm: React.FC<BookingFormProps> = ({
                   DEMO MODE: nothing is sent
               </div>
           )}
+          {isThanksgiving && <ThanksgivingHeader firstName={firstName} promoCode={promoCode} />}
+          {!isThanksgiving && (
           <div className={`bg-gradient-to-br from-star-blue to-star-dark ${isGlass ? 'p-4 sm:p-6' : 'p-6'} text-white relative overflow-hidden`}>
               {/* Decorative Elements */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
@@ -553,11 +567,27 @@ const BookingForm: React.FC<BookingFormProps> = ({
                   </div>
               </div>
           </div>
+          )}
 
           {/* Form Body */}
-          <div className="bg-white p-5 md:p-6 relative">
-            
+          <div className={`bg-white ${isThanksgiving ? 'p-4 sm:p-6' : 'p-5 md:p-6'} relative`}>
+
             {/* Section Title */}
+            {isThanksgiving && (
+                <>
+                    <SegmentedProgress step={step} total={3} />
+                    {step < 4 && (
+                        <div className="mb-4">
+                            <h3 className="font-heading text-lg font-extrabold leading-tight tracking-tight text-slate-900 min-[380px]:text-xl sm:text-2xl">
+                                {step === 1 && "Where do we send your 20% off?"}
+                                {step === 2 && "Tell us about your home"}
+                                {step === 3 && "When should we come?"}
+                            </h3>
+                        </div>
+                    )}
+                </>
+            )}
+            {!isThanksgiving && (
             <div className="mb-6 flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
                 <h3 className="text-lg font-black text-gray-900">
@@ -568,6 +598,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
                     {step === 5 && "Schedule your walkthrough"}
                 </h3>
             </div>
+            )}
 
             <form className="flex-grow flex flex-col justify-between h-full relative" onSubmit={(e) => e.preventDefault()}>
               
@@ -594,7 +625,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
                               transition={{ delay: 0.1 }}
                               className="text-2xl font-black text-gray-900"
                           >
-                              Quote Locked!
+                              {isThanksgiving ? 'Discount Locked!' : 'Quote Locked!'}
                           </motion.h3>
                           <motion.p 
                               initial={{ y: 10, opacity: 0 }}
@@ -620,7 +651,23 @@ const BookingForm: React.FC<BookingFormProps> = ({
                 >
               
                   {/* STEP 1: CONTACT */}
-                  {step === 1 && (
+                  {step === 1 && isThanksgiving && (
+                      <div>
+                        <div className="grid grid-cols-2 gap-2.5 md:gap-3">
+                            <InputGroup compact className="col-span-2 md:col-span-1" label="Full Name" name="fullName" icon="fa-user" placeholder="Full name" autoComplete="name" value={formData.fullName} onChange={handleChange} />
+                            <InputGroup compact className="col-span-2 md:col-span-1" label="Email Address" name="email" type="email" icon="fa-envelope" placeholder="Email" autoComplete="email" value={formData.email} onChange={handleChange} />
+                            <InputGroup compact label="Phone Number" name="phone" type="tel" icon="fa-phone" placeholder="Phone" autoComplete="tel" value={formData.phone} onChange={handleChange} />
+                            <InputGroup compact label="Zip Code" name="zipCode" type="text" inputMode="numeric" icon="fa-map-marker-alt" placeholder="ZIP code" autoComplete="postal-code" value={formData.zipCode} onChange={handleChange} maxLength={5} />
+                        </div>
+                        {city && (
+                            <p className="mt-2.5 flex items-center gap-1.5 text-xs font-bold text-gray-700 animate-slide-in-bottom">
+                                <i className="fas fa-check-circle text-green-500"></i>
+                                Great news, we clean in <span className="text-star-blue">{city}</span>!
+                            </p>
+                        )}
+                      </div>
+                  )}
+                  {step === 1 && !isThanksgiving && (
                       <div className="space-y-1">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <InputGroup label="Full Name" name="fullName" icon="fa-user" placeholder="e.g., John Doe" value={formData.fullName} onChange={handleChange} />
@@ -703,7 +750,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
                                     {/* Pets */}
                                     <div>
                                         <label className="text-[10px] font-bold text-gray-500 uppercase mb-1.5 block ml-1 tracking-wider">Pets in Home</label>
-                                        <div className="flex flex-col sm:flex-row gap-1.5">
+                                        <div className={`flex ${isThanksgiving ? 'flex-row' : 'flex-col sm:flex-row'} gap-1.5`}>
                                             <button
                                                 type="button"
                                                 onClick={() => setFormData(prev => ({ ...prev, hasDog: !prev.hasDog }))}
@@ -742,8 +789,36 @@ const BookingForm: React.FC<BookingFormProps> = ({
                   {/* STEP 3: FREQUENCY & SERVICE */}
                   {step === 3 && (
                       <div className="space-y-4 animate-fade-in">
+                          {/* Thanksgiving: timing selector */}
+                          {isThanksgiving && (
+                              <div className="grid grid-cols-3 gap-2">
+                                  {THANKSGIVING_OFFER.timings.map(({ label, dates, note }) => {
+                                      const selected = preferredTiming === label;
+                                      return (
+                                          <button
+                                              key={label}
+                                              type="button"
+                                              onClick={() => setPreferredTiming(label)}
+                                              aria-pressed={selected}
+                                              className={`relative flex flex-col items-center justify-center rounded-xl border-2 px-1 pb-2.5 pt-3.5 text-center transition-all touch-manipulation ${
+                                                  selected
+                                                  ? 'border-star-blue bg-blue-50 shadow-sm'
+                                                  : 'border-gray-100 bg-white hover:border-gray-300 hover:bg-gray-50'
+                                              }`}
+                                          >
+                                              <span className={`absolute -top-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-1.5 py-px text-[8px] font-bold uppercase tracking-wider ${
+                                                  selected ? 'bg-star-blue text-white' : 'border border-gray-200 bg-white text-gray-500'
+                                              }`}>{note}</span>
+                                              <span className={`text-[12px] font-extrabold leading-tight min-[380px]:text-[13px] ${selected ? 'text-star-dark' : 'text-gray-700'}`}>{label}</span>
+                                              <span className={`mt-1 text-[10px] font-semibold tabular-nums ${selected ? 'text-star-blue' : 'text-gray-400'}`}>{dates}</span>
+                                          </button>
+                                      );
+                                  })}
+                              </div>
+                          )}
+
                           {/* Frequency Selector */}
-                          <div>
+                          <div className={isThanksgiving ? 'hidden' : ''}>
                               <div className="flex justify-between items-end mb-2">
                                   <label className="whitespace-nowrap text-[10px] font-bold text-gray-500 uppercase tracking-wider"><span className="max-[359px]:hidden">Select </span>Frequency</label>
                                   <span className="whitespace-nowrap text-[9px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded uppercase tracking-wider border border-green-100"><span className="max-[359px]:hidden">Most </span>Popular: Bi-Weekly</span>
@@ -789,6 +864,8 @@ const BookingForm: React.FC<BookingFormProps> = ({
                                       </div>
                                   </div>
 
+                                  {!isThanksgiving && (
+                                  <>
                                   <div className="flex items-center gap-3 px-3 py-3 sm:px-4">
                                       <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-500 max-[359px]:hidden">
                                           <i className="fas fa-home text-[10px]"></i>
@@ -800,15 +877,35 @@ const BookingForm: React.FC<BookingFormProps> = ({
                                   </div>
 
                                   <div className="h-px w-full bg-gray-100"></div>
+                                  </>
+                                  )}
                                   <div className="flex items-center gap-3 px-3 py-3 sm:px-4">
                                       <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-50 text-green-500 max-[359px]:hidden">
                                           <i className="fas fa-broom text-[10px]"></i>
                                       </div>
                                       <div className="min-w-0">
-                                          <span className="block truncate text-[13px] font-bold text-gray-800 sm:text-sm">{isOneTime ? 'Deep Clean Reset' : `${formData.frequency} cleaning`}</span>
-                                          <span className="block truncate text-[11px] font-medium text-gray-500">{isOneTime ? 'One visit, a fresh start' : 'Starts with a deep clean'}</span>
+                                          <span className="block truncate text-[13px] font-bold text-gray-800 sm:text-sm">{isThanksgiving ? 'Holiday deep clean' : isOneTime ? 'Deep Clean Reset' : `${formData.frequency} cleaning`}</span>
+                                          <span className="block truncate text-[11px] font-medium text-gray-500">{isThanksgiving ? <>{formData.bedrooms} bed &middot; {formData.bathrooms} bath &middot; {preferredTiming}</> : isOneTime ? 'One visit, a fresh start' : 'Starts with a deep clean'}</span>
                                       </div>
                                   </div>
+
+                                  {isThanksgiving && (
+                                      <>
+                                          <div className="h-px w-full bg-gray-100"></div>
+                                          <div className="flex items-center justify-between gap-3 bg-gradient-to-r from-[#fdf3e6] to-white px-3 py-3 sm:px-4">
+                                              <div className="flex min-w-0 items-center gap-3">
+                                                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#c47331] text-white max-[359px]:hidden">
+                                                      <i className="fas fa-gift text-[10px]"></i>
+                                                  </div>
+                                                  <div className="min-w-0">
+                                                      <span className="block truncate text-[13px] font-bold text-gray-800 sm:text-sm">Thanksgiving discount</span>
+                                                      <span className="block truncate text-[11px] font-medium text-gray-500">Code {promoCode}, reserved for you</span>
+                                                  </div>
+                                              </div>
+                                              <span className="shrink-0 rounded-lg bg-[#c47331] px-2.5 py-1 text-xs font-black text-white">{THANKSGIVING_OFFER.discount} OFF</span>
+                                          </div>
+                                      </>
+                                  )}
 
                                   <div className="h-px w-full bg-gray-100"></div>
                                   <div className="flex items-center justify-between gap-3 bg-gray-50/70 px-3 py-3 sm:px-4">
@@ -824,6 +921,8 @@ const BookingForm: React.FC<BookingFormProps> = ({
                                       <span aria-hidden="true" className="shrink-0 select-none rounded-lg bg-white px-3 py-1.5 text-base font-black text-gray-900 shadow-sm ring-1 ring-gray-200 blur-[5px]">$000</span>
                                   </div>
 
+                                  {!isThanksgiving && (
+                                  <>
                                   <p className="px-4 pb-3 pt-3 text-center text-[11px] leading-snug text-gray-500">
                                       Every home is different, so we confirm your price personally and text or call you with it, usually within the hour. No guessing, no surprises.
                                   </p>
@@ -832,6 +931,8 @@ const BookingForm: React.FC<BookingFormProps> = ({
                                       <span className="flex items-center gap-1.5"><i className="fas fa-shield-alt text-green-500"></i> No Hidden Fees</span>
                                       <span className="flex items-center gap-1.5"><i className="fas fa-calendar-check text-blue-400"></i> Cancel Anytime</span>
                                   </div>
+                                  </>
+                                  )}
                               </div>
                           )}
 
@@ -931,7 +1032,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
                               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-500 text-3xl mx-auto mb-4 animate-zoom-in">
                                   <i className={showPricing ? 'fas fa-file-invoice-dollar' : 'fas fa-check'}></i>
                               </div>
-                              <h3 className="text-xl font-black text-gray-900 mb-1">{showPricing ? (firstName ? `You're all set, ${firstName}!` : "You're all set!") : (firstName ? `Got it, ${firstName}!` : "Got it!")}</h3>
+                              <h3 className="text-xl font-black text-gray-900 mb-1">{isThanksgiving ? (firstName ? `Your spot is reserved, ${firstName}!` : "Your spot is reserved!") : showPricing ? (firstName ? `You're all set, ${firstName}!` : "You're all set!") : (firstName ? `Got it, ${firstName}!` : "Got it!")}</h3>
                               <div className="text-sm text-gray-600">
                                  {showPricing && (
                                     <>
@@ -941,10 +1042,17 @@ const BookingForm: React.FC<BookingFormProps> = ({
                                     </>
                                  )}
                                  {!showPricing && (
+                                    isThanksgiving ? (
+                                    <>
+                                      <span className="block font-bold text-[#a9541f]">Your {THANKSGIVING_OFFER.discount} Thanksgiving discount is locked in.</span>
+                                      <span className="mt-1.5 block text-xs font-medium text-gray-500">Someone from our team will text or call <span className="font-bold text-star-blue">{formData.phone}</span> with your exact price, usually within the hour.</span>
+                                    </>
+                                    ) : (
                                     <>
                                       <span className="block font-bold text-green-600">We&apos;ll be in touch in the next few minutes.</span>
                                       <span className="mt-1.5 block text-xs font-medium text-gray-500">Someone from our team will text or call <span className="font-bold text-star-blue">{formData.phone}</span> with your exact price.</span>
                                     </>
+                                    )
                                  )}
                               </div>
                           </div>
@@ -1117,7 +1225,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
                         onClick={nextStep}
                         className="flex-grow py-3.5 rounded-xl font-black text-white bg-gradient-to-r from-blue-900 to-blue-800 shadow-lg shadow-blue-900/20 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-base active:scale-95 group touch-manipulation"
                     >
-                        <span>Next Step</span>
+                        <span>{isThanksgiving ? 'Continue' : 'Next Step'}</span>
                         <i className="fas fa-arrow-right text-sm group-hover:translate-x-1 transition-transform"></i>
                     </button>
                 )}
@@ -1136,7 +1244,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
                             <i className="fas fa-spinner fa-spin relative z-10"></i>
                         ) : (
                             <div className="relative z-10 flex items-center gap-2 whitespace-nowrap">
-                                <span className="max-[359px]:text-sm">Get My Exact Price</span>
+                                <span className="max-[359px]:text-sm">{isThanksgiving ? `Claim My ${THANKSGIVING_OFFER.discount} Off` : 'Get My Exact Price'}</span>
                                 <span className="max-[359px]:hidden"><i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i></span>
                             </div>
                         )}
@@ -1282,9 +1390,10 @@ const StepIndicator: React.FC<{ current: number, num: number, label: string }> =
     );
 };
 
-const InputGroup: React.FC<any> = ({ label, type = "text", icon, ...props }) => (
-  <div className="flex flex-col group w-full mb-3">
-    <label className="text-[10px] font-bold text-gray-500 uppercase mb-1.5 ml-1 tracking-wider group-focus-within:text-[#00b4db] transition-colors">{label}</label>
+// compact: label is visually hidden and the placeholder carries it (used by the Thanksgiving theme)
+const InputGroup: React.FC<any> = ({ label, type = "text", icon, compact = false, className = '', ...props }) => (
+  <div className={`flex flex-col group w-full ${compact ? '' : 'mb-3'} ${className}`}>
+    <label htmlFor={compact ? props.name : undefined} className={compact ? 'sr-only' : 'text-[10px] font-bold text-gray-500 uppercase mb-1.5 ml-1 tracking-wider group-focus-within:text-[#00b4db] transition-colors'}>{label}</label>
     <div className="relative">
         {icon && (
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
@@ -1293,7 +1402,8 @@ const InputGroup: React.FC<any> = ({ label, type = "text", icon, ...props }) => 
         )}
         <input 
           type={type}
-          className={`w-full ${icon ? 'pl-11' : 'pl-4'} pr-4 py-3.5 bg-gray-50 border-transparent text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-[#00b4db]/20 focus:border-[#00b4db] block shadow-sm transition-all focus:bg-white placeholder-gray-300 font-semibold touch-manipulation`}
+          className={`w-full ${icon ? 'pl-11' : 'pl-4'} pr-4 py-3.5 bg-gray-50 border-transparent text-gray-900 ${compact ? 'text-base sm:text-sm placeholder-gray-400' : 'text-sm placeholder-gray-300'} rounded-xl focus:ring-2 focus:ring-[#00b4db]/20 focus:border-[#00b4db] block shadow-sm transition-all focus:bg-white font-semibold touch-manipulation`}
+          {...(compact ? { id: props.name } : {})}
           {...props}
         />
     </div>

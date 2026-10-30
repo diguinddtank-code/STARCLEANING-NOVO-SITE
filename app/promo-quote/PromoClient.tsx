@@ -31,7 +31,7 @@ export default function PromoClient() {
           <div className="container mx-auto px-4 sm:px-8 relative z-10 w-full max-w-5xl flex flex-col items-center">
             
             {/* Header / Logo & Phone */}
-            <div className="w-full flex justify-between items-center mb-6 mt-2 px-2 sm:px-0">
+            <div className="w-full flex justify-between items-center mb-3 sm:mb-6 mt-2 px-2 sm:px-0">
                 <Link href="/" className="inline-block hover:opacity-90 transition-opacity relative h-10 md:h-14 w-36 md:w-48">
                     <Image 
                         src="/images/logo-mark.png"
@@ -49,8 +49,8 @@ export default function PromoClient() {
             </div>
 
             {/* Headlines - Clean Thanksgiving focus */}
-            <div className="text-center mb-8 max-w-3xl mx-auto px-2">
-                <h1 className="font-serif text-3xl min-[360px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-3 sm:mb-4 tracking-tight leading-tight drop-shadow-lg text-center">
+            <div className="text-center mb-4 sm:mb-8 max-w-3xl mx-auto px-2">
+                <h1 className="font-serif text-[1.7rem] min-[380px]:text-3xl min-[440px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-2 sm:mb-4 tracking-tight leading-tight drop-shadow-lg text-center">
                     Thanksgiving <span className="text-yellow-300">Cleaning.</span>
                 </h1>
                 
@@ -66,7 +66,7 @@ export default function PromoClient() {
 
             {/* The Form Component */}
             <div className="w-full animate-slide-up-fade" style={{ animationDuration: '0.8s' }}>
-                <BookingForm hideSidebar={true} variant="glass" showPricing={false} showScheduling={false} isPromo={true} promoCode={promoCode} />
+                <BookingForm hideSidebar={true} variant="glass" showPricing={false} showScheduling={false} isPromo={true} promoCode={promoCode} theme="thanksgiving" />
                 
                 {/* Trust Badges Below Form */}
                 <div className="flex flex-col items-center justify-center gap-2 mt-5 sm:mt-6 px-2">
