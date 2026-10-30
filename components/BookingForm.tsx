@@ -763,25 +763,25 @@ const BookingForm: React.FC<BookingFormProps> = ({
                                     {/* Pets */}
                                     <div>
                                         <label className="text-[10px] font-bold text-gray-500 uppercase mb-1.5 block ml-1 tracking-wider">Pets in Home</label>
-                                        <div className={`flex ${isThanksgiving ? 'flex-row' : 'flex-col sm:flex-row'} gap-1.5`}>
+                                        <div className="flex flex-row gap-1.5">
                                             <button
                                                 type="button"
                                                 onClick={() => setFormData(prev => ({ ...prev, hasDog: !prev.hasDog }))}
-                                                className={`flex-1 py-2.5 rounded-lg border-2 text-xs font-bold transition-all flex items-center justify-center gap-1.5 touch-manipulation ${formData.hasDog ? 'border-star-blue bg-blue-50 text-star-blue shadow-sm' : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200'}`}
+                                                className={`flex-1 py-2 rounded-lg border-2 text-xs font-bold transition-all flex items-center justify-center gap-1.5 touch-manipulation ${formData.hasDog ? 'border-star-blue bg-blue-50 text-star-blue shadow-sm' : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200'}`}
                                             >
                                                 <i className="fas fa-dog"></i> Dogs
                                             </button>
                                             <button
                                                 type="button"
                                                 onClick={() => setFormData(prev => ({ ...prev, hasCat: !prev.hasCat }))}
-                                                className={`flex-1 py-2.5 rounded-lg border-2 text-xs font-bold transition-all flex items-center justify-center gap-1.5 touch-manipulation ${formData.hasCat ? 'border-star-blue bg-blue-50 text-star-blue shadow-sm' : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200'}`}
+                                                className={`flex-1 py-2 rounded-lg border-2 text-xs font-bold transition-all flex items-center justify-center gap-1.5 touch-manipulation ${formData.hasCat ? 'border-star-blue bg-blue-50 text-star-blue shadow-sm' : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200'}`}
                                             >
                                                 <i className="fas fa-cat"></i> Cats
                                             </button>
                                             <button
                                                 type="button"
                                                 onClick={() => setFormData(prev => ({ ...prev, hasDog: false, hasCat: false }))}
-                                                className={`flex-1 py-2.5 rounded-lg border-2 text-xs font-bold transition-all flex items-center justify-center gap-1.5 touch-manipulation ${!formData.hasDog && !formData.hasCat ? 'border-gray-800 bg-gray-800 text-white shadow-sm' : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200'}`}
+                                                className={`flex-1 py-2 rounded-lg border-2 text-xs font-bold transition-all flex items-center justify-center gap-1.5 touch-manipulation ${!formData.hasDog && !formData.hasCat ? 'border-gray-800 bg-gray-800 text-white shadow-sm' : 'border-gray-100 bg-white text-gray-500 hover:border-gray-200'}`}
                                             >
                                                 None
                                             </button>
