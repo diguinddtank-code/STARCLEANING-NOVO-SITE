@@ -577,7 +577,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
                 <>
                     <SegmentedProgress step={step} total={3} />
                     {step < 4 && (
-                        <div className="mb-4">
+                        <div className="mb-5">
                             <h3 className="font-heading text-lg font-extrabold leading-tight tracking-tight text-slate-900 min-[380px]:text-xl sm:text-2xl">
                                 {step === 1 && "Where do we send your 20% off?"}
                                 {step === 2 && "Tell us about your home"}
@@ -653,7 +653,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
                   {/* STEP 1: CONTACT */}
                   {step === 1 && isThanksgiving && (
                       <div>
-                        <div className="grid grid-cols-2 gap-2.5 md:gap-3">
+                        <div className="grid grid-cols-2 gap-3">
                             <InputGroup compact className="col-span-2 md:col-span-1" label="Full Name" name="fullName" icon="fa-user" placeholder="Full name" autoComplete="name" value={formData.fullName} onChange={handleChange} />
                             <InputGroup compact className="col-span-2 md:col-span-1" label="Email Address" name="email" type="email" icon="fa-envelope" placeholder="Email" autoComplete="email" value={formData.email} onChange={handleChange} />
                             <InputGroup compact label="Phone Number" name="phone" type="tel" icon="fa-phone" placeholder="Phone" autoComplete="tel" value={formData.phone} onChange={handleChange} />
@@ -681,23 +681,36 @@ const BookingForm: React.FC<BookingFormProps> = ({
                             <div className="flex items-center gap-1.5"><i className="fas fa-lock"></i> SSL Encrypted</div>
                             <div className="flex items-center gap-1.5"><i className="fas fa-shield-alt"></i> No Spam Promise</div>
                         </div>
+                        <AnimatePresence>
                         {city && (
-                            <div className="mt-2 bg-gray-50 border border-gray-100 rounded-xl p-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2 animate-slide-in-bottom">
-                                <div className="flex items-center gap-2">
-                                    <i className="fas fa-check-circle text-green-500 ml-1"></i>
-                                    <p className="text-gray-700 text-xs font-bold">Great news, we clean in <span className="text-star-blue">{city}</span>!</p>
+                            <motion.div
+                                initial={{ opacity: 0, y: 6, scale: 0.98 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                                className="mt-2 flex items-center gap-3 rounded-xl border border-green-200 bg-gradient-to-r from-green-50 to-white p-3"
+                            >
+                                <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-green-500 text-white shadow-sm shadow-green-500/30">
+                                    <span className="absolute inset-0 rounded-full bg-green-400 animate-ping opacity-40 [animation-iteration-count:2]"></span>
+                                    <i className="fas fa-check relative text-sm"></i>
+                                </span>
+                                <div className="min-w-0">
+                                    <p className="text-sm font-black leading-tight text-gray-900">Available in <span className="text-star-blue">{city}</span></p>
+                                    <a
+                                        href="https://share.google/udkA7cxV0VCC39Ag2"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="mt-0.5 flex items-center gap-1 whitespace-nowrap text-[11px] font-medium text-gray-500 transition-colors hover:text-star-blue"
+                                    >
+                                        Local team in your area
+                                        <span className="text-gray-300">&middot;</span>
+                                        <i className="fas fa-star text-[9px] text-yellow-400"></i>
+                                        <span className="whitespace-nowrap">4.9 on Google</span>
+                                    </a>
                                 </div>
-                                <a 
-                                    href="https://share.google/udkA7cxV0VCC39Ag2" 
-                                    target="_blank" 
-                                    rel="noopener noreferrer" 
-                                    className="flex items-center gap-1.5 whitespace-nowrap text-gray-500 hover:text-star-blue text-[10px] font-medium transition-colors"
-                                >
-                                    <i className="fas fa-star text-[10px] text-yellow-400"></i>
-                                    4.9 from 50+ Google reviews
-                                </a>
-                            </div>
+                            </motion.div>
                         )}
+                        </AnimatePresence>
                       </div>
                   )}
 
@@ -818,34 +831,30 @@ const BookingForm: React.FC<BookingFormProps> = ({
                           )}
 
                           {/* Frequency Selector */}
-                          <div className={isThanksgiving ? 'hidden' : ''}>
-                              <div className="flex justify-between items-end mb-2">
-                                  <label className="whitespace-nowrap text-[10px] font-bold text-gray-500 uppercase tracking-wider"><span className="max-[359px]:hidden">Select </span>Frequency</label>
-                                  <span className="whitespace-nowrap text-[9px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded uppercase tracking-wider border border-green-100"><span className="max-[359px]:hidden">Most </span>Popular: Bi-Weekly</span>
-                              </div>
-                              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                                  {['Weekly', 'Bi-Weekly', 'Monthly', 'One-Time'].map((freq) => (
-                                      <button
-                                          key={freq}
-                                          type="button"
-                                          onClick={() => handleFrequencySelect(freq)}
-                                          className={`relative py-3 px-1 rounded-xl text-xs font-bold transition-all border-2 touch-manipulation flex flex-col items-center justify-center gap-1 ${
-                                              formData.frequency === freq 
-                                              ? 'bg-blue-50 border-blue-500 text-blue-900 shadow-sm' 
-                                              : 'bg-white border-gray-100 text-gray-500 hover:border-gray-300 hover:bg-gray-50'
-                                          }`}
-                                      >
-                                          {formData.frequency === freq && (
-                                              <div className="absolute -top-2 -right-2 w-5 h-5 bg-blue-500 text-white rounded-full flex items-center justify-center text-[10px] shadow-sm animate-zoom-in">
-                                                  <i className="fas fa-check"></i>
-                                              </div>
-                                          )}
-                                          <span>{freq}</span>
-                                          <span className={`text-[8px] font-medium leading-none ${formData.frequency === freq ? 'text-blue-700' : 'text-gray-400'}`}>
-                                              {{ 'Weekly': 'Every week', 'Bi-Weekly': 'Every 2 weeks', 'Monthly': 'Every month', 'One-Time': 'Move In/Out' }[freq]}
-                                          </span>
-                                      </button>
-                                  ))}
+                          <div className={isThanksgiving ? 'hidden' : ''} role="radiogroup" aria-label="Cleaning frequency">
+                              <div className="grid grid-cols-4 gap-1.5 pt-1.5 sm:gap-2">
+                                  {['Weekly', 'Bi-Weekly', 'Monthly', 'One-Time'].map((freq) => {
+                                      const selected = formData.frequency === freq;
+                                      return (
+                                          <button
+                                              key={freq}
+                                              type="button"
+                                              role="radio"
+                                              aria-checked={selected}
+                                              onClick={() => handleFrequencySelect(freq)}
+                                              className={`relative rounded-xl border-2 px-0.5 py-3 text-[12px] font-bold transition-all touch-manipulation sm:text-sm ${
+                                                  selected
+                                                  ? 'border-star-blue bg-star-blue text-white shadow-md shadow-blue-900/20'
+                                                  : 'border-gray-100 bg-white text-gray-600 hover:border-gray-300 hover:bg-gray-50'
+                                              }`}
+                                          >
+                                              {freq === 'Bi-Weekly' && (
+                                                  <span className="absolute -top-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-green-100 bg-green-50 px-1.5 py-px text-[8px] font-bold uppercase tracking-wider text-green-600">Popular</span>
+                                              )}
+                                              {freq}
+                                          </button>
+                                      );
+                                  })}
                               </div>
                           </div>
 
@@ -864,28 +873,13 @@ const BookingForm: React.FC<BookingFormProps> = ({
                                       </div>
                                   </div>
 
-                                  {!isThanksgiving && (
-                                  <>
-                                  <div className="flex items-center gap-3 px-3 py-3 sm:px-4">
-                                      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-500 max-[359px]:hidden">
-                                          <i className="fas fa-home text-[10px]"></i>
-                                      </div>
-                                      <div className="min-w-0">
-                                          <span className="block truncate text-[13px] font-bold text-gray-800 sm:text-sm">Your home</span>
-                                          <span className="block truncate text-[11px] font-medium text-gray-500">{formData.bedrooms} bed &middot; {formData.bathrooms} bath &middot; {formData.sqft.toLocaleString("en-US")} sq ft</span>
-                                      </div>
-                                  </div>
-
-                                  <div className="h-px w-full bg-gray-100"></div>
-                                  </>
-                                  )}
                                   <div className="flex items-center gap-3 px-3 py-3 sm:px-4">
                                       <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-50 text-green-500 max-[359px]:hidden">
                                           <i className="fas fa-broom text-[10px]"></i>
                                       </div>
                                       <div className="min-w-0">
                                           <span className="block truncate text-[13px] font-bold text-gray-800 sm:text-sm">{isThanksgiving ? 'Holiday deep clean' : isOneTime ? 'Deep Clean Reset' : `${formData.frequency} cleaning`}</span>
-                                          <span className="block truncate text-[11px] font-medium text-gray-500">{isThanksgiving ? <>{formData.bedrooms} bed &middot; {formData.bathrooms} bath &middot; {preferredTiming}</> : isOneTime ? 'One visit, a fresh start' : 'Starts with a deep clean'}</span>
+                                          <span className="block truncate text-[11px] font-medium text-gray-500">{formData.bedrooms} bed &middot; {formData.bathrooms} bath &middot; {isThanksgiving ? preferredTiming : `${formData.sqft.toLocaleString("en-US")} sq ft`}</span>
                                       </div>
                                   </div>
 
@@ -915,24 +909,11 @@ const BookingForm: React.FC<BookingFormProps> = ({
                                           </div>
                                           <div className="min-w-0">
                                               <span className="block truncate text-[13px] font-bold text-gray-800 sm:text-sm">Your exact price</span>
-                                              <span className="block truncate text-[11px] font-medium text-gray-500">Sent to your phone</span>
+                                              <span className="block truncate text-[11px] font-medium text-gray-500">Texted to you within the hour</span>
                                           </div>
                                       </div>
                                       <span aria-hidden="true" className="shrink-0 select-none rounded-lg bg-white px-3 py-1.5 text-base font-black text-gray-900 shadow-sm ring-1 ring-gray-200 blur-[5px]">$000</span>
                                   </div>
-
-                                  {!isThanksgiving && (
-                                  <>
-                                  <p className="px-4 pb-3 pt-3 text-center text-[11px] leading-snug text-gray-500">
-                                      Every home is different, so we confirm your price personally and text or call you with it, usually within the hour. No guessing, no surprises.
-                                  </p>
-
-                                  <div className="flex items-center justify-center gap-4 whitespace-nowrap border-t border-gray-100 bg-gray-50 px-2 py-2 text-[9px] font-medium text-gray-500 sm:gap-6 sm:text-[10px]">
-                                      <span className="flex items-center gap-1.5"><i className="fas fa-shield-alt text-green-500"></i> No Hidden Fees</span>
-                                      <span className="flex items-center gap-1.5"><i className="fas fa-calendar-check text-blue-400"></i> Cancel Anytime</span>
-                                  </div>
-                                  </>
-                                  )}
                               </div>
                           )}
 
@@ -1207,7 +1188,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
               </AnimatePresence>
 
               {/* Navigation Buttons */}
-              <div className="mt-3 flex items-center gap-3">
+              <div className={`${isThanksgiving ? 'mt-5' : 'mt-3'} flex items-center gap-3`}>
                 {step > 1 && step < 4 && (
                     <button 
                         type="button"
@@ -1281,7 +1262,9 @@ const BookingForm: React.FC<BookingFormProps> = ({
               </div>
               {step === 3 && !showPricing && (
                   <p className="mt-2.5 text-center text-[11px] font-medium text-gray-500">
-                      Free <span className="text-gray-300">&middot;</span> No obligation <span className="text-gray-300">&middot;</span> No credit card
+                      {isThanksgiving
+                          ? <>Free <span className="text-gray-300">&middot;</span> No obligation <span className="text-gray-300">&middot;</span> No credit card</>
+                          : <>Free <span className="text-gray-300">&middot;</span> No hidden fees <span className="text-gray-300">&middot;</span> Cancel anytime</>}
                   </p>
               )}
             </form>
@@ -1402,7 +1385,7 @@ const InputGroup: React.FC<any> = ({ label, type = "text", icon, compact = false
         )}
         <input 
           type={type}
-          className={`w-full ${icon ? 'pl-11' : 'pl-4'} pr-4 py-3.5 bg-gray-50 border-transparent text-gray-900 ${compact ? 'text-base sm:text-sm placeholder-gray-400' : 'text-sm placeholder-gray-300'} rounded-xl focus:ring-2 focus:ring-[#00b4db]/20 focus:border-[#00b4db] block shadow-sm transition-all focus:bg-white font-semibold touch-manipulation`}
+          className={`w-full ${icon ? 'pl-11' : 'pl-4'} pr-4 ${compact ? 'py-4 text-base placeholder-gray-400 border border-gray-200/70' : 'py-3.5 text-sm placeholder-gray-300 border-transparent'} bg-gray-50 text-gray-900 rounded-xl focus:ring-2 focus:ring-[#00b4db]/20 focus:border-[#00b4db] block shadow-sm transition-all focus:bg-white font-semibold touch-manipulation`}
           {...(compact ? { id: props.name } : {})}
           {...props}
         />
