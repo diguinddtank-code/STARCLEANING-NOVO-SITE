@@ -24,6 +24,22 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "Mount Pleasant SC Thanksgiving House Cleaning: The Lowcountry Host Checklist",
+      slug: "mount-pleasant-sc-thanksgiving-house-cleaning-checklist",
+      excerpt: "Room-by-room Thanksgiving preparation guide for Mount Pleasant homeowners. Deep clean double ovens, prep FROG guest suites, and get screened porches holiday-ready across Carolina Park, Park West, and Dunes West.",
+      date: "November 2, 2026",
+      category: "wikiHow & Holiday Guide",
+      image: "/images/blog/mount-pleasant-sc-thanksgiving-house-cleaning-checklist.jpg"
+    },
+    {
+      title: "How to Get Rid of Musty Smell in a Charleston SC House: Humidity & Mildew Guide",
+      slug: "how-to-get-rid-of-musty-smell-house-charleston-sc",
+      excerpt: "Step-by-step wikiHow-style guide to eliminating stubborn Lowcountry damp odors, crawl space vapors, and AC condensation mildew in Charleston, Mount Pleasant & Summerville SC.",
+      date: "October 30, 2026",
+      category: "wikiHow & Air Quality",
+      image: "/images/blog/how-to-get-rid-of-musty-smell-house-charleston-sc.jpg"
+    },
+    {
       title: "Pet-Friendly House Cleaning: Dogs, Cats, Shedding & Marsh Sand in Charleston SC",
       slug: "pet-friendly-house-cleaning-guide-charleston-sc",
       excerpt: "Step-by-step wikiHow-style guide for Charleston pet owners: non-toxic paw-safe chemistry, managing heavy shedding and beach sand, door safety protocols, and where pets should stay during cleaning.",

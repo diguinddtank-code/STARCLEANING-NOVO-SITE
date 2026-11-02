@@ -5,7 +5,7 @@ import { locationsData } from '@/lib/locationsData';
 // lastModified date sent to search engines. Using `new Date()` here would
 // tell crawlers every single page changed on every single build/request,
 // which trains them to stop trusting the freshness signal.
-const CONTENT_LAST_MODIFIED = new Date('2026-10-29');
+const CONTENT_LAST_MODIFIED = new Date('2026-11-02');
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.starcleaningsc.com';
@@ -126,6 +126,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Blog posts
   const blogPosts = [
+    'mount-pleasant-sc-thanksgiving-house-cleaning-checklist',
+    'how-to-get-rid-of-musty-smell-house-charleston-sc',
     'pet-friendly-house-cleaning-guide-charleston-sc',
     'independent-cleaner-vs-cleaning-company-charleston-sc',
     'what-house-cleaners-will-not-clean-charleston-sc',
