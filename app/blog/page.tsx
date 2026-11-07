@@ -24,6 +24,14 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "Move Out Cleaning Checklist: How to Get 100% of Your Security Deposit Back in Charleston SC",
+      slug: "move-out-cleaning-checklist-security-deposit-charleston-sc",
+      excerpt: "Room-by-room move out cleaning blueprint for Charleston renters & sellers. Don't lose $500+ of your security deposit to oven grease, shower scale, or dirty baseboards.",
+      date: "November 7, 2026",
+      category: "wikiHow & Move-Out Guide",
+      image: "/images/blog/move-out-cleaning-checklist-security-deposit-charleston-sc.jpg"
+    },
+    {
       title: "How to Clean Hardwood Floors in Charleston SC: Historic Heart-Pine & Engineered Wood",
       slug: "how-to-clean-hardwood-floors-charleston-sc-heart-pine",
       excerpt: "Step-by-step wikiHow-style guide to cleaning Charleston wood floors without damage: removing abrasive coastal quartz sand, preventing humidity cupping, and why steam mops ruin polyurethane finishes.",
