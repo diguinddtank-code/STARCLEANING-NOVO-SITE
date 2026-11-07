@@ -24,6 +24,14 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "How to Clean Hardwood Floors in Charleston SC: Historic Heart-Pine & Engineered Wood",
+      slug: "how-to-clean-hardwood-floors-charleston-sc-heart-pine",
+      excerpt: "Step-by-step wikiHow-style guide to cleaning Charleston wood floors without damage: removing abrasive coastal quartz sand, preventing humidity cupping, and why steam mops ruin polyurethane finishes.",
+      date: "November 6, 2026",
+      category: "wikiHow & Floor Care",
+      image: "/images/blog/how-to-clean-hardwood-floors-charleston-sc-heart-pine.jpg"
+    },
+    {
       title: "Mount Pleasant SC Thanksgiving House Cleaning: The Lowcountry Host Checklist",
       slug: "mount-pleasant-sc-thanksgiving-house-cleaning-checklist",
       excerpt: "Room-by-room Thanksgiving preparation guide for Mount Pleasant homeowners. Deep clean double ovens, prep FROG guest suites, and get screened porches holiday-ready across Carolina Park, Park West, and Dunes West.",
