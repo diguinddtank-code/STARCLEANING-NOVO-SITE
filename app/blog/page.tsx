@@ -24,6 +24,14 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "How to Deep Clean Your Oven & Range Hood Before Thanksgiving in Charleston SC",
+      slug: "how-to-clean-oven-range-hood-before-thanksgiving-charleston-sc",
+      excerpt: "Step-by-step wikiHow-style holiday degreasing guide: avoid the dangerous self-clean cycle, clean range hood mesh filters, and prevent burnt smoke during Thanksgiving dinner.",
+      date: "November 11, 2026",
+      category: "wikiHow & Kitchen Guide",
+      image: "/images/blog/how-to-clean-oven-range-hood-before-thanksgiving-charleston-sc.jpg"
+    },
+    {
       title: "Move Out Cleaning Checklist: How to Get 100% of Your Security Deposit Back in Charleston SC",
       slug: "move-out-cleaning-checklist-security-deposit-charleston-sc",
       excerpt: "Room-by-room move out cleaning blueprint for Charleston renters & sellers. Don't lose $500+ of your security deposit to oven grease, shower scale, or dirty baseboards.",
