@@ -111,7 +111,7 @@ const QuoteLanding = () => {
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
               ))}
-              <span className="font-bold text-slate-900 text-base ml-1">4.9</span>
+              <span data-count className="font-bold text-slate-900 text-base ml-1">4.9</span>
               <a 
                 href="https://share.google/udkA7cxV0VCC39Ag2" 
                 target="_blank" 

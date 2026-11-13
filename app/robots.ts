@@ -25,9 +25,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/admin/'],
       },
     ],
-    sitemap: [
-      'https://www.starcleaningsc.com/sitemap.xml',
-      'https://www.starcleaningsc.com/llms.txt',
-    ],
+    // llms.txt is discovered at /llms.txt; the sitemap directive only takes XML sitemaps.
+    sitemap: 'https://www.starcleaningsc.com/sitemap.xml',
   };
 }

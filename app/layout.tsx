@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Open_Sans, Dancing_Script, Playfair_Display } from "next/font/google";
 import Script from "next/script";
 import AttributionCapture from "@/components/AttributionCapture";
+import MotionLayer from "@/components/MotionLayer";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -298,6 +299,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <AttributionCapture />
+        <MotionLayer />
         {children}
       </body>
     </html>

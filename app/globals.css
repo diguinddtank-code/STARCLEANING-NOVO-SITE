@@ -77,7 +77,8 @@ html, body {
     min-height: 100%;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    /* clip (not hidden): hidden turns body into a scroll container and breaks position: sticky */
+    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -142,3 +143,84 @@ html { scroll-behavior: smooth; }
   .hero-drift { animation: none; }
   .hero-rise, .hero-fade { animation: none; opacity: 1; }
 }
+
+/* Blog reading progress (added by components/MotionLayer) */
+.reading-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 60;
+  background: #004aad; transform-origin: 0 50%; transform: scaleX(0); pointer-events: none;
+}
+
+/* Touch feedback: buttons and pill links give a small press on phones */
+@media (hover: none) {
+  a[class*="rounded-full"]:active, button[class*="rounded-full"]:active, a[class*="rounded-xl"]:active {
+    transform: scale(0.97);
+    transition: transform 0.12s ease;
+  }
+}
+
+/* =====================================================================
+   Inner-page system (components/sub/*)
+   ===================================================================== */
+
+/* Masked words for data-anim="words" (components/motion/SplitWords) */
+.sw { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+.swi { display: inline-block; will-change: transform; }
+
+/* Hero entrance: CSS only, so it starts with the first paint. The h1 is never hidden
+   (it is often the LCP element); the photo only scales (transform), never fades. */
+@keyframes sub-rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+@keyframes sub-zoom { from { transform: scale(1.14); } to { transform: scale(1); } }
+@keyframes sub-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes sub-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes sub-underline { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.sub-rise { animation: sub-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.sub-d1 { animation-delay: 0.08s; } .sub-d2 { animation-delay: 0.18s; } .sub-d3 { animation-delay: 0.3s; }
+.sub-d4 { animation-delay: 0.45s; } .sub-d5 { animation-delay: 0.65s; } .sub-d6 { animation-delay: 0.85s; }
+.sub-zoom { animation: sub-zoom 2.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.sub-draw { transform-origin: 0 50%; animation: sub-draw 1.1s cubic-bezier(0.65, 0, 0.35, 1) 0.2s both; }
+.sub-float { animation: sub-float 6s ease-in-out 1.6s infinite; }
+.sub-underline path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: sub-underline 1.2s cubic-bezier(0.65, 0, 0.35, 1) 0.7s forwards; }
+
+/* Outlined watermark word behind heroes */
+.text-outline { color: transparent; -webkit-text-stroke: 1px rgba(0, 74, 173, 0.13); }
+.text-outline-light { color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.12); }
+
+/* Ticker */
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.ticker-track { animation: ticker 48s linear infinite; }
+.ticker-track.reverse { animation-direction: reverse; }
+.ticker:hover .ticker-track { animation-play-state: paused; }
+
+/* FAQ: <details> that opens smoothly where the browser supports it */
+:root { interpolate-size: allow-keywords; }
+.faq details::details-content { height: 0; overflow: clip; transition: height 0.45s cubic-bezier(0.16, 1, 0.3, 1), content-visibility 0.45s allow-discrete; }
+.faq details[open]::details-content { height: auto; }
+.faq summary { list-style: none; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq details[open] .faq-icon { transform: rotate(45deg); background: #004aad; color: #fff; border-color: #004aad; }
+
+/* Spotlight cards (pointer position comes from --mx / --my) */
+.spotlight { position: relative; isolation: isolate; }
+.spotlight::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: -1; opacity: 0; transition: opacity 0.35s;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(0, 74, 173, 0.12), transparent 60%);
+}
+.spotlight:hover::before { opacity: 1; }
+
+/* Checklist ticks: drawn by GSAP; complete by default */
+.tick-path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sub-rise, .sub-zoom, .sub-draw, .sub-float, .ticker-track { animation: none !important; }
+  .sub-underline path { animation: none; stroke-dashoffset: 0; }
+}
+.ticker-track { will-change: transform; }
+
+/* Below-the-fold sections: the browser skips their style, layout and paint until they get
+   close to the screen (big win on long pages). "auto" remembers the real height once rendered. */
+.cv { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+
+/* Cleaning for a Reason seal: ring of text turns slowly */
+@keyframes give-spin { to { transform: rotate(360deg); } }
+.give-ring { animation: give-spin 28s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .give-ring { animation: none; } }

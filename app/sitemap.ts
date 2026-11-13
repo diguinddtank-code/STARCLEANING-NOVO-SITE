@@ -6,6 +6,8 @@ import { locationsData } from '@/lib/locationsData';
 // tell crawlers every single page changed on every single build/request,
 // which trains them to stop trusting the freshness signal.
 const CONTENT_LAST_MODIFIED = new Date('2026-11-11');
+// Service, area, deep-cleaning and about pages were rewritten on this date.
+const PAGES_REWORKED = new Date('2026-11-12');
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.starcleaningsc.com';
@@ -32,7 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/about-us`,
-      lastModified: CONTENT_LAST_MODIFIED,
+      lastModified: PAGES_REWORKED,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     },
@@ -50,9 +52,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/locations`,
-      lastModified: CONTENT_LAST_MODIFIED,
+      lastModified: PAGES_REWORKED,
       changeFrequency: 'weekly' as const,
       priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/services`,
+      lastModified: PAGES_REWORKED,
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/blog`,
@@ -92,7 +100,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const serviceRoutes = services.map((service) => ({
     url: `${baseUrl}/services/${service}`,
-    lastModified: CONTENT_LAST_MODIFIED,
+    lastModified: PAGES_REWORKED,
     changeFrequency: 'weekly' as const,
     priority: 0.9,
   }));
@@ -100,7 +108,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Locations routes
   const locationRoutes = Object.keys(locationsData).map((slug) => ({
     url: `${baseUrl}/locations/${slug}`,
-    lastModified: CONTENT_LAST_MODIFIED,
+    lastModified: PAGES_REWORKED,
     changeFrequency: 'weekly' as const,
     priority: 0.9,
   }));
@@ -119,7 +127,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const cityRoutes = cityPages.map((city) => ({
     url: `${baseUrl}/${city}`,
-    lastModified: CONTENT_LAST_MODIFIED,
+    lastModified: PAGES_REWORKED,
     changeFrequency: 'weekly' as const,
     priority: 0.95,
   }));

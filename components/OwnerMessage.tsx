@@ -50,7 +50,7 @@ const OwnerMessage: React.FC<OwnerMessageProps> = ({ quoteHref = '/#quote' }) =>
               <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-left-6 z-30 block animate-pulse-slow">
                  <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 bg-white rounded-full p-1.5 lg:p-2 shadow-2xl block">
                     <div className="w-full h-full rounded-full border-2 border-dashed border-blue-900 flex flex-col items-center justify-center text-center bg-white text-blue-900 overflow-hidden relative group-hover:scale-105 transition-transform">
-                       <span className="relative text-xl sm:text-2xl lg:text-3xl font-black leading-none mb-0.5 lg:mb-1">18</span>
+                       <span data-count className="relative text-xl sm:text-2xl lg:text-3xl font-black leading-none mb-0.5 lg:mb-1">18</span>
                        <span className="relative text-[6px] sm:text-[8px] lg:text-[9px] uppercase font-bold tracking-wider leading-tight">Years<br/>Experience</span>
                     </div>
                  </div>
