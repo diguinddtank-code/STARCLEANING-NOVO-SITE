@@ -5,7 +5,7 @@ import { locationsData } from '@/lib/locationsData';
 // lastModified date sent to search engines. Using `new Date()` here would
 // tell crawlers every single page changed on every single build/request,
 // which trains them to stop trusting the freshness signal.
-const CONTENT_LAST_MODIFIED = new Date('2026-11-11');
+const CONTENT_LAST_MODIFIED = new Date('2026-11-16');
 // Service, area, deep-cleaning and about pages were rewritten on this date.
 const PAGES_REWORKED = new Date('2026-11-12');
 
@@ -134,6 +134,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Blog posts
   const blogPosts = [
+    'how-to-clean-granite-quartz-marble-countertops-charleston-sc',
     'how-to-clean-oven-range-hood-before-thanksgiving-charleston-sc',
     'move-out-cleaning-checklist-security-deposit-charleston-sc',
     'how-to-clean-hardwood-floors-charleston-sc-heart-pine',

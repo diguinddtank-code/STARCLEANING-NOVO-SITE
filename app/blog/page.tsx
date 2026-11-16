@@ -24,6 +24,14 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "How to Clean Granite, Quartz & Marble Countertops in Charleston SC (No Etching)",
+      slug: "how-to-clean-granite-quartz-marble-countertops-charleston-sc",
+      excerpt: "Step-by-step wikiHow-style Lowcountry stone care guide: why Clorox wipes & vinegar ruin quartz and marble, how to remove wine & oil stains, and the 15-second water-drop seal test.",
+      date: "November 16, 2026",
+      category: "wikiHow & Surface Care",
+      image: "/images/blog/how-to-clean-granite-quartz-marble-countertops-charleston-sc.jpg"
+    },
+    {
       title: "How to Deep Clean Your Oven & Range Hood Before Thanksgiving in Charleston SC",
       slug: "how-to-clean-oven-range-hood-before-thanksgiving-charleston-sc",
       excerpt: "Step-by-step wikiHow-style holiday degreasing guide: avoid the dangerous self-clean cycle, clean range hood mesh filters, and prevent burnt smoke during Thanksgiving dinner.",
