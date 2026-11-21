@@ -24,6 +24,14 @@ const BlogIndex = () => {
   };
   const posts = [
     {
+      title: "How to Clean Plantation Shutters & Baseboards in Charleston SC (No Streaks)",
+      slug: "how-to-clean-plantation-shutters-baseboards-charleston-sc",
+      excerpt: "Step-by-step wikiHow guide to dusting basswood & poly plantation shutters, hand-washing tall white baseboards, avoiding dryer-sheet wax buildup, and what's covered in a deep clean.",
+      date: "November 21, 2026",
+      category: "wikiHow & Millwork Care",
+      image: "/images/blog/how-to-clean-plantation-shutters-baseboards-charleston-sc.jpg"
+    },
+    {
       title: "How to Clean Granite, Quartz & Marble Countertops in Charleston SC (No Etching)",
       slug: "how-to-clean-granite-quartz-marble-countertops-charleston-sc",
       excerpt: "Step-by-step wikiHow-style Lowcountry stone care guide: why Clorox wipes & vinegar ruin quartz and marble, how to remove wine & oil stains, and the 15-second water-drop seal test.",
